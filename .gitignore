@@ -1,0 +1,26 @@
+# ===== 私有 / 大文件（不进仓库）=====
+# 受版权保护的原始文献扫描件（约 158MB）
+*.pdf
+
+# OCR 管线产物：全书 OCR 文本 + 中文语言模型 + 逐页中间文件（共约 921MB，含私有内容）
+.ocr/
+
+# WorkBuddy 内部项目记忆 / 自动化配置（非交付物）
+.workbuddy/
+
+# ===== Python 缓存 =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ===== 临时 / 备份 / 可再生的中间产物 =====
+*.bak
+*.bak_*
+index.html.bak_*
+CAUSAL_INFERRED_reconstructed.json
+
+# ===== 系统 / 编辑器 =====
+.DS_Store
+Thumbs.db
+*.swp
+._*
