@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>史料详情弹窗效果图 · 仿真</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f3f2ef; color: #333;
+  }
+  .appbar { background: #b22222; color: #fff; font-size: 14px; font-weight: 500; padding: 11px 16px; }
+  .page { padding: 26px 0; }
+  .mask {
+    position: relative; background: rgba(0,0,0,0.32);
+    padding: 22px 16px; min-height: 460px;
+    display: flex; align-items: flex-start; justify-content: center;
+  }
+  .modal {
+    background: #fff; border-radius: 14px; width: 430px; max-width: 100%;
+    max-height: 440px; overflow: auto; border: 1px solid #e4e2dd;
+  }
+  .m-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border-bottom: 1px solid #efedea;
+    position: sticky; top: 0; background: #fff; z-index: 2;
+  }
+  .m-title { font-size: 15px; font-weight: 500; color: #222; }
+  .m-close {
+    width: 24px; height: 24px; border-radius: 50%; border: 1px solid #ddd;
+    display: flex; align-items: center; justify-content: center;
+    color: #999; font-size: 14px; cursor: pointer;
+  }
+  .m-body { padding: 14px 16px; font-size: 13px; line-height: 1.6; }
+  .desc { color: #333; margin-bottom: 14px; }
+  .sec-head {
+    font-size: 12px; font-weight: 500; color: #b22222;
+    border-left: 3px solid #b22222; padding-left: 8px; margin: 14px 0 8px;
+  }
+  .chip {
+    font-size: 12px; border-radius: 10px; padding: 3px 9px; display: inline-block;
+    margin: 0 6px 6px 0;
+  }
+  .chip-red { background: #fcebeb; border: 1px solid #f0c8c8; color: #a32d2d; }
+  .chip-blue { background: #e6f1fb; border: 1px solid #b5d4f4; color: #185fa5; }
+  .chip-gray { background: #f3f2ef; border: 1px solid #ddd; color: #555; }
+  .src-stub { font-size: 12px; color: #888; }
+
+  .lib {
+    margin-top: 14px; background: #fcebeb; border: 1px solid #f0c8c8;
+    border-radius: 12px; padding: 10px 12px;
+  }
+  .lib-head { font-size: 13px; font-weight: 500; color: #a32d2d; margin-bottom: 8px; }
+  .badge {
+    font-size: 11px; background: #fff3cd; border-radius: 6px;
+    padding: 1px 6px; color: #9a6b00; margin-left: 6px;
+  }
+  .sb { border-top: 1px solid #f3d6d6; }
+  .sb-h {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; font-weight: 500; color: #333; cursor: pointer;
+    padding: 8px 0; user-select: none;
+  }
+  .sb-caret { color: #bbb; font-size: 11px; transition: transform .15s; }
+  .sb-b { display: none; font-size: 13px; line-height: 1.6; color: #555; padding: 0 0 10px; }
+  .sb.open .sb-b { display: block; }
+  .sb.open .sb-caret { transform: rotate(180deg); }
+  .cite {
+    background: #f3f2ef; border-radius: 8px; padding: 8px 10px; margin-bottom: 6px;
+    font-size: 13px; color: #555;
+  }
+  .cite b { color: #185fa5; font-weight: 500; }
+  .link-row { color: #185fa5; padding: 2px 0; }
+  .tag { color: #888; font-size: 11px; }
+</style>
+</head>
+<body>
+  <div class="appbar">星火日历 · 党史日历</div>
+  <div class="page">
+    <div class="mask">
+      <div class="modal">
+        <div class="m-head">
+          <div class="m-title">1921年7月23日 党史事件详情</div>
+          <div class="m-close">×</div>
+        </div>
+        <div class="m-body">
+          <div class="desc">中国共产党第一次全国代表大会在上海法租界望志路106号（今兴业路76号）开幕，后转移至浙江嘉兴南湖的游船上举行，宣告中国共产党正式成立。</div>
+
+          <div class="sec-head">因果脉络</div>
+          <span class="chip chip-red">前因 · 新文化运动与马克思主义传播</span>
+          <span class="chip chip-blue">后果 · 中国革命面貌焕然一新</span>
+
+          <div class="sec-head">资料来源</div>
+          <div class="src-stub">《中国共产党一百年大事记》（人民网）· 待标注页码</div>
+
+          <div class="lib">
+            <div class="lib-head">史料详情<span class="badge">新增</span></div>
+            <div class="sb open">
+              <div class="sb-h" onclick="this.parentNode.classList.toggle('open')">
+                <span>背景</span><span class="sb-caret">▾</span>
+              </div>
+              <div class="sb-b">近代中国沦为半殖民地半封建社会，辛亥革命未能完成反帝反封建任务。五四运动后，马克思主义广泛传播并与中国工人运动逐步结合，建立工人阶级政党的条件日益成熟。</div>
+            </div>
+            <div class="sb">
+              <div class="sb-h" onclick="this.parentNode.classList.toggle('open')">
+                <span>历史意义</span><span class="sb-caret">▾</span>
+              </div>
+              <div class="sb-b">这是开天辟地的大事变，深刻改变了近代以后中华民族发展的方向和进程，中国人民从此有了主心骨。</div>
+            </div>
+            <div class="sb">
+              <div class="sb-h" onclick="this.parentNode.classList.toggle('open')">
+                <span>重要论述</span><span class="sb-caret">▾</span>
+              </div>
+              <div class="sb-b">毛泽东：“中国产生了共产党，这是开天辟地的大事件。”《关于党的百年奋斗重大成就和历史经验的决议》指出，党自成立以来始终把为中国人民谋幸福、为中华民族谋复兴作为自己的初心使命。</div>
+            </div>
+            <div class="sb">
+              <div class="sb-h" onclick="this.parentNode.classList.toggle('open')">
+                <span>相关人物</span><span class="sb-caret">▾</span>
+              </div>
+              <div class="sb-b">
+                <span class="chip chip-gray">毛泽东</span>
+                <span class="chip chip-gray">董必武</span>
+                <span class="chip chip-gray">陈独秀</span>
+                <span class="chip chip-gray">李大钊</span>
+              </div>
+            </div>
+            <div class="sb">
+              <div class="sb-h" onclick="this.parentNode.classList.toggle('open')">
+                <span>文献出处</span><span class="sb-caret">▾</span>
+              </div>
+              <div class="sb-b">
+                <div class="cite"><b>《中国共产党简史》</b> · 第一章 p.11（节选自原文）</div>
+                <div class="cite"><b>《中国共产党历史》第一卷</b> · 上册 第三章</div>
+              </div>
+            </div>
+            <div class="sb">
+              <div class="sb-h" onclick="this.parentNode.classList.toggle('open')">
+                <span>延伸阅读</span><span class="sb-caret">▾</span>
+              </div>
+              <div class="sb-b">
+                <div class="link-row">共产党员网 · 中共一大纪念馆</div>
+                <div class="link-row">人民网 · 党史频道</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec-head">同类事件</div>
+          <span class="chip chip-red">1922年 中共二大</span>
+          <span class="chip chip-red">1923年 中共三大</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

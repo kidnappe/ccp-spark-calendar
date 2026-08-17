@@ -734,12 +734,22 @@
         [data-theme="dark"] .rail-item.kmt { background: #1f2e3a; }
         [data-theme="dark"] .rail-item .ri-title { color: #ddd; }
 
-        /* ===== 分类筛选下拉（原第三行 chips + 年份区间已收敛） ===== */
-        .cat-select {
-            height: 34px; padding: 0 10px; border: 1px solid #e0c0c0; border-radius: 6px;
-            background: #fff; color: #b22222; font-size: 14px; cursor: pointer; outline: none;
+        /* ===== 第三行：分类筛选 + 年份范围 + 快捷入口 ===== */
+        .filter-row { gap: 10px; }
+        .cat-chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+        .chip {
+            padding: 5px 12px; font-size: 13px; border-radius: 14px;
+            border: 1px solid #d9b3b3; background: #fff; color: #b22222; cursor: pointer;
+            transition: 0.15s;
         }
-        .cat-select:focus { border-color: #b22222; }
+        .chip:hover { background: #fff5f5; }
+        .chip.active { background: #b22222; color: #fff; border-color: #b22222; }
+        .yr-range { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: #666; }
+        .yr-range input {
+            width: 64px; padding: 5px 6px; font-size: 13px; border-radius: 6px;
+            border: 1px solid #ccc; text-align: center;
+        }
+        .yr-range label { color: #888; }
         .ghost-btn {
             padding: 6px 12px; font-size: 13px; border-radius: 6px;
             border: 1px solid #b22222; background: #fff; color: #b22222; cursor: pointer;
@@ -751,7 +761,11 @@
             text-align: center; background: #b22222; color: #fff; border-radius: 8px;
         }
         /* 暗色 */
-        [data-theme="dark"] .cat-select { background: #242424; color: #e57373; border-color: #5a3a3a; }
+        [data-theme="dark"] .chip { background: #242424; color: #e57373; border-color: #5a3a3a; }
+        [data-theme="dark"] .chip:hover { background: #2e2424; }
+        [data-theme="dark"] .chip.active { background: #e57373; color: #1a1a1a; border-color: #e57373; }
+        [data-theme="dark"] .yr-range { color: #9a9a9a; }
+        [data-theme="dark"] .yr-range input { background: #242424; color: #e0e0e0; border-color: #444; }
         [data-theme="dark"] .ghost-btn { background: #242424; color: #e57373; border-color: #b22222; }
         [data-theme="dark"] .ghost-btn:hover { background: #2e2424; }
         [data-theme="dark"] .badge-count { background: #e57373; color: #1a1a1a; }
@@ -1180,7 +1194,7 @@
   .cg-side-tab { padding: 18px 7px; font-size: 14px; }
   .cg-side-close { width: 34px; height: 34px; font-size: 26px; }
   /* 提升触控响应：去除双击缩放延迟，标记可点元素 */
-  .toolbar button, .mode-btn, .month-btn, .cg-btn, .cg-fbtn, .cg-select,
+  .toolbar button, .mode-btn, .month-btn, .chip, .cg-btn, .cg-fbtn, .cg-select,
   .close-modal, .about-tab, .rail-toggle, .year-nav, .year-label, .day-cell, .tl-card {
     touch-action: manipulation;
   }
@@ -1217,30 +1231,19 @@
         <button id="modeTimeline" class="mode-btn">时间轴模式</button>
     </div>
 
-    <!-- 第一行：搜索 + 分类筛选 + 导出 + 入口（与年份选择隔离） -->
+    <!-- 第一行：搜索 + 导出 + 主题（与年份选择隔离） -->
     <div class="toolbar">
         <div class="toolbar-row">
             <input id="searchInput" placeholder="搜索事件关键词 / 年份（与下方年份选择相互独立）">
             <button id="searchBtn">搜索</button>
-            <select id="catSelect" class="cat-select" title="分类筛选">
-                <option value="all">全部分类</option>
-                <option value="party">中共相关</option>
-                <option value="kmt">其他力量</option>
-                <option value="soft">科技·文教</option>
-                <option value="political">重大政治</option>
-            </select>
-            <button id="exportBtn" title="导出事件清单：当月 / 全年 / 当前筛选 / CSV / Markdown / 图片 / PDF">导出清单</button>
+            <button id="exportBtn" title="导出事件清单：当月 / 全年 / 当前筛选 / CSV / Markdown">导出清单</button>
+            <button id="refBtn" class="ref-btn" title="查看参考文献">📚 参考文献</button>
             <button id="mtgBtn" class="ref-btn" title="查看中共重要会议">🏛️ 重要会议</button>
             <button id="aboutBtn" class="ref-btn" title="关于本工具：更新日志与操作指南">ℹ️ 关于</button>
             <button id="moreBtn" class="ref-btn" title="更多功能">更多</button>
-            <div class="more-menu" id="moreMenu">
-                <button id="todayBtn" class="ghost-btn" title="历史上的今天">📅 历史上的今天</button>
-                <button id="favBtn" class="ghost-btn" title="我的收藏">⭐ 收藏 <span id="favCount" class="badge-count">0</span></button>
-                <button id="statsBtn" class="ghost-btn" title="统计可视化">📊 统计</button>
-                <button id="tagBtn" class="ghost-btn" title="标签云">🏷️ 标签</button>
-            </div>
+            <div class="more-menu" id="moreMenu"></div>
         </div>
-        <!-- 第二行：年份选择 -->
+        <!-- 第二行：年份选择（在下方） -->
         <div class="toolbar-row">
             <span class="ylabel">年份</span>
             <div class="year-select">
@@ -1249,6 +1252,24 @@
                 <button class="year-nav" id="yearNext" title="下一年">▶</button>
                 <div class="year-dropdown" id="yearDropdown"></div>
             </div>
+        </div>
+        <!-- 第三行：分类筛选 + 年份范围 + 快捷入口（体感强的新功能） -->
+        <div class="toolbar-row filter-row">
+            <div class="cat-chips" id="catChips">
+                <button class="chip active" data-cat="all">全部</button>
+                <button class="chip" data-cat="party">中共相关</button>
+                <button class="chip" data-cat="kmt">其他力量</button>
+                <button class="chip" data-cat="soft">科技·文教</button>
+                <button class="chip" data-cat="political">重大政治</button>
+            </div>
+            <span class="yr-range">
+                <label>起</label><input id="yearFrom" type="number" min="1911" max="2026" placeholder="1911">
+                <label>止</label><input id="yearTo" type="number" min="1911" max="2026" placeholder="2026">
+            </span>
+            <button id="todayBtn" class="ghost-btn" title="历史上的今天">📅 历史上的今天</button>
+            <button id="favBtn" class="ghost-btn" title="我的收藏">⭐ 收藏 <span id="favCount" class="badge-count">0</span></button>
+            <button id="statsBtn" class="ghost-btn" title="统计可视化">📊 统计</button>
+            <button id="tagBtn" class="ghost-btn" title="标签云">🏷️ 标签</button>
         </div>
     </div>
     <!-- 日历视图（居中显示） -->
@@ -1392,7 +1413,7 @@ const historyData = [
   "title": "辛亥革命爆发",
   "desc": "1911年10月10日武昌起义打响，辛亥革命推翻清朝统治，结束中国两千多年君主专制制度，开启共和时代。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -1446,7 +1467,7 @@ const historyData = [
   "title": "中华革命党成立",
   "desc": "1914年7月8日孙中山在日本东京将国民党改组为中华革命党，继续从事反袁护国斗争。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -1455,7 +1476,7 @@ const historyData = [
   "title": "新文化运动兴起",
   "desc": "1915年9月15日陈独秀创办《青年杂志》（后改《新青年》），新文化运动兴起，倡导民主与科学。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -1500,7 +1521,7 @@ const historyData = [
   "title": "俄国十月革命",
   "desc": "1917年11月7日俄国十月革命胜利，马克思主义开始在中国传播。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -1536,7 +1557,7 @@ const historyData = [
   "title": "五四运动进入新阶段",
   "desc": "1919年6月3日起，五四运动发展为以工人罢工为主体的新阶段，工人阶级登上政治舞台。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -1545,7 +1566,7 @@ const historyData = [
   "title": "上海共产党早期组织成立",
   "desc": "1920年8月，陈独秀等在上海成立第一个共产主义小组，各地相继建立早期组织。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -1554,7 +1575,7 @@ const historyData = [
   "title": "共产主义小组扩散",
   "desc": "1920年秋起，北京、武汉、长沙、广州、济南及旅日、旅法华人中陆续建立共产党早期组织。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -1563,7 +1584,7 @@ const historyData = [
   "title": "中国共产党建党纪念日",
   "desc": "1941年中共中央决定以7月1日为党的诞生纪念日（非一大实际开幕日）。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -1572,7 +1593,7 @@ const historyData = [
   "title": "中国共产党第一次全国代表大会召开",
   "desc": "1921年7月23日中共一大在上海召开，后转嘉兴南湖，宣告中国共产党正式成立。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -1590,7 +1611,7 @@ const historyData = [
   "title": "安源路矿工人大罢工",
   "desc": "1922年9月14日，在毛泽东、李立三、刘少奇等领导下，安源路矿工人举行大罢工，迫使路矿当局承认工人权益，是中共早期领导工人运动的成功范例。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -1617,7 +1638,7 @@ const historyData = [
   "title": "国民党一大召开",
   "desc": "1924年1月中国国民党一大在广州召开，确立联俄、联共、扶助农工三大政策，国共合作正式形成。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -1635,7 +1656,7 @@ const historyData = [
   "title": "孙中山逝世",
   "desc": "1925年3月12日孙中山在北京病逝，遗愿“革命尚未成功，同志仍须努力”。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -1662,7 +1683,7 @@ const historyData = [
   "title": "北伐战争开始",
   "desc": "1926年7月9日国民革命军誓师北伐，讨伐北洋军阀吴佩孚、孙传芳、张作霖。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -1689,7 +1710,7 @@ const historyData = [
   "title": "四一二反革命政变",
   "desc": "1927年4月12日蒋介石在上海发动清党，大规模捕杀共产党员和革命群众。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -1698,7 +1719,7 @@ const historyData = [
   "title": "南京国民政府成立",
   "desc": "1927年4月18日蒋介石在南京成立国民政府，与武汉国民政府对立。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -1716,7 +1737,7 @@ const historyData = [
   "title": "七一五分共",
   "desc": "1927年7月15日汪精卫在武汉“分共”，宁汉合流，第一次国共合作全面破裂。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -1725,7 +1746,7 @@ const historyData = [
   "title": "南昌起义",
   "desc": "1927年8月1日周恩来、贺龙等领导南昌起义，打响武装反抗国民党反动派第一枪。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -1743,7 +1764,7 @@ const historyData = [
   "title": "秋收起义",
   "desc": "1927年9月9日毛泽东领导湘赣边界秋收起义，后率部进军井冈山。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -1761,7 +1782,7 @@ const historyData = [
   "title": "井冈山革命根据地创立",
   "desc": "1927年10月毛泽东率秋收起义部队到达井冈山，开始创建农村革命根据地。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -1770,7 +1791,7 @@ const historyData = [
   "title": "广州起义",
   "desc": "1927年12月11日，张太雷、叶挺、叶剑英等领导广州起义，建立广州苏维埃政府，是对国民党反动统治的又一次英勇反击，终因敌强我弱失败。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -1779,7 +1800,7 @@ const historyData = [
   "title": "井冈山会师",
   "desc": "1928年4月朱德、陈毅率南昌起义余部与毛泽东部在井冈山会师，合编红四军。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -1788,7 +1809,7 @@ const historyData = [
   "title": "中共六大在莫斯科召开",
   "desc": "1928年6月中共六大在莫斯科召开，是唯一一次在境外召开的全国代表大会。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -1797,7 +1818,7 @@ const historyData = [
   "title": "国民党实行训政",
   "desc": "1928年10月国民党颁布《训政纲领》，在“以党治国”下实行一党训政。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -1815,7 +1836,7 @@ const historyData = [
   "title": "古田会议",
   "desc": "1929年12月古田会议通过毛泽东起草的决议，确立思想建党、政治建军原则。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -1851,7 +1872,7 @@ const historyData = [
   "title": "九一八事变",
   "desc": "1931年9月18日日本关东军制造柳条湖事件，侵占中国东北，中国人民局部抗战开始。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -1860,7 +1881,7 @@ const historyData = [
   "title": "中华苏维埃共和国成立",
   "desc": "1931年11月7日中华苏维埃第一次全国代表大会在瑞金召开，成立临时中央政府，毛泽东任主席。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -1878,7 +1899,7 @@ const historyData = [
   "title": "一二八事变",
   "desc": "1932年1月28日日军进攻上海，十九路军奋起抵抗，淞沪抗战爆发。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -1896,7 +1917,7 @@ const historyData = [
   "title": "中共六届五中全会",
   "desc": "1934年1月中共六届五中全会在瑞金召开，博古等“左”倾错误进一步发展。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -1905,7 +1926,7 @@ const historyData = [
   "title": "中央红军长征开始",
   "desc": "1934年10月中央红军主力从瑞金出发长征，开始战略转移。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -1923,7 +1944,7 @@ const historyData = [
   "title": "遵义会议",
   "desc": "1935年1月15日中共中央政治局扩大会议在遵义召开，确立毛泽东在党和红军中的领导地位，是生死攸关的转折点。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -1932,7 +1953,7 @@ const historyData = [
   "title": "八一宣言",
   "desc": "1935年8月1日中共中央发表《为抗日救国告全体同胞书》（八一宣言），呼吁停止内战、一致抗日。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -1941,7 +1962,7 @@ const historyData = [
   "title": "中央红军到达陕北",
   "desc": "1935年10月中央红军到达陕北吴起镇，中央红军长征胜利结束。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -1950,7 +1971,7 @@ const historyData = [
   "title": "一二九运动",
   "desc": "1935年12月9日北平学生举行抗日救亡示威，掀起全国抗日救亡新高潮。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -1977,7 +1998,7 @@ const historyData = [
   "title": "西安事变",
   "desc": "1936年12月12日张学良、杨虎城在西安扣押蒋介石，逼其停止内战、一致抗日，事变和平解决促成国共二次合作。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -1995,7 +2016,7 @@ const historyData = [
   "title": "洛川会议",
   "desc": "1937年8月中共中央在洛川召开政治局扩大会议，制定全面抗战路线和《抗日救国十大纲领》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -2004,7 +2025,7 @@ const historyData = [
   "title": "改编八路军新四军",
   "desc": "1937年8月红军主力改编为国民革命军第八路军，南方游击队改编为新四军，开赴抗日前线。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2022,7 +2043,7 @@ const historyData = [
   "title": "平型关大捷",
   "desc": "1937年9月25日八路军一一五师取得平型关大捷，是全面抗战以来中国军队的第一个大胜仗。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -2031,7 +2052,7 @@ const historyData = [
   "title": "南京大屠杀",
   "desc": "1937年12月13日日军攻陷南京后屠城六周，超过30万平民和战俘惨遭杀害。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2049,7 +2070,7 @@ const historyData = [
   "title": "《论持久战》发表",
   "desc": "1938年5月毛泽东发表《论持久战》，科学预见抗战将经历防御、相持、反攻三阶段。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2058,7 +2079,7 @@ const historyData = [
   "title": "六届六中全会",
   "desc": "1938年9月至11月，中共六届六中全会召开，首次提出“马克思主义中国化”命题，基本纠正王明右倾错误，进一步巩固毛泽东的领导地位。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2067,7 +2088,7 @@ const historyData = [
   "title": "广州武汉失守",
   "desc": "1938年10月广州、武汉相继失守，抗日战争进入战略相持阶段。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -2085,7 +2106,7 @@ const historyData = [
   "title": "国民党五届五中全会",
   "desc": "1939年1月国民党五届五中全会确定“溶共、防共、限共、反共”方针，消极抗日、积极反共。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -2094,7 +2115,7 @@ const historyData = [
   "title": "《新民主主义论》发表",
   "desc": "1940年1月，毛泽东在《中国文化》发表《新民主主义论》，系统阐明新民主主义革命的对象、动力、领导、性质和前途，指明革命道路。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2112,7 +2133,7 @@ const historyData = [
   "title": "百团大战",
   "desc": "1940年8月至12月八路军发动百团大战，重击华北日军交通线和据点。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -2121,7 +2142,7 @@ const historyData = [
   "title": "皖南事变",
   "desc": "1941年1月新四军军部在皖南遭国民党军队围歼，叶挺被扣、项英牺牲，国共关系严重恶化。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -2139,7 +2160,7 @@ const historyData = [
   "title": "太平洋战争爆发",
   "desc": "1941年12月8日日本偷袭珍珠港，太平洋战争爆发，世界反法西斯同盟形成。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -2166,7 +2187,7 @@ const historyData = [
   "title": "延安整风运动",
   "desc": "1942年2月延安整风开始，反对主观主义、宗派主义、党八股，确立实事求是思想路线。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2184,7 +2205,7 @@ const historyData = [
   "title": "延安文艺座谈会",
   "desc": "1942年5月毛泽东《在延安文艺座谈会上的讲话》发表，指明文艺为工农兵服务的方向。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2202,7 +2223,7 @@ const historyData = [
   "title": "提出联合政府主张",
   "desc": "1944年9月林伯渠代表中共在国民参政会提出结束一党统治、成立民主联合政府的主张。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -2211,7 +2232,7 @@ const historyData = [
   "title": "中共七大召开",
   "desc": "1945年4月23日中共七大在延安召开，确立毛泽东思想为党的指导思想，是团结胜利的大会。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -2220,7 +2241,7 @@ const historyData = [
   "title": "日本无条件投降",
   "desc": "1945年8月15日日本天皇宣布无条件投降，9月2日签署投降书，中国人民抗日战争取得伟大胜利。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -2229,7 +2250,7 @@ const historyData = [
   "title": "重庆谈判",
   "desc": "1945年8月28日毛泽东赴重庆与国民党谈判，10月10日签订《双十协定》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2247,7 +2268,7 @@ const historyData = [
   "title": "双十协定签订",
   "desc": "1945年10月10日国共双方签订《政府与中共代表会谈纪要》（双十协定），同意和平建国基本方针。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -2283,7 +2304,7 @@ const historyData = [
   "title": "全面内战爆发",
   "desc": "1946年6月国民党军队进攻中原解放区，全面内战爆发。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -2292,7 +2313,7 @@ const historyData = [
   "title": "国民党召开制宪国大",
   "desc": "1946年11月国民党单独召开国民大会制定宪法，遭到中共和民主同盟反对。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -2319,7 +2340,7 @@ const historyData = [
   "title": "刘邓大军挺进大别山",
   "desc": "1947年6月30日刘伯承、邓小平率晋冀鲁豫野战军强渡黄河，千里跃进大别山，转入战略进攻。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2328,7 +2349,7 @@ const historyData = [
   "title": "《中国土地法大纲》",
   "desc": "1947年10月中共中央公布《中国土地法大纲》，在解放区彻底实行耕者有其田。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -2346,7 +2367,7 @@ const historyData = [
   "title": "辽沈战役",
   "desc": "1948年9月至11月辽沈战役解放东北全境，人民解放军在数量上首次超过国民党军。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -2355,7 +2376,7 @@ const historyData = [
   "title": "淮海战役",
   "desc": "1948年11月至1949年1月淮海战役歼灭国民党军主力，解放长江以北华东中原。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -2382,7 +2403,7 @@ const historyData = [
   "title": "中共七届二中全会",
   "desc": "1949年3月中共七届二中全会在西柏坡召开，提出“两个务必”，规划夺取全国胜利后的方针。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -2400,7 +2421,7 @@ const historyData = [
   "title": "人民解放军占领南京",
   "desc": "1949年4月23日人民解放军占领南京，宣告国民党反动统治覆灭。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2409,7 +2430,7 @@ const historyData = [
   "title": "人民政协第一届全体会议",
   "desc": "1949年9月21日中国人民政治协商会议第一届全体会议在北平召开，通过《共同纲领》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2418,7 +2439,7 @@ const historyData = [
   "title": "中华人民共和国开国大典",
   "desc": "1949年10月1日毛泽东在天安门宣告中华人民共和国中央人民政府成立，中国人民站起来了。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2427,7 +2448,7 @@ const historyData = [
   "title": "中央人民政府政务院成立",
   "desc": "1949年10月21日，中央人民政府政务院成立，周恩来任总理，标志着新中国行政体系的建立。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -2445,7 +2466,7 @@ const historyData = [
   "title": "国民党退守台湾",
   "desc": "1949年12月国民党集团退据台湾，形成两岸分隔局面。",
   "cat": "kmt",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -2454,7 +2475,7 @@ const historyData = [
   "title": "毛泽东首次访问苏联",
   "desc": "1949年12月16日，毛泽东抵达莫斯科，这是新中国领导人第一次出访，为中苏结盟奠定基础。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -2463,7 +2484,7 @@ const historyData = [
   "title": "《中苏友好同盟互助条约》",
   "desc": "1950年2月毛泽东访苏，签订《中苏友好同盟互助条约》，巩固新中国外交。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -2472,7 +2493,7 @@ const historyData = [
   "title": "《婚姻法》公布施行",
   "desc": "1950年5月1日，《中华人民共和国婚姻法》公布施行，这是新中国第一部法律，废除包办婚姻，实行婚姻自由、一夫一妻、男女平等。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -2481,7 +2502,7 @@ const historyData = [
   "title": "朝鲜战争爆发",
   "desc": "1950年6月25日朝鲜内战爆发，美国武装干涉并越过三八线，威胁中国安全。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -2490,7 +2511,7 @@ const historyData = [
   "title": "《土地改革法》颁布",
   "desc": "1950年6月中央人民政府颁布《中华人民共和国土地改革法》，在新解放区开展土地改革。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2499,7 +2520,7 @@ const historyData = [
   "title": "毛泽东发布组建志愿军命令",
   "desc": "1950年10月8日，毛泽东发布命令，组建中国人民志愿军，任命彭德怀为司令员兼政委，赴朝作战。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2508,7 +2529,7 @@ const historyData = [
   "title": "中国人民志愿军入朝",
   "desc": "1950年10月19日中国人民志愿军跨过鸭绿江抗美援朝，保家卫国。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -2517,7 +2538,7 @@ const historyData = [
   "title": "抗美援朝保家卫国宣言",
   "desc": "1950年11月4日，中国共产党与各民主党派联合发表宣言，号召全国人民抗美援朝、保家卫国。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -2526,7 +2547,7 @@ const historyData = [
   "title": "西藏和平解放",
   "desc": "1951年5月23日中央人民政府与西藏地方政府签订协议，西藏和平解放。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -2535,7 +2556,7 @@ const historyData = [
   "title": "“三反”运动开始",
   "desc": "1951年12月1日，中共中央作出开展“三反”（反贪污、反浪费、反官僚主义）运动的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -2544,7 +2565,7 @@ const historyData = [
   "title": "“五反”斗争开展",
   "desc": "1952年1月26日，中共中央发出指示，在大中城市开展“五反”（反对行贿、偷税漏税、盗骗国家财产、偷工减料、盗窃经济情报）斗争。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -2571,7 +2592,7 @@ const historyData = [
   "title": "全国土地改革基本完成",
   "desc": "到1952年底，全国大陆地区土地改革基本完成，3亿多无地少地农民获得土地，彻底摧毁封建土地制度。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -2580,7 +2601,7 @@ const historyData = [
   "title": "第一个五年计划开始",
   "desc": "1953年起实施第一个五年计划，集中力量发展重工业，奠定工业化初步基础。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2607,7 +2628,7 @@ const historyData = [
   "title": "朝鲜停战协定签订",
   "desc": "1953年7月27日朝鲜停战协定签署，抗美援朝战争取得伟大胜利。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2625,7 +2646,7 @@ const historyData = [
   "title": "和平共处五项原则",
   "desc": "1953年12月周恩来提出互相尊重主权和领土完整等和平共处五项原则。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -2634,7 +2655,7 @@ const historyData = [
   "title": "日内瓦会议",
   "desc": "1954年4月中国参加日内瓦会议，推动印度支那和平，登上多边外交舞台。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2643,7 +2664,7 @@ const historyData = [
   "title": "第一届全国人大召开",
   "desc": "1954年9月15日一届全国人大一次会议通过《中华人民共和国宪法》，人民代表大会制度确立。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2652,7 +2673,7 @@ const historyData = [
   "title": "国务院成立",
   "desc": "1954年9月，第一届全国人民代表大会第一次会议决定设立国务院，任命周恩来为国务院总理。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2661,7 +2682,7 @@ const historyData = [
   "title": "中国共产党全国代表会议",
   "desc": "1955年3月21日，中国共产党全国代表会议在北京举行，通过发展国民经济第一个五年计划草案。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -2670,7 +2691,7 @@ const historyData = [
   "title": "万隆会议",
   "desc": "1955年4月周恩来率团出席亚非会议（万隆会议），提出“求同存异”，增进亚非团结。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -2715,7 +2736,7 @@ const historyData = [
   "title": "《论十大关系》发表",
   "desc": "1956年4月毛泽东作《论十大关系》报告，探索适合国情的社会主义建设道路。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2724,7 +2745,7 @@ const historyData = [
   "title": "中共八大召开",
   "desc": "1956年9月中共八大指出国内主要矛盾是经济文化需要同落后状况的矛盾，强调集中力量发展生产力。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -2751,7 +2772,7 @@ const historyData = [
   "title": "《关于正确处理人民内部矛盾》",
   "desc": "1957年2月毛泽东发表《关于正确处理人民内部矛盾的问题》，阐述社会主义社会矛盾学说。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -2769,7 +2790,7 @@ const historyData = [
   "title": "全党整风运动",
   "desc": "1957年4月27日，中共中央发出《关于整风运动的指示》，决定在全党进行以反对官僚主义、宗派主义和主观主义为主要内容的整风。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2796,7 +2817,7 @@ const historyData = [
   "title": "大跃进与人民公社化",
   "desc": "1958年“大跃进”和人民公社化运动兴起，违背经济规律，造成国民经济严重困难。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -2805,7 +2826,7 @@ const historyData = [
   "title": "炮击金门",
   "desc": "1958年8月23日，人民解放军福建前线部队开始炮击金门，坚决反对美国制造“两个中国”的图谋。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2823,7 +2844,7 @@ const historyData = [
   "title": "中共八届六中全会",
   "desc": "1958年12月8日至10日，中共八届六中全会通过《关于人民公社若干问题的决议》，初步纠正“大跃进”中的部分错误。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2841,7 +2862,7 @@ const historyData = [
   "title": "第二届全国人大",
   "desc": "1959年4月二届全国人大一次会议选举刘少奇为国家主席、周恩来为国务院总理。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -2850,7 +2871,7 @@ const historyData = [
   "title": "庐山会议",
   "desc": "1959年7月庐山会议初期纠“左”，后期转向批判彭德怀，随后开展反右倾斗争。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2868,7 +2889,7 @@ const historyData = [
   "title": "国民经济调整",
   "desc": "1960年起实行“调整、巩固、充实、提高”八字方针，纠正“大跃进”失误。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2895,7 +2916,7 @@ const historyData = [
   "title": "农村工作“紧急指示信”",
   "desc": "1960年11月3日，中共中央发出《关于农村人民公社当前政策问题的紧急指示信》（十二条），着手纠正农村工作中的“左”倾错误。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -2904,7 +2925,7 @@ const historyData = [
   "title": "八届九中全会",
   "desc": "1961年1月中共八届九中全会正式通过八字方针，国民经济转入调整轨道。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -2913,7 +2934,7 @@ const historyData = [
   "title": "七千人大会",
   "desc": "1962年1月扩大的中央工作会议（七千人大会）初步总结“大跃进”教训，统一全党认识。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2922,7 +2943,7 @@ const historyData = [
   "title": "周恩来重申知识分子是劳动人民一部分",
   "desc": "1962年3月2日，周恩来在广州科学工作会议上作《论知识分子问题》的报告，重申知识分子是劳动人民的一部分。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -2931,7 +2952,7 @@ const historyData = [
   "title": "八届十中全会",
   "desc": "1962年9月中共八届十中全会重提阶级斗争，阶级斗争扩大化错误发展。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2949,7 +2970,7 @@ const historyData = [
   "title": "周恩来提出“四个现代化”",
   "desc": "1963年1月29日，周恩来在上海科学技术工作会议上指出，我们要实现农业现代化、工业现代化、国防现代化和科学技术现代化。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -2976,7 +2997,7 @@ const historyData = [
   "title": "中法建交",
   "desc": "1964年1月27日，中法两国发表联合公报，法国成为第一个与新中国正式建交的西方大国。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -2985,7 +3006,7 @@ const historyData = [
   "title": "第一颗原子弹爆炸",
   "desc": "1964年10月16日中国第一颗原子弹爆炸成功，打破核垄断，国防实力大幅提升。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -2994,7 +3015,7 @@ const historyData = [
   "title": "三届全国人大与四化",
   "desc": "1964年12月三届全国人大一次会议周恩来提出实现农业、工业、国防、科技“四个现代化”。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -3030,7 +3051,7 @@ const historyData = [
   "title": "人工合成结晶牛胰岛素",
   "desc": "1965年9月17日，中国首次人工合成结晶牛胰岛素，在世界生命科学领域取得重大突破。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -3048,7 +3069,7 @@ const historyData = [
   "title": "五一六通知",
   "desc": "1966年5月16日中共中央政治局扩大会议通过《五一六通知》，“文化大革命”全面发动。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -3057,7 +3078,7 @@ const historyData = [
   "title": "八届十一中全会",
   "desc": "1966年8月中共八届十一中全会通过《十六条》，毛泽东《炮打司令部》大字报，红卫兵运动兴起。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -3066,7 +3087,7 @@ const historyData = [
   "title": "毛泽东第一次接见红卫兵",
   "desc": "1966年8月18日，毛泽东在天安门广场第一次接见红卫兵，“文化大革命”的群众运动迅速兴起。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -3102,7 +3123,7 @@ const historyData = [
   "title": "八届十二中全会",
   "desc": "1968年10月中共八届十二中全会错误通过把刘少奇“永远开除出党”的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -3120,7 +3141,7 @@ const historyData = [
   "title": "南京长江大桥通车",
   "desc": "1968年12月29日，南京长江大桥全面建成通车，这是中国人自行设计建造的双层铁路、公路两用桥。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -3138,7 +3159,7 @@ const historyData = [
   "title": "中共九大召开",
   "desc": "1969年4月中共九大使“文化大革命”的错误理论合法化，林彪被写入党章为接班人。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3156,7 +3177,7 @@ const historyData = [
   "title": "东方红一号卫星",
   "desc": "1970年4月24日中国第一颗人造地球卫星“东方红一号”发射成功，成为航天大国。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -3165,7 +3186,7 @@ const historyData = [
   "title": "九届二中全会",
   "desc": "1970年8月中共九届二中全会（庐山会议）上林彪集团抢班夺权图谋暴露。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -3174,7 +3195,7 @@ const historyData = [
   "title": "葛洲坝水利枢纽动工",
   "desc": "1970年12月25日，长江葛洲坝水利枢纽工程动工兴建。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -3183,7 +3204,7 @@ const historyData = [
   "title": "基辛格秘密访华",
   "desc": "1971年7月9日，美国总统国家安全事务助理基辛格秘密访华，为尼克松访华和中美关系正常化铺路。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3192,7 +3213,7 @@ const historyData = [
   "title": "林彪反革命集团覆灭",
   "desc": "1971年9月13日林彪乘飞机外逃坠毁（九一三事件），反革命集团彻底覆灭。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -3201,7 +3222,7 @@ const historyData = [
   "title": "恢复联合国合法席位",
   "desc": "1971年10月25日第26届联大通过决议，恢复中华人民共和国在联合国的一切合法权利。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -3210,7 +3231,7 @@ const historyData = [
   "title": "尼克松访华",
   "desc": "1972年2月21日美国总统尼克松访华，2月28日发表《上海公报》，中美关系正常化起步。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3219,7 +3240,7 @@ const historyData = [
   "title": "中日邦交正常化",
   "desc": "1972年9月日本首相田中角荣访华，中日签署联合声明，实现邦交正常化。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -3237,7 +3258,7 @@ const historyData = [
   "title": "中共十大召开",
   "desc": "1973年8月中共十大继续九大“左”倾错误路线，王洪文进入政治局。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -3264,7 +3285,7 @@ const historyData = [
   "title": "邓小平出席六届特别联大",
   "desc": "1974年4月6日，邓小平率中国代表团出席联合国大会第六届特别会议，阐述毛泽东关于“三个世界”划分的理论。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -3273,7 +3294,7 @@ const historyData = [
   "title": "邓小平主持全面整顿",
   "desc": "1975年1月5日，邓小平任中央军委副主席兼总参谋长；此后他主持党中央、国务院日常工作，开始全面整顿。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -3282,7 +3303,7 @@ const historyData = [
   "title": "四届全国人大重申四化",
   "desc": "1975年1月四届全国人大一次会议周恩来重申四个现代化，邓小平主持国务院工作进行全面整顿。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -3318,7 +3339,7 @@ const historyData = [
   "title": "周恩来逝世",
   "desc": "1976年1月8日周恩来总理与世长辞，举国悲痛。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -3336,7 +3357,7 @@ const historyData = [
   "title": "朱德逝世",
   "desc": "1976年7月6日朱德委员长逝世。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -3354,7 +3375,7 @@ const historyData = [
   "title": "毛泽东逝世",
   "desc": "1976年9月9日毛泽东主席逝世。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -3363,7 +3384,7 @@ const historyData = [
   "title": "粉碎“四人帮”",
   "desc": "1976年10月6日党中央一举粉碎江青反革命集团，“文化大革命”十年内乱结束。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -3372,7 +3393,7 @@ const historyData = [
   "title": "中共十一大召开",
   "desc": "1977年7月中共十届三中全会恢复邓小平职务；8月十一大宣告“文革”结束。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -3417,7 +3438,7 @@ const historyData = [
   "title": "中共十一届三中全会",
   "desc": "1978年12月18日十一届三中全会召开，确立解放思想、实事求是，作出改革开放历史性决策。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -3426,7 +3447,7 @@ const historyData = [
   "title": "发表《告台湾同胞书》",
   "desc": "1979年1月1日，全国人大常委会发表《告台湾同胞书》，宣布争取和平统一祖国的大政方针，停止对金门等岛屿炮击。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -3435,7 +3456,7 @@ const historyData = [
   "title": "蛇口工业区兴办",
   "desc": "1979年1月31日，国务院批准香港招商局在广东宝安的蛇口举办工业区，成为改革开放最早的试验场。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -3444,7 +3465,7 @@ const historyData = [
   "title": "对越自卫反击战",
   "desc": "1979年2月中国边防部队进行对越自卫反击作战，捍卫西南边疆安全。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -3453,7 +3474,7 @@ const historyData = [
   "title": "邓小平提出四项基本原则",
   "desc": "1979年3月30日，邓小平在党的理论工作务虚会上提出必须坚持社会主义道路、人民民主专政、共产党的领导、马列主义毛泽东思想四项基本原则。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -3462,7 +3483,7 @@ const historyData = [
   "title": "兴办经济特区决策",
   "desc": "1979年7月中央决定在深圳、珠海、汕头、厦门试办“出口特区”（后称经济特区）。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -3471,7 +3492,7 @@ const historyData = [
   "title": "“小康”目标提出",
   "desc": "1979年12月6日，邓小平在会见日本首相大平正芳时，首次提出到20世纪末中国现代化建设“达到小康水平”的目标。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -3480,7 +3501,7 @@ const historyData = [
   "title": "中共十一届五中全会",
   "desc": "1980年2月23日至29日，中共十一届五中全会召开，为刘少奇平反，通过《关于党内政治生活的若干准则》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -3498,7 +3519,7 @@ const historyData = [
   "title": "设立经济特区",
   "desc": "1980年8月全国人大常委会批准设立深圳、珠海、汕头、厦门经济特区。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -3507,7 +3528,7 @@ const historyData = [
   "title": "十一届六中全会",
   "desc": "1981年6月十一届六中全会通过《关于建国以来党的若干历史问题的决议》，正确评价毛泽东与毛泽东思想。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3516,7 +3537,7 @@ const historyData = [
   "title": "叶剑英九条方针",
   "desc": "1981年9月叶剑英发表九条方针，阐明和平统一、“一国两制”基本构想。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -3534,7 +3555,7 @@ const historyData = [
   "title": "第一个中央一号文件",
   "desc": "1982年1月1日，中共中央批转《全国农村工作会议纪要》，这是第一个关于农业和农村工作的“中央一号文件”。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3543,7 +3564,7 @@ const historyData = [
   "title": "中共十二大召开",
   "desc": "1982年9月中共十二大提出“建设有中国特色的社会主义”重大命题。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3552,7 +3573,7 @@ const historyData = [
   "title": "中英香港谈判",
   "desc": "1982年9月撒切尔夫人访华，中英启动香港前途谈判。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -3561,7 +3582,7 @@ const historyData = [
   "title": "现行宪法颁布",
   "desc": "1982年12月4日五届全国人大五次会议通过现行《中华人民共和国宪法》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -3579,7 +3600,7 @@ const historyData = [
   "title": "“三个面向”题词",
   "desc": "1983年10月1日，邓小平为北京景山学校题词：“教育要面向现代化，面向世界，面向未来”。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -3588,7 +3609,7 @@ const historyData = [
   "title": "邓小平视察经济特区",
   "desc": "1984年1月24日至2月17日，邓小平视察深圳、珠海、厦门等经济特区，肯定办特区的决策。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -3597,7 +3618,7 @@ const historyData = [
   "title": "开放14个沿海城市",
   "desc": "1984年5月中央决定进一步开放大连等14个沿海港口城市。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -3615,7 +3636,7 @@ const historyData = [
   "title": "中英草签联合声明",
   "desc": "1984年9月26日，中英两国政府在北京草签关于香港问题的联合声明，确认1997年7月1日中国对香港恢复行使主权。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -3624,7 +3645,7 @@ const historyData = [
   "title": "国庆35周年阅兵",
   "desc": "1984年10月1日，北京举行建国35周年阅兵，邓小平检阅部队，是改革开放后首次大规模国庆阅兵。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -3633,7 +3654,7 @@ const historyData = [
   "title": "十二届三中全会",
   "desc": "1984年10月十二届三中全会通过《关于经济体制改革的决定》，改革重心转向城市。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -3642,7 +3663,7 @@ const historyData = [
   "title": "中英联合声明",
   "desc": "1984年12月19日中英签署关于香港问题的联合声明，确定1997年香港回归。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -3660,7 +3681,7 @@ const historyData = [
   "title": "科技体制改革决定",
   "desc": "1985年3月13日，中共中央作出《关于科学技术体制改革的决定》，推动科技与经济结合。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -3669,7 +3690,7 @@ const historyData = [
   "title": "教育体制改革决定",
   "desc": "1985年5月27日，中共中央作出《关于教育体制改革的决定》，提出普及九年义务教育和教育改革方向。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3678,7 +3699,7 @@ const historyData = [
   "title": "百万大裁军",
   "desc": "1985年中央军委决定裁减军队员额100万，军队建设转向和平时期轨道。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -3696,7 +3717,7 @@ const historyData = [
   "title": "《民法通则》通过",
   "desc": "1986年4月12日，六届全国人大四次会议通过《中华人民共和国民法通则》，为民事活动提供基本法律规范。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3705,7 +3726,7 @@ const historyData = [
   "title": "十二届六中全会",
   "desc": "1986年9月十二届六中全会通过社会主义精神文明建设决议。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -3714,7 +3735,7 @@ const historyData = [
   "title": "中葡联合声明",
   "desc": "1987年4月中葡签署关于澳门问题的联合声明，确定1999年澳门回归。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -3723,7 +3744,7 @@ const historyData = [
   "title": "中共十三大召开",
   "desc": "1987年10月中共十三大系统阐述社会主义初级阶段理论与“三步走”发展战略。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -3732,7 +3753,7 @@ const historyData = [
   "title": "七届全国人大",
   "desc": "1988年3月七届全国人大一次会议选举杨尚昆为国家主席、万里为委员长、李鹏为总理。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -3741,7 +3762,7 @@ const historyData = [
   "title": "治理整顿经济",
   "desc": "1988年面对经济过热，中央提出治理经济环境、整顿经济秩序。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -3759,7 +3780,7 @@ const historyData = [
   "title": "中苏关系正常化",
   "desc": "1989年5月戈尔巴乔夫访华，邓小平提出“结束过去，开辟未来”，中苏关系正常化。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -3777,7 +3798,7 @@ const historyData = [
   "title": "十三届四中全会",
   "desc": "1989年6月十三届四中全会形成以江泽民为核心的中央领导集体。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -3786,7 +3807,7 @@ const historyData = [
   "title": "邓小平辞去军委主席",
   "desc": "1989年11月6日至9日，中共十三届五中全会同意邓小平辞去中央军委主席职务，高度评价其历史贡献。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -3804,7 +3825,7 @@ const historyData = [
   "title": "开发开放浦东",
   "desc": "1990年4月中央决定开发开放上海浦东，带动长江三角洲和沿江地区发展。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3822,7 +3843,7 @@ const historyData = [
   "title": "上海证券交易所开业",
   "desc": "1990年12月19日，上海证券交易所正式开业，是中国内地首家证券交易所，标志资本市场起步。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -3831,7 +3852,7 @@ const historyData = [
   "title": "治理整顿完成",
   "desc": "1991年治理整顿任务基本完成，经济环境改善、增速回升。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -3849,7 +3870,7 @@ const historyData = [
   "title": "邓小平南方谈话",
   "desc": "1992年1月邓小平视察南方发表重要谈话，冲破姓“社”姓“资”束缚，重启改革开放。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -3867,7 +3888,7 @@ const historyData = [
   "title": "九二共识达成",
   "desc": "1992年，海峡两岸关系协会（大陆）与海峡交流基金会（台湾）就“海峡两岸均坚持一个中国原则”达成重要共识（九二共识），成为两岸关系发展的政治基础。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -3876,7 +3897,7 @@ const historyData = [
   "title": "八届全国人大一次会议",
   "desc": "1993年3月15日，八届全国人大一次会议在北京召开，选举江泽民为国家主席、荣毅仁为国家副主席。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -3885,7 +3906,7 @@ const historyData = [
   "title": "汪辜会谈",
   "desc": "1993年4月27日，海协会会长汪道涵与海基会董事长辜振甫在新加坡举行首次会谈，签署四项协议，是1949年以来两岸高层首次公开会晤。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -3894,7 +3915,7 @@ const historyData = [
   "title": "十四届三中全会",
   "desc": "1993年11月十四届三中全会通过《关于建立社会主义市场经济体制若干问题的决定》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3921,7 +3942,7 @@ const historyData = [
   "title": "江泽民八项主张",
   "desc": "1995年1月30日，江泽民发表《为促进祖国统一大业的完成而继续奋斗》的重要讲话，提出发展两岸关系、推进祖国和平统一的八项主张。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -3939,7 +3960,7 @@ const historyData = [
   "title": "科教兴国战略",
   "desc": "1995年5月中共中央、国务院作出加速科学技术进步的决定，实施科教兴国战略。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -3948,7 +3969,7 @@ const historyData = [
   "title": "十四届五中全会",
   "desc": "1995年9月十四届五中全会通过“九五”计划与2010年远景目标。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -3975,7 +3996,7 @@ const historyData = [
   "title": "中共十四届六中全会",
   "desc": "1996年10月7日，中共十四届六中全会召开，通过关于加强社会主义精神文明建设若干重要问题的决议。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -3984,7 +4005,7 @@ const historyData = [
   "title": "邓小平逝世",
   "desc": "1997年2月19日邓小平逝世。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -3993,7 +4014,7 @@ const historyData = [
   "title": "香港回归祖国",
   "desc": "1997年7月1日中国对香港恢复行使主权，香港特别行政区成立。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -4002,7 +4023,7 @@ const historyData = [
   "title": "中共十五大召开",
   "desc": "1997年9月中共十五大把邓小平理论确立为党的指导思想并写入党章。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4011,7 +4032,7 @@ const historyData = [
   "title": "九届全国人大一次会议",
   "desc": "1998年3月5日，九届全国人大一次会议在北京召开，选举江泽民为国家主席。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -4029,7 +4050,7 @@ const historyData = [
   "title": "中共十五届三中全会",
   "desc": "1998年10月12日，中共十五届三中全会通过《关于农业和农村工作若干重大问题的决定》，推进农村改革。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -4038,7 +4059,7 @@ const historyData = [
   "title": "驻南联盟使馆被炸",
   "desc": "1999年5月8日北约轰炸中国驻南联盟大使馆，造成人员伤亡，激起全国人民强烈愤慨。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -4047,7 +4068,7 @@ const historyData = [
   "title": "西部大开发战略提出",
   "desc": "1999年6月17日，江泽民在西安提出加快中西部地区发展、实施西部大开发战略。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -4056,7 +4077,7 @@ const historyData = [
   "title": "十五届四中全会",
   "desc": "1999年9月十五届四中全会通过国有企业改革和发展若干重大问题的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -4065,7 +4086,7 @@ const historyData = [
   "title": "澳门回归祖国",
   "desc": "1999年12月20日中国对澳门恢复行使主权，澳门特别行政区成立。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4074,7 +4095,7 @@ const historyData = [
   "title": "西部大开发全面启动",
   "desc": "2000年起，西部大开发战略全面启动，国家加大对中西部地区的投入，促进区域协调发展。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -4083,7 +4104,7 @@ const historyData = [
   "title": "“三个代表”提出",
   "desc": "2000年2月江泽民在广东考察提出“三个代表”重要思想。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -4110,7 +4131,7 @@ const historyData = [
   "title": "十五届五中全会",
   "desc": "2000年10月十五届五中全会通过“十五”计划建议。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -4128,7 +4149,7 @@ const historyData = [
   "title": "上海合作组织成立",
   "desc": "2001年6月15日，中国、俄罗斯、哈萨克斯坦、吉尔吉斯斯坦、塔吉克斯坦、乌兹别克斯坦六国元首签署《上海合作组织成立宣言》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -4155,7 +4176,7 @@ const historyData = [
   "title": "十五届六中全会",
   "desc": "2001年9月十五届六中全会通过加强和改进党的作风建设的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -4164,7 +4185,7 @@ const historyData = [
   "title": "加入世界贸易组织",
   "desc": "2001年12月11日中国正式成为世界贸易组织成员，全面融入世界经济体系。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -4173,7 +4194,7 @@ const historyData = [
   "title": "中国正式加入世贸组织",
   "desc": "2001年12月11日，中国正式成为世界贸易组织成员，对外开放进入新阶段。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -4182,7 +4203,7 @@ const historyData = [
   "title": "中共十六大召开",
   "desc": "2002年11月中共十六大把“三个代表”重要思想确立为党的指导思想。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -4191,7 +4212,7 @@ const historyData = [
   "title": "十六届一中全会",
   "desc": "2002年11月15日，中共十六届一中全会选举胡锦涛为中央委员会总书记。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -4227,7 +4248,7 @@ const historyData = [
   "title": "十届全国人大",
   "desc": "2003年3月十届全国人大一次会议选举胡锦涛为国家主席、江泽民为中央军委主席。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -4254,7 +4275,7 @@ const historyData = [
   "title": "十六届三中全会",
   "desc": "2003年10月十六届三中全会通过完善社会主义市场经济体制的决定，提出科学发展观。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4263,7 +4284,7 @@ const historyData = [
   "title": "神舟五号载人飞行",
   "desc": "2003年10月15日杨利伟乘神舟五号飞天，中国成为第三个独立掌握载人航天技术的国家。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4272,7 +4293,7 @@ const historyData = [
   "title": "科学发展观提出",
   "desc": "2004年3月10日，胡锦涛在中央人口资源环境工作座谈会上全面阐述科学发展观，强调以人为本、全面协调可持续。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4290,7 +4311,7 @@ const historyData = [
   "title": "十六届四中全会",
   "desc": "2004年9月十六届四中全会通过加强党的执政能力建设的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4299,7 +4320,7 @@ const historyData = [
   "title": "反分裂国家法",
   "desc": "2005年3月十届全国人大三次会议通过《反分裂国家法》，遏制“台独”、维护台海和平。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -4317,7 +4338,7 @@ const historyData = [
   "title": "胡锦涛连战会面",
   "desc": "2005年4月胡锦涛与国民党主席连战在北京会面，是国共领导人60年来首次会谈。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -4344,7 +4365,7 @@ const historyData = [
   "title": "废止《农业税条例》",
   "desc": "2005年12月29日，十届全国人大常委会第十九次会议决定废止《农业税条例》，延续两千多年的农业税退出历史舞台。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4362,7 +4383,7 @@ const historyData = [
   "title": "全面取消农业税",
   "desc": "2006年起全面取消农业税，延续两千多年的“皇粮国税”成为历史。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4371,7 +4392,7 @@ const historyData = [
   "title": "“十一五”规划纲要批准",
   "desc": "2006年3月14日，十届全国人大四次会议批准《中华人民共和国国民经济和社会发展第十一个五年规划纲要》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -4380,7 +4401,7 @@ const historyData = [
   "title": "青藏铁路通车",
   "desc": "2006年7月1日青藏铁路全线通车，世界海拔最高、线路最长的高原铁路建成。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4389,7 +4410,7 @@ const historyData = [
   "title": "十六届六中全会",
   "desc": "2006年10月十六届六中全会通过构建社会主义和谐社会若干重大问题的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4407,7 +4428,7 @@ const historyData = [
   "title": "中共十七大召开",
   "desc": "2007年10月中共十七大把科学发展观写入党章，提出全面建设小康社会新要求。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4416,7 +4437,7 @@ const historyData = [
   "title": "嫦娥一号",
   "desc": "2007年10月嫦娥一号发射成功，中国探月工程迈出重要一步。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -4425,7 +4446,7 @@ const historyData = [
   "title": "汶川特大地震",
   "desc": "2008年5月12日四川汶川发生8.0级特大地震，全国军民众志成城抗震救灾。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -4434,7 +4455,7 @@ const historyData = [
   "title": "北京奥运会",
   "desc": "2008年8月8日北京奥运会开幕，中国以51金居金牌榜首位，展现大国风采。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -4443,7 +4464,7 @@ const historyData = [
   "title": "神舟七号出舱",
   "desc": "2008年9月神舟七号发射，翟志刚完成中国首次太空出舱活动。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4452,7 +4473,7 @@ const historyData = [
   "title": "十七届三中全会",
   "desc": "2008年10月十七届三中全会通过推进农村改革发展的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -4479,7 +4500,7 @@ const historyData = [
   "title": "两岸经贸协议",
   "desc": "2009年两岸签署海峡两岸金融、空运等协议，ECFA磋商推进。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -4497,7 +4518,7 @@ const historyData = [
   "title": "建国60周年阅兵",
   "desc": "2009年10月1日首都举行建国60周年盛大阅兵，展示国防现代化成就。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4506,7 +4527,7 @@ const historyData = [
   "title": "上海世博会",
   "desc": "2010年上海世界博览会举办，主题为“城市，让生活更美好”。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -4515,7 +4536,7 @@ const historyData = [
   "title": "上海世博会开幕",
   "desc": "2010年5月1日，中国2010年上海世界博览会正式开园，是首次在发展中国家举办的注册类世界博览会。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4587,7 +4608,7 @@ const historyData = [
   "title": "中共十八大召开",
   "desc": "2012年11月中共十八大把科学发展观确立为党的指导思想，提出全面建成小康社会。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -4596,7 +4617,7 @@ const historyData = [
   "title": "习近平当选总书记",
   "desc": "2012年11月中共十八届一中全会选举习近平为中共中央总书记。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -4605,7 +4626,7 @@ const historyData = [
   "title": "中央八项规定出台",
   "desc": "2012年12月4日，中共中央政治局会议通过《十八届中央政治局关于改进工作作风、密切联系群众的八项规定》，开启全面从严治党、作风建设新征程。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4614,7 +4635,7 @@ const historyData = [
   "title": "上海自贸区设立",
   "desc": "2013年上海自由贸易试验区设立，以开放促改革。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4632,7 +4653,7 @@ const historyData = [
   "title": "十二届全国人大一次会议",
   "desc": "2013年3月14日，十二届全国人大一次会议选举习近平为国家主席、中央军委主席。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -4650,7 +4671,7 @@ const historyData = [
   "title": "“一带一路”倡议",
   "desc": "2013年9月、10月习近平提出共建“丝绸之路经济带”和“21世纪海上丝绸之路”倡议。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -4659,7 +4680,7 @@ const historyData = [
   "title": "十八届三中全会",
   "desc": "2013年11月十八届三中全会通过《关于全面深化改革若干重大问题的决定》，总目标是完善和发展中国特色社会主义制度。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4668,7 +4689,7 @@ const historyData = [
   "title": "中央深改小组首次会议",
   "desc": "2014年1月22日，中央全面深化改革领导小组召开第一次会议，习近平主持，部署全面深化改革开局工作。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -4677,7 +4698,7 @@ const historyData = [
   "title": "中央网信领导小组",
   "desc": "2014年2月中央网络安全和信息化领导小组成立，习近平任组长。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4686,7 +4707,7 @@ const historyData = [
   "title": "中央纪委三次全会",
   "desc": "2014年1月十八届中央纪委三次全会部署党风廉政建设和反腐败斗争。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4695,7 +4716,7 @@ const historyData = [
   "title": "十八届四中全会",
   "desc": "2014年10月十八届四中全会通过全面推进依法治国的决定，首题依法治国。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -4704,7 +4725,7 @@ const historyData = [
   "title": "APEC北京峰会",
   "desc": "2014年11月APEC北京峰会举行，启动亚太自贸区进程。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -4713,7 +4734,7 @@ const historyData = [
   "title": "首个国家公祭日",
   "desc": "2014年12月13日中国举行首个南京大屠杀死难者国家公祭日仪式。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4722,7 +4743,7 @@ const historyData = [
   "title": "供给侧结构性改革",
   "desc": "2015年中央提出推进供给侧结构性改革，落实“三去一降一补”。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4767,7 +4788,7 @@ const historyData = [
   "title": "十八届五中全会",
   "desc": "2015年10月十八届五中全会通过“十三五”规划建议，提出脱贫攻坚、绿色发展等理念。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -4776,7 +4797,7 @@ const historyData = [
   "title": "第二届世界互联网大会",
   "desc": "2015年12月16日，第二届世界互联网大会在浙江乌镇开幕，习近平提出推进全球互联网治理体系变革的主张。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4785,7 +4806,7 @@ const historyData = [
   "title": "长江经济带发展",
   "desc": "2016年《长江经济带发展规划纲要》印发，共抓大保护、不搞大开发。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 5,
@@ -4803,7 +4824,7 @@ const historyData = [
   "title": "G20杭州峰会",
   "desc": "2016年9月G20杭州峰会举行，中国为全球治理贡献方案。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4848,7 +4869,7 @@ const historyData = [
   "title": "“一带一路”高峰论坛",
   "desc": "2017年5月首届“一带一路”国际合作高峰论坛在北京举行。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -4866,7 +4887,7 @@ const historyData = [
   "title": "中共十九大召开",
   "desc": "2017年10月中共十九大确立习近平新时代中国特色社会主义思想为党的指导思想。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4875,7 +4896,7 @@ const historyData = [
   "title": "党章写入新思想",
   "desc": "2017年10月中共十九大将习近平新时代中国特色社会主义思想写入党章。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4893,7 +4914,7 @@ const historyData = [
   "title": "十九届三中全会",
   "desc": "2018年2月十九届三中全会通过深化党和国家机构改革的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4902,7 +4923,7 @@ const historyData = [
   "title": "十三届全国人大一次会议",
   "desc": "2018年3月5日，十三届全国人大一次会议在北京召开，修改宪法，选举和决定新一届国家机构领导人员。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -4911,7 +4932,7 @@ const historyData = [
   "title": "宪法修正案",
   "desc": "2018年3月十三届全国人大一次会议通过宪法修正案，习近平新时代中国特色社会主义思想载入宪法，设立国家监察委员会。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -4929,7 +4950,7 @@ const historyData = [
   "title": "改革开放40周年",
   "desc": "2018年12月庆祝改革开放40周年大会举行，习近平总结宝贵经验。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 4,
@@ -4938,7 +4959,7 @@ const historyData = [
   "title": "第二届“一带一路”论坛",
   "desc": "2019年4月第二届“一带一路”国际合作高峰论坛在北京举行。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4947,7 +4968,7 @@ const historyData = [
   "title": "建国70周年阅兵",
   "desc": "2019年10月1日首都举行庆祝新中国成立70周年大阅兵。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -4956,7 +4977,7 @@ const historyData = [
   "title": "十九届四中全会",
   "desc": "2019年10月十九届四中全会通过坚持和完善中国特色社会主义制度、推进国家治理现代化的决定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 12,
@@ -4965,7 +4986,7 @@ const historyData = [
   "title": "澳门回归20周年",
   "desc": "2019年12月20日，澳门回归祖国20周年，特区各项事业取得长足发展。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -4974,7 +4995,7 @@ const historyData = [
   "title": "抗击新冠肺炎疫情",
   "desc": "2020年新型冠状病毒肺炎疫情突袭，中国坚持人民至上、生命至上，统筹疫情防控与经济社会发展。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -4992,7 +5013,7 @@ const historyData = [
   "title": "香港国安法",
   "desc": "2020年6月十三届全国人大常委会通过《香港国安法》，维护国家安全与香港稳定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 6,
@@ -5010,7 +5031,7 @@ const historyData = [
   "title": "十九届五中全会",
   "desc": "2020年10月十九届五中全会通过“十四五”规划建议，提出2035年远景目标。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -5019,7 +5040,7 @@ const historyData = [
   "title": "脱贫攻坚战胜利",
   "desc": "2020年11月贵州等最后贫困县脱贫摘帽，现行标准下农村贫困人口全部脱贫。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 1,
@@ -5037,7 +5058,7 @@ const historyData = [
   "title": "脱贫攻坚总结表彰",
   "desc": "2021年2月全国脱贫攻坚总结表彰大会宣布脱贫攻坚战取得全面胜利。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -5046,7 +5067,7 @@ const historyData = [
   "title": "建党100周年",
   "desc": "2021年7月1日庆祝中国共产党成立100周年大会在天安门广场隆重举行。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 10,
@@ -5055,7 +5076,7 @@ const historyData = [
   "title": "生物多样性大会",
   "desc": "2021年10月联合国生物多样性公约大会（COP15）第一阶段在昆明举行。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -5064,7 +5085,7 @@ const historyData = [
   "title": "十九届六中全会",
   "desc": "2021年11月十九届六中全会通过《党的百年奋斗重大成就和历史经验的决议》，确立“两个确立”。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 2,
@@ -5091,7 +5112,7 @@ const historyData = [
   "title": "习近平继续领航",
   "desc": "2022年10月二十届一中全会选举习近平继续担任中共中央总书记、中央军委主席。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 11,
@@ -5118,7 +5139,7 @@ const historyData = [
   "title": "十四届全国人大",
   "desc": "2023年3月十四届全国人大一次会议选举习近平为国家主席、中央军委主席。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 8,
@@ -5136,7 +5157,7 @@ const historyData = [
   "title": "“一带一路”十周年",
   "desc": "2023年10月第三届“一带一路”国际合作高峰论坛举行，庆祝倡议提出十周年。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -5145,7 +5166,7 @@ const historyData = [
   "title": "二十届三中全会",
   "desc": "2024年7月二十届三中全会通过《关于进一步全面深化改革、推进中国式现代化的决定》。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 7,
@@ -5163,7 +5184,7 @@ const historyData = [
   "title": "澳门回归25周年",
   "desc": "2024年12月澳门回归祖国25周年，澳门保持长期繁荣稳定。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 3,
@@ -5172,7 +5193,7 @@ const historyData = [
   "title": "十四届人大三次会议",
   "desc": "2025年3月十四届全国人大三次会议部署“十四五”收官之年工作，推动经济持续回升向好。",
   "cat": "party",
-  "source": "《中国共产党简史》+ 星火日历"
+  "source": "星火日历"
  },
  {
   "month": 9,
@@ -8548,6 +8569,7 @@ let currentMonth = 7;
 let filterYear = null;    // 年份选择器控制（具体年份，无"全部"）
 let searchKey = "";       // 搜索框控制，与年份选择器相互独立
 let catFilter = 'all';    // 分类筛选：all / party(中共相关) / kmt(其他力量) / soft(科技·文教) / political(重大政治=非soft)
+let yearFrom = null, yearTo = null;  // 年份范围筛选（起止，含端点）
 let favs = [];            // 收藏列表（localStorage 持久化），元素为 "年-月-日-标题" 键
 let yearFirstNode = {};   // 时间轴：年份 -> 该年首个事件 DOM 节点（用于跳转）
 
@@ -8582,7 +8604,7 @@ function setYearIndex(i){
 }
 // 统计某一年在「当前搜索」下的事件数（用于年份角标，规则同月份角标）
 function getYearEventCount(y){
-    let list = softFilter(historyData);   // 尊重 分类 筛选
+    let list = softFilter(historyData);   // 尊重 分类 + 年份范围 筛选
     if(searchKey.trim() !== ""){
         const key = searchKey.toLowerCase();
         list = list.filter(item=>
@@ -8596,6 +8618,7 @@ function buildYearDropdown(){
     const dd = document.getElementById('yearDropdown');
     dd.innerHTML = "";
     yearList.forEach((y, idx)=>{
+        if(!inYearRange(y)) return;
         const opt = document.createElement('div');
         opt.className = 'year-option' + (idx === yearIndex ? ' sel' : '');
         opt.textContent = y + '年';
@@ -8943,7 +8966,41 @@ function resolveSource(e){
     return `资料来源：${docName}（${per.name}）${page}${note}`;
 }
 
-// ---------- 参考文献（独立页面） ----------
+// ---------- 参考文献（emoji 入口） ----------
+function openReferences(){
+    const mask = document.getElementById('modalMask');
+    const title = document.getElementById('modalTitle');
+    const content = document.getElementById('modalContent');
+    title.textContent = "参考文献";
+    content.innerHTML = "";
+    const note = document.createElement('p');
+    note.style.cssText = "color:#888;font-size:13px;margin-bottom:14px;line-height:1.6;";
+    note.textContent = "本日历事件数据依据下列权威党史文献整理，事件日期与表述以官方定论为准；部分条目日期参考了学界通行考订。";
+    content.appendChild(note);
+    const refs = [
+        {t:"《中国共产党简史》（本书编写组）", d:"人民出版社、中共党史出版社，2021年版。项目随附PDF（z-library版），作为事件日期与历史表述的史料核对基准。"},
+        {t:"中共中央党史和文献研究院：《中国共产党一百年大事记（1921年7月—2021年6月）》", d:"人民网，2021年6月发布。本工具事件数据库的主要权威结构化来源，覆盖新民主主义革命、社会主义革命和建设、改革开放和社会主义现代化建设、中国特色社会主义新时代各时期。"},
+        {t:"中共中央党史研究室：《中国共产党历史》第一卷、第二卷", d:"中共党史出版社。用于重要史实的进一步补证与深化，特别是在遵义会议、长征、抗战、解放战争等节点上提供了更完整的脉络。"},
+        {t:"中华人民共和国中央人民政府网（www.gov.cn）、人民网（www.people.com.cn）", d:"重大历史节点的官方表述与权威发布，用于交叉核对改革开放、港澳回归、入世、脱贫攻坚、抗疫等当代事件的准确日期。"}
+    ];
+    refs.forEach((r,i)=>{
+        const div = document.createElement('div');
+        div.className = "modal-event";
+        const head = document.createElement('div');
+        head.innerHTML = `<strong>${i+1}. ${r.t}</strong>`;
+        const body = document.createElement('div');
+        body.style.cssText = "color:#555;font-size:14px;line-height:1.6;margin-top:4px;";
+        body.textContent = r.d;
+        div.appendChild(head);
+        div.appendChild(body);
+        content.appendChild(div);
+    });
+    const tip = document.createElement('p');
+    tip.style.cssText = "color:#999;font-size:12px;margin-top:16px;line-height:1.6;border-top:1px dashed #e0c0c0;padding-top:10px;";
+    tip.textContent = "逐条出处标注：每个事件的弹窗底部均标明其所属“党史分期”与资料来源；如需精确到印刷本页码，可在数据区的 sourceDB 中按“年-月-日”登记 page 字段（详见代码注释）。";
+    content.appendChild(tip);
+    mask.style.display = "flex";
+}
 
 // ---------- 关于：更新日志 + 操作指南 ----------
 function openAbout(){
@@ -8952,26 +9009,7 @@ function openAbout(){
     const content = document.getElementById('modalContent');
     title.textContent = '关于 · 星火日历';
     const logHTML = [
-        '<p class="log-updated">最后更新：2026-08-18</p>',
-        '<h4><span class="ver">v1.6</span> 搜索与工具栏收敛 <small>2026-08-18</small></h4>',
-        '<ul>',
-        '<li>分类筛选由 5 个 chips 收敛为搜索框旁的一个下拉菜单（全部分类 / 中共相关 / 其他力量 / 科技·文教 / 重大政治），工具栏第三行取消</li>',
-        '<li>移除「年份区间」起止筛选（年份导航器已覆盖跳年，跨年区间很少用）；相关 JS 与导出说明同步清理</li>',
-        '<li>参考文献作为「关于」页面的独立标签页（更新日志 / 操作指南 / 参考文献 三标签并列），不再并入操作指南</li>',
-        '<li>顶部「更多 ▾」菜单保留：重要会议 / 关于 / 历史上的今天 / 收藏 / 统计 / 标签</li>',
-        '</ul>',
-        '<h4><span class="ver">v1.5</span> 浏览体验与功能收敛 <small>2026-08-17 ~ 08-18</small></h4>',
-        '<ul>',
-        '<li>时间轴「历史时期」导航器：将跳转（T1）与时段筛选（T2）合并为单一选择器，按 13 个历史时期（建党初期 → 建党百年）一键跳转并聚焦该时段事件；原「历史脉络」更名为「历史时期」，与因果图解耦——展示某时期内发生的事件，而非因果链条</li>',
-        '<li>筛选由「淡出（opacity）」改为「隐藏（display:none）」：被筛掉的事件及其年份分隔一并隐去，同脉络事件保持相邻；默认占位符「选择历史时期…」兜底，清除筛选恢复全览</li>',
-        '<li>日历格子仅显示事件名称（去除年份前缀）</li>',
-        '<li>事件详情页：去除与标题重复的年份显示；删除「同日其他事件」分区</li>',
-        '<li>搜索命中高亮闪烁（I2）：搜索 / 分类 命中后，日历格与时间轴卡片琥珀色光环闪烁约 3 秒辅助定位</li>',
-        '<li>统计页分类色块点击展开清单（I3）：当前筛选 / 中共相关 / 其他力量 / 科技·文教 四个色块可点击展开对应事件列表</li>',
-        '<li>顶部工具栏收敛（U2）：重要会议 / 关于 / 参考文献 / 历史上的今天 / 收藏 / 统计 / 标签 收进「更多 ▾」菜单</li>',
-        '<li>导出格式扩展（F3）：新增「图片（SVG 矢量快照）」与「PDF（打印另存）」两种导出</li>',
-        '<li>时间轴两端恢复「引言 / 结语」书挡面板（C1）</li>',
-        '</ul>',
+        '<p class="log-updated">最后更新：2026-08-17</p>',
         '<h4><span class="ver">v1.4</span> 因果网络图增强 <small>2026-08-15 ~ 08-17</small></h4>',
         '<ul>',
         '<li>新增「重要脉络」下拉，一键跳转并聚焦到关键历史节点（建党、长征、抗战、改革开放等）</li>',
@@ -8985,6 +9023,13 @@ function openAbout(){
         '<li>因果图交互精简：移除顶部「脉络列表 / 打开事件详情 / 关闭」按钮；关闭改为左上角 ×，事件详情改为列表内「详情」按钮；日夜切换钮仅显示于常规页面层</li>',
         '<li>详情按钮风格统一；日夜钮与本年事件钮锚定到页面（不再钉视口边缘）</li>',
         '<li>日历页精简说明文字：仅保留颜色图例，其余说明并入「关于」页面</li>',
+        '<li>时间轴新增「历史时期」导航器：选中某历史时期即同时跳转滚动（T1）并筛选该时段事件（T2），含「清除筛选」恢复全览</li>',
+        '<li>日历格子仅显示事件名称（去除年份前缀）；事件详情页去除与标题重复的年份显示</li>',
+        '<li>搜索命中高亮闪烁（I2）：搜索 / 分类 / 年份范围命中后，日历格与时间轴卡片琥珀色光环闪烁约 3 秒以辅助定位</li>',
+        '<li>统计页分类色块点击展开清单（I3）：当前筛选 / 中共相关 / 其他力量 / 科技·文教 四个色块可点击展开对应事件列表</li>',
+        '<li>顶部工具栏收敛（U2）：参考文献 / 重要会议 / 关于 / 历史上的今天 / 收藏 / 统计 / 标签 收进「更多 ▾」菜单</li>',
+        '<li>导出格式扩展（F3）：新增「图片（SVG 矢量快照）」与「PDF（打印另存）」两种导出方式</li>',
+        '<li>时间轴两端恢复「引言 / 结语」书挡面板（C1）</li>',
         '</ul>',
         '<h4><span class="ver">v1.3</span> 因果关系网络图</h4>',
         '<ul>',
@@ -9001,6 +9046,7 @@ function openAbout(){
         '<ul>',
         '<li>关键词 / 年份搜索（与年份选择器相互独立）</li>',
         '<li>分类筛选（中共相关 / 其他力量 / 科技·文教 / 重大政治）</li>',
+        '<li>年份范围起止筛选</li>',
         '<li>导出清单（CSV / Markdown，支持当月 / 全年 / 当前筛选）</li>',
         '</ul>',
         '<h4><span class="ver">v1.0</span> 基础版</h4>',
@@ -9031,12 +9077,12 @@ function openAbout(){
         '<h4>④ 搜索与筛选</h4>',
         '<ul>',
         '<li>搜索框输入关键词或年份，回车或点「搜索」（与年份选择器独立）。</li>',
-        '<li>分类下拉（全部分类 / 中共相关 / 其他力量 / 科技·文教 / 重大政治）与时间轴「历史时期」筛选，可组合过滤日历 / 时间轴 / 统计。</li>',
+        '<li>分类 chips + 年份起止范围，可组合过滤日历 / 时间轴 / 统计。</li>',
         '</ul>',
         '<h4>⑤ 收藏与其他</h4>',
         '<ul>',
-        '<li>事件弹窗里点 ⭐ 收藏，自动本地保存；顶部「更多 ▾」菜单里的「收藏」按钮集中查看。</li>',
-        '<li>📅 历史上的今天、📊 统计、🏷️ 标签云、🏛️ 重要会议 入口均在「更多 ▾」菜单；「关于」弹窗内分「更新日志 / 操作指南 / 参考文献」三个标签页，参考文献为独立标签页。</li>',
+        '<li>事件弹窗里点 ⭐ 收藏，自动本地保存；顶部「收藏」按钮集中查看。</li>',
+        '<li>📅 历史上的今天、📊 统计、🏷️ 标签云、🏛️ 重要会议、📚 参考文献 各有专属入口。</li>',
         '<li>「夜间模式」切换深色主题。</li>',
         '</ul>',
         '<h4>⑥ 键盘快捷键</h4>',
@@ -9048,18 +9094,9 @@ function openAbout(){
         '<li>事件来源《中国共产党一百年大事记》等权威文献；7月1日为建党纪念日，中共一大实际于 1921-7-23 召开，故分两条记录。</li>',
         '</ul>'
     ].join('');
-    const refHTML = [
-        '<p style="color:#888;font-size:13px;margin-bottom:14px;line-height:1.6;">本日历事件数据依据下列权威党史文献整理，事件日期与表述以官方定论为准；部分条目日期参考了学界通行考订。</p>',
-        '<div class="modal-event"><div><strong>1. 《中国共产党简史》（本书编写组）</strong></div><div style="color:#555;font-size:14px;line-height:1.6;margin-top:4px;">人民出版社、中共党史出版社，2021年版。项目随附PDF（z-library版），作为事件日期与历史表述的史料核对基准。</div></div>',
-        '<div class="modal-event"><div><strong>2. 中共中央党史和文献研究院：《中国共产党一百年大事记（1921年7月—2021年6月）》</strong></div><div style="color:#555;font-size:14px;line-height:1.6;margin-top:4px;">人民网，2021年6月发布。本工具事件数据库的主要权威结构化来源，覆盖新民主主义革命、社会主义革命和建设、改革开放和社会主义现代化建设、中国特色社会主义新时代各时期。</div></div>',
-        '<div class="modal-event"><div><strong>3. 中共中央党史研究室：《中国共产党历史》第一卷、第二卷</strong></div><div style="color:#555;font-size:14px;line-height:1.6;margin-top:4px;">中共党史出版社。用于重要史实的进一步补证与深化，特别是在遵义会议、长征、抗战、解放战争等节点上提供了更完整的脉络。</div></div>',
-        '<div class="modal-event"><div><strong>4. 中华人民共和国中央人民政府网（www.gov.cn）、人民网（www.people.com.cn）</strong></div><div style="color:#555;font-size:14px;line-height:1.6;margin-top:4px;">重大历史节点的官方表述与权威发布，用于交叉核对改革开放、港澳回归、入世、脱贫攻坚、抗疫等当代事件的准确日期。</div></div>',
-        '<p style="color:#999;font-size:12px;margin-top:16px;line-height:1.6;border-top:1px dashed #e0c0c0;padding-top:10px;">逐条出处标注：每个事件的弹窗底部均标明其所属“党史分期”与资料来源；如需精确到印刷本页码，可在数据区的 sourceDB 中按“年-月-日”登记 page 字段（详见代码注释）。</p>'
-    ].join('');
     content.innerHTML = '<div class="about-tabs">'
         + '<button class="about-tab active" data-tab="log">更新日志</button>'
         + '<button class="about-tab" data-tab="guide">操作指南</button>'
-        + '<button class="about-tab" data-tab="ref">参考文献</button>'
         + '</div><div class="about-body" id="aboutBody">' + logHTML + '</div>';
     const tabs = content.querySelectorAll('.about-tab');
     const body = content.querySelector('#aboutBody');
@@ -9067,8 +9104,7 @@ function openAbout(){
         t.onclick = function(){
             tabs.forEach(function(x){ x.classList.remove('active'); });
             t.classList.add('active');
-            const tt = t.getAttribute('data-tab');
-            body.innerHTML = (tt === 'log') ? logHTML : (tt === 'ref') ? refHTML : guideHTML;
+            body.innerHTML = (t.getAttribute('data-tab') === 'log') ? logHTML : guideHTML;
         };
     });
     mask.style.display = 'flex';
@@ -9252,15 +9288,24 @@ function openMeetingDetail(m){
     mask.style.display = 'flex';
 }
 
-// 分类过滤（贯穿 日历 / 时间轴 / 右栏 / 搜索 / 导出 / 统计）
+// 分类 + 年份范围 过滤（贯穿 日历 / 时间轴 / 右栏 / 搜索 / 导出 / 统计）
 function softFilter(list){
     return list.filter(e=>{
         if(catFilter === 'party'    && e.cat === 'kmt') return false;
         if(catFilter === 'kmt'      && e.cat !== 'kmt') return false;
         if(catFilter === 'soft'     && !e.soft) return false;
         if(catFilter === 'political' && e.soft) return false;
+        if(yearFrom != null && e.year < yearFrom) return false;
+        if(yearTo != null && e.year > yearTo) return false;
         return true;
     });
+}
+
+// 年份是否在筛选范围内（用于年份下拉、统计等）
+function inYearRange(y){
+    if(yearFrom != null && y < yearFrom) return false;
+    if(yearTo != null && y > yearTo) return false;
+    return true;
 }
 
 // ---------- 收藏 / 书签（localStorage 持久化） ----------
@@ -9283,8 +9328,8 @@ function toggleFav(e, starEl){
 // ---------- 搜索命中高亮闪烁（I2） ----------
 let hitFlashTimer = null;
 function flashHits(){
-    // 仅在结果被「搜索 / 分类」收窄时闪烁，避免默认全量时全盘闪烁
-    const narrowing = searchKey.trim() !== "" || catFilter !== 'all';
+    // 仅在结果被「搜索 / 分类 / 年份范围」收窄时闪烁，避免默认全量时全盘闪烁
+    const narrowing = searchKey.trim() !== "" || catFilter !== 'all' || yearFrom != null || yearTo != null;
     if(!narrowing) return;
     const targets = [
         ...document.querySelectorAll('#calendarBody .event-item'),
@@ -9323,28 +9368,32 @@ function doSearch(){
     flashHits();
 }
 document.getElementById('searchBtn').onclick = doSearch;
+document.getElementById('refBtn').onclick = openReferences;
 document.getElementById('mtgBtn').onclick = openMeetings;
 document.getElementById('aboutBtn').onclick = openAbout;
 document.getElementById('searchInput').onkeydown = function(e){
     if(e.key === "Enter") doSearch();
 }
 
-// 分类筛选下拉（替代原 5 个 chips，收纳进更紧凑的下拉）
-document.getElementById('catSelect').onchange = function(){
-    catFilter = this.value;
-    renderMonthBar();
-    renderCalendar();
-    renderYearRail(filterYear);
-    if(timelineView.classList.contains('show')) renderTimeline();
-    flashHits();
-};
+// 分类筛选 chips（替代原"仅看重大政治事件"按钮，覆盖更全）
+document.querySelectorAll('#catChips .chip').forEach(ch=>{
+    ch.onclick = ()=>{
+        catFilter = ch.dataset.cat;
+        document.querySelectorAll('#catChips .chip').forEach(x=> x.classList.toggle('active', x === ch));
+        renderMonthBar();
+        renderCalendar();
+        renderYearRail(filterYear);
+        if(timelineView.classList.contains('show')) renderTimeline();
+        flashHits();
+    };
+});
 
 // U2：把次要按钮收进「更多」菜单（保持各自 onclick 不变）
 (function(){
     const moreBtn = document.getElementById('moreBtn');
     const moreMenu = document.getElementById('moreMenu');
     if(!moreBtn || !moreMenu) return;
-    ['mtgBtn','aboutBtn','todayBtn','favBtn','statsBtn','tagBtn'].forEach(id=>{
+    ['refBtn','mtgBtn','aboutBtn','todayBtn','favBtn','statsBtn','tagBtn'].forEach(id=>{
         const b = document.getElementById(id);
         if(b) moreMenu.appendChild(b);
     });
@@ -9361,6 +9410,34 @@ document.getElementById('catSelect').onchange = function(){
         if(e.target.closest('button')) moreMenu.classList.remove('show');
     });
 })();
+
+// 起止年份范围筛选
+function applyYearRange(){
+    const f = parseInt(document.getElementById('yearFrom').value, 10);
+    const t = parseInt(document.getElementById('yearTo').value, 10);
+    yearFrom = isNaN(f) ? null : f;
+    yearTo   = isNaN(t) ? null : t;
+    if(yearFrom != null && yearTo != null && yearFrom > yearTo){
+        const tmp = yearFrom; yearFrom = yearTo; yearTo = tmp;
+    }
+    // 若当前年份被排除，则夹取回范围内
+    if(filterYear != null){
+        if(yearFrom != null && filterYear < yearFrom) setYearIndexSafe(yearFrom);
+        else if(yearTo != null && filterYear > yearTo) setYearIndexSafe(yearTo);
+    }
+    renderMonthBar();
+    renderCalendar();
+    renderYearRail(filterYear);
+    if(timelineView.classList.contains('show')) renderTimeline();
+    flashHits();
+}
+document.getElementById('yearFrom').onchange = applyYearRange;
+document.getElementById('yearTo').onchange = applyYearRange;
+// 帮助函数：按年份定位（夹取到合法索引）
+function setYearIndexSafe(y){
+    const idx = yearList.indexOf(y);
+    if(idx >= 0) setYearIndex(idx);
+}
 
 // ---------- 导出（改为弹出菜单：当月 / 全年 / 当前筛选CSV / Markdown） ----------
 document.getElementById('exportBtn').onclick = openExport;
@@ -9856,7 +9933,7 @@ function downloadText(filename, text){
     URL.revokeObjectURL(url);
 }
 function buildExportRows(){
-    // 当前筛选下的全量事件（含分类）
+    // 当前筛选下的全量事件（含分类与年份范围）
     return softFilter(historyData.slice())
         .sort((a,b)=> a.year-b.year || a.month-b.month || a.day-b.day);
 }
@@ -9865,10 +9942,11 @@ function openExport(){
     const content = document.getElementById('modalContent');
     title.textContent = "导出事件清单";
     content.innerHTML = "";
+    const rangeTxt = (yearFrom!=null || yearTo!=null) ? `（年份范围：${yearFrom||'起'}–${yearTo||'今'}）` : '';
     const catTxt = {all:'全部',party:'中共相关',kmt:'其他力量',soft:'科技·文教',political:'重大政治'}[catFilter] || '全部';
     const note = document.createElement('p');
     note.style.cssText = "color:#888;font-size:13px;margin-bottom:12px;";
-    note.textContent = `当前筛选：${catTxt} · 搜索「${searchKey||'无'}」`;
+    note.textContent = `当前筛选：${catTxt} ${rangeTxt} · 搜索「${searchKey||'无'}」`;
     content.appendChild(note);
 
     const opts = [
@@ -9916,7 +9994,7 @@ function exportCsv(){
 }
 function exportMarkdown(){
     let text = `# 星火日历 · 事件清单\n\n`;
-    text += `> 筛选：${({all:'全部',party:'中共相关',kmt:'其他力量',soft:'科技·文教',political:'重大政治'}[catFilter]||'全部')}\n\n`;
+    text += `> 筛选：${({all:'全部',party:'中共相关',kmt:'其他力量',soft:'科技·文教',political:'重大政治'}[catFilter]||'全部')} · 年份范围：${yearFrom||'起'}–${yearTo||'今'}\n\n`;
     const rows = buildExportRows();
     let curYear = null;
     rows.forEach(e=>{

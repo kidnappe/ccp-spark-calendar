@@ -16,6 +16,7 @@ __pycache__/
 # ===== 临时 / 备份 / 可再生的中间产物 =====
 *.bak
 *.bak_*
+*.bak-*
 index.html.bak_*
 CAUSAL_INFERRED_reconstructed.json
 
