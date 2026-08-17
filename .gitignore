@@ -20,6 +20,16 @@ __pycache__/
 index.html.bak_*
 CAUSAL_INFERRED_reconstructed.json
 
+# 页面历史备份目录
+html-backups/
+
+# 根目录扫描中间产物（正式报告在 scripts/clean_ocr_report.md）
+/scan_ocr_report.md
+
+# Python 虚拟环境
+.venv/
+venv/
+
 # ===== 系统 / 编辑器 =====
 .DS_Store
 Thumbs.db
