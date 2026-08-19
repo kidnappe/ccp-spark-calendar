@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>星火日历 · 中共党史大事记</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect x='8' y='8' width='112' height='112' rx='24' fill='%23A32D2D'/%3E%3Crect x='28' y='30' width='72' height='74' rx='12' fill='%23FFFFFF'/%3E%3Crect x='28' y='30' width='72' height='20' rx='12' fill='%23B22222'/%3E%3Crect x='28' y='40' width='72' height='10' fill='%23B22222'/%3E%3Ccircle cx='44' cy='40' r='3.5' fill='%23FFFFFF'/%3E%3Ccircle cx='84' cy='40' r='3.5' fill='%23FFFFFF'/%3E%3Cpolygon points='64,50 67.53,61.15 79.22,61.06 69.71,67.85 73.4,78.94 64,72 54.6,78.94 58.29,67.85 48.78,61.06 60.47,61.15' fill='%23D9A441'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-calendar-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-calendar-16.png">
+    <link rel="apple-touch-icon" href="icons/icon-calendar-180.png">
     <style>
         * {
             margin: 0;
@@ -41,6 +45,9 @@
             margin-bottom: 12px;
             font-size: 28px;
         }
+        /* 页头 Logo：图标 + 标题水平居中 */
+        .site-title { display:flex; align-items:center; justify-content:center; gap:8px; }
+        .site-logo { width:26px; height:26px; flex:none; }
         /* 工具栏：两行，搜索在上、年份在下，彼此隔离 */
         .toolbar {
             display: flex;
@@ -1305,7 +1312,7 @@
 <body>
 <div class="container">
     <button id="themeToggle" class="theme-fab" aria-label="切换日间 / 夜间模式" title="切换日间 / 夜间模式"></button>
-    <h1>星火日历</h1>
+    <h1 class="site-title"><img class="site-logo" src="icons/icon-calendar.svg" alt="星火日历" width="26" height="26">星火日历</h1>
     <div class="mode-switch">
         <button id="modeCalendar" class="mode-btn active">日历模式</button>
         <button id="modeTimeline" class="mode-btn">时间轴模式</button>
