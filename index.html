@@ -967,7 +967,8 @@
         .stat-row .yr { width: 46px; font-size: 12px; color: #777; text-align: right; flex: 0 0 auto; }
         .stat-bar-wrap { flex: 1; background: #f3f3f3; border-radius: 4px; overflow: hidden; }
         .stat-bar { display: flex; height: 16px; border-radius: 4px; overflow: hidden; }
-        .stat-bar .seg { display: block; height: 100%; min-width: 0; }
+        .stat-bar .seg { display: block; height: 100%; min-width: 0; cursor: pointer; }
+        .stat-bar .seg:hover { filter: brightness(1.12); }
         .seg-party { background: linear-gradient(90deg,#d9534f,#b22222); }
         .seg-soft  { background: linear-gradient(90deg,#e3c766,#c9a227); }
         .seg-kmt   { background: linear-gradient(90deg,#5dade2,#1a5276); }
@@ -2375,7 +2376,8 @@ const historyData = [
   "desc": "1942年5月毛泽东《在延安文艺座谈会上的讲话》发表，指明文艺为工农兵服务的方向。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "在整风运动中，党中央于1942年5月召开延安文艺座谈会。毛泽东在讲话中强调:“为什么人的问题，是一个根本的问题，原则的问题。"
+  "ocrDesc": "在整风运动中，党中央于1942年5月召开延安文艺座谈会。毛泽东在讲话中强调:“为什么人的问题，是一个根本的问题，原则的问题。",
+  "soft": true
  },
  {
   "month": 9,
@@ -3238,7 +3240,8 @@ const historyData = [
   "desc": "1964年10月16日中国第一颗原子弹爆炸成功，打破核垄断，国防实力大幅提升。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "1964年10月区和16日，我国成功爆炸二全第一颗原子弹，有力打“国下和As破了大国的核芋断和核，，二论诈，提高了我国的国20际地位。导弹和人造卫星的研制也取得突破性7进展。"
+  "ocrDesc": "1964年10月区和16日，我国成功爆炸二全第一颗原子弹，有力打“国下和As破了大国的核芋断和核，，二论诈，提高了我国的国20际地位。导弹和人造卫星的研制也取得突破性7进展。",
+  "soft": true
  },
  {
   "month": 12,
@@ -3257,7 +3260,8 @@ const historyData = [
   "title": "红旗渠总干渠通水",
   "desc": "1965年4月5日，河南林县红旗渠总干渠通水，结束了当地十年九旱的历史，被誉为“人工天河”。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 7,
@@ -3285,7 +3289,8 @@ const historyData = [
   "desc": "1965年9月17日，中国首次人工合成结晶牛胰岛素，在世界生命科学领域取得重大突破。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "基础科学研究方四面，1965年我国在国榴0际上首次人工合成牛胰。妈1964年10月16日，我国第一颗原子岛素结晶弹爆炸成功教育卫生事业成就可观。"
+  "ocrDesc": "基础科学研究方四面，1965年我国在国榴0际上首次人工合成牛胰。妈1964年10月16日，我国第一颗原子岛素结晶弹爆炸成功教育卫生事业成就可观。",
+  "soft": true
  },
  {
   "month": 11,
@@ -3351,7 +3356,8 @@ const historyData = [
   "title": "氢弹爆炸成功",
   "desc": "1967年6月17日，中国第一颗氢弹空爆试验成功，从原子弹到氢弹仅用两年八个月，标志着国防科技跃居世界前列。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 10,
@@ -3408,7 +3414,8 @@ const historyData = [
   "title": "首次地下核试验",
   "desc": "1969年9月23日，中国成功进行首次地下核试验。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 4,
@@ -3418,7 +3425,8 @@ const historyData = [
   "desc": "1970年4月24日中国第一颗人造地球卫星“东方红一号”发射成功，成为航天大国。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "1970年4月成功发射第一颗人造地球卫星“东方红一号”。我国第一颗返回式遥感人造地球卫星于1975年11月发射成功。"
+  "ocrDesc": "1970年4月成功发射第一颗人造地球卫星“东方红一号”。我国第一颗返回式遥感人造地球卫星于1975年11月发射成功。",
+  "soft": true
  },
  {
   "month": 8,
@@ -3660,7 +3668,8 @@ const historyData = [
   "title": "恢复高考",
   "desc": "1977年冬中断十年的高考恢复，570余万人报考，改变了无数青年命运。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 2,
@@ -3776,7 +3785,8 @@ const historyData = [
   "title": "洲际导弹发射成功",
   "desc": "1980年5月18日，中国向太平洋海域成功发射第一枚远程运载火箭（洲际导弹），战略武器达到新水平。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 8,
@@ -3815,7 +3825,8 @@ const historyData = [
   "title": "中国女排首夺世界冠军",
   "desc": "1981年11月16日，中国女排在日本大阪夺得第三届世界杯女子排球赛冠军，开启“五连冠”辉煌。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 1,
@@ -3874,7 +3885,8 @@ const historyData = [
   "desc": "1983年10月1日，邓小平为北京景山学校题词：“教育要面向现代化，面向世界，面向未来”。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "1983年10月，邓小平提出“教育要面向现代化，面向世界，面向未来”>，为我国教育改革和发展指明了方向。1985年5月，党中央作出关于教育体制改革的决定，提出教育体制改革的根本目的是提高民族素质，多出人才、出好人才。"
+  "ocrDesc": "1983年10月，邓小平提出“教育要面向现代化，面向世界，面向未来”>，为我国教育改革和发展指明了方向。1985年5月，党中央作出关于教育体制改革的决定，提出教育体制改革的根本目的是提高民族素质，多出人才、出好人才。",
+  "soft": true
  },
  {
   "month": 1,
@@ -3903,7 +3915,8 @@ const historyData = [
   "title": "奥运首金",
   "desc": "1984年7月许海峰在洛杉矶奥运会实现中国奥运金牌“零的突破”。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 9,
@@ -3972,7 +3985,8 @@ const historyData = [
   "desc": "1985年5月27日，中共中央作出《关于教育体制改革的决定》，提出普及九年义务教育和教育改革方向。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "1985年5月，党中央作出关于教育体制改革的决定，提出教育体制改革的根本目的是提高民族素质，多出人才、出好人才。教育体制改革激发了地方和社会办教育的积极性，九246年义务教育得到有计划分步骤实施，各级各类教育都得到发展，适应现代化建设需要的各类人才不断涌现。"
+  "ocrDesc": "1985年5月，党中央作出关于教育体制改革的决定，提出教育体制改革的根本目的是提高民族素质，多出人才、出好人才。教育体制改革激发了地方和社会办教育的积极性，九246年义务教育得到有计划分步骤实施，各级各类教育都得到发展，适应现代化建设需要的各类人才不断涌现。",
+  "soft": true
  },
  {
   "month": 9,
@@ -4233,7 +4247,8 @@ const historyData = [
   "title": "三峡工程开工",
   "desc": "1994年12月三峡水利枢纽工程正式开工，世界最大水利枢纽建设启动。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 1,
@@ -4484,7 +4499,8 @@ const historyData = [
   "title": "北京申奥成功",
   "desc": "2001年7月13日国际奥委会宣布北京获得2008年奥运会举办权。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 9,
@@ -4561,7 +4577,8 @@ const historyData = [
   "title": "西气东输开工",
   "desc": "2002年12月西气东输工程全线开工，优化能源结构与区域布局。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 3,
@@ -4609,7 +4626,8 @@ const historyData = [
   "desc": "2003年10月15日杨利伟乘神舟五号飞天，中国成为第三个独立掌握载人航天技术的国家。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "继2003年“神舟五号”飞船首次实现载人航天飞行，5年后“神舟七号”飞船航天员成功进行中国人的第一次太空漫步，实现了我国空间技术发展具有里程碑意义的重大跨越。2007年“录娥一号”首次完成绕月探测。"
+  "ocrDesc": "继2003年“神舟五号”飞船首次实现载人航天飞行，5年后“神舟七号”飞船航天员成功进行中国人的第一次太空漫步，实现了我国空间技术发展具有里程碑意义的重大跨越。2007年“录娥一号”首次完成绕月探测。",
+  "soft": true
  },
  {
   "month": 3,
@@ -4685,7 +4703,8 @@ const historyData = [
   "title": "神舟六号",
   "desc": "2005年10月神舟六号实现多人多天载人航天飞行。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 12,
@@ -4734,7 +4753,8 @@ const historyData = [
   "desc": "2006年7月1日青藏铁路全线通车，世界海拔最高、线路最长的高原铁路建成。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "2006年7月1日，全长1956公里的青藏铁路全线通车，结束了西藏不通铁路的历史，有力推动了雪域高原的跨越式发展和各族人民生活的改善，成为西藏经济社会发展的“输氧线\"。西部大开发战略的深入实施，使西部经济社会发展不断呈现新的局面。"
+  "ocrDesc": "2006年7月1日，全长1956公里的青藏铁路全线通车，结束了西藏不通铁路的历史，有力推动了雪域高原的跨越式发展和各族人民生活的改善，成为西藏经济社会发展的“输氧线\"。西部大开发战略的深入实施，使西部经济社会发展不断呈现新的局面。",
+  "soft": true
  },
  {
   "month": 10,
@@ -4773,7 +4793,8 @@ const historyData = [
   "desc": "2007年10月嫦娥一号发射成功，中国探月工程迈出重要一步。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "2007年“录娥一号”首次完成绕月探测。中华民族几千年来的飞天梦想终于变成了现实。"
+  "ocrDesc": "2007年“录娥一号”首次完成绕月探测。中华民族几千年来的飞天梦想终于变成了现实。",
+  "soft": true
  },
  {
   "month": 5,
@@ -4793,7 +4814,8 @@ const historyData = [
   "desc": "2008年8月8日北京奥运会开幕，中国以51金居金牌榜首位，展现大国风采。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "2008年8月8日至24日，第二十九届夏季奥运会在北京举行，随后举行第十三届残疾人奥运会。中国体育代表团在奥运会上居于金牌榜首位，在残奥会上居于金牌榜和奖牌榜首位，取得了运动成绩和精神文明双丰收。"
+  "ocrDesc": "2008年8月8日至24日，第二十九届夏季奥运会在北京举行，随后举行第十三届残疾人奥运会。中国体育代表团在奥运会上居于金牌榜首位，在残奥会上居于金牌榜和奖牌榜首位，取得了运动成绩和精神文明双丰收。",
+  "soft": true
  },
  {
   "month": 9,
@@ -4803,7 +4825,8 @@ const historyData = [
   "desc": "2008年9月神舟七号发射，翟志刚完成中国首次太空出舱活动。",
   "cat": "party",
   "source": "《中国共产党简史》+ 星火日历",
-  "ocrDesc": "让记加三ss到_aaeairae、因TS友2008年9月27日，执行“神舟七号”载人航天飞行出舱活动任务的航天员翟志刚在舱外挥舞中国国旗经济快速发展需要科技创新提供动力，同时又为科技进步提供了条件。继2005年提出建设创新型国家后，2012年中央进一步提出实施创新驱动发展战略。"
+  "ocrDesc": "让记加三ss到_aaeairae、因TS友2008年9月27日，执行“神舟七号”载人航天飞行出舱活动任务的航天员翟志刚在舱外挥舞中国国旗经济快速发展需要科技创新提供动力，同时又为科技进步提供了条件。继2005年提出建设创新型国家后，2012年中央进一步提出实施创新驱动发展战略。",
+  "soft": true
  },
  {
   "month": 10,
@@ -4889,7 +4912,8 @@ const historyData = [
   "title": "嫦娥二号",
   "desc": "2010年10月嫦娥二号发射，为探月二期工程先导。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 1,
@@ -4907,7 +4931,8 @@ const historyData = [
   "title": "天宫一号对接",
   "desc": "2011年9月天宫一号发射，11月与神舟八号成功实现自动交会对接。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 10,
@@ -4925,7 +4950,8 @@ const historyData = [
   "title": "神舟八号与天宫一号对接",
   "desc": "2011年11月1日，神舟八号飞船发射升空，并于11月3日与天宫一号目标飞行器成功实现交会对接。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 6,
@@ -4934,7 +4960,8 @@ const historyData = [
   "title": "神舟九号",
   "desc": "2012年6月神舟九号发射，刘洋成为中国首位飞天女航天员，实现手控交会对接。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 9,
@@ -4943,7 +4970,8 @@ const historyData = [
   "title": "辽宁舰入列",
   "desc": "2012年9月中国第一艘航空母舰“辽宁舰”交接入列。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 11,
@@ -5012,7 +5040,8 @@ const historyData = [
   "title": "神舟十号",
   "desc": "2013年6月神舟十号发射，首次开展太空授课。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 9,
@@ -5129,7 +5158,8 @@ const historyData = [
   "title": "北京获2022年冬奥会主办权",
   "desc": "2015年7月31日，国际奥委会宣布北京获得2022年第二十四届冬季奥林匹克运动会举办权。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 9,
@@ -5197,7 +5227,8 @@ const historyData = [
   "title": "神舟十一号",
   "desc": "2016年10月神舟十一号与天宫二号成功对接，航天员太空驻留33天。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 1,
@@ -5224,7 +5255,8 @@ const historyData = [
   "title": "C919大型客机首飞",
   "desc": "2017年5月5日，中国自主研制的C919大型客机首飞成功，标志民用航空工业取得重大突破。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 5,
@@ -5243,7 +5275,8 @@ const historyData = [
   "title": "首艘国产航母下水",
   "desc": "2017年6月中国第一艘国产航空母舰下水。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 10,
@@ -5479,7 +5512,8 @@ const historyData = [
   "title": "北京冬奥会",
   "desc": "2022年2月北京冬奥会开幕，成为首个“双奥之城”。",
   "cat": "party",
-  "source": "星火日历"
+  "source": "星火日历",
+  "soft": true
  },
  {
   "month": 10,
@@ -10241,6 +10275,51 @@ function expandStatCat(cat, label, sumEl){
     sumEl.after(panel);
 }
 
+// 统计图：点击某年份柱状图中的势力分段 → 展开该年该势力的事件清单
+function toggleYearSegList(year, cat, label, anchor){
+    const prev = document.getElementById('yearSegList');
+    if(prev){
+        if(prev.dataset.year == year && prev.dataset.cat == cat){ prev.remove(); return; }
+        prev.remove();
+    }
+    let l = historyData.filter(e => e.year === year);
+    if(cat === 'party') l = l.filter(e => e.cat !== 'kmt' && !e.soft);
+    else if(cat === 'soft') l = l.filter(e => e.cat !== 'kmt' && e.soft);
+    else if(cat === 'kmt') l = l.filter(e => e.cat === 'kmt');
+    l.sort((a,b)=> a.month-b.month || a.day-b.day);
+    const panel = document.createElement('div');
+    panel.id = 'yearSegList';
+    panel.dataset.year = year; panel.dataset.cat = cat;
+    panel.style.cssText = 'margin:14px 0 4px; border-top:1px dashed #ddd; padding-top:10px;';
+    const head = document.createElement('div');
+    head.style.cssText = 'font-size:13px;color:#b22222;font-weight:bold;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;';
+    const headTxt = document.createElement('span');
+    headTxt.textContent = `${year}年 · ${label} · 共 ${l.length} 个事件`;
+    const close = document.createElement('span');
+    close.textContent = '收起 ✕';
+    close.style.cssText = 'cursor:pointer;color:#999;font-weight:normal;font-size:12px;';
+    close.onclick = (ev)=>{ ev.stopPropagation(); panel.remove(); };
+    head.appendChild(headTxt); head.appendChild(close);
+    panel.appendChild(head);
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-direction:column;gap:6px;max-height:44vh;overflow:auto;';
+    if(l.length === 0){
+        const p = document.createElement('p'); p.style.cssText='color:#999;font-size:13px;'; p.textContent='暂无事件。';
+        wrap.appendChild(p);
+    }
+    l.forEach(e=>{
+        const row = document.createElement('div');
+        row.className = 'modal-event' + (e.cat==='kmt' ? ' kmt' : '');
+        row.style.cssText = 'cursor:pointer;';
+        row.innerHTML = `<strong>${e.year}年</strong> · ${e.month}月${e.day}日 ${e.title}`;
+        row.title = e.desc;
+        row.onclick = ()=> openModal(e.month, e.day, [e], ()=> openStats());
+        wrap.appendChild(row);
+    });
+    panel.appendChild(wrap);
+    anchor.after(panel);
+}
+
 // ---------- 统计可视化（按年份柱状图 + 分类概览） ----------
 function openStats(){
     const title = document.getElementById('modalTitle');
@@ -10306,9 +10385,12 @@ function openStats(){
         const wrap = document.createElement('div'); wrap.className='stat-bar-wrap';
         const bar = document.createElement('div'); bar.className='stat-bar';
         bar.style.width = (c / maxC * 100).toFixed(1) + '%';
-        const segP = document.createElement('span'); segP.className='seg seg-party'; segP.style.flexGrow = partyC; segP.title = '中共相关 ' + partyC;
-        const segS = document.createElement('span'); segS.className='seg seg-soft';  segS.style.flexGrow = softC;  segS.title = '科技·文教 ' + softC;
-        const segK = document.createElement('span'); segK.className='seg seg-kmt';   segK.style.flexGrow = kmtC;   segK.title = '其他力量 ' + kmtC;
+        const segP = document.createElement('span'); segP.className='seg seg-party'; segP.style.flexGrow = partyC; segP.title = '中共相关 ' + partyC + '（点击查看清单）';
+        const segS = document.createElement('span'); segS.className='seg seg-soft';  segS.style.flexGrow = softC;  segS.title = '科技·文教 ' + softC + '（点击查看清单）';
+        const segK = document.createElement('span'); segK.className='seg seg-kmt';   segK.style.flexGrow = kmtC;   segK.title = '其他力量 ' + kmtC + '（点击查看清单）';
+        segP.onclick = () => toggleYearSegList(y, 'party', '中共相关', chart);
+        segS.onclick = () => toggleYearSegList(y, 'soft', '科技·文教', chart);
+        segK.onclick = () => toggleYearSegList(y, 'kmt', '其他力量', chart);
         bar.appendChild(segP); bar.appendChild(segS); bar.appendChild(segK);
         wrap.appendChild(bar);
         const cnt = document.createElement('div'); cnt.className='cnt'; cnt.textContent = c;

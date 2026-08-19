@@ -28,7 +28,7 @@ def main():
         if e.get("ocrFlagged"):
             item["ocrFlagged"] = e["ocrFlagged"]
         # 史料详情面板字段：仅当存在（非空串/非空数组）时透传
-        for k in ("bg", "significance", "quotes", "figures", "srcCite", "furtherReading"):
+        for k in ("soft", "bg", "significance", "quotes", "figures", "srcCite", "furtherReading"):
             v = e.get(k)
             if v not in (None, "", [], {}):
                 item[k] = v
