@@ -42,6 +42,20 @@ def build_history(ev):
         }
         if e.get("source"):
             item["source"] = e["source"]
+        # 史料原文（ocrDesc）与核验标记（ocrVerified/ocrFlagged）：仅当存在时透传，
+        # 供详情弹窗「史料原文」区块使用；未核验事件不显示，避免脏数据上页面。
+        if e.get("ocrDesc"):
+            item["ocrDesc"] = e["ocrDesc"]
+        if e.get("ocrVerified"):
+            item["ocrVerified"] = e["ocrVerified"]
+        if e.get("ocrFlagged"):
+            item["ocrFlagged"] = e["ocrFlagged"]
+        # 史料详情面板字段（背景/历史意义/重要论述/相关人物/文献出处/延伸阅读）：
+        # 仅当存在（非空串/非空数组）时透传，供详情弹窗「史料详情」面板使用；空则不在页面出现。
+        for k in ("bg", "significance", "quotes", "figures", "srcCite", "furtherReading"):
+            v = e.get(k)
+            if v not in (None, "", [], {}):
+                item[k] = v
         out.append(item)
     return out
 

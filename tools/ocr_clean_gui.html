@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星火日历 · OCR 清洗 GUI（本地 7B · 无 Agent）</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --line:#e3e6eb;
+    --ink:#1f2329; --sub:#6b7280; --brand:#b91c1c; --brand2:#2563eb;
+    --ok:#15803d; --warn:#b45309; --bad:#b91c1c; --code:#f3f4f6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;font-size:14px}
+  .wrap{max-width:980px;margin:0 auto;padding:18px}
+  h1{font-size:19px;margin:0 0 2px}
+  h2{font-size:15px;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+  .sub{color:var(--sub);font-size:12.5px;margin:0 0 14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  label{display:block;font-size:12px;color:var(--sub);margin-bottom:3px}
+  input,select,textarea{width:100%;font:inherit;padding:7px 9px;border:1px solid var(--line);
+    border-radius:7px;background:#fff;color:var(--ink)}
+  textarea{resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  button{cursor:pointer;font:inherit;border:none;border-radius:7px;padding:8px 13px;font-weight:600}
+  .b-primary{background:var(--brand);color:#fff}
+  .b-blue{background:var(--brand2);color:#fff}
+  .b-ghost{background:#eef1f5;color:var(--ink)}
+  .b-ok{background:var(--ok);color:#fff}
+  .b-warn{background:var(--warn);color:#fff}
+  .b-bad{background:var(--bad);color:#fff}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:#eef1f5;color:var(--sub)}
+  .pill.clean{background:#fde8e8;color:var(--brand)}
+  .pill.fill{background:#e3effd;color:#1e40af}
+  .ev{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:8px;background:#fcfcfd}
+  .ev .meta{font-size:12px;color:var(--sub);margin-bottom:4px}
+  .ev .ttl{font-weight:700;font-size:14px}
+  .ev .ocr{white-space:pre-wrap;background:var(--code);border-radius:6px;padding:8px;margin-top:6px;font-size:12.5px}
+  .ev .empty{color:var(--bad);font-style:italic}
+  .field{margin-bottom:9px}
+  .field .lab{font-size:12px;color:var(--sub);margin-bottom:3px;display:flex;justify-content:space-between}
+  .chk{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink)}
+  .chk input{width:auto}
+  .log{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;white-space:pre-wrap;
+    background:#0f172a;color:#cbd5e1;border-radius:8px;padding:10px;max-height:200px;overflow:auto}
+  .hint{font-size:12px;color:var(--sub);background:#fff8eb;border:1px solid #fde68a;border-radius:8px;padding:9px 11px;margin-top:10px}
+  .hint code{background:#fef3c7;padding:1px 5px;border-radius:4px}
+  .prog{height:8px;background:#eef1f5;border-radius:999px;overflow:hidden;margin:6px 0}
+  .prog>i{display:block;height:100%;background:var(--brand2);width:0;transition:width .2s}
+  .muted{color:var(--sub);font-size:12px}
+  .ok{color:var(--ok)} .bad{color:var(--bad)} .warn{color:var(--warn)}
+  .hidden{display:none}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:720px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>星火日历 · OCR 清洗 GUI</h1>
+  <p class="sub">纯前端单文件 · 直接调本地 Ollama（无 Agent / 无工具 Schema / 无整篇文档）· num_ctx=3072 · 每次 1–3 条</p>
+
+  <!-- 设置 -->
+  <div class="card">
+    <h2>① 连接设置</h2>
+    <div class="grid">
+      <div><label>Ollama 地址</label><input id="base" value="http://localhost:11434"></div>
+      <div><label>模型名（与本地 ollama list 一致）</label><input id="model" value="qwen2.5:local7b"></div>
+      <div><label>num_ctx（上下文，固定 3072 防 OOM）</label><input id="numctx" value="3072" type="number"></div>
+      <div><label>num_predict（输出上限 token）</label><input id="numpred" value="2048" type="number"></div>
+      <div><label>每次条数（1–3，越大越快但越吃上下文）</label>
+        <select id="percall">
+          <option value="1" selected>1 条（最稳）</option>
+          <option value="2">2 条</option>
+          <option value="3">3 条</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <button class="b-ghost" id="testBtn">测试连接</button>
+      <span id="testMsg" class="muted"></span>
+    </div>
+    <div class="hint">
+      ⚠️ 若浏览器报 <code>CORS</code> / 连不上：请先停掉 Ollama，用 <code>OLLAMA_ORIGINS=*</code> 重启后再打开本页
+      （Windows：<code>set OLLAMA_ORIGINS=*</code> 后 <code>ollama serve</code>；并确保已 <code>ollama pull qwen2.5:local7b</code>）。
+      模型底层 Modelfile 建议含 <code>PARAMETER num_ctx 3072</code>。
+    </div>
+  </div>
+
+  <!-- 载入 -->
+  <div class="card">
+    <h2>② 载入批次文件</h2>
+    <div class="row">
+      <input id="file" type="file" accept=".json,application/json">
+      <select id="mode">
+        <option value="auto">模式：自动识别</option>
+        <option value="clean">清洗（修 ocrDesc 错字）</option>
+        <option value="fill">补缺（补写空 ocrDesc）</option>
+      </select>
+      <button class="b-primary" id="loadBtn">载入</button>
+    </div>
+    <p id="loadInfo" class="muted">选择 <code>.ocr_work/c02.json</code>（清洗）或 <code>f02.json</code>（补缺）等批次文件。</p>
+  </div>
+
+  <!-- 工作区 -->
+  <div class="card hidden" id="workCard">
+    <h2>③ 处理 <span id="modeTag" class="pill"></span> <span id="fileTag" class="pill"></span></h2>
+    <div class="prog"><i id="bar"></i></div>
+    <p class="muted">进度 <b id="curIdx">0</b> / <b id="tot">0</b> · 已采纳 <b id="doneCnt">0</b> 条 · 下载文件名 <code id="outName"></code></p>
+
+    <div id="events"></div>
+
+    <div class="row">
+      <button class="b-blue" id="callBtn">▶ 调用模型（本条）</button>
+      <button class="b-ok" id="acceptBtn">✓ 采纳并保存</button>
+      <button class="b-warn" id="flagBtn">⚑ 标记 flagged 并保存</button>
+      <button class="b-ghost" id="skipBtn">跳过本条</button>
+      <button class="b-ghost" id="prevBtn">← 上一条</button>
+    </div>
+    <div class="row">
+      <button class="b-primary" id="autoBtn">⏩ 自动跑完本批（无人值守）</button>
+      <button class="b-bad hidden" id="stopBtn">■ 停止</button>
+      <button class="b-ghost" id="resetBtn">重置本批进度</button>
+    </div>
+
+    <div class="two" style="margin-top:12px">
+      <div>
+        <div class="field"><div class="lab"><span id="mainLab">修正后文本</span></div>
+          <textarea id="mainText" rows="7" placeholder="模型返回的 corrected / filled 会填这里，可手改"></textarea></div>
+        <div class="field"><div class="lab"><span>来源 source（补缺用）</span></div>
+          <input id="srcText" placeholder="如：人民网、中国共产党新闻网"></div>
+        <div class="field"><div class="lab"><span>改动说明 note</span></div>
+          <input id="noteText" placeholder="改了什么 / 为何 flagged"></div>
+        <label class="chk"><input type="checkbox" id="flagChk"> 标记 flagged（不应用，交人工）</label>
+      </div>
+      <div>
+        <div class="field"><div class="lab"><span>模型原始返回</span></div>
+          <textarea id="rawOut" rows="7" readonly placeholder="点击「调用模型」后显示"></textarea></div>
+        <div class="field"><div class="lab"><span>发送给模型的提示词（供核查 token 占用）</span></div>
+          <textarea id="sentPrompt" rows="6" readonly placeholder=""></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 输出 -->
+  <div class="card hidden" id="outCard">
+    <h2>④ 导出结果</h2>
+    <p class="muted">把下载到的 <code id="outName2"></code> 放进 <code>.ocr_work/</code> 目录，之后跑
+      <code>python scripts/apply_ocr_results.py</code> 合并（flagged 自动跳过）。</p>
+    <div class="row">
+      <button class="b-primary" id="dlBtn">⬇ 下载结果 JSON</button>
+      <button class="b-ghost" id="copyBtn">复制 JSON</button>
+      <button class="b-ghost" id="viewBtn">查看已累积</button>
+    </div>
+    <textarea id="outView" rows="6" readonly placeholder="已累积的 items" style="margin-top:10px"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>运行日志</h2>
+    <div class="log" id="log">就绪。\n</div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const state = {
+  base:'http://localhost:11434', model:'qwen2.5:local7b', numCtx:3072, numPred:2048,
+  mode:'clean', perCall:1, events:[], out:[], idx:0, fileName:'', outName:'', running:false
+};
+
+/* ---------- 日志 ---------- */
+function log(msg, cls){
+  const el = $('log');
+  const t = new Date().toLocaleTimeString();
+  const line = document.createElement('div');
+  if(cls) line.className = cls;
+  line.textContent = `[${t}] ${msg}`;
+  el.appendChild(line); el.scrollTop = el.scrollHeight;
+}
+
+/* ---------- 精简系统提示词（约 200-300 token，绝不贴整篇文档） ---------- */
+const SYS = {
+  clean: `你是一名中共党史 OCR 文本校对员。任务：修正给定事件 ocrDesc 字段中的 OCR 识别错误，包括字形认错、乱码、数字/字母混入、人名地名史实错误。
+规则：
+1) 只改错误，不润色、不删减、不文学加工，仅替换错误处，其余原样保留。
+2) 乱码无法还原，或人名/数字/史实不确定时，corrected 留空且 flagged 设为 true，绝不臆造历史文本。
+3) 输出严格 JSON，不要任何解释文字。
+输出格式：{"items":[{"index":数字,"corrected":"修正后的完整 ocrDesc 文本（无错则原样返回）","note":"改动说明，无改动写空字符串","flagged":false}]}`,
+  fill: `你是一名中共党史资料编写员。任务：为给定事件补写 ocrDesc 字段（其原 ocrDesc 为空）。
+规则：
+1) 每条 150-400 字，客观书面语，包含时间、背景、经过、结果、意义，只写有据内容。
+2) 正文不含「据…/来源…」标注，来源写入 source 字段（权威出处，如 人民网、中国共产党新闻网、中央党史和文献研究院）。
+3) 检索不到或不确定时，filled 留空且 flagged 设为 true。
+4) 输出严格 JSON，不要解释文字。
+输出格式：{"items":[{"index":数字,"filled":"撰写文本","source":"来源","note":"说明","flagged":false}]}`
+};
+
+/* ---------- 拼接单条用户内容 ---------- */
+function buildUser(slice){
+  const lines = slice.map(e=>{
+    const date = `${e.year}-${e.month}-${e.day}`;
+    if(state.mode==='clean'){
+      return `事件 index=${e.index} | ${date} | ${e.title} | desc:${e.desc||''} | ocrDesc(待校对):${e.ocrDesc||''}`;
+    } else {
+      return `事件 index=${e.index} | ${date} | ${e.title} | desc:${e.desc||''} | ocrDesc:（空，需补写）`;
+    }
+  });
+  const head = state.mode==='clean'
+    ? '请校对以下事件的 ocrDesc（每次 1-3 条）：'
+    : '请为以下事件补写 ocrDesc（原 ocrDesc 为空）：';
+  return head + '\n' + lines.join('\n');
+}
+
+/* ---------- 调用模型 ---------- */
+async function callModel(slice){
+  const payload = {
+    model: state.model,
+    prompt: buildUser(slice),
+    system: SYS[state.mode],
+    format: 'json',
+    stream: false,
+    options: { num_ctx: state.numCtx, num_predict: state.numPred }
+  };
+  $('sentPrompt').value = `[SYSTEM]\n${SYS[state.mode]}\n\n[USER]\n${payload.prompt}`;
+  const url = state.base.replace(/\/+$/,'') + '/api/generate';
+  const r = await fetch(url, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+  if(!r.ok){ throw new Error('HTTP '+r.status+' '+r.statusText); }
+  const data = await r.json();
+  return data.response || '';
+}
+
+/* ---------- 鲁棒解析 JSON ---------- */
+function parseItems(text){
+  if(!text) throw new Error('模型返回为空');
+  let obj;
+  try { obj = JSON.parse(text); }
+  catch(_){
+    const s = text.indexOf('{'), e = text.lastIndexOf('}');
+    if(s<0||e<0) throw new Error('找不到 JSON 对象');
+    obj = JSON.parse(text.slice(s, e+1));
+  }
+  const items = obj.items || (Array.isArray(obj)? obj : null);
+  if(!items) throw new Error('返回缺少 items 数组');
+  return items;
+}
+
+/* ---------- 渲染当前事件 ---------- */
+function renderEvents(){
+  const slice = state.events.slice(state.idx, state.idx + state.perCall);
+  const box = $('events'); box.innerHTML='';
+  slice.forEach(e=>{
+    const div = document.createElement('div');
+    div.className='ev';
+    const ocr = (e.ocrDesc && e.ocrDesc.trim())
+      ? `<div class="ocr">${escapeHtml(e.ocrDesc)}</div>`
+      : `<div class="ocr empty">（ocrDesc 为空，需补写）</div>`;
+    div.innerHTML = `<div class="meta">index=${e.index} · ${e.year}-${e.month}-${e.day} · <span class="ttl">${escapeHtml(e.title)}</span></div>
+      <div class="muted">${escapeHtml(e.desc||'')}</div>${ocr}`;
+    box.appendChild(div);
+  });
+  updateProgress();
+  // 清空结果框
+  $('mainText').value=''; $('srcText').value=''; $('noteText').value='';
+  $('flagChk').checked=false; $('rawOut').value='';
+}
+function escapeHtml(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+function updateProgress(){
+  $('curIdx').textContent = state.idx+1>state.events.length?state.events.length:state.idx+1;
+  $('tot').textContent = state.events.length;
+  $('doneCnt').textContent = state.out.length;
+  const pct = state.events.length? Math.round(state.idx/state.events.length*100):0;
+  $('bar').style.width = pct+'%';
+}
+
+/* ---------- 采纳 / 标记 ---------- */
+function saveCurrent(flaggedOverride){
+  const slice = state.events.slice(state.idx, state.idx + state.perCall);
+  if(slice.length===0) return;
+  const flagged = flaggedOverride!==undefined ? flaggedOverride : $('flagChk').checked;
+  slice.forEach(e=>{
+    let item = { index:e.index };
+    if(state.mode==='clean'){
+      item.corrected = $('mainText').value.trim();
+      item.note = $('noteText').value.trim();
+      item.flagged = flagged;
+    } else {
+      item.filled = $('mainText').value.trim();
+      item.source = $('srcText').value.trim();
+      item.note = $('noteText').value.trim();
+      item.flagged = flagged;
+    }
+    state.out.push(item);
+  });
+  persist();
+  log(`已保存 index ${slice.map(e=>e.index).join(',')}（flagged=${flagged}）`, flagged?'warn':'ok');
+  advance();
+}
+function advance(){
+  state.idx = Math.min(state.idx + state.perCall, state.events.length);
+  if(state.idx>=state.events.length){
+    log('本批已处理完。可下载结果。','ok');
+    $('callBtn').disabled = $('acceptBtn').disabled = $('flagBtn').disabled = $('skipBtn').disabled = true;
+  }
+  renderEvents();
+}
+
+/* ---------- 单条调用 ---------- */
+$('callBtn').onclick = async ()=>{
+  const slice = state.events.slice(state.idx, state.idx + state.perCall);
+  if(!slice.length) return;
+  $('callBtn').disabled = true; $('rawOut').value='调用中…';
+  try{
+    const raw = await callModel(slice);
+    $('rawOut').value = raw;
+    const items = parseItems(raw);
+    // 取第一条填回界面
+    const it = items[0]||{};
+    $('mainText').value = it.corrected!==undefined? it.corrected : (it.filled!==undefined? it.filled : '');
+    $('srcText').value = it.source||'';
+    $('noteText').value = it.note||'';
+    $('flagChk').checked = !!it.flagged;
+    log(`模型返回 ${items.length} 条 item`,'ok');
+  }catch(err){
+    $('rawOut').value = '错误：'+err.message;
+    log('调用失败：'+err.message,'bad');
+  }finally{ $('callBtn').disabled = state.idx>=state.events.length; }
+};
+
+/* ---------- 按钮 ---------- */
+$('acceptBtn').onclick = ()=> saveCurrent(false);
+$('flagBtn').onclick   = ()=> saveCurrent(true);
+$('skipBtn').onclick   = ()=>{ log(`跳过 index ${state.events.slice(state.idx,state.idx+state.perCall).map(e=>e.index).join(',')}`); advance(); };
+$('prevBtn').onclick   = ()=>{ state.idx=Math.max(0,state.idx-state.perCall); renderEvents(); };
+$('resetBtn').onclick  = ()=>{ if(confirm('清空本批已采纳结果并回到开头？')){ state.out=[]; state.idx=0; persist(); renderEvents(); log('已重置本批进度'); } };
+
+/* ---------- 自动跑完 ---------- */
+$('autoBtn').onclick = async ()=>{
+  if(state.running) return;
+  state.running = true;
+  $('autoBtn').classList.add('hidden'); $('stopBtn').classList.remove('hidden');
+  log('开始自动跑批（每批 '+state.perCall+' 条，无人值守）…');
+  try{
+    while(state.idx < state.events.length && state.running){
+      const slice = state.events.slice(state.idx, state.idx + state.perCall);
+      try{
+        const raw = await callModel(slice);
+        const items = parseItems(raw);
+        slice.forEach((e,i)=>{
+          const it = items[i]||{};
+          let item = { index:e.index };
+          if(state.mode==='clean'){ item.corrected=it.corrected||''; item.note=it.note||''; item.flagged=!!it.flagged; }
+          else { item.filled=it.filled||''; item.source=it.source||''; item.note=it.note||''; item.flagged=!!it.flagged; }
+          state.out.push(item);
+        });
+        log(`自动处理 index ${slice.map(e=>e.index).join(',')} 完成`,'ok');
+      }catch(err){
+        log('自动处理失败（本条留空，已跳过）：'+err.message,'bad');
+      }
+      state.idx = Math.min(state.idx + state.perCall, state.events.length);
+      persist(); updateProgress();
+      await new Promise(r=>setTimeout(r, 150));
+    }
+    if(state.idx>=state.events.length) log('✅ 本批自动跑完，可下载结果。','ok');
+  }finally{
+    state.running=false;
+    $('autoBtn').classList.remove('hidden'); $('stopBtn').classList.add('hidden');
+    renderEvents();
+  }
+};
+$('stopBtn').onclick = ()=>{ state.running=false; log('已请求停止自动跑批'); };
+
+/* ---------- 测试连接 ---------- */
+$('testBtn').onclick = async ()=>{
+  const url = $('base').value.replace(/\/+$/,'') + '/api/tags';
+  $('testMsg').textContent='连接中…';
+  try{
+    const r = await fetch(url);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d = await r.json();
+    const names = (d.models||[]).map(m=>m.name).join(', ');
+    $('testMsg').innerHTML = '<span class="ok">已连上 Ollama ✓</span> 模型：'+names;
+    log('连接成功，可用模型：'+names,'ok');
+  }catch(err){
+    $('testMsg').innerHTML = '<span class="bad">失败：'+err.message+'</span>（检查 OLLAMA_ORIGINS / ollama serve）';
+    log('连接失败：'+err.message,'bad');
+  }
+};
+
+/* ---------- 载入文件 ---------- */
+$('loadBtn').onclick = ()=>{
+  const f = $('file').files[0];
+  if(!f){ alert('请先选择批次 JSON 文件'); return; }
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    try{
+      let data = JSON.parse(reader.result);
+      let arr = Array.isArray(data)? data : (data.events || data.items || null);
+      if(!arr) throw new Error('文件不是事件数组（需 [ {...}, {...} ]）');
+      arr = arr.filter(x=>x && typeof x.index==='number');
+      if(!arr.length) throw new Error('未找到带 index 的事件');
+      state.events = arr;
+      state.fileName = f.name.replace(/\.json$/i,'');
+      // 模式识别
+      const m = $('mode').value;
+      let mode = m;
+      if(m==='auto'){
+        mode = (arr[0].ocrDesc && String(arr[0].ocrDesc).trim()==='') ? 'fill' : 'clean';
+      }
+      state.mode = mode;
+      state.out = []; state.idx = 0;
+      state.outName = (mode==='clean'?'clean_':'fill_') + state.fileName + '.json';
+      // 还原进度
+      const saved = loadProgress();
+      if(saved){ state.out = saved.out||[]; state.idx = saved.idx||0; log('已恢复本批上次进度'); }
+      // UI
+      $('modeTag').textContent = mode==='clean'?'清洗':'补缺';
+      $('modeTag').className = 'pill '+(mode==='clean'?'clean':'fill');
+      $('fileTag').textContent = f.name;
+      $('outName').textContent = state.outName;
+      $('outName2').textContent = state.outName;
+      $('mainLab').textContent = mode==='clean'?'修正后文本 corrected':'补写文本 filled';
+      $('workCard').classList.remove('hidden');
+      $('outCard').classList.remove('hidden');
+      $('callBtn').disabled=$('acceptBtn').disabled=$('flagBtn').disabled=$('skipBtn').disabled=false;
+      renderEvents();
+      log(`已载入 ${arr.length} 条（模式：${mode==='clean'?'清洗':'补缺'}，输出 ${state.outName}）`,'ok');
+    }catch(err){ alert('载入失败：'+err.message); log('载入失败：'+err.message,'bad'); }
+  };
+  reader.readAsText(f, 'utf-8');
+};
+
+/* ---------- 导出 ---------- */
+$('dlBtn').onclick = ()=>{
+  const blob = new Blob([JSON.stringify({items:state.out}, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = state.outName; a.click();
+  URL.revokeObjectURL(a.href);
+  log('已下载 '+state.outName+'（'+state.out.length+' 条）','ok');
+};
+$('copyBtn').onclick = ()=>{ navigator.clipboard.writeText(JSON.stringify({items:state.out},null,2)).then(()=>log('已复制 JSON 到剪贴板')); };
+$('viewBtn').onclick = ()=>{ $('outView').value = JSON.stringify({items:state.out}, null, 2); };
+
+/* ---------- 进度持久化（localStorage） ---------- */
+function persist(){
+  try{ localStorage.setItem('ocrgui_'+state.fileName, JSON.stringify({idx:state.idx, out:state.out, mode:state.mode})); }catch(_){}
+}
+function loadProgress(){
+  try{ const s = localStorage.getItem('ocrgui_'+state.fileName); return s?JSON.parse(s):null; }catch(_){ return null; }
+}
+
+/* 初始化读取设置 */
+$('base').onchange = e=>state.base=e.target.value;
+$('model').onchange = e=>state.model=e.target.value;
+$('numctx').onchange = e=>state.numCtx=parseInt(e.target.value)||3072;
+$('numpred').onchange = e=>state.numPred=parseInt(e.target.value)||2048;
+$('percall').onchange = e=>state.perCall=parseInt(e.target.value)||1;
+log('提示：先点「测试连接」确认 Ollama 可达，再载入批次文件。');
+</script>
+</body>
+</html>
