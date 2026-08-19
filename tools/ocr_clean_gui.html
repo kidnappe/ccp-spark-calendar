@@ -48,6 +48,8 @@
     background:#0f172a;color:#cbd5e1;border-radius:8px;padding:10px;max-height:200px;overflow:auto}
   .hint{font-size:12px;color:var(--sub);background:#fff8eb;border:1px solid #fde68a;border-radius:8px;padding:9px 11px;margin-top:10px}
   .hint code{background:#fef3c7;padding:1px 5px;border-radius:4px}
+  .file-warn{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px}
+  .file-warn code{background:#fee2e2;padding:1px 5px;border-radius:4px}
   .prog{height:8px;background:#eef1f5;border-radius:999px;overflow:hidden;margin:6px 0}
   .prog>i{display:block;height:100%;background:var(--brand2);width:0;transition:width .2s}
   .muted{color:var(--sub);font-size:12px}
@@ -59,6 +61,11 @@
 </head>
 <body>
 <div class="wrap">
+  <div class="file-warn hidden" id="fileWarn">
+    ⚠️ 当前以 <b>file://</b> 方式打开，浏览器会因 CORS 连不上本地模型。请改用启动器：<b>双击项目根目录的
+    <code>start_ocr_gui.bat</code></b>（自动拉起本地服务并打开本页）；或手动执行
+    <code>python -m http.server 8000</code> 后访问 <code>http://localhost:8000/tools/ocr_clean_gui.html</code>。
+  </div>
   <h1>星火日历 · OCR 清洗 GUI</h1>
   <p class="sub">纯前端单文件 · 直接调本地 Ollama（无 Agent / 无工具 Schema / 无整篇文档）· num_ctx=3072 · 每次 1–3 条</p>
 
@@ -83,9 +90,14 @@
       <span id="testMsg" class="muted"></span>
     </div>
     <div class="hint">
-      ⚠️ 若浏览器报 <code>CORS</code> / 连不上：请先停掉 Ollama，用 <code>OLLAMA_ORIGINS=*</code> 重启后再打开本页
-      （Windows：<code>set OLLAMA_ORIGINS=*</code> 后 <code>ollama serve</code>；并确保已 <code>ollama pull qwen2.5:local7b</code>）。
-      模型底层 Modelfile 建议含 <code>PARAMETER num_ctx 3072</code>。
+      🔌 连不上（CORS / Failed to fetch）？两种解法任选其一：<br>
+      · <b>方案A（改 Ollama 配置）</b>：先完全退出 Ollama，再设置环境变量后重启 <code>ollama serve</code>。
+      PowerShell：<code>setx OLLAMA_ORIGINS "*"</code>（永久）；CMD：<code>set OLLAMA_ORIGINS=*</code>（当前会话）。<br>
+      · <b>方案B（不改配置，推荐）</b>：在项目根目录执行 <code>python -m http.server 8000</code>，
+      再用浏览器打开 <code>http://localhost:8000/tools/ocr_clean_gui.html</code> —— 页面与 Ollama 同源（localhost），
+      无需 OLLAMA_ORIGINS 也能连通。<br>
+      · <b>模型名</b>须与 <code>ollama list</code> 输出一致（默认 <code>qwen2.5:local7b</code>）。
+      可先点「测试连接」，它会列出本机所有模型名供对照。
     </div>
   </div>
 
@@ -165,6 +177,7 @@
 
 <script>
 const $ = id => document.getElementById(id);
+if(location.protocol === 'file:'){ $('fileWarn').classList.remove('hidden'); }
 const state = {
   base:'http://localhost:11434', model:'qwen2.5:local7b', numCtx:3072, numPred:2048,
   mode:'clean', perCall:1, events:[], out:[], idx:0, fileName:'', outName:'', running:false
@@ -387,8 +400,8 @@ $('testBtn').onclick = async ()=>{
     $('testMsg').innerHTML = '<span class="ok">已连上 Ollama ✓</span> 模型：'+names;
     log('连接成功，可用模型：'+names,'ok');
   }catch(err){
-    $('testMsg').innerHTML = '<span class="bad">失败：'+err.message+'</span>（检查 OLLAMA_ORIGINS / ollama serve）';
-    log('连接失败：'+err.message,'bad');
+    $('testMsg').innerHTML = '<span class="bad">失败：'+err.message+'</span>（Failed to fetch = CORS 或 Ollama 未启动：方案A 设 OLLAMA_ORIGINS，或方案B 用 localhost 打开本页）';
+    log('连接失败：'+err.message+'（CORS/未启动/地址错 → 见上方提示两种方案）','bad');
   }
 };
 

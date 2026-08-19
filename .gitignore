@@ -45,3 +45,6 @@ Thumbs.db
 # OCR 进度 / 质检脚本生成的报告（可重新生成）
 scripts/ocr_status.md
 scripts/qc_ocr_shortlist.md
+
+# 设计稿 / 原型（页面功能已落地后不再进仓库）
+mockup_*.html
