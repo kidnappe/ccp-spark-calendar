@@ -32,9 +32,10 @@
             font-family: "Microsoft YaHei", SimSun, sans-serif;
         }
         body {
-            background-color: #f7f7f7;
-            color: #222;
+            background-color: #f0e9d8; /* 宣纸底色 */
+            color: #2b2b28;
             padding: 20px;
+            font-family: "Songti SC", "SimSun", "STSong", "Noto Serif SC", serif;
         }
         .container {
             position: relative;
@@ -42,26 +43,45 @@
             max-width: 1760px;
             margin: 0 auto;
         }
-        /* 日夜切换：固定在页面左上角的悬浮圆钮（太阳/月亮 SVG，不用 emoji） */
+        /* 左上角固定徽标：图标 + 星火日历（样式同双线报头字标，fixed 悬浮，不可交互）
+           尺寸用 clamp 流式缩放：随视口平滑放大/缩小，适配不同屏幕 */
+        .brand-fab {
+            position: fixed; top: clamp(12px, 2vw, 22px); left: clamp(14px, 2vw, 24px); z-index: 55;
+            display: inline-flex; align-items: center; gap: clamp(7px, 1vw, 12px);
+            text-decoration: none; cursor: default; user-select: none;
+            pointer-events: none;   /* 不可交互 */
+        }
+        .brand-fab img {
+            width: clamp(22px, 3vw, 36px); height: clamp(22px, 3vw, 36px);
+            flex: none;
+        }
+        .brand-fab .bf-text {
+            font-size: clamp(19px, 2.6vw, 30px); font-weight: bold; color: #8b1a1a;
+            letter-spacing: clamp(3px, 0.6vw, 6px); font-family: "Songti SC", "SimSun", "STSong", serif;
+            line-height: 1;
+        }
+        [data-theme="dark"] .brand-fab .bf-text { color: #e57373; }
+        [data-theme="dark"] .brand-fab img { opacity: .92; }
+        /* 日夜切换：移到右上角悬浮圆钮（太阳/月亮 SVG，不用 emoji） */
         .theme-fab {
-            position: absolute; top: 12px; left: 12px; z-index: 55;
-            width: 42px; height: 42px; border-radius: 50%;
-            border: 1px solid #ddd; background: #fff; color: #b22222;
+            position: fixed; top: 12px; right: 14px; left: auto; z-index: 55;
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid #c8bd9f; background: #faf6ea; color: #8b1a1a;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+            cursor: pointer; box-shadow: 0 2px 8px rgba(90,70,40,0.18);
             touch-action: manipulation; transition: background .15s, transform .1s;
         }
-        .theme-fab:hover { background: #fbeeee; }
+        .theme-fab:hover { background: #efe7d2; }
         .theme-fab:active { transform: scale(.92); }
-        [data-theme="dark"] .theme-fab { background: #2a2a2a; border-color: #444; color: #e57373; }
-        [data-theme="dark"] .theme-fab:hover { background: #3a2a2a; }
+        [data-theme="dark"] .theme-fab { background: #2b2822; border-color: #4a4334; color: #e57373; }
+        [data-theme="dark"] .theme-fab:hover { background: #2e2a22; }
         h1 {
             text-align: center;
             color: #b22222;
             margin-bottom: 12px;
             font-size: 28px;
         }
-        /* 页头 Logo：图标 + 标题水平居中 */
+        /* 页头 Logo：图标 + 标题水平居中（图标已移入日历报头，此处保留样式备用） */
         .site-title { display:flex; align-items:center; justify-content:center; gap:8px; }
         .site-logo { width:26px; height:26px; flex:none; }
         /* 工具栏：两行，搜索在上、年份在下，彼此隔离 */
@@ -80,21 +100,26 @@
             align-items: center;
             position: relative;
         }
-        .toolbar input, .toolbar button {
+        .toolbar input, .toolbar button, .toolbar select {
             padding: 8px 12px;
             font-size: 14px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
+            border-radius: 5px;
+            border: 1px solid #c8bd9f;   /* 宣纸描边 */
         }
         /* 搜索框可伸缩，按钮自动换行，避免窄屏（手机端）横向溢出 */
-        .toolbar input { flex: 1 1 180px; min-width: 0; }
+        .toolbar input { flex: 1 1 180px; min-width: 0; background:#fdfaf2; color:#2b2b28; }
+        .toolbar input::placeholder { color:#a89a78; }
+        .toolbar input:focus { outline:none; border-color:#b22222; }
         .toolbar button { flex: 0 0 auto; }
+        /* 工具栏按钮：报刊「铅字小钮」——纸底细边墨字，悬浮转朱砂印章 */
         .toolbar button {
-            background: #b22222;
-            color: #fff;
-            border: none;
+            background: #faf6ea;
+            color: #5a4a33;
+            border: 1px solid #c8bd9f;
             cursor: pointer;
+            transition: background .15s, color .15s, border-color .15s;
         }
+        .toolbar button:hover { background:#b22222; color:#fff; border-color:#b22222; }
         #searchInput { min-width: 240px; }
         /* 更多菜单（U2：收敛次要按钮） */
         #moreBtn::after { content: " ▾"; font-size: 11px; }
@@ -102,21 +127,21 @@
             position: absolute; top: calc(100% + 6px); right: 0; z-index: 60;
             display: none; flex-direction: column; gap: 2px;
             min-width: 190px; padding: 6px;
-            background: #fff; border: 1px solid #e3d6d6; border-radius: 10px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            background: #faf6ea; border: 1px solid #c8bd9f; border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(90,70,40,0.18);
         }
         .more-menu.show { display: flex; }
         .more-menu button {
             flex: 0 0 auto; width: 100%; text-align: left;
-            background: transparent !important; color: #333 !important;
+            background: transparent !important; color: #4a4030 !important;
             border: 1px solid transparent !important; box-shadow: none !important;
-            border-radius: 8px; padding: 9px 12px !important;
+            border-radius: 6px; padding: 9px 12px !important;
             font-size: 13px; cursor: pointer; white-space: nowrap;
         }
-        .more-menu button:hover { background: #f6eeee !important; }
-        [data-theme="dark"] .more-menu { background: #2a2a2a; border-color: #444; }
-        [data-theme="dark"] .more-menu button { color: #e0e0e0 !important; }
-        [data-theme="dark"] .more-menu button:hover { background: #3a3a3a !important; }
+        .more-menu button:hover { background: #efe7d2 !important; color:#8b1a1a !important; }
+        [data-theme="dark"] .more-menu { background: #232019; border-color: #3a362c; }
+        [data-theme="dark"] .more-menu button { color: #cdc5b0 !important; }
+        [data-theme="dark"] .more-menu button:hover { background: #2e2a22 !important; color:#e57373 !important; }
 
         /* 年份选择器（点击年份弹出年份列表） */
         .year-select {
@@ -125,44 +150,46 @@
             align-items: center;
             gap: 8px;
         }
-        .ylabel { font-size: 13px; color: #666; }
-        /* 提升特异性以压过 .toolbar button（修复悬浮文字不可读） */
-        .toolbar .year-nav {
+        .ylabel { font-size: 13px; color: #8a7d5f; letter-spacing: 1px; }
+        /* 报头内年份切换：无框线（仅文字/箭头），悬浮变朱砂 */
+        .cal-masthead .year-nav {
             width: 30px; height: 30px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            background: #f4f4f4;
-            color: #b22222;
+            border: none;
+            background: transparent;
+            color: #8b1a1a;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             line-height: 1;
+            transition: color .15s;
         }
-        .toolbar .year-nav:hover { background: #ffecec; color: #b22222; }
-        .toolbar .year-label {
+        .cal-masthead .year-nav:hover { color: #d44a3a; background: transparent; }
+        .cal-masthead .year-label {
             min-width: 96px;
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
-            color: #b22222;
+            color: #8b1a1a;
             cursor: pointer;
             user-select: none;
-            background: #fff;
-            border: 1px solid #e0c0c0;
-            border-radius: 6px;
-            padding: 5px 8px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 4px 8px;
+            font-family: "Songti SC", "SimSun", "STSong", serif;
+            transition: color .15s;
         }
-        .toolbar .year-label:hover { background: #fff5f5; color: #b22222; }
+        .cal-masthead .year-label:hover { color: #d44a3a; background: transparent; }
         .year-label .caret { font-size: 12px; }
         .year-dropdown {
             position: absolute;
             top: 115%;
             left: 50%;
             transform: translateX(-50%);
-            background: #fff;
-            border: 1px solid #ccc;
+            background: #faf6ea;
+            border: 1px solid #c8bd9f;
             border-radius: 8px;
-            box-shadow: 0 6px 16px #00000030;
+            box-shadow: 0 6px 16px rgba(90,70,40,0.22);
             padding: 6px;
             z-index: 50;
             display: none;
@@ -177,21 +204,39 @@
             position: relative;
             padding: 6px 4px;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
-            color: #333;
+            color: #4a4030;
         }
-        .year-option:hover { background: #ffecec; color: #b22222; }
-        .year-option.sel { background: #b22222; color: #fff; }
+        .year-option:hover { background: #efe7d2; color: #8b1a1a; }
+        .year-option.sel { background: #8b1a1a; color: #faf6ea; }
 
         .hint {
             text-align: center;
-            color: #888;
+            color: #8a7d5f;
             font-size: 12px;
             margin: 2px 0 6px;
             line-height: 1.6;
+            letter-spacing: 1px;
         }
+        /* 革命报刊报头：双线红条分隔，左侧年份切换、右侧年份跨度（刊头惯例） */
+        .cal-masthead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 720px;
+            margin: 0 auto 12px;
+            padding: 0 4px 10px;
+            border-bottom: 3px double #8b1a1a;
+        }
+        .cal-sub {
+            font-size: 12px;
+            color: #8a7d5f;
+            letter-spacing: 2px;
+        }
+        [data-theme="dark"] .cal-masthead { border-color: #b0483e; }
+        [data-theme="dark"] .cal-sub { color: #9a8f75; }
         /* 图例色块：红=中共、蓝=其他力量（国民党/国民政府等） */
         .hint .lg { font-size: 11px; margin: 0 2px 0 8px; }
         .hint .lg-party { color: #b22222; }
@@ -209,40 +254,61 @@
             gap: 16px;
         }
         .month-sidebar {
-            width: 140px;
-            background: #fff;
-            border-radius: 8px;
-            padding: 12px;
+            width: 128px;
+            background: #faf6ea;
+            border: 1px solid #d6c9a8;
+            border-radius: 6px;
+            padding: 12px 10px;
             height: fit-content;
-            box-shadow: 0 1px 4px #00000020;
+        }
+        /* 卷期导航标题：报刊目录风分隔线 */
+        .month-sidebar::before {
+            content: "卷期导航";
+            display: block;
+            font-size: 12px;
+            color: #8a7d5f;
+            letter-spacing: 4px;
+            border-bottom: 1px solid #b8a87f;
+            padding: 0 2px 7px;
+            margin: 0 2px 8px;
         }
         .month-btn {
             position: relative;
-            display: block;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             width: 100%;
-            padding: 10px 8px;
-            margin: 4px 0;
+            padding: 7px 10px;
+            margin: 3px 0;
             border: none;
-            background: #eee;
-            border-radius: 6px;
+            background: transparent;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 15px;
-            color: #333;
-            text-align: center;
+            font-size: 14px;
+            font-family: inherit;
+            color: #4a4030;
+            text-align: left;
             transition: 0.15s;
         }
-        /* 选中月份：用中性深灰高亮，与"红=中共/蓝=其他力量"的主题色明确区分 */
+        .month-btn:hover { background: #efe7d2; }
+        .month-btn .m-year {
+            font-size: 11px;
+            color: #a89a78;
+            letter-spacing: 0;
+        }
+        .month-btn.active .m-year { color: rgba(250,246,234,.85); }
+        /* 选中月份：朱砂红高亮，与"红=中共/蓝=其他力量"的主题色区分明确 */
         .month-btn.active {
-            background: #3a3a3a !important;
-            color: #fff !important;
-            box-shadow: 0 0 0 2px #888;
+            background: #8b1a1a !important;
+            color: #faf6ea !important;
+            box-shadow: 0 0 0 1px #c9a962;
         }
         /* 数量角标：默认左上角小红字；年份选择器里改为右上角小角标，避免挤压年份文字 */
         .count-badge {
             position: absolute;
-            top: 2px;
-            left: 4px;
-            background: #fff;
+            top: 1px;
+            left: 2px;
+            background: #faf6ea;
             color: #b22222;
             border: 1px solid #e0c0c0;
             border-radius: 9px;
@@ -253,6 +319,7 @@
             min-width: 13px;
             text-align: center;
         }
+        .month-btn.active .count-badge { background: #8b1a1a; color: #faf6ea; border-color: #d99a8a; }
         /* 年份选项里的角标：缩到右上角，绝不影响年份居中显示 */
         .year-option .count-badge {
             left: auto;
@@ -265,10 +332,10 @@
         }
         .calendar-box {
             flex: 1;
-            background: #ffffff;
-            border-radius: 10px;
+            background: #fdfaf2;           /* 宣纸白 */
+            border: 1px solid #d6c9a8;
+            border-radius: 8px;
             padding: 16px;
-            box-shadow: 0 1px 6px #00000018;
         }
         .week-title {
             display: grid;
@@ -277,41 +344,90 @@
         }
         .week-title div {
             text-align: center;
-            padding: 8px;
+            padding: 6px 0;
             font-weight: bold;
-            color: #666;
+            font-size: 13px;
+            color: #8a7d5f;
+            letter-spacing: 2px;
         }
+        .week-title div:last-child { color: #b22222; }
         .date-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 6px;
         }
+        /* 档案格：米白纸面 + 顶部 3px 分类色条 + 细描边 */
         .day-cell {
             min-height: 130px;
-            border: 1px solid #e5e5e5;
-            border-radius: 6px;
-            padding: 8px;
+            background: #fdfaf2;
+            border: 1px solid #e0d0ae;
+            border-top: 3px solid #c9a962;  /* 默认金条（有事件） */
+            border-radius: 5px;
+            padding: 7px 9px;
             position: relative;
             cursor: pointer;
-            transition: 0.2s;
-            background: #ffffff;
+            transition: 0.15s;
         }
         .day-cell:hover {
             border-color: #b22222;
-            box-shadow: 0 0 0 2px rgba(178,34,34,0.15);
+            box-shadow: 0 0 0 2px rgba(178,34,34,0.12);
         }
+        /* 空日：版式网格风 —— 淡虚线框 + 淡灰日期 + 右上角星火点 */
+        .empty-day {
+            background: transparent !important;
+            opacity: 1;
+            cursor: default;
+            box-shadow: none;
+            border: 1px dashed #d8c9a2;
+            border-top: 1px dashed #d8c9a2;
+            border-radius: 5px;
+        }
+        .empty-day::after {
+            content: "";
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(139,26,26,0.35);
+        }
+        .empty-day:hover { border-color: #d8c9a2; box-shadow: none; }
+        .empty-day .day-num { color: #c0b28f; }
+        /* 本月空日（有日期数字、无事件）：与占位空日同风格，仅保留淡墨日期 */
+        .day-cell.no-event {
+            background: transparent !important;
+            border: 1px dashed #d8c9a2;
+            border-top: 1px dashed #d8c9a2;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .day-cell.no-event:hover { border-color: #b22222; box-shadow: 0 0 0 2px rgba(178,34,34,0.1); }
+        .day-cell.no-event::after {
+            content: "";
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(139,26,26,0.35);
+        }
+        .day-cell.no-event .day-num { color: #c0b28f; }
+        .day-cell.no-event:hover .day-num { color: #8b1a1a; }
         .day-num {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             color: #8b1a1a;
         }
+        /* 事件条：报刊摘录式，分类色左边条 */
         .event-item {
             font-size: 12px;
-            line-height: 1.45;
-            color: #222;
+            line-height: 1.5;
+            color: #33302a;
             margin-bottom: 4px;
-            border-left: 2px solid #b22222;
+            border-left: 3px solid #b22222;
             padding-left: 6px;
             white-space: nowrap;
             overflow: hidden;
@@ -325,14 +441,6 @@
             100% { box-shadow: 0 0 0 0 rgba(245,166,35,0); }
         }
         .event-item.hit-flash, .tl-card.hit-flash { animation: hitFlash 1s ease-in-out 3; border-radius: 4px; }
-        .empty-day {
-            background: #fafafa !important;
-            opacity: 0.5;
-            cursor: default;
-            box-shadow: none;
-            border-color: #eee;
-        }
-        .empty-day .day-num { color: #bbb; }
         /* 弹窗样式 */
         .modal-mask {
             position: fixed;
@@ -349,13 +457,16 @@
             max-height: 88vh;
             display: flex;
             flex-direction: column;
-            background: #fff;
+            background: #fdfaf2;              /* 宣纸米白 */
+            border: 1px solid #c8bd9f;
             border-radius: 10px;
             padding: 20px;
             box-sizing: border-box;
+            box-shadow: 0 8px 30px rgba(90,70,40,0.25);
+            font-family: "Songti SC", "SimSun", "STSong", serif;
         }
         .modal-box h3 {
-            color: #b22222;
+            color: #8b1a1a;
             margin-bottom: 12px;
             padding-right: 36px;
             flex-shrink: 0;
@@ -368,32 +479,35 @@
         }
         .modal-event {
             padding: 8px 0 8px 10px;
-            border-bottom: 1px solid #eee;
-            border-left: 3px solid #b22222;
+            border-bottom: 1px solid #e3d9c4;
+            border-left: 3px solid #8b1a1a;
         }
         /* 弹窗中属于其他力量（蓝色主题）的事件，左侧改蓝 */
         .modal-event.kmt { border-left-color:#1a5276; }
         .close-modal {
             margin-top: 14px;
             padding: 8px 16px;
-            background: #b22222;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
+            background: #8b1a1a;
+            color: #faf6ea;
+            border: 1px solid #8b1a1a;
+            border-radius: 5px;
             cursor: pointer;
             flex-shrink: 0;
             align-self: flex-end;
+            font-family: inherit;
+            transition: 0.15s;
         }
+        .close-modal:hover { background: #9e1d1d; }
         .modal-x {
             position: absolute;
             top: 10px; right: 12px;
             width: 30px; height: 30px;
             display: flex; align-items: center; justify-content: center;
             border: none; background: transparent;
-            color: #888; font-size: 22px; line-height: 1;
+            color: #8a7d5f; font-size: 22px; line-height: 1;
             border-radius: 50%; cursor: pointer; z-index: 3;
         }
-        .modal-x:hover { background: #f0f0f0; color: #333; }
+        .modal-x:hover { background: #efe7d2; color: #8b1a1a; }
         /* 关于弹窗：更新日志 + 操作指南 */
         .about-tabs { display:flex; gap:8px; margin-bottom:14px; border-bottom:1px solid #eee; }
         .about-tab { flex:1; padding:8px 0; background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; font-size:14px; color:#666; }
@@ -422,28 +536,28 @@
         }
 
         /* ===================== 模式切换（标题处入口） ===================== */
-        .mode-switch { text-align:center; margin-bottom:14px; }
+        .mode-switch { text-align:center; margin-bottom:14px; padding-top:6px; }
         .mode-btn {
             padding:7px 18px; font-size:14px;
-            border:1px solid #b22222; background:#fff; color:#b22222;
-            cursor:pointer; transition:0.15s;
+            border:1px solid #c8bd9f; background:#faf6ea; color:#8b1a1a;
+            cursor:pointer; transition:0.15s; font-family:inherit; letter-spacing:1px;
         }
-        .mode-btn:first-child { border-radius:6px 0 0 6px; }
-        .mode-btn:last-child { border-radius:0 6px 6px 0; border-left:none; }
-        .mode-btn:hover { background:#fff5f5; }
-        .mode-btn.active { background:#b22222; color:#fff; }
+        .mode-btn:first-child { border-radius:5px 0 0 5px; }
+        .mode-btn:last-child { border-radius:0 5px 5px 0; border-left:none; }
+        .mode-btn:hover { background:#efe7d2; }
+        .mode-btn.active { background:#8b1a1a; color:#faf6ea; }
         .mode-btn.active:hover { background:#9e1d1d; }
 
         /* 参考文献入口按钮（emoji 风格，区别于操作按钮） */
         .ref-btn {
-            background:#fff !important; color:#b22222 !important;
-            border:1px solid #b22222 !important; font-size:14px;
+            background:#faf6ea !important; color:#8b1a1a !important;
+            border:1px solid #c8bd9f !important; font-size:14px;
         }
-        .ref-btn:hover { background:#fff5f5 !important; }
-        .ref-btn.active { background:#b22222 !important; color:#fff !important; }
+        .ref-btn:hover { background:#efe7d2 !important; }
+        .ref-btn.active { background:#8b1a1a !important; color:#faf6ea !important; }
         [data-theme="dark"] .ref-btn.active { background:#e57373 !important; color:#1a1a1a !important; }
 
-        /* ===================== 时间轴模式 ===================== */
+        /* ===================== 时间轴模式（方案A·宣纸卷轴·朱砂点墨） ===================== */
         .tl-view { display:none; }
         .tl-view.show {
             display:block;
@@ -454,12 +568,17 @@
         }
         .tl-toolbar {
             text-align:center; margin-bottom:10px; font-size:13px;
+            padding: 8px 12px;
+            background: #faf6ea;
+            border-top: 3px double #8b1a1a;
+            border-bottom: 1px solid #d8cfbc;
+            font-family: "Songti SC", "SimSun", "STSong", serif;
         }
-        .tl-toolbar .tl-hint { color:#888; }
+        .tl-toolbar .tl-hint { color:#8a7d5f; letter-spacing:1px; }
         .tl-scroll {
             overflow-x:auto; overflow-y:hidden;
-            border:1px solid #e5e5e5; border-radius:10px;
-            background:#fff; position:relative;
+            border:1px solid #d6c9a8; border-radius:8px;
+            background:#fdfaf2; position:relative;
             cursor:grab; -webkit-overflow-scrolling:touch;
         }
         .tl-scroll.dragging { cursor:grabbing; }
@@ -468,94 +587,100 @@
             position:relative; display:inline-flex; align-items:stretch;
             min-width:100%; height:calc(100vh - 200px); min-height:560px;
             padding:0; /* 去掉两侧内边距，使左右说明面板触达时间轴容器边缘，充分利用空白 */
-            background-color:#fff;
+            background-color:#f6f0e3;
             background-image:
-                repeating-linear-gradient(to right, transparent 0 59px, rgba(163,45,45,0.05) 59px 60px),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Ccircle cx='3' cy='3' r='0.9' fill='%23E2DDD4'/%3E%3C/svg%3E");
+                repeating-linear-gradient(to right, transparent 0 59px, rgba(139,26,26,0.04) 59px 60px),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Ccircle cx='3' cy='3' r='0.9' fill='%23D8CFBC'/%3E%3C/svg%3E");
         }
+        /* 朱砂轴线：主线 + 淡色晕染 */
         .tl-axis {
             position:absolute; left:0; right:0; top:50%;
-            height:6px; transform:translateY(-3px);
-            background:linear-gradient(to right, #A32D2D 0%, #BA7517 100%);
-            box-shadow:0 -3px 0 #F7C1C1, 0 3px 0 #F7C1C1;
-            border-radius:3px;
+            height:3px; transform:translateY(-1.5px);
+            background:#8b1a1a;
+            box-shadow:0 -4px 0 rgba(139,26,26,0.10), 0 4px 0 rgba(139,26,26,0.10);
+            border-radius:2px;
         }
-        /* 时间轴两端书挡面板：引言 / 结语（C1） */
+        /* 时间轴两端书挡面板：引言 / 结语（宣纸卷轴签） */
         .tl-end-panel {
             position: relative;
             flex:0 0 260px; width:260px; align-self:center;
             min-height: 232px;
             padding:20px 18px 18px;
             box-sizing:border-box; overflow:hidden;
-            background:linear-gradient(135deg,#ffffff 0%,#fdf3f3 100%);
-            border:1px solid #f0d4d4; border-left:5px solid #b22222;
-            border-radius:12px;
-            box-shadow:0 4px 14px rgba(178,34,34,.08);
-            color:#555; font-size:13.5px; line-height:1.85;
+            background:#fdfaf2;
+            border:1px solid #d6c9a8; border-left:5px solid #8b1a1a;
+            border-radius:8px;
+            box-shadow:0 2px 10px rgba(90,70,40,0.12);
+            color:#5a4a33; font-size:13.5px; line-height:1.85;
+            font-family: "Songti SC", "SimSun", "STSong", serif;
         }
         .tl-end-panel .et {
             position:relative; z-index:1;
             display:inline-block;
-            background:#b22222; color:#fff;
+            background:#8b1a1a; color:#faf6ea;
             font-size:12px; font-weight:600; letter-spacing:3px;
-            padding:3px 12px; border-radius:20px; margin-bottom:14px;
+            padding:3px 12px; border-radius:2px; margin-bottom:14px;
+            box-shadow:0 0 0 1px #c9a962;
         }
         .tl-end-panel .tep-wm {
             position:absolute; right:10px; top:-12px;
             font-size:78px; font-weight:800; line-height:1;
-            color:rgba(178,34,34,.06); pointer-events:none; user-select:none;
+            color:rgba(139,26,26,0.07); pointer-events:none; user-select:none;
         }
         .tl-end-panel .tep-title {
             position:relative; z-index:1;
-            font-size:17px; font-weight:800; color:#8a1a1a;
+            font-size:17px; font-weight:800; color:#8b1a1a;
             letter-spacing:1px; line-height:1.5; margin-bottom:10px;
         }
         .tl-end-panel .tep-body { position:relative; z-index:1; }
         .tl-end-panel .tep-quote {
             position:relative; z-index:1;
             margin-top:12px; padding-top:10px;
-            border-top:1px dashed #e3c4c4;
-            font-size:12.5px; color:#9a3b3b; font-style:italic; text-align:right;
+            border-top:1px dashed #c8bd9f;
+            font-size:12.5px; color:#8b1a1a; font-style:italic; text-align:right;
         }
         [data-theme="dark"] .tl-end-panel {
-            background:linear-gradient(135deg,#232323 0%,#2a1d1d 100%);
-            border-color:#5a2e2e; border-left-color:#c0392b;
-            color:#c9c9c9; box-shadow:0 4px 14px rgba(0,0,0,.35);
+            background:#232019;
+            border-color:#3a362c; border-left-color:#c0392b;
+            color:#cdc5b0; box-shadow:0 2px 10px rgba(0,0,0,0.35);
         }
         [data-theme="dark"] .tl-end-panel .et { background:#c0392b; color:#fff; }
-        [data-theme="dark"] .tl-end-panel .tep-wm { color:rgba(229,115,115,.08); }
+        [data-theme="dark"] .tl-end-panel .tep-wm { color:rgba(229,115,115,0.08); }
         [data-theme="dark"] .tl-end-panel .tep-title { color:#e8a0a0; }
-        [data-theme="dark"] .tl-end-panel .tep-quote { color:#d98a8a; border-top-color:#4a3434; }
+        [data-theme="dark"] .tl-end-panel .tep-quote { color:#d98a8a; border-top-color:#4a4334; }
         .tl-item {
             position:relative; flex:0 0 230px; width:230px;
         }
+        /* 事件圆点：朱砂点墨（分类色） */
         .tl-dot {
             position:absolute; left:50%; top:50%;
             transform:translate(-50%,-50%);
             width:13px; height:13px; border-radius:50%;
-            background:#b22222; border:2px solid #fff;
-            box-shadow:0 0 0 1px #b22222; z-index:2;
+            background:#8b1a1a; border:2px solid #f6f0e3;
+            box-shadow:0 0 0 1px #8b1a1a; z-index:2;
         }
+        /* 事件卡片：米纸卷轴签（分类色左边条） */
         .tl-card {
             position:absolute; left:14px; right:14px;
             max-height:calc(50% - 68px); overflow:hidden;
-            background:#fff7f7; border:1px solid #f0d4d4;
-            border-left:3px solid #b22222;
-            border-radius:6px; padding:10px 12px; cursor:pointer;
-            box-shadow:0 1px 3px #00000018; z-index:3; transition:0.15s;
+            background:#fdfaf2; border:1px solid #d6c9a8;
+            border-left:3px solid #8b1a1a;
+            border-radius:4px; padding:10px 12px; cursor:pointer;
+            box-shadow:0 1px 3px rgba(90,70,40,0.10); z-index:3; transition:0.15s;
+            font-family: "Songti SC", "SimSun", "STSong", serif;
         }
-        .tl-card:hover { box-shadow:0 0 0 2px rgba(178,34,34,0.25); }
-        .tl-card .tl-date { color:#b22222; font-weight:bold; font-size:13px; }
-        .tl-card .tl-title { color:#222; margin-top:3px; font-size:14px; line-height:1.4; font-weight:bold; }
+        .tl-card:hover { box-shadow:0 0 0 2px rgba(178,34,34,0.18); }
+        .tl-card .tl-date { color:#8b1a1a; font-weight:bold; font-size:13px; letter-spacing:1px; }
+        .tl-card .tl-title { color:#2b2b28; margin-top:3px; font-size:14px; line-height:1.4; font-weight:bold; }
         .tl-card .tl-desc {
-            color:#666; margin-top:4px; font-size:12px; line-height:1.5;
+            color:#6e6450; margin-top:4px; font-size:12px; line-height:1.5;
             display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
         }
         /* 卡片靠轴线的边缘与轴线保持固定间隙（桌面端 56px，即原 28px 的两倍），由 bottom/top 定位保证上下对称 */
         .tl-item.up .tl-card { bottom:calc(50% + 56px); top:auto; }
         .tl-item.down .tl-card { top:calc(50% + 56px); bottom:auto; }
         .tl-link {
-            position:absolute; left:50%; width:2px; background:#e6c9c9;
+            position:absolute; left:50%; width:2px; background:#d8a09a;
             transform:translateX(-50%); z-index:1;
         }
         /* 连线固定短距：只从卡片靠轴线边缘连到轴上圆点，长度恒定，不受卡片长短影响 */
@@ -565,25 +690,39 @@
         .tl-item.kmt .tl-card { background:#eef4f8; border-color:#c5dbea; border-left-color:#1a5276; }
         .tl-item.kmt .tl-card .tl-date { color:#1a5276; }
         .tl-item.kmt .tl-dot { background:#1a5276; box-shadow:0 0 0 1px #1a5276; }
-        .tl-item.kmt .tl-link { background:#cde0ec; }
-        .tl-select { font-size:12px; padding:3px 8px; border-radius:12px; border:1px solid #c5dbea; background:#eef4f8; color:#0c447c; margin-left:6px; max-width:240px; }
+        .tl-item.kmt .tl-link { background:#9fbdd0; }
+        /* 金色主题：国家大事（科技/工程/外交等）——见下方独立区块定义 */
+        /* 历史时期下拉（宣纸风） */
+        .tl-select {
+            font-size:12px; padding:4px 10px; border-radius:14px;
+            border:1px solid #c8bd9f; background:#fdfaf2; color:#5a4a33;
+            margin-left:6px; max-width:240px; font-family:inherit; cursor:pointer;
+        }
+        .tl-select:hover { border-color:#8b1a1a; }
         .tl-track .tl-hide { display:none; }
-        .tl-item.tl-hl .tl-card { background:#fff; border-color:#b22222; }
+        .tl-item.tl-hl .tl-card { background:#fff; border-color:#8b1a1a; }
         .tl-item.tl-hl.kmt .tl-card { background:#fff; border-color:#1a5276; }
+        .tl-item.tl-hl.nation .tl-card { background:#fff; border-color:#b7791f; }
+        /* 年份分隔：竖排纸签 */
         .tl-year {
             position:relative; flex:0 0 60px; width:60px;
             display:flex; align-items:center; justify-content:center;
         }
         .tl-year::before {
             content:""; position:absolute; left:50%; top:0; bottom:0;
-            width:2px; background:#cde0ec; transform:translateX(-50%);
+            width:2px; background:#d8cfbc; transform:translateX(-50%);
         }
         .tl-year span {
-            writing-mode:vertical-rl; color:#1a5276; font-weight:bold;
-            font-size:15px; letter-spacing:3px; background:#eef4f8;
-            border-radius:6px; padding:10px 4px; z-index:2;
+            writing-mode:vertical-rl; color:#8b1a1a; font-weight:bold;
+            font-size:15px; letter-spacing:3px; background:#faf6ea;
+            border:1px solid #c8bd9f; border-radius:4px; padding:10px 4px; z-index:2;
         }
         @media (max-width: 768px){
+            /* 移动端：左上角徽标收窄为纯图标，避免遮挡工具栏；日夜按钮右上角保持 */
+            .brand-fab { padding: 5px 9px 5px 7px; }
+            .brand-fab .bf-text { display: none; }
+            .brand-fab img { width: 18px; height: 18px; }
+            .theme-fab { top: 10px; right: 10px; width: 38px; height: 38px; }
             .tl-track { height:calc(100vh - 190px); min-height:480px; }
             .tl-item { flex:0 0 170px; width:170px; }
             /* 移动端：卡片内边距与字号收敛，连线间隙加长到 44px（移动端，即原 22px 的两倍），保证窄卡片内文字完整不溢出 */
@@ -642,74 +781,98 @@
 
 
         /* ===================== 夜间模式 ===================== */
-        [data-theme="dark"] body { background:#161616; color:#e0e0e0; }
+        [data-theme="dark"] body { background:#1a1a17; color:#ddd8cd; }  /* 墨色宣纸 */
         [data-theme="dark"] h1 { color:#e57373; }
-        [data-theme="dark"] .hint { color:#9a9a9a; }
+        [data-theme="dark"] .hint { color:#9a8f75; }
         [data-theme="dark"] .ylabel { color:#aaa; }
         [data-theme="dark"] #statusText { color:#e57373; }
 
         [data-theme="dark"] .month-sidebar,
         [data-theme="dark"] .calendar-box,
         [data-theme="dark"] .modal-box,
-        [data-theme="dark"] .year-dropdown { background:#242424; box-shadow:0 1px 6px #00000060; }
+        [data-theme="dark"] .year-dropdown { background:#232019; border:1px solid #3a362c; box-shadow:0 1px 6px #00000060; }
 
-        [data-theme="dark"] .toolbar input { background:#242424; color:#e0e0e0; border-color:#444; }
-        [data-theme="dark"] .toolbar button { background:#b22222; color:#fff; }
-        [data-theme="dark"] .ref-btn { background:#242424 !important; color:#e57373 !important; border-color:#b22222 !important; }
-        [data-theme="dark"] .ref-btn:hover { background:#2e2424 !important; }
+        [data-theme="dark"] .toolbar input { background:#232019; color:#e0e0e0; border-color:#4a4334; }
+        [data-theme="dark"] .toolbar input::placeholder { color:#6d6655; }
+        /* 暗色工具栏按钮：墨纸底 + 细边，悬浮转朱砂 */
+        [data-theme="dark"] .toolbar button { background:#2b2822; color:#cdc5b0; border-color:#4a4334; }
+        [data-theme="dark"] .toolbar button:hover { background:#b22222; color:#fff; border-color:#b22222; }
+        [data-theme="dark"] .cat-select { background:#2b2822; color:#cdc5b0; border-color:#4a4334; }
+        [data-theme="dark"] .ref-btn { background:#2b2822 !important; color:#e57373 !important; border-color:#4a4334 !important; }
+        [data-theme="dark"] .ref-btn:hover { background:#2e2a22 !important; }
 
-        [data-theme="dark"] .day-cell { background:#2a2a2a; border-color:#3a3a3a; color:#ddd; }
+        /* 暗色档案格：墨纸面 + 顶部色条保留分类色 */
+        [data-theme="dark"] .day-cell { background:#2b2822; border-color:#4a4334; color:#ddd8cd; border-top-color:#c9a962; }
         [data-theme="dark"] .day-cell:hover { border-color:#e57373; box-shadow:0 0 0 2px rgba(229,115,115,0.25); }
         [data-theme="dark"] .day-num { color:#e57373; }
         [data-theme="dark"] .event-item { color:#e0e0e0; border-left-color:#e57373; }
-        [data-theme="dark"] .empty-day { background:#1e1e1e !important; opacity:0.6; }
-        [data-theme="dark"] .empty-day .day-num { color:#666; }
+        /* 暗色空日：虚线框 + 星火点 + 淡墨日期 */
+        [data-theme="dark"] .empty-day { background:transparent !important; opacity:1; border-color:#3a362c; border-top-color:#3a362c; }
+        [data-theme="dark"] .empty-day::after { background:rgba(229,115,115,0.4); }
+        [data-theme="dark"] .empty-day .day-num { color:#5d5748; }
+        [data-theme="dark"] .day-cell.no-event { background:transparent !important; border-color:#3a362c; border-top-color:#3a362c; }
+        [data-theme="dark"] .day-cell.no-event::after { background:rgba(229,115,115,0.4); }
+        [data-theme="dark"] .day-cell.no-event .day-num { color:#5d5748; }
+        [data-theme="dark"] .day-cell.no-event:hover { border-color:#e57373; box-shadow:0 0 0 2px rgba(229,115,115,0.18); }
+        [data-theme="dark"] .day-cell.no-event:hover .day-num { color:#e57373; }
 
-        [data-theme="dark"] .month-btn { background:#333; color:#ddd; }
-        [data-theme="dark"] .month-btn.active { background:#6b6b6b !important; color:#fff !important; box-shadow:0 0 0 2px #999; }
+        [data-theme="dark"] .month-sidebar::before { color:#9a8f75; border-color:#4a4334; }
+        [data-theme="dark"] .month-btn { background:transparent; color:#cdc5b0; }
+        [data-theme="dark"] .month-btn:hover { background:#2e2a22; }
+        [data-theme="dark"] .month-btn::after { color:#6d6655; }
+        [data-theme="dark"] .month-btn.active { background:#b22222 !important; color:#fff !important; box-shadow:0 0 0 1px #c9a962; }
+        [data-theme="dark"] .month-btn.active::after { color:rgba(255,255,255,.8); }
 
-        [data-theme="dark"] .count-badge { background:#333; color:#e57373; border-color:#555; }
+        [data-theme="dark"] .count-badge { background:#2b2822; color:#e57373; border-color:#555; }
+        [data-theme="dark"] .month-btn.active .count-badge { background:#b22222; color:#fff; border-color:#d99a8a; }
+        [data-theme="dark"] .week-title div { color:#9a8f75; }
+        [data-theme="dark"] .week-title div:last-child { color:#e57373; }
 
-        [data-theme="dark"] .year-option { color:#ddd; }
-        [data-theme="dark"] .year-option:hover { background:#3a2a2a; color:#e57373; }
-        [data-theme="dark"] .year-option.sel { background:#b22222; color:#fff; }
+        [data-theme="dark"] .year-option { color:#cdc5b0; }
+        [data-theme="dark"] .year-option:hover { background:#2e2a22; color:#e57373; }
+        [data-theme="dark"] .year-option.sel { background:#8b1a1a; color:#faf6ea; }
 
-        [data-theme="dark"] .toolbar .year-label { background:#242424; border-color:#444; color:#e57373; }
-        [data-theme="dark"] .toolbar .year-label:hover { background:#2e2424; color:#e57373; }
-        [data-theme="dark"] .toolbar .year-nav { background:#2e2e2e; border-color:#444; color:#e57373; }
-        [data-theme="dark"] .toolbar .year-nav:hover { background:#3a2a2a; color:#e57373; }
+        /* 报头年份切换：暗色无框线 */
+        [data-theme="dark"] .cal-masthead .year-label { background:transparent; border:none; color:#e57373; }
+        [data-theme="dark"] .cal-masthead .year-label:hover { background:transparent; color:#e8a0a0; }
+        [data-theme="dark"] .cal-masthead .year-nav { background:transparent; border:none; color:#e57373; }
+        [data-theme="dark"] .cal-masthead .year-nav:hover { background:transparent; color:#e8a0a0; }
 
-        [data-theme="dark"] .modal-event { border-color:#3a3a3a; border-left-color:#e57373; }
+        [data-theme="dark"] .modal-event { border-color:#4a4334; border-left-color:#e57373; }
         [data-theme="dark"] .modal-event.kmt { border-left-color:#5dade2; }
-        [data-theme="dark"] .modal-box { color:#e0e0e0; }
-        [data-theme="dark"] .modal-x { color:#aaa; }
-        [data-theme="dark"] .modal-x:hover { background:#2e2e2e; color:#fff; }
+        [data-theme="dark"] .modal-box { color:#ddd8cd; }
+        [data-theme="dark"] .modal-x { color:#9a8f75; }
+        [data-theme="dark"] .modal-x:hover { background:#2e2a22; color:#e57373; }
         [data-theme="dark"] .modal-box h3 { color:#e57373; }
-        [data-theme="dark"] .close-modal { background:#b22222; color:#fff; }
+        [data-theme="dark"] .close-modal { background:#8b1a1a; color:#faf6ea; border-color:#8b1a1a; }
+        [data-theme="dark"] .close-modal:hover { background:#9e1d1d; }
 
-        [data-theme="dark"] .mode-btn { background:#242424; color:#e57373; border-color:#b22222; }
-        [data-theme="dark"] .mode-btn:hover { background:#2e2424; }
-        [data-theme="dark"] .mode-btn.active { background:#b22222; color:#fff; }
+        [data-theme="dark"] .mode-btn { background:#2b2822; color:#e57373; border-color:#4a4334; }
+        [data-theme="dark"] .mode-btn:hover { background:#2e2a22; }
+        [data-theme="dark"] .mode-btn.active { background:#8b1a1a; color:#faf6ea; }
         [data-theme="dark"] .mode-btn.active:hover { background:#9e1d1d; }
 
-        [data-theme="dark"] .tl-view .tl-toolbar .tl-hint { color:#9a9a9a; }
-        [data-theme="dark"] .tl-scroll { background:#1f1f1f; border-color:#3a3a3a; }
+        [data-theme="dark"] .tl-view .tl-toolbar .tl-hint { color:#9a8f75; }
+        [data-theme="dark"] .tl-toolbar { background:#232019; border-color:#3a362c; border-top-color:#b0483e; }
+        [data-theme="dark"] .tl-scroll { background:#1a1a17; border-color:#3a362c; }
         [data-theme="dark"] .tl-track {
-            background-color:#1f1f1f;
+            background-color:#1a1a17;
             background-image:
                 repeating-linear-gradient(to right, transparent 0 59px, rgba(229,115,115,0.05) 59px 60px),
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Ccircle cx='3' cy='3' r='0.9' fill='%233a3a3a'/%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Ccircle cx='3' cy='3' r='0.9' fill='%233a362c'/%3E%3C/svg%3E");
         }
-        [data-theme="dark"] .tl-axis { background:linear-gradient(to right, #e57373 0%, #d9a441 100%); box-shadow:0 -3px 0 #4a2a2a, 0 3px 0 #4a2a2a; border-radius:3px; }
-        [data-theme="dark"] .tl-card { background:#2a2222; border-color:#4a3434; border-left-color:#e57373; }
+        [data-theme="dark"] .tl-axis { background:#e57373; box-shadow:0 -4px 0 rgba(229,115,115,0.12), 0 4px 0 rgba(229,115,115,0.12); border-radius:2px; }
+        [data-theme="dark"] .tl-card { background:#2b2822; border-color:#4a4334; border-left-color:#e57373; }
         [data-theme="dark"] .tl-card .tl-date { color:#e57373; }
-        [data-theme="dark"] .tl-card .tl-title { color:#e0e0e0; }
-        [data-theme="dark"] .tl-card .tl-desc { color:#9a9a9a; }
+        [data-theme="dark"] .tl-card .tl-title { color:#ddd8cd; }
+        [data-theme="dark"] .tl-card .tl-desc { color:#9a8f75; }
         [data-theme="dark"] .tl-card:hover { box-shadow:0 0 0 2px rgba(229,115,115,0.3); }
-        [data-theme="dark"] .tl-dot { background:#e57373; border-color:#1f1f1f; box-shadow:0 0 0 1px #e57373; }
+        [data-theme="dark"] .tl-dot { background:#e57373; border-color:#1a1a17; box-shadow:0 0 0 1px #e57373; }
         [data-theme="dark"] .tl-link { background:#4a3a3a; }
-        [data-theme="dark"] .tl-year::before { background:#2a3a45; }
-        [data-theme="dark"] .tl-year span { background:#1f2b33; color:#7fb3d5; }
+        [data-theme="dark"] .tl-year::before { background:#3a362c; }
+        [data-theme="dark"] .tl-year span { background:#232019; color:#e57373; border-color:#4a4334; }
+        [data-theme="dark"] .tl-select { background:#2b2822; color:#cdc5b0; border-color:#4a4334; }
+        [data-theme="dark"] .tl-select:hover { border-color:#e57373; }
         /* 夜间模式：蓝色主题事件 */
         [data-theme="dark"] .tl-item.kmt .tl-card { background:#1f2b33; border-color:#2a3a45; border-left-color:#5dade2; }
         [data-theme="dark"] .tl-item.kmt .tl-card .tl-date { color:#5dade2; }
@@ -776,36 +939,37 @@
             max-width: 1500px;
             margin: 4px auto 0;
         }
-        /* 选中年份事件速览：默认缩小为右上角按钮，点击后再展开 */
+        /* 选中年份事件速览：默认缩小为右上角固定按钮（与左上徽标、主题钮呼应），点击后再展开 */
         .rail-toggle {
-            position: absolute;
-            top: 8px; right: 8px; z-index: 60;
-            cursor: pointer; border: none;
-            background: #b22222; color: #fff;
-            border-radius: 18px; padding: 7px 14px;
-            font-size: 13px; font-weight: bold;
-            box-shadow: 0 2px 8px #00000033;
+            position: fixed;
+            top: 12px; right: 58px; z-index: 60;
+            cursor: pointer; border: 1px solid #c8bd9f;
+            background: #faf6ea; color: #8b1a1a;
+            border-radius: 18px; padding: 8px 14px;
+            font-size: 13px; font-weight: bold; font-family: inherit;
+            box-shadow: 0 2px 8px rgba(90,70,40,0.18);
             display: flex; align-items: center; gap: 6px;
             transition: 0.15s;
         }
-        .rail-toggle:hover { background: #9a1d1d; }
+        .rail-toggle:hover { background: #efe7d2; }
         .rail-toggle .badge {
-            background: rgba(255,255,255,0.25); border-radius: 10px;
+            background: #b22222; color: #fff; border-radius: 10px;
             padding: 1px 7px; font-size: 12px; font-weight: bold;
         }
         .rail-toggle .chev { font-size: 10px; line-height: 1; }
         .rail-right {
-            position: absolute;
-            top: 52px;
+            position: fixed;
+            top: 54px;
             right: 8px;
             width: 320px;
             max-height: calc(100vh - 130px);
             z-index: 50;
             overflow: auto;
-            background: #fff;
+            background: #faf6ea;
+            border: 1px solid #c8bd9f;
             border-radius: 8px;
             padding: 14px;
-            box-shadow: 0 2px 12px #00000022;
+            box-shadow: 0 2px 12px rgba(90,70,40,0.22);
             display: none;
         }
         .rail-right.open { display: block; }
@@ -822,75 +986,114 @@
             box-shadow: none;
             margin-bottom: 0;
         }
-        .rail-h { color: #b22222; font-size: 15px; margin-bottom: 10px; }
+        .rail-h { color: #8b1a1a; font-size: 15px; margin-bottom: 10px; letter-spacing: 1px; }
         .rail-stats { display: flex; gap: 8px; margin-bottom: 12px; }
         .rail-stat {
-            flex: 1; text-align: center; background: #fbeeee;
-            border-radius: 6px; padding: 8px 2px;
+            flex: 1; text-align: center; background: #efe7d2;
+            border-radius: 5px; padding: 8px 2px;
         }
-        .rail-stat .n { font-size: 20px; font-weight: bold; color: #b22222; line-height: 1.2; }
-        .rail-stat .l { font-size: 11px; color: #888; }
-        .rail-stat.alt { background: #eef4f8; }
+        .rail-stat .n { font-size: 20px; font-weight: bold; color: #8b1a1a; line-height: 1.2; }
+        .rail-stat .l { font-size: 11px; color: #8a7d5f; }
+        .rail-stat.alt { background: #e3eaef; }
         .rail-stat.alt .n { color: #1a5276; }
         .rail-list { padding-right: 2px; }
         .rail-item {
-            padding: 8px 10px; border-left: 3px solid #b22222; background: #fff7f7;
+            padding: 8px 10px; border-left: 3px solid #8b1a1a; background: #fdfaf2;
             border-radius: 4px; margin-bottom: 6px; cursor: pointer; transition: 0.15s;
         }
         .rail-item:hover { box-shadow: 0 0 0 2px rgba(178,34,34,0.18); }
         .rail-item.kmt { border-left-color: #1a5276; background: #eef4f8; }
-        .rail-item .ri-date { font-size: 11px; color: #b22222; font-weight: bold; }
+        .rail-item .ri-date { font-size: 11px; color: #8b1a1a; font-weight: bold; }
         .rail-item.kmt .ri-date { color: #1a5276; }
-        .rail-item .ri-title { font-size: 13px; color: #222; margin-top: 2px; line-height: 1.4; }
+        .rail-item .ri-title { font-size: 13px; color: #2b2b28; margin-top: 2px; line-height: 1.4; }
         /* 窄屏适配：右上角按钮+面板保持固定，缩小避免遮挡主内容 */
         @media (max-width: 1100px){
-            .rail-right { width: 286px; top: 52px; right: 8px; padding: 12px; }
+            .rail-right { width: 286px; top: 54px; right: 8px; padding: 12px; }
             .rail-list { max-height: 62vh; }
         }
         @media (max-width: 700px){
-            .rail-toggle { padding: 6px 11px; font-size: 12px; }
-            .rail-right { width: min(86vw, 320px); top: 48px; right: 6px; max-height: calc(100vh - 112px); }
+            .rail-toggle { padding: 7px 11px; font-size: 12px; right: 52px; }
+            .rail-right { width: min(86vw, 320px); top: 50px; right: 6px; max-height: calc(100vh - 112px); }
             .rail-list { max-height: 58vh; }
         }
         /* 暗色模式适配 */
-        [data-theme="dark"] .rail-right { background: #232427; box-shadow: 0 2px 12px #00000066; }
-        [data-theme="dark"] .rail-toggle { background: #e57373; color: #1a1a1a; }
-        [data-theme="dark"] .rail-toggle:hover { background: #d96363; }
-        [data-theme="dark"] .rail-toggle .badge { background: rgba(0,0,0,0.2); }
+        [data-theme="dark"] .rail-toggle { background: #2b2822; border-color: #4a4334; color: #e57373; }
+        [data-theme="dark"] .rail-toggle:hover { background: #2e2a22; }
+        [data-theme="dark"] .rail-toggle .badge { background: #e57373; color: #1a1a1a; }
+        [data-theme="dark"] .rail-right { background: #232019; border-color: #3a362c; box-shadow: 0 2px 12px #00000066; }
         [data-theme="dark"] .rail-close { color: #e57373; }
         [data-theme="dark"] .rail-close:hover { color: #d96363; }
         [data-theme="dark"] .rail-h { color: #e57373; }
-        [data-theme="dark"] .rail-stat { background: #33282a; }
-        [data-theme="dark"] .rail-stat.alt { background: #233240; }
-        [data-theme="dark"] .rail-stat .l { color: #9a9a9a; }
-        [data-theme="dark"] .rail-item { background: #2a2325; }
+        [data-theme="dark"] .rail-stat { background: #2e2a22; }
+        [data-theme="dark"] .rail-stat.alt { background: #232e3a; }
+        [data-theme="dark"] .rail-stat .n { color: #e57373; }
+        [data-theme="dark"] .rail-stat.alt .n { color: #5dade2; }
+        [data-theme="dark"] .rail-stat .l { color: #9a8f75; }
+        [data-theme="dark"] .rail-item { background: #2b2822; }
         [data-theme="dark"] .rail-item.kmt { background: #1f2e3a; }
+        [data-theme="dark"] .rail-item .ri-date { color: #e57373; }
+        [data-theme="dark"] .rail-item.kmt .ri-date { color: #5dade2; }
+        [data-theme="dark"] .rail-item .ri-title { color: #ddd8cd; }
         [data-theme="dark"] .rail-item .ri-title { color: #ddd; }
 
         /* ===== 分类筛选下拉（原第三行 chips + 年份区间已收敛） ===== */
         .cat-select {
-            height: 34px; padding: 0 10px; border: 1px solid #e0c0c0; border-radius: 6px;
-            background: #fff; color: #b22222; font-size: 14px; cursor: pointer; outline: none;
+            height: 34px; padding: 0 10px; border: 1px solid #c8bd9f; border-radius: 5px;
+            background: #faf6ea; color: #5a4a33; font-size: 14px; cursor: pointer; outline: none;
+            font-family: inherit;
         }
         .cat-select:focus { border-color: #b22222; }
         .ghost-btn {
-            padding: 6px 12px; font-size: 13px; border-radius: 6px;
-            border: 1px solid #b22222; background: #fff; color: #b22222; cursor: pointer;
-            transition: 0.15s;
+            padding: 6px 12px; font-size: 13px; border-radius: 5px;
+            border: 1px solid #c8bd9f; background: #faf6ea; color: #8b1a1a; cursor: pointer;
+            transition: 0.15s; font-family: inherit;
         }
-        .ghost-btn:hover { background: #fff5f5; }
+        .ghost-btn:hover { background: #efe7d2; }
         .badge-count {
             display: inline-block; min-width: 16px; padding: 0 4px; font-size: 11px; line-height: 16px;
             text-align: center; background: #b22222; color: #fff; border-radius: 8px;
         }
         /* 暗色 */
         [data-theme="dark"] .cat-select { background: #242424; color: #e57373; border-color: #5a3a3a; }
-        [data-theme="dark"] .ghost-btn { background: #242424; color: #e57373; border-color: #b22222; }
-        [data-theme="dark"] .ghost-btn:hover { background: #2e2424; }
+        [data-theme="dark"] .ghost-btn { background: #2b2822; color: #e57373; border-color: #4a4334; }
+        [data-theme="dark"] .ghost-btn:hover { background: #2e2a22; }
         [data-theme="dark"] .badge-count { background: #e57373; color: #1a1a1a; }
 
         /* ===== 弹窗事件：收藏星标 + 来源 + 交叉关联 ===== */
         .modal-event { position: relative; }
+        /* D方案事件条目（套用到所有事件列表窗口）：分类色左边条 + 日期小字 + 标题 + 描述 */
+        .ev-entry {
+            display: flex; flex-direction: column; gap: 2px;
+            padding: 7px 10px 7px 10px;
+            border-left: 3px solid #8b1a1a;   /* 默认中共朱砂 */
+            background: #fdfaf2;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .ev-entry:hover { background: #f7efe0; box-shadow: 0 0 0 2px rgba(178,34,34,0.14); }
+        .ev-entry.kmt { border-left-color: #1a5276; background: #f0f5f8; }
+        .ev-entry.kmt:hover { background: #e4edf2; box-shadow: 0 0 0 2px rgba(26,82,118,0.14); }
+        .ev-entry.nation { border-left-color: #b7791f; background: #faf5e8; }
+        .ev-entry.nation:hover { background: #f3ead2; box-shadow: 0 0 0 2px rgba(183,121,31,0.16); }
+        .ev-entry .ee-date { font-size: 11px; color: #8b1a1a; font-weight: bold; letter-spacing: 1px; }
+        .ev-entry.kmt .ee-date { color: #1a5276; }
+        .ev-entry.nation .ee-date { color: #8b6f2f; }
+        .ev-entry .ee-title { font-size: 13px; font-weight: bold; color: #2b2b28; line-height: 1.4; }
+        .ev-entry .ee-desc {
+            font-size: 11px; color: #6e6450; line-height: 1.5;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        /* 弹窗/面板暗色适配 */
+        [data-theme="dark"] .ev-entry { background: #2b2822; }
+        [data-theme="dark"] .ev-entry:hover { background: #2e2a22; }
+        [data-theme="dark"] .ev-entry.kmt { background: #1f2b33; }
+        [data-theme="dark"] .ev-entry.kmt:hover { background: #24313b; }
+        [data-theme="dark"] .ev-entry.nation { background: #2a2416; }
+        [data-theme="dark"] .ev-entry.nation:hover { background: #322b1b; }
+        [data-theme="dark"] .ev-entry .ee-title { color: #ddd8cd; }
+        [data-theme="dark"] .ev-entry .ee-desc { color: #9a8f75; }
         .fav-star {
             position: absolute; top: 8px; right: 10px; cursor: pointer; font-size: 16px;
             color: #c9c9c9; user-select: none; transition: 0.15s; line-height: 1;
@@ -942,13 +1145,14 @@
             background: #fff; color: #b22222; border: 1px solid #e0b0b0; transition: 0.15s;
         }
         .causal-link-btn:hover { background: #fbeeee; }
-        /* 时间轴「因果脉络」工具栏按钮 */
+        /* 时间轴「因果脉络」工具栏按钮（宣纸风） */
         .tl-btn {
-            font-size: 12px; padding: 3px 12px; border-radius: 12px; cursor: pointer;
-            background: #fff; color: #b22222; border: 1px solid #e0b0b0; margin-left: 4px; transition: 0.15s;
+            font-size: 12px; padding: 4px 14px; border-radius: 14px; cursor: pointer;
+            background: #faf6ea; color: #8b1a1a; border: 1px solid #c8bd9f; margin-left: 4px; transition: 0.15s;
+            font-family: inherit;
         }
-        .tl-btn:hover { background: #fbeeee; }
-        .tl-btn.active { background: #b22222; color: #fff; border-color: #b22222; }
+        .tl-btn:hover { background: #efe7d2; }
+        .tl-btn.active { background: #8b1a1a; color: #faf6ea; border-color: #8b1a1a; }
         .tl-toolbar #tlCausalStatus { margin-left: 2px; }
         /* 时间轴因果高亮：相关事件描边/底色，根事件更强 */
         .tl-item.causal-hl .tl-card {
@@ -970,9 +1174,10 @@
         [data-theme="dark"] .causal-chip.kmt { background: #1f2e3a; color: #7fb3d5; border-color: #2a3a45; }
         [data-theme="dark"] .causal-link-btn { background: #2a2a2a; color: #e57373; border-color: #4a3434; }
         [data-theme="dark"] .causal-link-btn:hover { background: #3a2a2a; }
-        [data-theme="dark"] .tl-btn { background: #2a2a2a; color: #e57373; border-color: #4a3434; }
+        [data-theme="dark"] .tl-btn { background: #2b2822; color: #e57373; border-color: #4a4334; }
+        [data-theme="dark"] .tl-btn:hover { background: #2e2a22; }
         [data-theme="dark"] .tl-btn.active { background: #e57373; color: #1a1a1a; border-color: #e57373; }
-        [data-theme="dark"] .tl-select { background:#1f2e3a; color:#7fb3d5; border-color:#2a3a45; }
+        [data-theme="dark"] .tl-select { background:#2b2822; color:#cdc5b0; border-color:#4a4334; }
         [data-theme="dark"] .tl-track .tl-hide { display:none; }
         [data-theme="dark"] .tl-item.causal-hl .tl-card { background: #20302a; border-color: #3fae7a; border-left-color: #3fae7a; box-shadow: 0 0 0 2px rgba(63,174,122,0.3); }
         [data-theme="dark"] .tl-item.causal-hl .tl-dot { background: #3fae7a; box-shadow: 0 0 0 1px #3fae7a; }
@@ -1066,41 +1271,42 @@
         [data-theme="dark"] .export-opt .t { color: #e57373; }
         [data-theme="dark"] .export-opt .d { color: #9a9a9a; }
 
-    /* ===== 因果网络关系图 ===== */
-.cg-overlay { position: fixed; inset: 0; background: rgba(20,20,20,0.55); z-index: 60; display: flex; align-items: center; justify-content: center; }
+    /* ===== 因果网络关系图（宣纸风） ===== */
+.cg-overlay { position: fixed; inset: 0; background: rgba(60,50,30,0.5); z-index: 60; display: flex; align-items: center; justify-content: center; }
 .cg-overlay[hidden] { display: none; }
-.cg-panel { position: relative; width: min(98vw, 1800px); height: min(96vh, 1100px); background: #fff; border-radius: 14px; box-shadow: 0 12px 40px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; }
-.cg-head { display: flex; align-items: center; gap: 12px; padding: 10px 16px 10px 52px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
-.cg-title { font-size: 15px; font-weight: 500; color: #b22222; }
-.cg-root { font-size: 13px; color: #333; flex: 1; min-width: 200px; }
-.cg-root b { color: #b22222; }
-.cg-root-sub { color: #888; font-size: 12px; margin-left: 4px; }
+.cg-panel { position: relative; width: min(98vw, 1800px); height: min(96vh, 1100px); background: #fdfaf2; border: 1px solid #c8bd9f; border-radius: 12px; box-shadow: 0 12px 40px rgba(90,70,40,0.35); display: flex; flex-direction: column; overflow: hidden; font-family: "Songti SC", "SimSun", "STSong", serif; }
+.cg-head { display: flex; align-items: center; gap: 12px; padding: 10px 52px 10px 16px; border-bottom: 2px solid #d8cfbc; flex-wrap: wrap; background: #faf6ea; }
+.cg-title { font-size: 15px; font-weight: 500; color: #8b1a1a; letter-spacing: 1px; }
+.cg-root { font-size: 13px; color: #4a4030; flex: 1; min-width: 200px; }
+.cg-root b { color: #8b1a1a; }
+.cg-root-sub { color: #9a8f75; font-size: 12px; margin-left: 4px; }
 .cg-tools { display: flex; gap: 8px; }
-.cg-btn { font-size: 12px; padding: 5px 12px; border-radius: 12px; cursor: pointer; background: #fff; color: #444; border: 1px solid #ddd; transition: 0.15s; }
-.cg-btn:hover { background: #f3f3f3; }
-.cg-select { font-size: 12px; padding: 5px 10px; border-radius: 12px; border: 1px solid #ddd; background: #fff; color: #444; cursor: pointer; max-width: 220px; }
-.cg-select:hover { background: #f3f3f3; }
-        .cg-close { color: #b22222; border-color: #e0b0b0; }
-        .cg-close:hover { background: #fbeeee; }
+.cg-btn { font-size: 12px; padding: 5px 12px; border-radius: 14px; cursor: pointer; background: #faf6ea; color: #5a4a33; border: 1px solid #c8bd9f; transition: 0.15s; }
+.cg-btn:hover { background: #efe7d2; color: #8b1a1a; }
+.cg-select { font-size: 12px; padding: 5px 10px; border-radius: 14px; border: 1px solid #c8bd9f; background: #fdfaf2; color: #5a4a33; cursor: pointer; max-width: 220px; }
+.cg-select:hover { background: #efe7d2; }
+        .cg-close { color: #8b1a1a; border-color: #d8a09a; }
+        .cg-close:hover { background: #efe7d2; }
         .cg-close-x {
-            position: absolute; top: 8px; left: 8px; z-index: 12;
-            width: 34px; height: 34px; border-radius: 50%;
-            border: 1px solid #ddd; background: #fff; color: #b22222;
-            font-size: 24px; line-height: 1; cursor: pointer;
+            position: absolute; top: 10px; right: 12px; z-index: 12;
+            width: 30px; height: 30px;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,.15);
+            border: none; background: transparent;
+            color: #8a7d5f; font-size: 22px; line-height: 1;
+            border-radius: 50%; cursor: pointer;
+            transition: background .15s, color .15s;
         }
-        .cg-close-x:hover { background: #fbeeee; }
+        .cg-close-x:hover { background: #efe7d2; color: #8b1a1a; }
         .cg-close-x:active { transform: scale(.92); }
-.cg-legend { display: flex; gap: 16px; padding: 6px 16px; font-size: 12px; color: #666; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
+.cg-legend { display: flex; gap: 16px; padding: 6px 16px; font-size: 12px; color: #8a7d5f; border-bottom: 1px solid #e3d9c4; background: #faf6ea; flex-wrap: wrap; letter-spacing: 1px; }
 .cg-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
-.cg-lg-root { background: #b22222; }
+.cg-lg-root { background: #8b1a1a; }
 .cg-lg-active { background: #1e7a36; }
-.cg-lg-dim { background: #bbb; }
-.cg-lg-infer { background: #c08a3e; }
-.cg-edge.cg-edge-inferred { stroke: #c08a3e; stroke-dasharray: 5 4; }
+.cg-lg-dim { background: #c0b28f; }
+.cg-lg-infer { background: #b7791f; }
+.cg-edge.cg-edge-inferred { stroke: #b7791f; stroke-dasharray: 5 4; }
 .cg-node.cg-inferred-node .cg-dot { stroke-dasharray: 3 2; }
-.cg-canvas { flex: 1; overflow: hidden; background: #fafafa; cursor: grab; position: relative; user-select: none; -webkit-user-select: none; touch-action: none; }
+.cg-canvas { flex: 1; overflow: hidden; background: #f6f0e3; cursor: grab; position: relative; user-select: none; -webkit-user-select: none; touch-action: none; }
 .cg-canvas:active { cursor: grabbing; }
 .cg-canvas svg { width: 100%; height: 100%; display: block; user-select: none; -webkit-user-select: none; }
 .cg-edge { fill: none; stroke: #cfcfcf; stroke-width: 1.4; }
@@ -1117,11 +1323,11 @@
 .cg-node:hover .cg-label, .cg-node.cg-list-hover .cg-label { font-weight: 700; fill: #111 !important; }
 .cg-node.kmt .cg-label { fill: #1a5276; }
 .cg-node.cg-active .cg-label { fill: #1e7a36; }
-.cg-node.cg-root .cg-label { fill: #b22222; font-weight: 500; }
+.cg-node.cg-root .cg-label { fill: #8b1a1a; font-weight: 500; }
 .cg-node.cg-dim { opacity: 0.6; }
 .cg-node.cg-dim .cg-label { opacity: 0; }
 .cg-node.cg-dim:hover .cg-label { opacity: 1; }
-/* D方案：因果图脉络侧栏列表 */
+/* D方案：因果图脉络侧栏列表（宣纸风） */
 .cg-body { display: flex; flex: 1; min-height: 0; }
 .cg-panel.cg-hide-side .cg-side { display: none; }
 /* 列表收起后：贴右边显示一个拉起按钮 */
@@ -1132,81 +1338,81 @@
   transform: translateY(-50%);
   z-index: 6;
   padding: 16px 5px;
-  background: #444; color: #fff;
+  background: #8b1a1a; color: #faf6ea;
   border: none;
   border-radius: 9px 0 0 9px;
   cursor: pointer;
   writing-mode: vertical-rl; text-orientation: mixed;
   font-size: 13px; letter-spacing: 4px;
-  box-shadow: -2px 2px 10px rgba(0,0,0,.18);
+  box-shadow: -2px 2px 10px rgba(90,70,40,0.3);
 }
-.cg-side-tab:hover { background: #2f2f2f; }
+.cg-side-tab:hover { background: #9e1d1d; }
 .cg-panel.cg-show-tab .cg-side-tab { display: flex; align-items: center; justify-content: center; }
-.cg-side { width: 300px; flex: 0 0 300px; border-left: 1px solid #eee; background: #fcfcfc; display: flex; flex-direction: column; min-height: 0; }
-.cg-side-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; font-size: 13px; font-weight: 500; color: #b22222; border-bottom: 1px solid #f0f0f0; }
+.cg-side { width: 300px; flex: 0 0 300px; border-left: 1px solid #e3d9c4; background: #faf6ea; display: flex; flex-direction: column; min-height: 0; }
+.cg-side-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; font-size: 13px; font-weight: 500; color: #8b1a1a; border-bottom: 1px solid #e3d9c4; }
 /* 最小化按钮：放大为明显的圆胶囊，避免被忽略 */
 .cg-side-close {
   width: 32px; height: 32px; flex: 0 0 auto;
-  border: none; background: #f1d6d6; color: #b22222;
+  border: none; background: #efe7d2; color: #8b1a1a;
   font-size: 24px; font-weight: 700; line-height: 1;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: .15s;
-  box-shadow: 0 1px 3px rgba(178,34,34,.25);
+  box-shadow: 0 1px 3px rgba(178,34,34,.2);
 }
-.cg-side-close:hover { background: #e3b6b6; }
+.cg-side-close:hover { background: #e3c9bd; }
 .cg-side-close:active { transform: scale(.92); }
 .cg-side-list { flex: 1; overflow-y: auto; padding: 6px 8px; }
-.cg-side-empty { padding: 16px 12px; font-size: 12px; color: #999; line-height: 1.6; }
+.cg-side-empty { padding: 16px 12px; font-size: 12px; color: #9a8f75; line-height: 1.6; }
 .cg-side-grip { display: none; }
 .cg-side-group { margin-top: 8px; }
-.cg-side-group-h { font-size: 13px; color: #888; font-weight: 700; padding: 9px 6px 5px; position: sticky; top: 0; background: #fcfcfc; z-index: 1; letter-spacing: .3px; }
+.cg-side-group-h { font-size: 13px; color: #8a7d5f; font-weight: 700; padding: 9px 6px 5px; position: sticky; top: 0; background: #faf6ea; z-index: 1; letter-spacing: .3px; }
 .cg-side-group-h.cg-gh-cause { color: #2e7d32; }
 .cg-side-group-h.cg-gh-effect { color: #7b3fa0; }
 /* 类型筛选 */
-.cg-side-filter { display: flex; gap: 6px; padding: 7px 10px; border-bottom: 1px solid #f0f0f0; }
-.cg-fbtn { flex: 1; padding: 5px 0; font-size: 12px; border: 1px solid #ddd; background: #fff; color: #666; border-radius: 14px; cursor: pointer; transition: all .15s; }
-.cg-fbtn:hover { border-color: #b22222; color: #b22222; }
-.cg-fbtn.active { background: #b22222; border-color: #b22222; color: #fff; }
-.cg-side-item { position: relative; padding: 7px 8px 30px 5px; border-radius: 8px; cursor: pointer; border-left: 3px solid transparent; }
-.cg-side-item.cg-cat-party { border-left-color: #b22222; }
+.cg-side-filter { display: flex; gap: 6px; padding: 7px 10px; border-bottom: 1px solid #e3d9c4; }
+.cg-fbtn { flex: 1; padding: 5px 0; font-size: 12px; border: 1px solid #c8bd9f; background: #fdfaf2; color: #6e6450; border-radius: 14px; cursor: pointer; transition: all .15s; font-family: inherit; }
+.cg-fbtn:hover { border-color: #8b1a1a; color: #8b1a1a; background: #efe7d2; }
+.cg-fbtn.active { background: #8b1a1a; border-color: #8b1a1a; color: #faf6ea; }
+.cg-side-item { position: relative; padding: 7px 8px 30px 5px; border-radius: 6px; cursor: pointer; border-left: 3px solid transparent; }
+.cg-side-item.cg-cat-party { border-left-color: #8b1a1a; }
 .cg-side-item.cg-cat-kmt { border-left-color: #1a5276; }
-.cg-side-item:hover { background: #f1f1f1; }
-.cg-side-item.cg-active { background: #fbeeee; }
+.cg-side-item:hover { background: #efe7d2; }
+.cg-side-item.cg-active { background: #f7e9e6; }
 .cg-side-item.cg-active .cg-side-title { font-weight: 700; }
 /* 方向背景色块（避开红蓝）：根=琥珀 前因=绿 后续=紫 相关=灰；类型仍由左条+圆点表达 */
-.cg-side-item.cg-g-0 { background: #fff3d6; }
-.cg-side-item.cg-g-1 { background: #e7f4e8; }
-.cg-side-item.cg-g-2 { background: #f1e9f8; }
-.cg-side-item.cg-g-3 { background: #f4f4f4; }
-.cg-side-item.cg-g-0:hover { background: #ffe9b8; }
-.cg-side-item.cg-g-1:hover { background: #d6ebd8; }
-.cg-side-item.cg-g-2:hover { background: #e6d8f2; }
-.cg-side-item.cg-g-3:hover { background: #ececec; }
+.cg-side-item.cg-g-0 { background: #f6ecd4; }
+.cg-side-item.cg-g-1 { background: #e7f0e4; }
+.cg-side-item.cg-g-2 { background: #efe9f2; }
+.cg-side-item.cg-g-3 { background: #f0eee8; }
+.cg-side-item.cg-g-0:hover { background: #f0e2c0; }
+.cg-side-item.cg-g-1:hover { background: #d8e8d4; }
+.cg-side-item.cg-g-2:hover { background: #e2d8ec; }
+.cg-side-item.cg-g-3:hover { background: #e6e3da; }
 .cg-side-top { display: flex; gap: 6px; align-items: baseline; }
-.cg-side-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; align-self: center; background: #bbb; }
-.cg-cat-party .cg-side-dot { background: #b22222; }
+.cg-side-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; align-self: center; background: #c0b28f; }
+.cg-cat-party .cg-side-dot { background: #8b1a1a; }
 .cg-cat-kmt .cg-side-dot { background: #1a5276; }
-.cg-side-yr { font-size: 11px; color: #999; flex: 0 0 auto; }
-.cg-side-title { font-size: 13px; color: #333; }
+.cg-side-yr { font-size: 11px; color: #9a8f75; flex: 0 0 auto; }
+.cg-side-title { font-size: 13px; color: #3a352c; }
 /* 前因/后续 标题放大，突出因果主线；相关事件保持小字号 */
 .cg-side-item.cg-g-0 .cg-side-title { font-size: 17px; font-weight: 700; line-height: 1.4; }
 .cg-side-item.cg-g-1 .cg-side-title,
 .cg-side-item.cg-g-2 .cg-side-title { font-size: 16px; font-weight: 600; line-height: 1.5; }
 /* 图→列表 反向联动高亮（中性高对比，避免与方向色/类型色混淆） */
-.cg-side-item.cg-list-target { outline: 2px solid #222; outline-offset: -2px; background: #ffffff !important; }
-.cg-side-tag { font-size: 10px; color: #aaa; margin-left: 4px; }
-/* 脉络事件列表每事件右下角「详情」按钮：风格与 .cg-btn 统一（白底灰字细边圆角，无主题红/阴影） */
+.cg-side-item.cg-list-target { outline: 2px solid #3a352c; outline-offset: -2px; background: #ffffff !important; }
+.cg-side-tag { font-size: 10px; color: #b0a080; margin-left: 4px; }
+/* 脉络事件列表每事件右下角「详情」按钮：宣纸风（米纸底灰字细边圆角） */
 .cg-side-detail {
   position: absolute; right: 6px; bottom: 6px;
   font-size: 12px; line-height: 1; padding: 5px 12px;
-  background: #fff; color: #444; border: 1px solid #ddd;
-  border-radius: 12px; cursor: pointer; transition: 0.15s;
+  background: #faf6ea; color: #6e6450; border: 1px solid #c8bd9f;
+  border-radius: 12px; cursor: pointer; transition: 0.15s; font-family: inherit;
 }
-.cg-side-detail:hover { background: #f5f5f5; }
+.cg-side-detail:hover { background: #efe7d2; color: #8b1a1a; }
 .cg-side-detail:active { transform: scale(.95); }
-[data-theme="dark"] .cg-side-detail { background: #2a2a2a; color: #ddd; border-color: #444; }
-[data-theme="dark"] .cg-side-detail:hover { background: #383838; }
+[data-theme="dark"] .cg-side-detail { background: #2b2822; color: #cdc5b0; border-color: #4a4334; }
+[data-theme="dark"] .cg-side-detail:hover { background: #2e2a22; color: #e57373; }
 .cg-node.cg-list-hover .cg-label { opacity: 1; }
 .cg-node.cg-list-hover .cg-dot { stroke: #222; stroke-width: 3; }
 @media (max-width: 820px){
@@ -1223,7 +1429,7 @@
   }
   .cg-panel:not(.cg-hide-side) .cg-side { transform: translateY(0); }
   /* 头部：标题与根事件同行、工具与图例单行横向滚动，省出竖向空间给关系图 */
-  .cg-head { padding: 5px 10px 5px 46px; gap: 5px; }
+  .cg-head { padding: 5px 46px 5px 10px; gap: 5px; }
   .cg-title { font-size: 14px; flex: 0 0 auto; }
   .cg-root { flex: 1 1 auto; min-width: 0; font-size: 11px; line-height: 1.3; color: #555; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .cg-tools { display: flex; gap: 5px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; -webkit-overflow-scrolling: touch; }
@@ -1239,51 +1445,51 @@
   .cg-side-grip::before { content: ""; position: absolute; top: -8px; left: -12px; right: -12px; bottom: -6px; }
   .cg-side-grip::after { content: ""; position: absolute; top: 3px; left: 50%; transform: translateX(-50%); width: 42px; height: 6px; border-radius: 4px; background: #fff; border: 1px solid #d8d8d8; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
 }
-[data-theme="dark"] .cg-panel { background: #1f1f1f; }
-[data-theme="dark"] .cg-head { border-color: #333; }
+[data-theme="dark"] .cg-panel { background: #232019; border-color: #3a362c; }
+[data-theme="dark"] .cg-head { border-color: #3a362c; background: #2b2822; }
 [data-theme="dark"] .cg-title { color: #e57373; }
-[data-theme="dark"] .cg-root { color: #ddd; }
+[data-theme="dark"] .cg-root { color: #cdc5b0; }
 [data-theme="dark"] .cg-root b { color: #e57373; }
-[data-theme="dark"] .cg-root-sub { color: #999; }
-[data-theme="dark"] .cg-btn { background: #2a2a2a; color: #ddd; border-color: #444; }
-[data-theme="dark"] .cg-btn:hover { background: #3a3a3a; }
-        [data-theme="dark"] .cg-close { color: #e57373; border-color: #4a3434; }
-        [data-theme="dark"] .cg-close:hover { background: #3a2a2a; }
-        [data-theme="dark"] .cg-close-x { background: #2a2a2a; border-color: #444; color: #e57373; }
-        [data-theme="dark"] .cg-close-x:hover { background: #3a2a2a; }
-[data-theme="dark"] .cg-legend { border-color: #2a2a2a; color: #aaa; }
-[data-theme="dark"] .cg-canvas { background: #181818; }
-[data-theme="dark"] .cg-side-tab { background: #666; }
-[data-theme="dark"] .cg-side-tab:hover { background: #7a7a7a; }
-[data-theme="dark"] .cg-edge { stroke: #3a3a3a; }
+[data-theme="dark"] .cg-root-sub { color: #9a8f75; }
+[data-theme="dark"] .cg-btn { background: #2b2822; color: #cdc5b0; border-color: #4a4334; }
+[data-theme="dark"] .cg-btn:hover { background: #2e2a22; color: #e57373; }
+        [data-theme="dark"] .cg-close { color: #e57373; border-color: #4a4334; }
+        [data-theme="dark"] .cg-close:hover { background: #2e2a22; }
+        [data-theme="dark"] .cg-close-x { color: #9a8f75; background: transparent; border: none; }
+        [data-theme="dark"] .cg-close-x:hover { background: #2e2a22; color: #e57373; }
+[data-theme="dark"] .cg-legend { border-color: #3a362c; color: #9a8f75; background: #2b2822; }
+[data-theme="dark"] .cg-canvas { background: #1a1a17; }
+[data-theme="dark"] .cg-side-tab { background: #8b1a1a; }
+[data-theme="dark"] .cg-side-tab:hover { background: #9e1d1d; }
+[data-theme="dark"] .cg-edge { stroke: #3a362c; }
 [data-theme="dark"] .cg-edge.cg-edge-active { stroke: #3fae7a; }
-[data-theme="dark"] .cg-edge.cg-edge-dim { stroke: #707070; }
-[data-theme="dark"] .cg-lg-infer { background: #d39a52; }
-[data-theme="dark"] .cg-edge.cg-edge-inferred { stroke: #d39a52; stroke-dasharray: 5 4; }
+[data-theme="dark"] .cg-edge.cg-edge-dim { stroke: #5d5748; }
+[data-theme="dark"] .cg-lg-infer { background: #b7791f; }
+[data-theme="dark"] .cg-edge.cg-edge-inferred { stroke: #b7791f; stroke-dasharray: 5 4; }
 [data-theme="dark"] .cg-node.cg-inferred-node .cg-dot { stroke-dasharray: 3 2; }
-[data-theme="dark"] .cg-dot { fill: #1f1f1f; stroke: #888; }
+[data-theme="dark"] .cg-dot { fill: #1a1a17; stroke: #9a8f75; }
 [data-theme="dark"] .cg-node.kmt .cg-dot { stroke: #7fb3d5; }
 [data-theme="dark"] .cg-node.cg-active .cg-dot { fill: #1f3326; stroke: #3fae7a; }
 [data-theme="dark"] .cg-node.cg-root .cg-dot { fill: #e57373; stroke: #e57373; }
-[data-theme="dark"] .cg-node.cg-dim .cg-dot { fill: #464646; stroke: #9a9a9a; }
-[data-theme="dark"] .cg-label { fill: #aaa; }
+[data-theme="dark"] .cg-node.cg-dim .cg-dot { fill: #3a362c; stroke: #9a8f75; }
+[data-theme="dark"] .cg-label { fill: #b8b0a0; }
 [data-theme="dark"] .cg-node.kmt .cg-label { fill: #7fb3d5; }
 [data-theme="dark"] .cg-node.cg-active .cg-label { fill: #7fd6a0; }
 [data-theme="dark"] .cg-node.cg-root .cg-label { fill: #e57373; }
-[data-theme="dark"] .cg-side { background: #232323; border-color: #333; }
-[data-theme="dark"] .cg-side-head { color: #e57373; border-color: #333; }
-[data-theme="dark"] .cg-side-group-h { color: #999; background: #232323; }
+[data-theme="dark"] .cg-side { background: #232019; border-color: #3a362c; }
+[data-theme="dark"] .cg-side-head { color: #e57373; border-color: #3a362c; }
+[data-theme="dark"] .cg-side-group-h { color: #9a8f75; background: #232019; }
 [data-theme="dark"] .cg-side-group-h.cg-gh-cause { color: #7fd6a0; }
 [data-theme="dark"] .cg-side-group-h.cg-gh-effect { color: #c39bd3; }
-[data-theme="dark"] .cg-side-item:hover { background: #333; }
+[data-theme="dark"] .cg-side-item:hover { background: #2e2a22; }
 [data-theme="dark"] .cg-side-item.cg-cat-party { border-left-color: #e57373; }
 [data-theme="dark"] .cg-side-item.cg-cat-kmt { border-left-color: #7fb3d5; }
 [data-theme="dark"] .cg-cat-party .cg-side-dot { background: #e57373; }
 [data-theme="dark"] .cg-cat-kmt .cg-side-dot { background: #7fb3d5; }
 [data-theme="dark"] .cg-side-item.cg-active { background: #3a2a2a; }
 [data-theme="dark"] .cg-side-item.cg-active .cg-side-title { font-weight: 700; }
-[data-theme="dark"] .cg-side-filter { border-color: #333; }
-[data-theme="dark"] .cg-fbtn { background: #2a2a2a; border-color: #3a3a3a; color: #aaa; }
+[data-theme="dark"] .cg-side-filter { border-color: #3a362c; }
+[data-theme="dark"] .cg-fbtn { background: #2b2822; border-color: #4a4334; color: #b0a898; }
 [data-theme="dark"] .cg-fbtn:hover { border-color: #e57373; color: #e57373; }
 [data-theme="dark"] .cg-fbtn.active { background: #e57373; border-color: #e57373; color: #1a1a1a; }
 [data-theme="dark"] .cg-side-item.cg-g-0 { background: #3a3320; }
@@ -1312,8 +1518,8 @@
   .toolbar-row { gap: 8px; }
   #searchInput { flex: 1 1 100%; min-width: 0; order: -1; }
   .toolbar button { padding: 9px 13px; font-size: 13px; }
-  .toolbar .year-nav { width: 34px; height: 34px; }
-  .toolbar .year-label { padding: 6px 8px; }
+  .cal-masthead .year-nav { width: 34px; height: 34px; }
+  .cal-masthead .year-label { padding: 4px 6px; min-width: 84px; }
   /* 日历：日格更紧凑、字号收敛，保证 7 列不溢出；事件文字换行纵向拓展而非压扁 */
   .calendar-box { padding: 10px; }
   .week-title div { padding: 6px 2px; font-size: 12px; }
@@ -1352,9 +1558,9 @@
 @media print {
   html, body { background: #fff !important; padding: 0 !important; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-  .toolbar, .theme-fab, .month-sidebar, .tl-toolbar, .hint, .tl-select,
+  .toolbar, .theme-fab, .brand-fab, .month-sidebar, .tl-toolbar, .hint, .tl-select,
   #tlThreadClear, .rail-right, .rail-toggle, .cg-overlay, #modalMask,
-  .more-menu, .rail-right, .cg-side-detail { display: none !important; }
+  .more-menu, .rail-right, .cg-side-detail, .cal-masthead .year-select { display: none !important; }
   .container { box-shadow: none !important; border: none !important; margin: 0 !important; max-width: none !important; }
   .date-grid { break-inside: avoid; }
 }
@@ -1362,8 +1568,11 @@
 </head>
 <body>
 <div class="container">
+    <div class="brand-fab" aria-label="星火日历" title="星火日历">
+        <img src="icons/icon-calendar.svg" alt="">
+        <span class="bf-text">星火日历</span>
+    </div>
     <button id="themeToggle" class="theme-fab" aria-label="切换日间 / 夜间模式" title="切换日间 / 夜间模式"></button>
-    <h1 class="site-title"><img class="site-logo" src="icons/icon-calendar.svg" alt="星火日历" width="26" height="26">星火日历</h1>
     <div class="mode-switch">
         <button id="modeCalendar" class="mode-btn active">日历模式</button>
         <button id="modeTimeline" class="mode-btn">时间轴模式</button>
@@ -1393,20 +1602,20 @@
                 <button id="tagBtn" class="ghost-btn" title="标签云">🏷️ 标签</button>
             </div>
         </div>
-        <!-- 第二行：年份选择 -->
-        <div class="toolbar-row">
-            <span class="ylabel">年份</span>
-            <div class="year-select">
-                <button class="year-nav" id="yearPrev" title="上一年">◀</button>
-                <button class="year-label" id="yearLabel">—</button>
-                <button class="year-nav" id="yearNext" title="下一年">▶</button>
-                <div class="year-dropdown" id="yearDropdown"></div>
-            </div>
-        </div>
     </div>
     <!-- 日历视图（居中显示） -->
     <div class="stage" id="stage">
         <div id="calendarView">
+    <!-- 报头：双线红条 + 年份切换 + 副题（革命报刊风） -->
+    <div class="cal-masthead">
+        <div class="year-select">
+            <button class="year-nav" id="yearPrev" title="上一年">◀</button>
+            <button class="year-label" id="yearLabel">—</button>
+            <button class="year-nav" id="yearNext" title="下一年">▶</button>
+            <div class="year-dropdown" id="yearDropdown"></div>
+        </div>
+        <span class="cal-sub">1911 — 2026 · 革命纪事</span>
+    </div>
     <div class="hint">
         <span class="lg lg-party">■</span> 中共相关事件
         <span class="lg lg-kmt">■</span> 其他力量（国民党 / 国民政府等）相关事件
@@ -17141,8 +17350,10 @@ function renderMonthBar(){
         const btn = document.createElement('button');
         const isActive = (m === currentMonth);
         btn.className = "month-btn" + (isActive ? " active" : "");
-        btn.innerText = `${m}月`;
+        const yStr = (filterYear !== undefined && filterYear !== null) ? String(filterYear).slice(2) : "";
+        btn.innerHTML = `<span class="m-label">${m}月</span><span class="m-year">${yStr}</span>`;
         btn.dataset.m = m;
+        btn.dataset.year = yStr;
 
         const c = monthCounts[m] || 0;
         if(!isActive){
@@ -17206,13 +17417,20 @@ function renderCalendar(){
 
     for(let d=1; d<=daysInMonth; d++){
         const cell = document.createElement('div');
-        cell.className = "day-cell";
         const events = allFiltered.filter(item=>item.month === currentMonth && item.day === d);
         const count = dayCounts[d] || 0;
-        // 该日事件全部属其他力量(kmt)时染蓝，否则染红
+        // 本月空日：方案二「版式网格」——虚线框 + 淡灰日期 + 星火点（无事件不设档案金条）
+        cell.className = "day-cell" + (count===0 ? " no-event" : "");
+        // 该日事件全部属其他力量(kmt)时染蓝、全属国家大事(nation)时染金，否则默认朱砂红
         const dayKmt = count>0 && events.some(e=>e.cat==='kmt') &&
                        !events.some(e=>e.cat!=='kmt');
-        cell.style.background = tint(count, maxDay, dayKmt ? 'kmt' : 'party');
+        const dayNation = count>0 && !dayKmt && events.some(e=>e.cat==='nation') &&
+                          !events.some(e=>e.cat==='party' || e.cat==='kmt');
+        cell.style.background = tint(count, maxDay, dayKmt ? 'kmt' : (dayNation ? 'nation' : 'party'));
+        // 档案格顶部 3px 分类色条：蓝=其他力量主导 / 金=国家大事主导 / 朱砂=中共或混合
+        if(count>0){
+            cell.style.borderTopColor = dayKmt ? '#1a5276' : (dayNation ? '#b7791f' : '#b22222');
+        }
         cell.innerHTML = `<div class="day-num">${d}日</div>`;
 
         events.slice(0,3).forEach(ev=>{
@@ -17284,13 +17502,13 @@ function showEventListInModal(title, events, backFn){
     nav.textContent = `共 ${events.length} 个事件`;
     c.appendChild(nav);
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex;flex-direction:column;gap:6px;';
+    wrap.style.cssText = 'display:flex;flex-direction:column;gap:2px;';
     events.forEach(ev => {
         const row = document.createElement('div');
-        row.className = 'modal-event' + (ev.cat === 'kmt' ? ' kmt' : ev.cat === 'nation' ? ' nation' : '');
-        row.style.cssText = 'cursor:pointer;';
-        row.innerHTML = `<strong>${ev.year}年</strong> · ${ev.month}月${ev.day}日 ${ev.title}`;
-        row.title = ev.desc;
+        row.className = 'ev-entry' + (ev.cat === 'kmt' ? ' kmt' : ev.cat === 'nation' ? ' nation' : '');
+        const dateEl = `<div class="ee-date">${ev.year}年${ev.month}月${ev.day}日</div>`;
+        const descEl = ev.desc ? `<div class="ee-desc">${ev.desc}</div>` : '';
+        row.innerHTML = `${dateEl}<div class="ee-title">${ev.title}</div>${descEl}`;
         row.onclick = () => openModal(ev.month, ev.day, [ev],
             () => showEventListInModal(title, events, backFn));
         wrap.appendChild(row);
@@ -17439,10 +17657,9 @@ function renderModalBody(){
         h.textContent = '同类事件（' + (e.cat==='kmt'?'其他力量':e.cat==='nation'?'国家大事':'中共相关') + '）';
         catBox.appendChild(h);
         sameCat.forEach(x=>{
-            const c = document.createElement('span');
-            c.className = 'rel-chip' + (x.cat==='kmt'?' kmt':'');
-            c.textContent = `${x.year}年 ${x.title}`;
-            c.title = x.desc;
+            const c = document.createElement('div');
+            c.className = 'ev-entry' + (x.cat==='kmt'?' kmt':x.cat==='nation'?' nation':'');
+            c.innerHTML = `<div class="ee-date">${x.year}年${x.month}月${x.day}日</div><div class="ee-title">${x.title}</div>`;
             c.onclick = ()=> openModal(x.month, x.day, [x], () => openModal(e.month, e.day, [e]));
             catBox.appendChild(c);
         });
@@ -17505,9 +17722,8 @@ function renderYearRail(y){
     list.sort((a,b)=> a.month - b.month || a.day - b.day);
     list.forEach(e=>{
         const div = document.createElement('div');
-        div.className = 'rail-item' + (e.cat === 'kmt' ? ' kmt' : e.cat === 'nation' ? ' nation' : '');
-        div.innerHTML = `<div class="ri-date">${e.month}月${e.day}日</div><div class="ri-title">${e.title}</div>`;
-        div.title = e.desc;
+        div.className = 'ev-entry' + (e.cat === 'kmt' ? ' kmt' : e.cat === 'nation' ? ' nation' : '');
+        div.innerHTML = `<div class="ee-date">${e.year}年${e.month}月${e.day}日</div><div class="ee-title">${e.title}</div>`;
         div.onclick = ()=> openModal(e.month, e.day, [e]);
         listEl.appendChild(div);
     });
@@ -17788,9 +18004,8 @@ function openMeetingDetail(m){
         content.appendChild(rh);
         rel.forEach(e=>{
             const dv = document.createElement('div');
-            dv.className = 'modal-event' + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
-            dv.style.marginBottom = '8px';
-            dv.innerHTML = `<strong>${e.year}年</strong><br/>${e.title}<br/><span style="color:#555;font-size:14px;">${e.desc}</span>`;
+            dv.className = 'ev-entry' + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
+            dv.innerHTML = `<div class="ee-date">${e.year}年${e.month}月${e.day}日</div><div class="ee-title">${e.title}</div>${e.desc?`<div class="ee-desc">${e.desc}</div>`:''}`;
             content.appendChild(dv);
         });
     }
@@ -18099,11 +18314,15 @@ function setMode(mode){
         // 时间轴进入：停在可展示「序言」的最左端
         document.getElementById('tlScroll').scrollLeft = 0;
         document.getElementById('railRight').style.display = 'none';
+        const railBtn = document.getElementById('railToggle');
+        if(railBtn) railBtn.style.display = 'none';   // 时间轴模式隐藏本年事件按钮
         closeRail();
     }else{
         timelineView.classList.remove('show');
         calendarView.style.display = '';
         document.getElementById('railRight').style.display = '';
+        const railBtn = document.getElementById('railToggle');
+        if(railBtn) railBtn.style.display = '';       // 回到日历模式恢复
         modeCalendar.classList.add('active');
         modeTimeline.classList.remove('active');
     }
@@ -18166,8 +18385,8 @@ function openTodayInHistory(){
         content.appendChild(note);
         list.forEach(e=>{
             const div = document.createElement('div');
-            div.className = "modal-event" + (e.cat==='kmt' ? " kmt" : e.cat==='nation' ? " nation" : "");
-            div.innerHTML = `<strong>${e.year}年</strong><br/>${e.title}<br/><span style="color:#555;font-size:14px;">${e.desc}</span>`;
+            div.className = "ev-entry" + (e.cat==='kmt' ? " kmt" : e.cat==='nation' ? " nation" : "");
+            div.innerHTML = `<div class="ee-date">${e.year}年${e.month}月${e.day}日</div><div class="ee-title">${e.title}</div>${e.desc?`<div class="ee-desc">${e.desc}</div>`:''}`;
             div.onclick = ()=> openModal(e.month, e.day, [e]);
             content.appendChild(div);
         });
@@ -18196,7 +18415,8 @@ function openFavorites(){
         if(!found) return;
         const e = found.e;
         const div = document.createElement('div');
-        div.className = "modal-event" + (e.cat==='kmt' ? " kmt" : e.cat==='nation' ? " nation" : "");
+        div.className = "ev-entry" + (e.cat==='kmt' ? " kmt" : e.cat==='nation' ? " nation" : "");
+        div.style.position = 'relative';
         const star = document.createElement('span');
         star.className = 'fav-star on';
         star.textContent = '★';
@@ -18207,10 +18427,21 @@ function openFavorites(){
             openFavorites(); // 刷新列表
         };
         div.appendChild(star);
-        const body = document.createElement('div');
-        const head = (found.kind === 'mtg') ? `${e.year}年${e.month}月${e.day}日 · ${e.title}（会议）` : `${e.year}年 · ${e.title}`;
-        body.innerHTML = `<strong>${head}</strong><br/><span style="color:#555;font-size:14px;">${e.desc}</span>`;
-        div.appendChild(body);
+        const head = (found.kind === 'mtg') ? `${e.year}年${e.month}月${e.day}日 · ${e.title}（会议）` : `${e.year}年${e.month}月${e.day}日`;
+        const dateEl = document.createElement('div');
+        dateEl.className = 'ee-date';
+        dateEl.textContent = head;
+        const titleEl = document.createElement('div');
+        titleEl.className = 'ee-title';
+        titleEl.textContent = e.title;
+        div.appendChild(dateEl);
+        div.appendChild(titleEl);
+        if(e.desc){
+            const descEl = document.createElement('div');
+            descEl.className = 'ee-desc';
+            descEl.textContent = e.desc;
+            div.appendChild(descEl);
+        }
         div.onclick = ()=>{
             if(found.kind === 'mtg') openMeetingDetail(e);
             else openModal(e.month, e.day, [e]);
@@ -18253,10 +18484,8 @@ function expandStatCat(cat, label, sumEl){
     }
     l.forEach(e=>{
         const row = document.createElement('div');
-        row.className = 'modal-event' + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
-        row.style.cssText = 'cursor:pointer;';
-        row.innerHTML = `<strong>${e.year}年</strong> · ${e.month}月${e.day}日 ${e.title}`;
-        row.title = e.desc;
+        row.className = 'ev-entry' + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
+        row.innerHTML = `<div class="ee-date">${e.year}年${e.month}月${e.day}日</div><div class="ee-title">${e.title}</div>`;
         row.onclick = ()=> openModal(e.month, e.day, [e], ()=> openStats());
         wrap.appendChild(row);
     });
@@ -18299,10 +18528,8 @@ function toggleYearSegList(year, cat, label, anchor){
     }
     l.forEach(e=>{
         const row = document.createElement('div');
-        row.className = 'modal-event' + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
-        row.style.cssText = 'cursor:pointer;';
-        row.innerHTML = `<strong>${e.year}年</strong> · ${e.month}月${e.day}日 ${e.title}`;
-        row.title = e.desc;
+        row.className = 'ev-entry' + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
+        row.innerHTML = `<div class="ee-date">${e.year}年${e.month}月${e.day}日</div><div class="ee-title">${e.title}</div>`;
         row.onclick = ()=> openModal(e.month, e.day, [e], ()=> openStats());
         wrap.appendChild(row);
     });
@@ -18417,13 +18644,11 @@ function showTagEvents(term){
         return;
     }
     const wrap = document.createElement('div');
-    wrap.style.cssText = 'display:flex;flex-direction:column;gap:8px;max-height:62vh;overflow:auto;';
+    wrap.style.cssText = 'display:flex;flex-direction:column;gap:2px;max-height:62vh;overflow:auto;';
     list.forEach(e=>{
         const row = document.createElement('div');
-        row.className = 'modal-event' + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
-        row.style.cssText = 'cursor:pointer;';
-        row.innerHTML = `<strong>${e.year}年</strong> · ${e.month}月${e.day}日 ${e.title}`;
-        row.title = e.desc;
+        row.className = 'ev-entry' + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
+        row.innerHTML = `<div class="ee-date">${e.year}年${e.month}月${e.day}日</div><div class="ee-title">${e.title}</div>`;
         row.onclick = ()=> openModal(e.month, e.day, [e], () => showTagEvents(term));
         wrap.appendChild(row);
     });
