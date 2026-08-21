@@ -130,7 +130,8 @@ def build_causal_layout(verified, inferred):
             edges.append((s, t))
     random.seed(20240815)
     kRep, kSpring, L, kCenter, damp = 30000, 0.02, 150, 0.008, 0.86
-    for _ in range(640):
+    print(f"开始力导向布局计算（节点 {n}，约 5-10 分钟，进度见输出）")
+    for it in range(640):
         for i in range(n):
             for j in range(i + 1, n):
                 dx = pos[i][0] - pos[j][0]; dy = pos[i][1] - pos[j][1]
@@ -140,6 +141,8 @@ def build_causal_layout(verified, inferred):
                 f = kRep / d2; fx = f * dx / d; fy = f * dy / d
                 pos[i][2] += fx; pos[i][3] += fy
                 pos[j][2] -= fx; pos[j][3] -= fy
+        if (it + 1) % 80 == 0:
+            print(f"布局迭代 {it + 1}/640（力导向斥力/弹簧）")
         for s, t in edges:
             a = idx[s]; b = idx[t]
             dx = pos[b][0] - pos[a][0]; dy = pos[b][1] - pos[a][1]
@@ -169,7 +172,7 @@ def build_causal_layout(verified, inferred):
                     pos[j][0] += ux * push; pos[j][1] += uy * push
     # 去重叠终处理：反复碰撞分离直到最小间距达标（构建期不计运行成本，保证零重叠）
     minDist = 50
-    for _ in range(6000):
+    for sep in range(6000):
         moved = False
         for i in range(n):
             for j in range(i + 1, n):
@@ -185,6 +188,8 @@ def build_causal_layout(verified, inferred):
                     pos[j][0] += ux * push; pos[j][1] += uy * push
         if not moved:
             break
+        if (sep + 1) % 500 == 0:
+            print(f"间距优化 {sep + 1}/6000（节点去重叠）")
         for i in range(n):
             pos[i][0] += (W / 2 - pos[i][0]) * 0.003
             pos[i][1] += (H / 2 - pos[i][1]) * 0.003

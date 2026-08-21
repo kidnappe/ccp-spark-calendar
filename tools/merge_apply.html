@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OCR 结果合并工具 · 星火日历</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#1f2329; --muted:#6b7280;
+    --line:#e5e7eb; --accent:#2563eb; --accent2:#0f766e;
+    --warn:#b45309; --danger:#b91c1c; --ok:#15803d;
+    --chip:#eef2ff; --chipink:#3730a3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.6 -apple-system,"Microsoft YaHei",Segoe UI,Roboto,sans-serif;
+       background:var(--bg);color:var(--ink);padding:24px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-size:20px;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 18px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+         padding:18px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:8px 0}
+  label.blk{display:block;font-weight:600;margin-bottom:6px}
+  input[type=file]{font:inherit}
+  button{font:inherit;font-weight:600;border:none;border-radius:8px;padding:9px 16px;
+         background:var(--accent);color:#fff;cursor:pointer}
+  button:disabled{background:#cbd5e1;cursor:not-allowed}
+  button.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+  button.sec{background:var(--accent2)}
+  .hint{color:var(--muted);font-size:13px;margin-top:6px}
+  .found{font-size:13px;margin-top:8px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .chip{background:var(--chip);color:var(--chipink);border-radius:999px;padding:2px 10px;font-size:12px}
+  .chip.warn{background:#fef3c7;color:var(--warn)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+  .stat{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px}
+  .stat b{display:block;font-size:22px;line-height:1.2}
+  .stat span{color:var(--muted);font-size:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+  th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#f1f5f9;font-weight:600}
+  tr:nth-child(even) td{background:#fafafa}
+  .sec-title{font-weight:700;margin:16px 0 4px;display:flex;align-items:center;gap:8px}
+  .dot{width:9px;height:9px;border-radius:50%}
+  .dot.r{background:var(--danger)} .dot.o{background:var(--warn)} .dot.g{background:var(--ok)}
+  pre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:10px;overflow:auto;
+      max-height:420px;font:12.5px/1.5 ui-monospace,Consolas,Menlo,monospace;white-space:pre-wrap}
+  .err{color:var(--danger);font-weight:600}
+  .ok{color:var(--ok);font-weight:600}
+  details{margin-top:8px}
+  summary{cursor:pointer;color:var(--accent);font-size:13px}
+  .hidden{display:none}
+  .warnbox{background:#fffbeb;border:1px solid #fde68a;color:#92400e;
+           border-radius:10px;padding:10px 12px;margin:8px 0;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>OCR 结果合并工具</h1>
+  <p class="sub">指定结果文件夹 + 基础 events.json，一键合并并产出「仍为空 / 失败」报告。纯浏览器本地运行，不联网、不写盘（只下载结果，由你人工核对后替换）。</p>
+
+  <div class="panel">
+    <div class="warnbox">
+      ⚠️ 工具不会自动修改你的 events.json。合并后请先<strong>备份原文件</strong>，再用手动下载的 <code>events.merged.json</code> 替换，并核对报告里的「仍为空」条目。
+    </div>
+
+    <div>
+      <label class="blk">① 选择结果文件夹（含 clean_*.json / fill_*.json / failed_*.json）</label>
+      <input type="file" id="folderInput" webkitdirectory directory multiple />
+      <div class="hint">用文件夹选择器选中存放结果的目录即可。工具只取该目录<strong>直接子文件</strong>中匹配 clean_ / fill_ / failed_ 的 JSON，忽略 c02.json、f00.json 等批次输入以及子目录（如 _done_archive）里的旧数据，避免误并。</div>
+      <div class="found" id="foundInfo">尚未选择文件夹。</div>
+      <div class="chips" id="foundChips"></div>
+      <details id="foundDetail" class="hidden"><summary>查看被忽略的文件</summary><div id="ignoredList" class="hint"></div></details>
+    </div>
+
+    <div style="margin-top:14px">
+      <label class="blk">② 选择基础数据 events.json</label>
+      <input type="file" id="eventsInput" />
+      <div class="hint">即项目根目录下的 events.json（合并将以其为底板，把清洗/补缺结果写回 ocrDesc）。</div>
+    </div>
+
+    <div class="row" style="margin-top:16px">
+      <button id="mergeBtn" disabled>开始合并</button>
+      <span class="hint" id="mergeHint">先选好 ① 文件夹 和 ② events.json。</span>
+    </div>
+  </div>
+
+  <div class="panel hidden" id="resultPanel">
+    <div class="stats" id="statBox"></div>
+    <div class="sec-title"><span class="dot g"></span>合并概况</div>
+    <div id="overview" class="hint"></div>
+
+    <div class="sec-title"><span class="dot o"></span>扫描到的文件</div>
+    <div id="scanInfo" class="found"></div>
+
+    <div class="sec-title"><span class="dot r"></span>仍未补全（空 ocrDesc）：<span id="emptyCount">0</span> 条</div>
+    <div id="emptyBox"></div>
+
+    <div class="sec-title"><span class="dot r"></span>各轮失败条目（来自 failed_*.json）：<span id="failCount">0</span> 条</div>
+    <div id="failBox"></div>
+
+    <div class="row" style="margin-top:14px">
+      <button class="sec" id="dlEvents">⬇ 下载 events.merged.json</button>
+      <button class="ghost" id="dlReport">⬇ 下载 apply_report.md</button>
+    </div>
+
+    <div class="sec-title">报告原文（Markdown）</div>
+    <pre id="reportPre"></pre>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2,'0');
+const fmtDate = e => `${e.year||''}-${pad(e.month||0)}-${pad(e.day||0)}`;
+const ts = () => { const d=new Date(); const p=n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`; };
+
+let folderFiles=[], eventsFile=null, lastData=null, lastReport='';
+
+function classify(name){
+  if(/^clean_.*\.json$/i.test(name)) return 'clean';
+  if(/^fill_.*\.json$/i.test(name)) return 'fill';
+  if(/^failed_.*\.json$/i.test(name) || /^fill_failed_.*\.json$/i.test(name)) return 'failed';
+  return null;
+}
+// 仅取“直接子文件”（webkitRelativePath 形如 文件夹名/文件名，恰好一个斜杠）
+function isDirectChild(f){ return (f.webkitRelativePath||'').split('/').length === 2; }
+
+function readText(file){ return new Promise((res,rej)=>{
+  const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>rej(r.error); r.readAsText(file,'utf-8');
+});}
+function parseItems(text){
+  const d=JSON.parse(text);
+  if(Array.isArray(d)) return d;
+  if(d && Array.isArray(d.items)) return d.items;
+  throw new Error('无法识别的 JSON 结构（既非数组也非 {items:[...]}）');
+}
+
+$('folderInput').addEventListener('change', e=>{
+  const all=[...e.target.files];
+  const direct=all.filter(isDirectChild);
+  folderFiles=[]; const ignored=[];
+  const byType={clean:[],fill:[],failed:[]};
+  direct.forEach(f=>{
+    const t=classify(f.name);
+    if(t){ folderFiles.push({file:f,type:t,name:f.name}); byType[t].push(f.name); }
+    else ignored.push(f.name);
+  });
+  folderFiles.sort((a,b)=>a.name.localeCompare(b.name,'zh',{numeric:true}));
+  const total=folderFiles.length;
+  $('foundInfo').innerHTML = total
+    ? `找到 <b>${total}</b> 个结果文件（clean_ <b>${byType.clean.length}</b> · fill_ <b>${byType.fill.length}</b> · failed_ <b>${byType.failed.length}</b>），已忽略其他 ${ignored.length} 个非结果文件。`
+    : `<span class="err">未找到任何 clean_/fill_/failed_ 文件。请确认选中的目录是直接包含结果文件的文件夹。</span>`;
+  const chips=$('foundChips'); chips.innerHTML='';
+  folderFiles.forEach(x=>{ const c=document.createElement('span'); c.className='chip'+(x.type==='failed'?' warn':'');
+    c.textContent=(x.type==='clean'?'清洗 ':(x.type==='fill'?'补缺 ':'失败 '))+x.name; chips.appendChild(c); });
+  $('foundDetail').classList.toggle('hidden', ignored.length===0);
+  $('ignoredList').textContent = ignored.length? ignored.join('、') : '（无）';
+  refreshMergeBtn();
+});
+
+$('eventsInput').addEventListener('change', e=>{
+  eventsFile = e.target.files[0] || null;
+  refreshMergeBtn();
+});
+
+function refreshMergeBtn(){
+  const ok = folderFiles.length>0 && eventsFile;
+  $('mergeBtn').disabled = !ok;
+  $('mergeHint').textContent = ok ? '准备就绪，点击开始合并。'
+    : (!eventsFile ? '还缺 ② events.json。' : '还缺 ① 结果文件夹（需含 clean_/fill_/failed_）。');
+}
+
+$('mergeBtn').addEventListener('click', async ()=>{
+  try{
+    $('mergeBtn').disabled=true; $('mergeHint').textContent='合并中…';
+    const eventsText = await readText(eventsFile);
+    const base = JSON.parse(eventsText);
+    const events = base.events;
+    const appliedClean=[], skippedClean=[], appliedFill=[], skippedFill=[];
+    const appliedUnsourced=[], unsourcedFlagged=[];
+    const fillByIndex={}, conflicts=[], crossIdx=[];
+    const cleanIdxSet=new Set(), fillIdxSet=new Set(), flaggedSet=new Set();
+    const cleanFiles=[], fillFiles=[], failedFiles=[];
+    const cleanItems=[], fillItems=[], failedItems=[];
+
+    for(const {file,type,name} of folderFiles){
+      let items; try{ items=parseItems(await readText(file)); }
+      catch(err){ console.warn('跳过无法解析的文件',name,err); continue; }
+      if(type==='clean'){ cleanFiles.push(name); cleanItems.push({items,name}); }
+      else if(type==='fill'){ fillFiles.push(name); fillItems.push({items,name}); }
+      else { failedFiles.push(name); failedItems.push({items,name}); }
+    }
+    // 收集 fill 中 flagged 的 index（供“待研究：待复核”提示）
+    fillItems.forEach(({items})=>items.forEach(it=>{ if(it.flagged&&it.index>=0&&it.index<events.length) flaggedSet.add(it.index); }));
+
+    // 1) 清洗
+    for(const {items,name} of cleanItems){ for(const it of items){ const idx=it.index;
+      if(idx<0||idx>=events.length){ console.warn('clean 越界',idx,name); continue; }
+      if(it.flagged){ skippedClean.push({idx,note:it.note||''}); continue; }
+      if(it.corrected!=null){ events[idx].ocrDesc=it.corrected; appliedClean.push(idx); cleanIdxSet.add(idx); }
+    }}
+    // 2) 补缺（已核实来源）
+    for(const {items,name} of fillItems){ for(const it of items){ const idx=it.index;
+      if(idx<0||idx>=events.length){ console.warn('fill 越界',idx,name); continue; }
+      if(it.flagged){ skippedFill.push({idx,note:it.note||''}); continue; }
+      if(it.filled!=null){
+        if(fillByIndex[idx] && fillByIndex[idx].text!==it.filled) conflicts.push({idx,files:[fillByIndex[idx].file,name]});
+        fillByIndex[idx]={text:it.filled,file:name};
+        events[idx].ocrDesc=it.filled;
+        if(it.source!=null) events[idx].ocrSource=it.source;
+        appliedFill.push(idx); fillIdxSet.add(idx);
+      }
+    }}
+    // 3) 失败条目正文（未核实来源）：仅补尚未填充者
+    for(const {items,name} of failedItems){ for(const it of items){ const idx=it.index;
+      if(idx<0||idx>=events.length) continue;
+      const txt=(it.ocrDesc||it.desc||'').trim();
+      if(!txt) continue;
+      if(cleanIdxSet.has(idx)||fillIdxSet.has(idx)) continue;
+      events[idx].ocrDesc=txt;
+      appliedUnsourced.push(idx);
+      if(flaggedSet.has(idx)) unsourcedFlagged.push(idx);
+    }}
+    crossIdx.push(...[...cleanIdxSet].filter(i=>fillIdxSet.has(i)));
+
+    // 失败条目（来自 failed_*.json，扁平数组或 {items}）
+    const failedEntries=[];
+    for(const {file,type,name} of folderFiles){
+      if(type!=='failed') continue;
+      let items; try{ items=parseItems(await readText(file)); }catch(_){ continue; }
+      for(const it of items){
+        failedEntries.push({ file:(it.file||name).replace(/\.json$/i,''), index:it.index,
+          title:it.title||'', error:it.error||it.note||'' });
+      }
+    }
+
+    const stillEmpty=[];
+    events.forEach((e,i)=>{ if(!(e.ocrDesc||'').trim()) stillEmpty.push({index:i,year:e.year,month:e.month,day:e.day,title:e.title}); });
+
+    // 报告
+    const lines=[];
+    lines.push('# OCR 合并报告');
+    lines.push('');
+    lines.push(`生成时间：${ts()}`);
+    lines.push('');
+    lines.push('## 一、合并概况');
+    lines.push(`- 基础数据 events.json：${events.length} 条`);
+    lines.push(`- 清洗应用：${appliedClean.length} 条（跳过 flagged ${skippedClean.length} 条）`);
+    lines.push(`- 补缺应用：${appliedFill.length} 条（跳过 flagged ${skippedFill.length} 条）`);
+    lines.push(`- 失败正文应用（未核实来源，来自 failed_*.json）：${appliedUnsourced.length} 条`);
+    lines.push(`- 同时出现在清洗与补缺结果中的 index：${crossIdx.length} 条（补缺覆盖清洗）`);
+    lines.push(`- 内容冲突（同 index 在多个 fill 文件且文本不同）：${conflicts.length} 处`);
+    lines.push('');
+    lines.push('## 二、扫描到的文件');
+    lines.push(`- clean_*（${cleanFiles.length}）：${cleanFiles.join('、')||'（无）'}`);
+    lines.push(`- fill_*（${fillFiles.length}）：${fillFiles.join('、')||'（无）'}`);
+    lines.push(`- failed_*（${failedFiles.length}）：${failedFiles.join('、')||'（无）'}`);
+    lines.push('');
+    lines.push(`## 三、仍未补全（空 ocrDesc）：${stillEmpty.length} 条`);
+    if(stillEmpty.length){
+      lines.push('| index | 日期 | 标题 |');
+      lines.push('|------|------|------|');
+      stillEmpty.forEach(e=>lines.push(`| ${e.index} | ${fmtDate(e)} | ${e.title||''} |`));
+    } else lines.push('（无，全部已补全）');
+    lines.push('');
+    lines.push(`## 四、各轮失败条目（failed_*.json，仅供溯源）：${failedEntries.length} 条`);
+    lines.push('> 说明：这些条目的正文已在合并中作为“未核实来源”补入 ocrDesc；下表仅作溯源记录。');
+    if(failedEntries.length){
+      lines.push('| index | 来源批次 | 标题 | 错误 |');
+      lines.push('|------|---------|------|------|');
+      failedEntries.forEach(e=>lines.push(`| ${e.index} | ${e.file} | ${e.title||''} | ${String(e.error||'').replace(/\n/g,' ')} |`));
+    } else lines.push('（无，未提供 failed_*.json 或其中无条目）');
+    lines.push('');
+    lines.push(`## 五、未核实来源应用的条目（${appliedUnsourced.length} 条，建议人工复核）`);
+    if(appliedUnsourced.length){ lines.push('| index | 日期 | 标题 |'); lines.push('|------|------|------|'); appliedUnsourced.forEach(i=>{const e=events[i];lines.push(`| ${i} | ${fmtDate(e)} | ${e.title||''} |`);}); } else lines.push('（无）');
+    lines.push('');
+    lines.push(`## 六、原 flagged 但已填充、建议复核：${unsourcedFlagged.length} 条`);
+    if(unsourcedFlagged.length){ unsourcedFlagged.sort((a,b)=>a-b).forEach(i=>lines.push(`- index ${i}（${fmtDate(events[i])} ${events[i].title||''}）`)); } else lines.push('（无）');
+    lines.push('');
+    lines.push('## 七、输出');
+    lines.push('- 合并后 events.json：events.merged.json（请人工核对后替换原文件，建议先备份）');
+    lines.push('- 本报告：apply_report.md');
+    if(conflicts.length){
+      lines.push('');
+      lines.push('## 附：补缺冲突明细');
+      conflicts.forEach(c=>lines.push(`- index ${c.idx}：${c.files.join(' ↔ ')}`));
+    }
+    const report=lines.join('\n');
+    lastReport=report; lastData=base;
+
+    // 渲染
+    renderStats({total:events.length,ac:appliedClean.length,sc:skippedClean.length,
+      af:appliedFill.length,sf:skippedFill.length,au:appliedUnsourced.length,empty:stillEmpty.length,fail:failedEntries.length,cross:crossIdx.length});
+    $('overview').innerHTML =
+      `清洗应用 <b>${appliedClean.length}</b> 条、跳过 flagged <b>${skippedClean.length}</b> 条；`+
+      `补缺应用 <b>${appliedFill.length}</b> 条、跳过 flagged <b>${skippedFill.length}</b> 条；`+
+      `失败正文补入（未核实）<b>${appliedUnsourced.length}</b> 条；`+
+      `同时出现在两类结果中 <b>${crossIdx.length}</b> 条；补缺冲突 <b>${conflicts.length}</b> 处。`;
+    $('scanInfo').innerHTML =
+      `<b>clean_*</b>（${cleanFiles.length}）：${cleanFiles.join('、')||'无'}<br>`+
+      `<b>fill_*</b>（${fillFiles.length}）：${fillFiles.join('、')||'无'}<br>`+
+      `<b>failed_*</b>（${failedFiles.length}）：${failedFiles.join('、')||'无'}`;
+    renderTable('emptyBox','emptyCount',stillEmpty.length,['index','日期','标题'],
+      stillEmpty.map(e=>[e.index,fmtDate(e),e.title||'']),'无，全部已补全 🎉');
+    renderTable('failBox','failCount',failedEntries.length,['index','来源批次','标题','错误'],
+      failedEntries.map(e=>[e.index,e.file,e.title||'',String(e.error||'').replace(/\n/g,' ')]),'无，未提供 failed_*.json 或其中无条目');
+    $('reportPre').textContent=report;
+    $('resultPanel').classList.remove('hidden');
+    $('mergeHint').textContent='合并完成。请核对报告后下载结果。';
+  }catch(err){
+    console.error(err);
+    $('mergeHint').innerHTML=`<span class="err">合并出错：${err.message}</span>`;
+  }finally{
+    $('mergeBtn').disabled=false;
+  }
+});
+
+function renderStats(s){
+  const box=$('statBox'); box.innerHTML='';
+  const cells=[['清洗应用',s.ac],['清洗跳过',s.sc],['补缺应用',s.af],['补缺跳过',s.sf],
+    ['未核实来源',s.au],['仍为空',s.empty],['失败条目',s.fail]];
+  cells.forEach(([k,v])=>{ const d=document.createElement('div'); d.className='stat';
+    d.innerHTML=`<b>${v}</b><span>${k}</span>`; box.appendChild(d); });
+}
+function renderTable(boxId,countId,count,headers,rows,emptyMsg){
+  $(countId).textContent=count;
+  const box=$(boxId);
+  if(!count){ box.innerHTML=`<div class="hint">${emptyMsg}</div>`; return; }
+  let h='<table><thead><tr>'+headers.map(x=>`<th>${x}</th>`).join('')+'</tr></thead><tbody>';
+  rows.forEach(r=>{ h+='<tr>'+r.map(c=>`<td>${escapeHtml(String(c??''))}</td>`).join('')+'</tr>'; });
+  h+='</tbody></table>'; box.innerHTML=h;
+}
+function escapeHtml(s){ return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+$('dlEvents').addEventListener('click', ()=>{
+  if(!lastData) return;
+  download('events.merged.json', JSON.stringify(lastData,null,2), 'application/json');
+});
+$('dlReport').addEventListener('click', ()=>{
+  if(!lastReport) return;
+  download('apply_report.md', lastReport, 'text/markdown');
+});
+function download(name,text,mime){
+  const b=new Blob([text],{type:mime+';charset=utf-8'}); const u=URL.createObjectURL(b);
+  const a=document.createElement('a'); a.href=u; a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(u);a.remove();},100);
+}
+</script>
+</body>
+</html>

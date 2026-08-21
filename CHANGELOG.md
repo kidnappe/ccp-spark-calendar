@@ -2,6 +2,26 @@
 
 本项目所有版本迭代记录。页面内的完整交互说明见「关于 → 更新日志」。
 
+## [v1.8] - 2026-08-21 官方史料源、事件三级分类与三合一工具台
+
+### 新增
+- 官方史料取源链（`detail_server.py`）：**共产党员网官方站内搜索 rank-0 → Bing `site:` 官方域桥接 → 维基百科 → 搜索兜底**；落盘标注 `detailVerified`（官方/非官方）
+- 事件三级分类：`cat` 新增 `"nation"`（国家大事：科技 / 工程 / 外交 / 回归 / 体育 / 灾害 / 民生，弱党史关联），页面以琥珀/金色系呈现，配套图例、分类筛选与因果图过滤（`scripts/classify_rel.py` 产出候选清单）
+- 三合一工具台 `tools/workshop.html`：OCR 清洗 / 合并应用 / 详情丰富 一个页面三个标签（由 `tools/build_workshop.py` 真实 DOM 合并生成，标签样式同主站「关于」页）
+- 工作台「⚙️ 构建 index」按钮 + 实时进度条：`POST /api/build` 后台运行 `build_data.py`，`GET /api/build/status` 轮询（布局计算阶段有进度输出）
+- 统一备份目录 `backups/`：落盘 / 构建 / 分类 / OCR 合并 任一操作写入 `events.json` 前自动快照（events + causality 双备份，带类型与时间戳）
+- 详情丰富工具：来源日志与分布统计、失败条目导出、一键落盘（`/api/apply`）、单条重跑、批量「重跑失败 / 重跑非官方」、抓取文本字数可视化
+
+### 更改
+- 统一本地服务（端口 8001）：`detail_server.py` 并入 OCR 的 `/api/fill`；`start_ocr_gui.bat` 与 `start_detail_gui.bat` 合并为 `start_workshop.bat`（单入口）
+- 事件去重：423 → **419 条**（入世 ×2、农业税 ×3、世博会弱占位条目清理），因果边 460 → 451
+- 丰富工具载入时自动跳过已丰富事件（`/api/events` 返回 `enriched` 标记），「重跑非官方数据」可把旧的非官方结果按新官方源整体升级
+- 修复：结果分组折叠状态持久化、载入恢复 localStorage 的 bug、「已生成」标记口径（区分「成功」与「已处理」）
+
+### 移除
+- `start_ocr_gui.bat` / `start_detail_gui.bat`（被 `start_workshop.bat` 取代）
+- 根目录散落的 `events.json.bak-*` / `causality.json.bak-*`（统一归入 `backups/`）
+
 ## [v1.7] - 2026-08-19 详情弹窗与时间轴视觉升级
 
 ### 新增

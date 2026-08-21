@@ -11,14 +11,15 @@
 ## ✨ 功能特性
 
 - **日历视图**：按真实公历日期排布事件，标注月份、年份，一眼看到"历史上的今天"。
-- **事件详情**：点击任意日期，弹窗展示事件标题、描述、分类（中共 / 国民党）。
+- **事件详情**：点击任意日期，弹窗展示事件标题、描述、三级分类（中共 / 国家大事 / 其他力量），以及史料详情 6 子块（背景 / 历史意义 / 重要论述 / 相关人物 / 文献出处 / 延伸阅读）。
 - **因果脉络图（Causal Graph）**：基于力导向布局的 SVG 关系网络，区分
   - **已证实边**（实线，来自史料明确记载的因果）
   - **推断边**（虚线，由本地文本算法推断的强关联）
   - 支持"聚焦某条脉络"查看前因 / 后续，以及侧栏列表联动。
 - **时间轴**：横向时间线，快速定位不同历史阶段。
-- **检索与筛选**：按关键词搜索事件；按分类（中共 / 国民党）筛选。
+- **检索与筛选**：按关键词搜索事件；按分类（中共 / 国家大事 / 其他力量）筛选。
 - **关于页**：内置更新日志与操作指南（弹窗 Tab 切换）。
+- **三合一工具台**（`tools/workshop.html`）：OCR 清洗、合并应用、详情丰富三个维护工具合并为一个页面，含「⚙️ 构建 index」一键重建与实时进度条。
 - **移动端适配**：窄屏布局自适应、触控缩放/平移、去除点按延迟、弹窗内部滚动。
 
 ---
@@ -41,17 +42,27 @@
 ```
 ccp-spark-calendar/
 ├── index.html                      # 主程序（单文件应用，含全部样式与脚本）
-├── events.json                     # 事件库（外部化事实源，423 条）
-├── causality.json                  # 因果链（外部化事实源，460 条边）
+├── events.json                     # 事件库（外部化事实源，419 条，含详情 6 子块与 causes）
+├── causality.json                  # 因果链（外部化事实源，451 条边）
+├── backups/                        # 统一备份目录（各工具写入 events.json 前自动快照）
 ├── README.md                       # 本文件
 ├── LICENSE                         # MIT 协议
-├── .gitignore                      # 忽略私有/大文件（PDF、.ocr、.workbuddy 等）
+├── .gitignore                      # 忽略私有/大文件（PDF、.ocr、备份、.workbuddy 等）
 ├── scripts/                        # 数据生成与校验脚本（Python 标准库）
 │   ├── build_data.py               # 读取 events/causality → 重写 index.html 数据块 + 预计算布局
 │   ├── build_causality.py          # 合并多源种子边 → causality.json
 │   ├── build_events.py             # 合并基线事件库 + 新书片段 → events.json
+│   ├── classify_rel.py             # 事件三级分类（强党史 / 国家大事 / 其他力量）产出候选清单
 │   ├── causal_algorithm.py         # 因果图算法与校验（validate）
-│   └── causal_infer_local.py       # 本地文本因果推断（生成推断边）
+│   ├── causal_infer_local.py       # 本地文本因果推断（生成推断边）
+│   ├── apply_ocr_results.py        # OCR 清洗/补缺结果合并回 events.json（写入前自动备份）
+│   └── ...                         # 其余质检、清洗、图标脚本
+├── tools/                          # 维护工具（三合一工作台 + 统一本地服务）
+│   ├── workshop.html               # 三合一工具台（OCR 清洗 / 合并应用 / 详情丰富）
+│   ├── build_workshop.py           # 由三个工具 HTML 真实 DOM 合并生成 workshop.html
+│   ├── detail_server.py            # 统一本地服务（8001）：静态托管 + 全部 API + /api/build
+│   ├── start_workshop.bat          # 双击启动统一服务并打开工具台（唯一入口）
+│   └── ...                         # 三个工具源 HTML、OCR 服务等
 └── docs/                           # 设计文档与资料
     ├── 星火日历_项目概览.md
     ├── 星火日历_续做指南.md
@@ -66,7 +77,10 @@ ccp-spark-calendar/
 
 **方式一（最简单）**：直接用浏览器打开 `index.html` 即可。
 
-**方式二（推荐，避免个别浏览器对本地文件的限制）**：起一个本地静态服务器。
+**方式二（推荐，维护工具）**：双击 `tools/start_workshop.bat`，会自动启动统一本地服务（端口 8001）
+并打开**三合一工具台**（OCR 清洗 / 合并应用 / 详情丰富）。
+
+**方式三（手动起静态服务）**：
 
 ```bash
 # 任选其一
@@ -76,6 +90,7 @@ python -m http.server 8080
 
 > 数据已烘焙进 `index.html`，运行时不依赖 `events.json` / `causality.json`，
 > 这两个文件只在**重新生成数据**时才需要。
+> 维护工具（OCR 清洗）另需本机运行 Ollama 服务。
 
 ---
 
@@ -87,8 +102,11 @@ python -m http.server 8080
 2. 运行生成器（脚本会自动定位项目根目录，无论从哪个目录执行都行）：
 
 ```bash
-python scripts/build_data.py      # 重写 index.html 的数据块 + 预计算 SVG 布局
+python scripts/build_data.py      # 重写 index.html 的数据块 + 预计算 SVG 布局（约 5-10 分钟）
 ```
+
+   或在**工具台**页面点「⚙️ 构建 index」按钮一键执行，带实时进度条
+   （构建前会自动把 `events.json` / `causality.json` 快照到 `backups/`）。
 
 3. 校验因果图数据完整性：
 
@@ -119,7 +137,9 @@ python scripts/causal_algorithm.py # 输出：事件数 / 边数 / 校验错误�
 ```
 
 - 主键规则：`年-月-日`，**月日不补零**（如 `1921-7-23`），与 `index.html` 内部 `keyOf()` 完全一致。
-- `cat`：`"party"`（中共，红）/ `"kmt"`（国民党，蓝）。
+- `cat`：`"party"`（中共，红）/ `"nation"`（国家大事，金）/ `"kmt"`（其他力量，蓝）三档。
+- 详情字段（可选）：`bg` / `significance` / `quotes` / `figures` / `srcCite` / `furtherReading`（史料详情 6 子块）、`detailSource`/`detailVerified`（来源与官方标记）、`ocrDesc`（史料原文）。
+- `causes`：该事件直接导致的后续事件主键数组（因 → 果，单向维护；`causedBy` 由页面反向推导）。
 
 **`causality.json`**
 

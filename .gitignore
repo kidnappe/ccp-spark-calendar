@@ -45,6 +45,16 @@ Thumbs.db
 # OCR 进度 / 质检脚本生成的报告（可重新生成）
 scripts/ocr_status.md
 scripts/qc_ocr_shortlist.md
+scripts/rel_candidates.md
+
+# 构建临时日志（工作台「?? 构建」产生的 _build*.log）
+_build*.log
+
+# 工具备份目录（合并/改动前的整目录快照，可删可留，不进仓库）
+tools/_backup_*/
+
+# events/causality 统一备份目录（各工具写入前自动快照）
+backups/
 
 # 设计稿 / 原型（页面功能已落地后不再进仓库）
 mockup_*.html

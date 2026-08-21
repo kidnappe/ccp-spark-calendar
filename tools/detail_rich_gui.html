@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星火日历 · 史料详情丰富工具</title>
+<style>
+  :root{--bg:#f7f8fa;--card:#fff;--line:#e3e6eb;--ink:#1f2329;--sub:#6b7280;
+    --brand:#b91c1c;--brand2:#2563eb;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;--code:#f3f4f6;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;font-size:14px}
+  .wrap{max-width:1040px;margin:0 auto;padding:18px}
+  h1{font-size:19px;margin:0 0 2px}
+  .sub{color:var(--sub);font-size:12.5px;margin:0 0 14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  label{display:block;font-size:12px;color:var(--sub);margin-bottom:3px}
+  input,select,textarea{width:100%;font:inherit;padding:7px 9px;border:1px solid var(--line);
+    border-radius:7px;background:#fff;color:var(--ink)}
+  textarea{resize:vertical;font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12.5px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  button{cursor:pointer;font:inherit;border:none;border-radius:7px;padding:8px 13px;font-weight:600}
+  .b-primary{background:var(--brand);color:#fff}.b-blue{background:var(--brand2);color:#fff}
+  .b-ghost{background:#eef1f5;color:var(--ink)}.b-ok{background:var(--ok);color:#fff}
+  .b-warn{background:var(--warn);color:#fff}.b-bad{background:var(--bad);color:#fff}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:#eef1f5;color:var(--sub)}
+  .pill.ok{background:#e8f5e9;color:var(--ok)}.pill.warn{background:#fef3e2;color:var(--warn)}
+  .pill.bad{background:#fde8e8;color:var(--bad)}
+  .evlist{max-height:320px;overflow:auto;border:1px solid var(--line);border-radius:8px;margin-top:10px}
+  .evrow{display:flex;gap:8px;align-items:center;padding:5px 10px;border-bottom:1px solid #f0f0f0;font-size:13px}
+  .evrow:last-child{border-bottom:none}
+  .evrow .yr{color:var(--sub);min-width:70px}
+  .evrow.done .yr,.evrow.done .tt{color:#999}
+  .log{font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12px;white-space:pre-wrap;
+    background:#0f172a;color:#cbd5e1;border-radius:8px;padding:10px;max-height:180px;overflow:auto;margin-top:10px}
+  .prog{height:8px;background:#eef1f5;border-radius:999px;overflow:hidden;margin:6px 0}
+  .prog>i{display:block;height:100%;background:var(--brand2);width:0;transition:width .2s}
+  .hint{font-size:12px;color:var(--sub);background:#fff8eb;border:1px solid #fde68a;border-radius:8px;padding:9px 11px;margin-top:10px}
+  .file-warn{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px}
+  .hidden{display:none}
+  .res{margin-top:10px}
+  .res .head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+  .res .head .tt{font-weight:700}
+  .res a{font-size:12px;color:var(--brand2)}
+  .fld{margin-bottom:8px}
+  .fld .lab{font-size:12px;color:var(--sub);margin-bottom:2px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:720px){.two{grid-template-columns:1fr}}
+  /* 结果二级菜单 */
+  .res-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+  .res-group{margin-bottom:12px;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .res-group>.group-head{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;font-weight:700;user-select:none}
+  .res-group>.group-head .cnt{font-size:12px;color:var(--sub);font-weight:600}
+  .res-group>.group-head .tg{margin-left:auto;transition:transform .15s;font-size:12px;color:var(--sub)}
+  .res-group.collapsed>.group-body{display:none}
+  .res-group.collapsed>.group-head .tg{transform:rotate(-90deg)}
+  .group-ok{background:#e8f5e9;color:var(--ok)}
+  .group-err{background:#fde8e8;color:var(--bad)}
+  .group-none{background:#fef3e2;color:var(--warn)}
+  .res-group>.group-body{padding:10px}
+  /* 卡片按状态着色 */
+  .card.ok-bg{background:#e9f5ee;border-color:#b6dcc4;border-left:4px solid #15803d}
+  .card.err-bg{background:#fdeded;border-color:#f1bfbf;border-left:4px solid #b91c1c}
+  .card.none-bg{background:#fdf4e6;border-color:#f0d49b;border-left:4px solid #b45309}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="file-warn hidden" id="fileWarn">⚠️ 请勿用 file:// 直接打开本页。请双击 <b>tools/start_detail_gui.bat</b>（自动起服务并打开本页）。</div>
+  <h1>星火日历 · 史料详情丰富工具</h1>
+  <p class="sub">本地爬虫（百度百科）+ 本地 Ollama 生成 6 子块（背景/意义/论述/人物/出处/延伸）· 数据不出本机 · 端口 8001（与清洗工具互不冲突）</p>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">① 连接设置</h2>
+    <div class="grid">
+      <div><label>Ollama 地址</label><input id="base" value="http://127.0.0.1:11434"></div>
+      <div><label>模型（与 ollama list 一致）</label><select id="model"></select></div>
+    </div>
+    <div class="row">
+      <button class="b-ghost" id="testBtn">测试连接</button>
+      <span id="testMsg" class="pill" style="background:#eef1f5"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">② 选择事件（从 events.json 载入）</h2>
+    <div class="row">
+      <button class="b-primary" id="loadBtn">载入全部事件</button>
+      <input id="kw" placeholder="搜索标题关键词…" style="max-width:220px">
+      <select id="catF" style="max-width:180px">
+        <option value="">全部势力</option><option value="party">中共相关</option>
+        <option value="kmt">其他力量</option>
+      </select>
+      <select id="yearF" style="max-width:140px"><option value="">全部年份</option></select>
+      <button class="b-ghost" id="selAll">全选</button>
+      <button class="b-ghost" id="selNone">清空</button>
+      <span class="pill ok" id="loadCount"></span>
+      <span class="pill" id="selStat"></span>
+    </div>
+    <div class="evlist" id="evList"><p style="color:#999;font-size:13px;padding:10px">点「载入全部事件」开始。</p></div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">③ 批量丰富</h2>
+    <div class="row">
+      <button class="b-blue" id="runBtn">▶ 开始批量丰富</button>
+      <button class="b-bad hidden" id="stopBtn">■ 停止</button>
+      <span class="pill" id="progMsg"></span>
+    </div>
+    <div class="prog"><i id="bar"></i></div>
+    <div class="log" id="log">就绪。载入事件 → 勾选 → 开始批量丰富。</div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">④ 结果与导出</h2>
+    <div class="row">
+      <button class="b-ok" id="dlBtn">⬇ 下载结果 JSON</button>
+      <button class="b-ghost" id="copyBtn">复制 JSON</button>
+      <button class="b-blue" id="applyBtn">⬇ 应用详情到 events.json（写盘+备份）</button>
+      <button class="b-warn" id="failDlBtn">⚠️ 导出失败/未抓取到资料条目（重新加工）</button>
+      <button class="b-bad" id="rerunFailBtn">↻ 重跑失败条目</button>
+      <button class="b-warn" id="rerunUnofficialBtn">↻ 重跑非官方数据</button>
+      <button class="b-ghost" id="failResetBtn">↻ 重置失败条目（可重跑）</button>
+      <span class="pill ok" id="statOk"></span>
+      <span class="pill warn" id="statNone"></span>
+      <span class="pill bad" id="statErr"></span>
+      <span class="pill bad" id="statFail"></span>
+    </div>
+    <p class="muted">⚠️ 导出失败/未抓取到资料条目：把本次未成功丰富的事件导出成 JSON（含 key/日期/标题/状态/来源/错误），可据此手动补写或重新加工；「重置」会清掉这些条目以便重新勾选重跑。点击「应用详情」会把成功条目写回 events.json（先自动备份），写后请运行 build_data.py 重建 index.html。</p>
+    <div id="srcStats" class="muted" style="margin:8px 0;font-weight:600;color:#374151"></div>
+    <div class="res" id="results"></div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+if(location.protocol === 'file:') $('fileWarn').classList.remove('hidden');
+
+const state = { events:[], selected:new Set(), results:new Map(), collapsed:{} };
+const LS = 'detail_gui_results';
+
+function log(msg, cls){ const el=$('log'); const d=document.createElement('div'); if(cls)d.className=cls;
+  d.textContent='['+new Date().toLocaleTimeString()+'] '+msg; el.appendChild(d); el.scrollTop=el.scrollHeight; }
+
+async function api(path, body){
+  const opt = body ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)} : {};
+  const r = await fetch(path, opt);
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
+}
+
+/* ① 模型 */
+$('testBtn').onclick = async ()=>{
+  $('testMsg').textContent='连接中…';
+  try{
+    const d = await api('/api/models');
+    if(!d.ok) throw new Error(d.error||'失败');
+    $('testMsg').textContent = 'Ollama ✓ ' + d.models.join(', ');
+    $('testMsg').className = 'pill ok';
+    log('Ollama 可用模型：'+d.models.join(', '), 'ok');
+  }catch(e){
+    $('testMsg').textContent = '失败：'+e.message;
+    $('testMsg').className = 'pill bad';
+    log('Ollama 连接失败：'+e.message, 'bad');
+  }
+};
+(async ()=>{
+  try{ const d = await api('/api/models'); if(d.ok && d.models.length){
+    $('model').innerHTML = d.models.map(m=>`<option>${m}</option>`).join('');
+    if(!d.models.includes('qwen2.5:local7b') && d.models[0]) $('model').value = d.models[0];
+  }}catch(_){}
+})();
+
+/* ② 事件 */
+$('loadBtn').onclick = async ()=>{
+  try{
+    const d = await api('/api/events');
+    if(!d.ok) throw new Error(d.error||'失败');
+    state.events = d.items;
+    // 年份下拉
+    const yrs = [...new Set(d.items.map(e=>e.year))].sort((a,b)=>a-b);
+    $('yearF').innerHTML = '<option value="">全部年份</option>' + yrs.map(y=>`<option>${y}</option>`).join('');
+    // 恢复已选/结果
+    try{ const s = JSON.parse(localStorage.getItem(LS)||'{}');
+      const res = s.res || s;   // 兼容旧格式（早期直接存 results 于顶层）
+      state.results = new Map(Object.entries(res));
+      if(s.col) state.collapsed = s.col;
+      (s.sel||[]).forEach(k=>state.selected.add(k));
+    }catch(_){}
+    // events.json 里已丰富的（已落盘）自动标 ok 跳过；localStorage 里的新进度优先，不覆盖
+    d.items.forEach(e=>{
+      if(e.enriched && !state.results.has(e.key)){
+        state.results.set(e.key, {status:'ok',
+          detail:{bg:e.bg||'', significance:e.significance||'', quotes:e.quotes||[],
+                  figures:e.figures||[], srcCite:e.srcCite||[], furtherReading:e.furtherReading||[]},
+          source_url:e.detailSource||'', site:e.site||'', official:e.official||false});
+      }
+    });
+    renderList();
+    $('loadCount').textContent = `已载入 ${d.total} 个事件`;
+    log(`已载入 ${d.total} 个事件（已恢复结果 ${state.results.size} 条）`, 'ok');
+    $('selStat').textContent = `已选 0`;
+  }catch(e){ alert('载入失败：'+e.message); log('载入失败：'+e.message, 'bad'); }
+};
+function visibleEvents(){
+  const kw = $('kw').value.trim(), cat = $('catF').value, yr = $('yearF').value;
+  return state.events.filter(e=>
+    (!kw || e.title.includes(kw)) && (!cat || e.cat===cat) && (!yr || String(e.year)===yr));
+}
+function renderList(){
+  const box = $('evList'); box.innerHTML='';
+  const list = visibleEvents();
+  if(!list.length){ box.innerHTML='<p style="color:#999;font-size:13px;padding:10px">无匹配事件。</p>'; return; }
+  list.forEach(e=>{
+    const row = document.createElement('label');
+    row.className = 'evrow' + (state.results.has(e.key) ? ' done' : '');
+    row.innerHTML = `<input type="checkbox" data-k="${e.key}">
+      <span class="yr">${e.year}-${String(e.month).padStart(2,'0')}-${String(e.day).padStart(2,'0')}</span>
+      <span class="tt">${e.title}</span>
+      ${pillFor(e.key)}`;
+    const cb = row.querySelector('input');
+    cb.checked = state.selected.has(e.key);
+    cb.onchange = ()=>{ cb.checked ? state.selected.add(e.key) : state.selected.delete(e.key); updateSelStat(); };
+    box.appendChild(row);
+  });
+  updateSelStat();
+}
+function updateSelStat(){
+  const sel = [...state.selected];
+  const hasRes = sel.filter(k=>state.results.has(k)).length;
+  const okSel = sel.filter(k=>{ const r=state.results.get(k); return r && r.status==='ok'; }).length;
+  $('selStat').textContent = `已选 ${sel.length} 个（已处理 ${hasRes}，成功 ${okSel}）`;
+}
+/* 列表行状态 pill：成功绿「已生成」，未成功灰「已处理·无资料/失败」 */
+function pillFor(key){
+  const r = state.results.get(key); if(!r) return '';
+  if(r.status === 'ok') return '<span class="pill ok">已生成</span>';
+  if(r.status === 'none') return '<span class="pill">已处理·无资料</span>';
+  if(r.status === 'err') return '<span class="pill">已处理·失败</span>';
+  return '<span class="pill">已处理</span>';
+}
+$('kw').oninput = $('catF').onchange = $('yearF').onchange = renderList;
+$('selAll').onclick = ()=>{ visibleEvents().forEach(e=>state.selected.add(e.key)); renderList(); };
+$('selNone').onclick = ()=>{ visibleEvents().forEach(e=>state.selected.delete(e.key)); renderList(); };
+
+/* ③ 批量丰富 */
+let running = false;
+$('runBtn').onclick = async ()=>{
+  if(running) return;
+  const model = $('model').value;
+  const todo = state.events.filter(e=>state.selected.has(e.key) && !state.results.has(e.key));
+  if(!todo.length){ alert('没有待处理的事件（先载入并勾选，或已全部完成）'); return; }
+  running = true;
+  $('runBtn').classList.add('hidden'); $('stopBtn').classList.remove('hidden');
+  log(`开始批量丰富 ${todo.length} 个事件（模型 ${model}）…`);
+  let done=0, okN=0, noneN=0, errN=0;
+  for(const e of todo){
+    if(!running) break;
+    done++;
+    $('bar').style.width = Math.round(done/todo.length*100)+'%';
+    $('progMsg').textContent = `${done}/${todo.length}`;
+    try{
+      log(`[${done}/${todo.length}] ${e.key} ${e.title}：抓取…`);
+      const f = await api('/api/fetch', {title: e.title, year: e.year});
+      if(!f.ok || !f.text){
+        state.results.set(e.key, {status:'none', detail:emptyDetail(), source_url:''});
+        noneN++; log('  ⚠ 未抓取到资料（无可用来源）', 'warn');
+      }else{
+        const src = (f.site||'来源') + (f.url? ' · '+f.url : '') + ' · 文本 ' + (f.text||'').length + ' 字';
+        log('  抓取 ✓ 来源：'+src);
+        log('  模型生成中…');
+        const g = await api('/api/generate', {event:e, text:f.text, url:f.url, model});
+        if(!g.ok) throw new Error(g.error||'生成失败');
+        state.results.set(e.key, {status:'ok', detail:g.detail||emptyDetail(), source_url:f.url, site:f.site||'', official:f.official||false, tlen:(f.text||'').length});
+        okN++; log(`  ✓ 来源 ${f.site||'?'}｜bg ${(g.detail&&g.detail.bg||'').length}字 / 人物 ${(g.detail&&g.detail.figures||[]).length} 人`, 'ok');
+      }
+    }catch(err){
+      state.results.set(e.key, {status:'err', detail:emptyDetail(), source_url:'', error:err.message});
+      errN++; log('  ✗ '+err.message+'（无来源）', 'bad');
+    }
+    renderResults(); saveState();
+  }
+  running=false;
+  $('runBtn').classList.remove('hidden'); $('stopBtn').classList.add('hidden');
+  $('statOk').textContent = '成功 '+okN; $('statNone').textContent = '未抓取到资料 '+noneN; $('statErr').textContent = '失败 '+errN;
+  $('statFail').textContent = '未成功 '+(noneN+errN);
+  log(todo.length? '本批处理完：成功 '+okN+'，未抓取到资料 '+noneN+'，失败 '+errN : '已停止');
+};
+$('stopBtn').onclick = ()=>{ running=false; log('已请求停止'); };
+
+function emptyDetail(){ return {bg:'', significance:'', quotes:[], figures:[], srcCite:[], furtherReading:[]}; }
+
+/* 单条重跑核心：重新抓取+生成（无 running 守卫，供「重跑本条」与「重跑失败条目」复用） */
+async function rerunKey(key){
+  const e = state.events.find(x=>x.key===key); if(!e) return;
+  const model = $('model').value;
+  log(`重跑 ${key} ${e.title}：抓取…`);
+  try{
+    const f = await api('/api/fetch', {title:e.title, year:e.year});
+    if(!f.ok || !f.text){
+      state.results.set(key, {status:'none', detail:emptyDetail(), source_url:'', official:false});
+      log('  ⚠ 未抓取到资料（无可用来源）','warn');
+    }else{
+      log('  抓取 ✓ 来源：'+(f.site||'来源')+(f.url?' · '+f.url:'')+'（'+(f.official?'官方':'非官方')+'）· 文本 '+(f.text||'').length+' 字');
+      const g = await api('/api/generate', {event:e, text:f.text, url:f.url, model});
+      if(!g.ok) throw new Error(g.error||'生成失败');
+      state.results.set(key, {status:'ok', detail:g.detail||emptyDetail(), source_url:f.url, site:f.site||'', official:f.official||false, tlen:(f.text||'').length});
+      log('  ✓ 来源 '+ (f.site||'?') +'｜重跑完成','ok');
+    }
+  }catch(err){
+    state.results.set(key, {status:'err', detail:emptyDetail(), source_url:'', error:err.message, official:false});
+    log('  ✗ '+err.message+'（无来源）','bad');
+  }
+}
+/* 卡片「重跑本条」 */
+async function rerunOne(key){
+  if(running){ alert('批量任务进行中，请先停止'); return; }
+  await rerunKey(key);
+  renderResults(); saveState();
+}
+
+/* ④ 结果渲染：二级菜单（按状态分组：成功/失败/未抓取到资料），合并原卡片展示与「重跑本条」 */
+const RESULT_GROUPS = [
+  {status:'ok',   label:'✓ 成功',   cls:'group-ok'},
+  {status:'err',  label:'✗ 失败',   cls:'group-err'},
+  {status:'none', label:'⚠ 未抓取到资料', cls:'group-none'}
+];
+function renderResults(){
+  const box = $('results'); box.innerHTML='';
+  const keys = [...state.results.keys()];
+  const cnt = s => keys.filter(k=>(state.results.get(k).status||'')===s).length;
+  $('statOk').textContent = '成功 '+cnt('ok');
+  $('statNone').textContent = '未抓取到资料 '+cnt('none');
+  $('statErr').textContent = '失败 '+cnt('err');
+  $('statFail').textContent = '未成功 '+(cnt('none')+cnt('err'));
+  /* 来源分布统计（仅成功条目） */
+  const okList = keys.map(k=>state.results.get(k)).filter(r=>r.status==='ok');
+  if(okList.length){
+    const bySite = {}; let unverified = 0;
+    okList.forEach(r=>{ const s=r.site||'未知'; bySite[s]=(bySite[s]||0)+1; if(!r.official) unverified++; });
+    const parts = Object.entries(bySite).sort((a,b)=>b[1]-a[1]).map(([s,n])=>`${s} ${n}`);
+    const tlen = okList.map(r=>r.tlen||0);
+    const avg = tlen.length ? Math.round(tlen.reduce((a,b)=>a+b,0)/tlen.length) : 0;
+    const min = tlen.length ? Math.min(...tlen) : 0;
+    $('srcStats').innerHTML = '来源构成：' + parts.join(' · ') + (unverified? ` · <span style="color:#b45309">非官方 ${unverified}</span>` : '')
+      + ` <span style="color:#6b7280">｜抓取文本：平均 ${avg} 字 / 最短 ${min} 字（${okList.length} 条）</span>`;
+  } else {
+    $('srcStats').textContent = '（暂无成功条目）';
+  }
+  /* 二级菜单：顶部刷新工具条 + 分组 */
+  const tb = document.createElement('div'); tb.className='res-toolbar';
+  tb.innerHTML = `<button class="b-ghost" id="refreshBtn">↻ 刷新结果状态</button>
+    <span class="muted">重跑后可点此处刷新；点击分组标题可折叠/展开。</span>`;
+  box.appendChild(tb);
+  tb.querySelector('#refreshBtn').onclick = refreshResults;
+  if(!keys.length){
+    box.insertAdjacentHTML('beforeend','<p class="muted" style="padding:6px 2px">暂无结果。载入事件并勾选后开始批量丰富。</p>');
+    return;
+  }
+  RESULT_GROUPS.forEach(g=>{
+    const gkeys = keys.filter(k=>(state.results.get(k).status||'')===g.status);
+    if(!gkeys.length) return;
+    const grp = document.createElement('div');
+    grp.className = 'res-group' + (state.collapsed[g.status] ? ' collapsed' : '');
+    grp.innerHTML = `<div class="group-head ${g.cls}"><span>${g.label}</span><span class="cnt">${gkeys.length} 条</span><span class="tg">▾</span></div><div class="group-body"></div>`;
+    grp.querySelector('.group-head').onclick = ()=>{
+      state.collapsed[g.status] = !state.collapsed[g.status];
+      grp.classList.toggle('collapsed', state.collapsed[g.status]);
+    };
+    const bd = grp.querySelector('.group-body');
+    gkeys.forEach(k=> bd.appendChild(buildCard(k, g.status)));
+    box.appendChild(grp);
+  });
+  box.querySelectorAll('textarea').forEach(ta=>{
+    ta.oninput = ()=>{
+      const k = ta.dataset.k, f = ta.dataset.f;
+      const r = state.results.get(k); if(!r) return;
+      if(f==='bg'||f==='significance') r.detail[f] = ta.value;
+      else r.detail[f] = ta.value.split('\n').map(s=>s.trim()).filter(Boolean);
+      saveState();
+    };
+  });
+}
+/* 单张结果卡片（含 重跑本条 / 删除 / 6 子块编辑） */
+function buildCard(k, status){
+  const r = state.results.get(k);
+  const ev = state.events.find(x=>x.key===k);
+  const card = document.createElement('div');
+  card.className = 'card ' + (status==='ok'?'ok-bg':status==='err'?'err-bg':'none-bg');
+  card.style.marginBottom='10px';
+  const st = status==='ok'?'<span class="pill ok">已生成</span>'
+    : status==='err'?'<span class="pill bad">失败</span>':'<span class="pill warn">未抓取到资料</span>';
+  const unverified = (status==='ok' && !r.official) ? ' <span class="pill" style="background:#fef3e2;color:#b45309">⚠ 非官方</span>' : '';
+  card.innerHTML = `<div class="head"><span class="tt">${k} ${ev?ev.title:''}</span>${st}${unverified}
+    ${r.source_url?`<a href="${r.source_url}" target="_blank" rel="noopener">${r.site||'来源'}</a>`:''}
+    <button class="b-ghost" data-rerun="${k}">重跑本条</button>
+    <button class="b-ghost" data-del="${k}" style="margin-left:auto">删除</button></div>
+    <div class="two">
+      <div class="fld"><div class="lab">背景 bg</div><textarea data-k="${k}" data-f="bg" rows="3"></textarea></div>
+      <div class="fld"><div class="lab">历史意义 significance</div><textarea data-k="${k}" data-f="significance" rows="3"></textarea></div>
+    </div>
+    <div class="two">
+      <div class="fld"><div class="lab">重要论述 quotes（每行一条）</div><textarea data-k="${k}" data-f="quotes" rows="3"></textarea></div>
+      <div class="fld"><div class="lab">相关人物 figures（每行一条）</div><textarea data-k="${k}" data-f="figures" rows="3"></textarea></div>
+    </div>
+    <div class="two">
+      <div class="fld"><div class="lab">文献出处 srcCite（每行一条）</div><textarea data-k="${k}" data-f="srcCite" rows="2"></textarea></div>
+      <div class="fld"><div class="lab">延伸阅读 furtherReading（每行：标题|URL）</div><textarea data-k="${k}" data-f="furtherReading" rows="2"></textarea></div>
+    </div>`;
+  const d = r.detail||{};
+  card.querySelector('[data-f="bg"]').value = d.bg||'';
+  card.querySelector('[data-f="significance"]').value = d.significance||'';
+  card.querySelector('[data-f="quotes"]').value = (d.quotes||[]).join('\n');
+  card.querySelector('[data-f="figures"]').value = (d.figures||[]).join('\n');
+  card.querySelector('[data-f="srcCite"]').value = (d.srcCite||[]).join('\n');
+  card.querySelector('[data-f="furtherReading"]').value = (d.furtherReading||[]).map(x=>x&&x.title?x.title+'|'+(x.url||''):(x||'')).join('\n');
+  if(r.error) card.insertAdjacentHTML('afterbegin', `<p class="pill bad">${r.error}</p>`);
+  card.querySelector('[data-del="'+k+'"]').onclick = ()=>{ state.results.delete(k); renderResults(); saveState(); };
+  card.querySelector('[data-rerun="'+k+'"]').onclick = ()=> rerunOne(k);
+  return card;
+}
+function saveState(){
+  const s = {sel:[...state.selected], res:Object.fromEntries(state.results), col:state.collapsed};
+  try{ localStorage.setItem(LS, JSON.stringify(s)); }catch(_){}
+}
+function buildOut(){
+  const items = [...state.results.entries()].filter(([,r])=>r.status==='ok').map(([k,r])=>({
+    key:k, detail:r.detail||{}, source_url:r.source_url||'', site:r.site||'' }));
+  return {items};
+}
+$('dlBtn').onclick = ()=>{
+  const blob = new Blob([JSON.stringify(buildOut(), null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  const name = 'detail_results_' + ts() + '.json';
+  a.download = name; a.click(); URL.revokeObjectURL(a.href);
+  log('已下载 '+name+'（'+buildOut().items.length+' 条）', 'ok');
+};
+$('copyBtn').onclick = ()=>{ navigator.clipboard.writeText(JSON.stringify(buildOut(), null, 2)).then(()=>log('已复制 JSON')); };
+
+/* ---------- 导出丰富失败/未抓取到资料条目（逻辑同清洗工具） ---------- */
+/* 未成功丰富的条目（err=生成失败 / none=无可用来源），逻辑同清洗工具 state.failed */
+function ts(){
+  const d = new Date(), p = n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+function downloadJSON(name, obj){
+  const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  URL.revokeObjectURL(a.href);
+}
+function failedEntries(){
+  const out = [];
+  for(const [k, r] of state.results.entries()){
+    if(r.status === 'err' || r.status === 'none'){
+      const ev = state.events.find(x=>x.key===k) || {};
+      out.push({
+        file: 'events.json',
+        key: k,
+        year: ev.year, month: ev.month, day: ev.day,
+        title: ev.title || k,
+        status: r.status,
+        source_url: r.source_url || '',
+        error: r.error || (r.status==='none' ? '未抓取到资料（无可用来源）' : '')
+      });
+    }
+  }
+  return out;
+}
+$('failDlBtn').onclick = ()=>{
+  const evts = failedEntries();
+  if(!evts.length){ alert('暂无可导出的失败/未抓取到资料条目'); return; }
+  const name = 'detail_failed_' + ts() + '_all.json';
+  downloadJSON(name, evts);
+  log(`已导出失败/未抓取到资料条目共 ${evts.length} 条 → ${name}（含 file 字段标明来源）`, 'ok');
+};
+$('failResetBtn').onclick = ()=>{
+  const before = state.results.size;
+  for(const [k, r] of [...state.results.entries()]){
+    if(r.status === 'err' || r.status === 'none') state.results.delete(k);
+  }
+  const removed = before - state.results.size;
+  renderResults(); saveState();
+  log(`已重置 ${removed} 条失败/未抓取到资料条目（可重新勾选并重跑）`, 'ok');
+};
+/* 重跑全部失败/未抓取到资料条目：复用 rerunKey 顺序执行 */
+$('rerunFailBtn').onclick = async ()=>{
+  if(running){ alert('批量任务进行中，请先停止'); return; }
+  const failKeys = [...state.results.entries()]
+    .filter(([,r])=> r.status==='err' || r.status==='none').map(([k])=>k);
+  if(!failKeys.length){ alert('没有失败/未抓取到资料的条目可重跑'); return; }
+  if(!confirm(`将重跑 ${failKeys.length} 条失败/未抓取到资料条目，确定？`)) return;
+  running = true;
+  $('runBtn').classList.add('hidden'); $('stopBtn').classList.remove('hidden');
+  let done=0;
+  for(const k of failKeys){
+    if(!running) break;
+    done++;
+    $('bar').style.width = Math.round(done/failKeys.length*100)+'%';
+    $('progMsg').textContent = `${done}/${failKeys.length}（重跑失败）`;
+    await rerunKey(k);
+    renderResults(); saveState();
+  }
+  running=false;
+  $('runBtn').classList.remove('hidden'); $('stopBtn').classList.add('hidden');
+  $('bar').style.width='0%'; $('progMsg').textContent='';
+  log(`失败条目重跑完成：共 ${failKeys.length} 条（可点「刷新结果状态」确认）`, 'ok');
+};
+/* 重跑所有非官方成功条目：配合官方优先源，把旧的非官方结果重新抓取升级 */
+$('rerunUnofficialBtn').onclick = async ()=>{
+  if(running){ alert('批量任务进行中，请先停止'); return; }
+  const unoKeys = [...state.results.entries()]
+    .filter(([,r])=> r.status==='ok' && !r.official).map(([k])=>k);
+  if(!unoKeys.length){ alert('没有非官方的成功条目可重跑'); return; }
+  if(!confirm(`将重跑 ${unoKeys.length} 条非官方成功条目（重新抓取+生成，时间较长），确定？`)) return;
+  running = true;
+  $('runBtn').classList.add('hidden'); $('stopBtn').classList.remove('hidden');
+  let done=0;
+  for(const k of unoKeys){
+    if(!running) break;
+    done++;
+    $('bar').style.width = Math.round(done/unoKeys.length*100)+'%';
+    $('progMsg').textContent = `${done}/${unoKeys.length}（重跑非官方）`;
+    await rerunKey(k);
+    renderResults(); saveState();
+  }
+  running=false;
+  $('runBtn').classList.remove('hidden'); $('stopBtn').classList.add('hidden');
+  $('bar').style.width='0%'; $('progMsg').textContent='';
+  log(`非官方重跑完成：共 ${done} 条（可点「刷新结果状态」确认）`, 'ok');
+};
+/* 刷新结果状态：从本地存储重新载入并渲染（重跑后点此同步） */
+function refreshResults(){
+  try{
+    const s = JSON.parse(localStorage.getItem(LS)||'{}');
+    if(s.res){ state.results = new Map(Object.entries(s.res)); }
+    if(s.col) state.collapsed = s.col;
+  }catch(_){}
+  renderResults();
+  log('已刷新结果状态', 'ok');
+}
+
+/* ---------- 一键应用：把成功详情写回 events.json（服务端 /api/apply，先自动备份） ---------- */
+$('applyBtn').onclick = async ()=>{
+  const out = buildOut();
+  if(!out.items.length){ alert('没有可应用的成功条目'); return; }
+  if(!confirm(`将把 ${out.items.length} 条成功详情写回 events.json（会先自动备份），确定？\n写后请运行 build_data.py 重建 index.html。`)) return;
+  try{
+    log('应用详情到 events.json（写入 '+out.items.length+' 条，自动备份）…');
+    const items = out.items.map(it=>({
+      key: it.key, detail: it.detail, source_url: it.source_url, site: it.site,
+      official: (state.results.get(it.key)||{}).official || false
+    }));
+    const d = await api('/api/apply', {items});
+    if(!d.ok) throw new Error(d.error||'失败');
+    log(`✅ 已应用 ${d.applied} 条 / 跳过 ${d.skipped} 条；备份 ${d.backup}`, 'ok');
+    alert(`应用完成：成功 ${d.applied} 条，跳过 ${d.skipped} 条。\n备份文件：${d.backup}\n\n接下来请运行 build_data.py 重建 index.html。`);
+  }catch(e){ log('应用失败：'+e.message,'bad'); alert('应用失败：'+e.message); }
+};
+</script>
+</body>
+</html>

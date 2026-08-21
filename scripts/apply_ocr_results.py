@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 """合并 .ocr_work/clean_*.json 与 fill_*.json 的结果，应用到 events.json。
 策略：flagged=true 的条目不应用（保持原文，等待人工核对）；flagged=false 应用修正/补写。
-先备份 events.json 再写回。"""
-import json, glob, os, shutil, datetime, sys
+先备份 events.json 再写回。
+结果目录：优先用 .ocr_work/清洗完成/（GUI 输出位置），否则 .ocr_work/。"""
+import json, glob, os, shutil, datetime
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 项目根（scripts 的上一级）
 SRC = os.path.join(ROOT, 'events.json')
 WORK = os.path.join(ROOT, '.ocr_work')
+# 结果文件所在目录：清洗完成/ 优先，其次 .ocr_work/ 根
+RESULT_DIR = os.path.join(WORK, '清洗完成') if os.path.isdir(os.path.join(WORK, '清洗完成')) else WORK
 
 with open(SRC, encoding='utf-8') as f:
     data = json.load(f)
 events = data['events']
 
-clean_files = sorted(glob.glob(os.path.join(WORK, 'clean_*.json')))
-fill_files = sorted(glob.glob(os.path.join(WORK, 'fill_*.json')))
+clean_files = sorted(glob.glob(os.path.join(RESULT_DIR, 'clean_*.json')))
+fill_files = sorted(glob.glob(os.path.join(RESULT_DIR, 'fill_*.json')))
 
 applied_clean, skipped_clean = [], []
 for cf in clean_files:
@@ -48,9 +51,11 @@ for ff in fill_files:
             events[idx]['ocrSource'] = it.get('source', '')
             applied_fill.append(idx)
 
-# 备份 + 写回
+# 备份 + 写回（统一备份到 backups/）
 ts = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
-bak = SRC + f'.bak-apply-{ts}'
+BAK_DIR = os.path.join(ROOT, 'backups')
+os.makedirs(BAK_DIR, exist_ok=True)
+bak = os.path.join(BAK_DIR, f'events.json.bak-apply-{ts}')
 shutil.copy2(SRC, bak)
 with open(SRC, 'w', encoding='utf-8') as f:
     json.dump(data, f, ensure_ascii=False, indent=2)

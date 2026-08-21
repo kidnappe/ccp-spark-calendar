@@ -1,3684 +1,3612 @@
 {
- "edges": [
-  {
-   "from": "1911-10-10",
-   "to": "1919-5-4",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1919-5-4",
-   "to": "1921-7-23",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1921-7-23",
-   "to": "1922-7-16",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1921-7-23",
-   "to": "1923-6-12",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1921-7-23",
-   "to": "1924-1-20",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1922-7-16",
-   "to": "1923-6-12",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1923-6-12",
-   "to": "1924-1-20",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1924-1-20",
-   "to": "1924-5-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1924-1-20",
-   "to": "1926-7-9",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1926-7-9",
-   "to": "1927-8-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1927-8-1",
-   "to": "1927-9-9",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1927-8-7",
-   "to": "1927-9-9",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1927-9-9",
-   "to": "1927-10-27",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1927-10-27",
-   "to": "1928-4-28",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1927-10-27",
-   "to": "1929-12-28",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1934-10-10",
-   "to": "1935-1-15",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1934-10-10",
-   "to": "1936-10-9",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1936-12-12",
-   "to": "1937-7-7",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1937-7-7",
-   "to": "1937-9-25",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1937-7-7",
-   "to": "1940-8-20",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1937-7-7",
-   "to": "1945-8-15",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1945-8-15",
-   "to": "1945-8-28",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1945-8-28",
-   "to": "1946-6-26",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1946-6-26",
-   "to": "1948-9-12",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1948-9-12",
-   "to": "1949-10-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1950-6-30",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1950-11-4",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1947-10-10",
-   "to": "1950-6-30",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1950-6-30",
-   "to": "1952-12-31",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1952-12-31",
-   "to": "1956-12-15",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1956-9-15",
-   "to": "1956-12-15",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1956-12-15",
-   "to": "1958-5-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1956-12-15",
-   "to": "1958-8-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1977-7-16",
-   "to": "1978-12-18",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1979-7-15",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1979-12-6",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1980-2-23",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1981-6-27",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1979-7-15",
-   "to": "1980-8-26",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1980-8-26",
-   "to": "1984-1-24",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1982-9-1",
-   "to": "1987-10-25",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1987-10-25",
-   "to": "1992-10-12",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1992-1-18",
-   "to": "1992-10-12",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1992-10-12",
-   "to": "2001-11-11",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2001-11-11",
-   "to": "2012-11-8",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1982-9-24",
-   "to": "1997-7-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1997-7-1",
-   "to": "1999-12-20",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2012-11-8",
-   "to": "2017-10-18",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2012-11-8",
-   "to": "2013-11-9",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2013-11-9",
-   "to": "2014-10-20",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2014-10-20",
-   "to": "2015-10-26",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2015-10-26",
-   "to": "2017-10-18",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2017-10-18",
-   "to": "2021-2-25",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2017-10-18",
-   "to": "2022-10-16",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "2020-11-23",
-   "to": "2021-2-25",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "",
-   "source": "星火日历CAUSAL"
-  },
-  {
-   "from": "1911-10-10",
-   "to": "2011-10-9",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1914-7-8",
-   "to": "1918-7-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中华革命党成立后，孙中山总结挫折，1919年将其改组为中国国民党。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1920-8-1",
-   "to": "1920-11-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "上海成立第一个共产党早期组织后，各地相继建立共产主义小组。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1921-7-1",
-   "to": "1941-6-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1921-7-23",
-   "to": "1955-3-21",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1927-4-18",
-   "to": "1928-12-29",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1927-8-1",
-   "to": "1928-4-28",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "朱德、陈毅率南昌起义余部与毛泽东部在井冈山会师，合编红四军。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1934-10-10",
-   "to": "1935-10-19",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中央红军长征历经艰险于1935年10月到达陕北吴起镇，长征胜利结束。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1937-12-13",
-   "to": "2014-12-13",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1942-2-1",
-   "to": "1957-4-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1947-2-1",
-   "to": "1947-5-13",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1948-11-6",
-   "to": "1948-11-29",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1948-9-12",
-   "to": "1948-11-29",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1950-10-19",
-   "to": "1950-11-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "志愿军入朝后，中国共产党与各民主党派联合发表抗美援朝保家卫国宣言。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1952-7-1",
-   "to": "2006-7-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1953-1-1",
-   "to": "1955-3-21",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1953-1-1",
-   "to": "1955-7-30",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1953-3-1",
-   "to": "1954-9-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "《选举法》颁布为普选奠定基础，第一届全国人民代表大会召开。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1954-9-15",
-   "to": "1954-9-28",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "一届全国人大决定设立国务院，任命周恩来为国务院总理。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1954-9-15",
-   "to": "1982-12-4",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1954-9-28",
-   "to": "1959-4-18",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1956-1-14",
-   "to": "1962-3-2",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1957-10-15",
-   "to": "1968-12-29",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1958-10-25",
-   "to": "1965-9-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1962-10-20",
-   "to": "1969-3-2",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1962-10-20",
-   "to": "1979-2-17",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1963-1-29",
-   "to": "1964-12-21",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "周恩来提出四个现代化后，三届全国人大重申实现“四化”目标。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1964-10-16",
-   "to": "1967-6-17",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "第一颗原子弹爆炸成功后，中国仅用两年八个月实现氢弹空爆试验成功。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1969-3-2",
-   "to": "1979-2-17",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1970-12-25",
-   "to": "1994-12-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1971-7-9",
-   "to": "1972-2-21",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "基辛格秘密访华为尼克松访华和中美关系正常化铺路，1972年2月尼克松访华。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1976-7-6",
-   "to": "1976-9-9",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1976-9-9",
-   "to": "1997-2-19",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1978-2-26",
-   "to": "1982-12-4",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1979-7-15",
-   "to": "1984-1-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "兴办经济特区决策后，邓小平1984年视察深圳等特区并肯定办特区决策。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1984-10-1",
-   "to": "2019-10-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1984-12-19",
-   "to": "1987-4-13",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1984-9-26",
-   "to": "1984-12-19",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中英两国草签联合声明后正式签署，确认1997年香港回归。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1984-9-26",
-   "to": "1987-4-13",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1984-9-26",
-   "to": "1997-7-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中英联合声明确认1997年7月1日中国对香港恢复行使主权，香港如期回归。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1985-3-13",
-   "to": "1985-5-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1988-4-1",
-   "to": "1991-11-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "治理整顿经济政策实施后，1991年任务基本完成、经济增速回升。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1992-10-12",
-   "to": "1993-11-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十四大确立市场经济体制目标，十四届三中全会通过建立市场经济体制决定。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1997-9-12",
-   "to": "2002-11-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1997-9-12",
-   "to": "2012-11-8",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1997-9-12",
-   "to": "2017-10-18",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1999-12-20",
-   "to": "2019-12-20",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1999-12-20",
-   "to": "2024-12-20",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1999-6-17",
-   "to": "2000-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "1999年提出西部大开发战略后，2000年起战略全面启动，国家加大中西部投入。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2000-2-20",
-   "to": "2002-11-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“三个代表”提出后，中共十六大将其确立为党的指导思想。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2001-11-11",
-   "to": "2001-12-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中国加入世贸组织的决定作出后，2001年12月11日中国正式成为世贸组织成员。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2001-7-13",
-   "to": "2015-7-31",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2002-11-15",
-   "to": "2012-11-15",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2002-11-8",
-   "to": "2012-11-8",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2002-11-8",
-   "to": "2017-10-18",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2002-12-3",
-   "to": "2010-5-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "上海获得世博会主办权后，2010年上海世博会开幕。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2002-12-3",
-   "to": "2015-7-31",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2003-3-15",
-   "to": "2004-3-14",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2003-3-15",
-   "to": "2005-12-29",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2003-3-15",
-   "to": "2005-3-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十届全国人大三次会议高票通过《反分裂国家法》。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2003-3-15",
-   "to": "2006-3-14",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2003-3-15",
-   "to": "2007-3-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十届全国人大五次会议通过《物权法》。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2004-3-14",
-   "to": "2018-3-11",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2005-12-29",
-   "to": "2006-3-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十届全国人大常委会决定废止《农业税条例》，2006年起全面取消农业税。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2006-3-14",
-   "to": "2026-3-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2007-10-15",
-   "to": "2012-11-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2007-10-24",
-   "to": "2010-10-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "嫦娥一号实现绕月探测后，嫦娥二号发射为探月二期先导。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2009-10-1",
-   "to": "2019-10-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2010-1-1",
-   "to": "2010-5-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2011-10-9",
-   "to": "2021-7-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2011-11-1",
-   "to": "2016-10-17",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2011-9-29",
-   "to": "2011-11-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "天宫一号发射后，神舟八号与其成功实现自动交会对接。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2012-11-15",
-   "to": "2022-10-23",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2013-6-11",
-   "to": "2016-10-17",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2015-9-3",
-   "to": "2019-10-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2015-9-3",
-   "to": "2025-9-3",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2017-10-18",
-   "to": "2017-10-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十九大将习近平新时代中国特色社会主义思想写入党章，确立为党的指导思想。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2017-5-14",
-   "to": "2019-4-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "首届“一带一路”高峰论坛后，第二届论坛2019年在北京举行。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2017-5-14",
-   "to": "2023-10-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2018-3-5",
-   "to": "2018-3-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十三届全国人大一次会议修改宪法，将习近平新时代中国特色社会主义思想载入宪法。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2019-10-1",
-   "to": "2021-7-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2019-12-20",
-   "to": "2024-12-20",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2019-4-23",
-   "to": "2019-10-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2019-4-23",
-   "to": "2023-10-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“一带一路”论坛系列延续，2023年第三届论坛庆祝倡议十周年。",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2023-3-10",
-   "to": "2025-3-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "2023-3-10",
-   "to": "2026-3-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "",
-   "source": "星火日历CAUSAL_INFERRED"
-  },
-  {
-   "from": "1926-7-9",
-   "to": "1927-3-24",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "北伐军占领南京当日，英美军舰借口保护侨民猛烈炮击南京，中国军民伤亡严重。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1927-3-24",
-   "to": "1927-4-12",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "南京事件加速了蒋介石同帝国主义势力勾结，蒋介石反共活动日益公开化。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1927-4-12",
-   "to": "1927-5-21",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "四一二政变后反革命逆流蔓延，湖北、湖南、江西都发生查封革命团体、逮捕工农领袖的事件。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1927-5-21",
-   "to": "1927-7-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "马日事变后湖南处于白色恐怖之中，大革命危机加深，最终导致汪精卫集团七一五分共。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1927-9-9",
-   "to": "1927-9-29",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "1927年9月9日毛泽东领导湘赣边界秋收起义，起义部队在永新三湾村进行改编。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1927-9-29",
-   "to": "1927-10-27",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "三湾改编确立支部建在连上，从组织上确立党对军队的领导，随后部队进军井冈山。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1927-9-29",
-   "to": "1929-12-28",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "三湾改编奠定新型人民军队建设基础，为古田会议确立思想建党、政治建军原则作了准备。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1930-5-1",
-   "to": "1931-5-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中原大战结束后，蒋介石集中兵力对中央革命根据地发动第二次“围剿”。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1931-5-16",
-   "to": "1931-12-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "受红军反“围剿”胜利的影响，国民党军第二十六路军在宁都起义。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1931-12-14",
-   "to": "1934-10-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "宁都起义部队改编为红五军团，成为中央红军主力之一，随主力参加长征。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1934-10-10",
-   "to": "1935-1-7",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "中央红军长征途中改向贵州北部进军，1935年1月7日攻克黔北重镇遵义。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1935-1-7",
-   "to": "1935-1-15",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "红军攻克遵义，一个决定党和红军命运的转折点正在到来，为遵义会议召开创造条件。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1979-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十一届三中全会确立和平统一方针，全国人大常委会发表《告台湾同胞书》停止炮击金门。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1979-1-31",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十一届三中全会作出改革开放决策，蛇口工业区成为改革开放最早的试验场。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1979-3-30",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "改革开放同时强调坚持四项基本原则，邓小平在务虚会上提出。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1979-1-1",
-   "to": "1981-9-30",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "《告台湾同胞书》阐明和平统一方针，叶剑英1981年发表九条方针阐明“一国两制”构想。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1982-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "改革开放首先在农村突破，1982年中央发出第一个“一号文件”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1979-1-31",
-   "to": "1979-7-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "蛇口工业区试验后，中央决定试办深圳、珠海、汕头、厦门出口特区。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1979-7-15",
-   "to": "1984-5-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "经济特区经验推广，1984年中央决定开放14个沿海港口城市。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1984-5-4",
-   "to": "1988-4-13",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "沿海开放战略基础上，1988年设立海南省并建经济特区。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1984-1-24",
-   "to": "1984-10-20",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "邓小平视察经济特区肯定改革开放，十二届三中全会通过《关于经济体制改革的决定》。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1982-1-1",
-   "to": "1983-1-1",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "第一个“一号文件”后家庭联产承包责任制在全国农村普遍推行。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1978-3-18",
-   "to": "1983-10-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "全国科学大会推动科教事业发展，邓小平1983年为景山学校题词“三个面向”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1981-9-30",
-   "to": "1982-9-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "叶剑英九条方针阐明“一国两制”构想后，撒切尔夫人访华拉开中英香港问题谈判序幕。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1984-1-24",
-   "to": "1984-5-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "邓小平视察特区肯定开放政策后，1984年5月开放14个沿海城市。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1985-3-13",
-   "to": "1986-3-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "科技体制改革决定推动科技发展，1986年三位科学家建议发展高技术，中央批准863计划。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1982-12-4",
-   "to": "1986-4-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "1982年宪法确立法治框架，1986年六届全国人大通过《民法通则》。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1982-9-1",
-   "to": "1984-10-20",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十二大后经济体制改革深化，十二届三中全会通过改革决定。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1984-10-20",
-   "to": "1987-10-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "城市经济体制改革展开，中共十三大系统阐述初级阶段理论。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1987-10-25",
-   "to": "1988-3-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十三大后召开七届全国人大，选举产生新一届国家机构领导人员。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1987-10-25",
-   "to": "1989-6-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十三大后经历政治风波，十三届四中全会形成以江泽民为核心的中央领导集体。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1989-6-23",
-   "to": "1989-11-6",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "十三届四中全会后邓小平辞去中央军委主席职务，实现领导层新老交替。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1989-11-6",
-   "to": "1992-1-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "邓小平退休后仍关注改革开放，1992年初视察南方发表重要谈话。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1983-1-1",
-   "to": "1990-3-3",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "家庭联产承包推行多年后，邓小平1990年谈农业“两个飞跃”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1984-5-4",
-   "to": "1990-4-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "沿海开放战略基础上，1990年中央决定开发开放上海浦东。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1984-10-20",
-   "to": "1990-12-19",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "经济体制改革推动资本市场建立，1990年12月上海证券交易所开业。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1991-12-25",
-   "to": "1992-1-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "苏联解体后中国坚持社会主义道路，邓小平南方谈话冲破姓“社”姓“资”束缚。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1989-5-15",
-   "to": "1991-12-25",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "中苏关系正常化后苏联政局剧变，1991年12月苏联解体、冷战结束。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1992-11-1",
-   "to": "1993-4-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "九二共识基础上，1993年汪道涵与辜振甫在新加坡举行首次会谈。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1993-4-27",
-   "to": "1995-1-30",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "汪辜会谈推动两岸关系发展，江泽民1995年提出发展两岸关系八项主张。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1994-9-1",
-   "to": "1996-3-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "分税制改革理顺中央地方关系后，“九五”计划开始实施。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1997-9-12",
-   "to": "1998-3-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十五大后召开九届全国人大一次会议，选举江泽民为国家主席。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1997-9-12",
-   "to": "1998-10-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十五大后推进农村改革，十五届三中全会通过农业和农村工作决定。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1997-9-12",
-   "to": "1999-9-22",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十五大部署国有企业改革，十五届四中全会通过国企改革和发展决定。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1998-10-12",
-   "to": "2005-12-29",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "农村改革深化进程中，2005年全国人大常委会决定废止《农业税条例》。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1995-5-6",
-   "to": "2001-2-19",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "科教兴国战略推动下，2001年国家最高科学技术奖首次颁发。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1999-5-8",
-   "to": "2000-1-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "驻南联盟使馆被炸激发自立自强，2000年西部大开发战略全面启动。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2000-10-11",
-   "to": "2001-9-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十五届五中全会规划“十五”计划，十五届六中全会通过加强和改进党的作风建设决定。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2000-1-1",
-   "to": "2002-12-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "西部大开发战略实施带动重点工程，西气东输工程全线开工。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2001-9-24",
-   "to": "2004-9-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十五届六中全会加强党建，十六届四中全会通过加强党的执政能力建设决定。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1995-1-30",
-   "to": "2005-4-29",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八项主张推动两岸政党交流，2005年胡锦涛与连战会面，是国共领导人60年来首次会谈。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2005-4-29",
-   "to": "2008-12-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "国共会谈推动两岸关系缓和，2008年两岸实现“大三通”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2003-10-15",
-   "to": "2005-10-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "神舟五号实现首次载人飞行后，神舟六号实现多人多天飞行。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2005-10-12",
-   "to": "2008-9-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "神舟六号多人多天飞行后，神舟七号完成中国首次太空出舱活动。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2008-5-12",
-   "to": "2008-8-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "汶川特大地震后全国抗震救灾凝聚人心，2008年北京奥运会成功举办。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2007-10-15",
-   "to": "2008-10-9",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十七大部署后，十七届三中全会通过推进农村改革发展决定。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2008-12-15",
-   "to": "2009-4-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "两岸“大三通”后，两岸签署金融、空运等协议推进经贸合作。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2008-12-26",
-   "to": "2012-9-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "海军赴亚丁湾护航锻炼远洋能力，2012年中国第一艘航母辽宁舰入列。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2001-12-11",
-   "to": "2011-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "加入世贸组织后中国经济深度融入全球化，2011年经济总量跃居世界第二。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2011-11-1",
-   "to": "2012-6-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "神舟八号实现交会对接后，神舟九号实现手控交会对接，载人航天技术连续突破。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2012-9-25",
-   "to": "2017-6-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "辽宁舰入列后中国掌握航母建造技术，2017年第一艘国产航母下水。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2013-1-1",
-   "to": "2018-11-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "上海自贸区试验开放举措，2018年首届中国国际进口博览会举行。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2012-11-8",
-   "to": "2013-3-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "党的十八大后，十二届全国人大一次会议选举习近平为国家主席。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2013-11-9",
-   "to": "2014-1-22",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十八届三中全会部署全面深化改革，2014年1月中央深改领导小组召开首次会议。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2014-1-22",
-   "to": "2014-2-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "全面深化改革开局后，2014年2月成立中央网络安全和信息化领导小组。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2012-12-4",
-   "to": "2014-3-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中央八项规定出台后全面从严治党，十八届中央纪委三次全会部署反腐斗争。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2013-9-7",
-   "to": "2014-11-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“一带一路”倡议提出后开展主场外交，2014年APEC北京峰会举行。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2014-11-11",
-   "to": "2016-9-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "APEC北京峰会后，2016年G20杭州峰会举行，中国为全球治理贡献方案。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2013-9-7",
-   "to": "2015-3-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“一带一路”倡议推动金融合作，2015年中国倡议的亚投行正式成立。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2014-2-1",
-   "to": "2015-12-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中央网信领导小组成立后加强互联网治理，2015年第二届世界互联网大会举行。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2015-10-26",
-   "to": "2016-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十八届五中全会部署“十三五”后，2016年长江经济带发展规划纲要印发。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2015-3-1",
-   "to": "2016-9-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "亚投行成立提升中国国际金融话语权，2016年G20杭州峰会举行。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2016-1-1",
-   "to": "2017-4-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "区域协调发展战略推进，2017年4月中共中央决定设立雄安新区。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2012-9-25",
-   "to": "2017-5-5",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "重大装备自主创新推进，2017年5月C919大型客机首飞成功。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2017-10-18",
-   "to": "2018-2-26",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十九大部署党和国家机构改革，十九届三中全会通过机构改革决定。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2018-2-26",
-   "to": "2018-3-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十九届三中全会后，十三届全国人大一次会议修改宪法、选举新一届国家机构。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "2018-12-18",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "十一届三中全会开启改革开放，2018年庆祝改革开放40周年大会举行。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2018-3-11",
-   "to": "2019-10-28",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "宪法修正案完善国家治理体系，十九届四中全会通过坚持和完善中国特色社会主义制度决定。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2019-10-28",
-   "to": "2021-11-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十九届四中全会后，十九届六中全会通过《党的百年奋斗重大成就和历史经验的决议》。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2019-10-1",
-   "to": "2020-5-28",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "香港局势变化背景下，2020年全国人大常委会通过《香港国安法》维护国家安全。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2018-11-5",
-   "to": "2020-6-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "进博会等开放平台基础上，《海南自由贸易港建设总体方案》印发。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2017-10-18",
-   "to": "2021-10-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十九大强调加快生态文明体制改革，中国积极承办COP15体现生态文明理念与全球责任。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2021-7-1",
-   "to": "2021-11-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "建党100周年后，十九届六中全会总结党的百年奋斗重大成就和历史经验。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2015-7-31",
-   "to": "2022-2-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "北京获得冬奥会主办权后，2022年北京冬奥会开幕，北京成为“双奥之城”。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2022-10-16",
-   "to": "2022-11-30",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "党的二十大召开后不久，江泽民同志于2022年11月30日逝世。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2020-2-23",
-   "to": "2023-1-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "统筹疫情防控与经济社会发展，2023年1月起实施“乙类乙管”，防控平稳转段。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "1998-8-1",
-   "to": "2023-8-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "抗洪抢险精神传承，2023年夏京津冀、东北地区防汛抗洪救灾取得胜利。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2022-10-16",
-   "to": "2024-7-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "二十大部署全面深化改革，二十届三中全会通过进一步全面深化改革决定。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2022-2-4",
-   "to": "2024-7-26",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "北京冬奥会展示体育强国形象，2024年巴黎奥运会中国代表团取得境外参赛最好成绩。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "1952-7-1",
-   "to": "1960-5-25",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "新中国建设成就不断涌现，1960年5月中国登山队首次从北坡登顶珠穆朗玛峰，鼓舞民族精神。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1960-5-25",
-   "to": "1981-11-16",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "登顶珠峰等体育成就传承拼搏精神，1981年中国女排首夺世界冠军。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1954-4-26",
-   "to": "1964-1-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "日内瓦会议后中国外交影响力提升，1964年中法建交，法国成为第一个与新中国建交的西方大国。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1964-1-27",
-   "to": "1971-10-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中法建交等外交突破打开局面，1971年中国恢复联合国合法席位。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1976-4-5",
-   "to": "1976-7-28",
-   "tier": "background",
-   "confidence": 0.35,
-   "evidence": "1976年是多难之年，四五运动后唐山发生7.8级强震，24万余人遇难。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1976-7-28",
-   "to": "2008-5-12",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "唐山抗震救灾经验为2008年汶川特大地震救援提供借鉴。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1964-10-16",
-   "to": "1980-5-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "两弹一星工程持续推进，1980年5月中国成功发射第一枚洲际导弹。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1980-5-18",
-   "to": "2008-12-26",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "战略武器与国防能力提升，2008年12月中国海军首批编队赴亚丁湾护航。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1981-11-16",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "改革开放新时期民族精神振奋，1981年中国女排首夺世界冠军。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1981-11-16",
-   "to": "1984-7-29",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "女排夺冠提振体育信心，1984年许海峰实现中国奥运金牌“零的突破”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1978-3-18",
-   "to": "1985-2-15",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "全国科学大会迎来科学春天，1985年中国建成第一个南极科学考察站长城站。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1985-2-15",
-   "to": "2003-10-15",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "极地与航天等科技成就积累，2003年神舟五号实现中国首次载人航天。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1978-12-18",
-   "to": "1985-9-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "以经济建设为中心后，1985年中央军委决定裁军100万，军队建设转向和平时期轨道。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1985-9-1",
-   "to": "2012-9-25",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "百万大裁军推动精兵强军，2012年中国第一艘航母辽宁舰入列。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1984-7-29",
-   "to": "1990-9-22",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "奥运首金后中国体育蓬勃发展，1990年北京成功举办第十一届亚运会。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1990-9-22",
-   "to": "2001-7-13",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "亚运会成功举办积累经验，2001年北京获得2008年奥运会举办权。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1992-10-12",
-   "to": "1993-3-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中共十四大后，1993年3月八届全国人大一次会议选举江泽民为国家主席。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1993-3-15",
-   "to": "1998-3-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八届全国人大后，1998年九届全国人大一次会议选举江泽民为国家主席。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1993-11-11",
-   "to": "1995-5-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "社会主义市场经济体制建立后，1995年5月中国开始实行双休日制度。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1995-5-1",
-   "to": "2001-12-11",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "工时制度等劳动保障改革推进，2001年中国正式加入世界贸易组织。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1993-11-11",
-   "to": "1995-9-28",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十四届三中全会后，十四届五中全会通过“九五”计划与2010年远景目标建议。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1995-9-28",
-   "to": "1996-3-1",
-   "tier": "verified",
-   "confidence": 0.7,
-   "evidence": "十四届五中全会通过“九五”计划建议，1996年起“九五”计划开始实施。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1995-1-30",
-   "to": "1996-3-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "江泽民八项主张阐明对台方针后，1996年3月解放军在东海南海演习震慑“台独”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1996-3-8",
-   "to": "2005-3-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "反“台独”斗争持续推进，2005年十届全国人大通过《反分裂国家法》。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1995-9-28",
-   "to": "1996-10-7",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十四届五中全会后，十四届六中全会通过加强社会主义精神文明建设决议。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1996-10-7",
-   "to": "1997-9-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十四届六中全会为十五大作思想准备，1997年中共十五大召开。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1936-12-12",
-   "to": "1937-9-22",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "西安事变和平解决促成国共两党重新合作，为《国共合作宣言》发表奠定基础。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1937-7-7",
-   "to": "1937-9-22",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "卢沟桥事变后全民族抗战爆发，为促进国共合作抗日，中共中央宣言于9月22日由国民党中央通讯社发表。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1937-9-22",
-   "to": "1937-9-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "宣言与蒋介石谈话宣告抗日民族统一战线形成，随后八路军开赴前线取得平型关大捷。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1938-10-21",
-   "to": "1939-7-7",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "广州、武汉失守后抗战进入战略相持阶段，党中央正确分析形势，发出《为抗战两周年纪念对时局宣言》。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1939-7-7",
-   "to": "1940-8-20",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "宣言提出坚持抗战到底、反对中途妥协的三大口号，敌后战场随后发动百团大战重击日军。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1941-12-8",
-   "to": "1942-1-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "日军偷袭珍珠港挑起太平洋战争后，中、美、英、苏等26国签署《联合国家宣言》，正式形成国际反法西斯统一战线。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1942-1-1",
-   "to": "1945-8-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "国际反法西斯统一战线为中国争取抗日战争胜利创造了有利的国际条件。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1945-8-15",
-   "to": "1945-9-3",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "日本天皇宣布无条件投降后，日本代表在投降书上签字，抗日战争取得完全胜利。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1945-9-3",
-   "to": "1945-10-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "抗战胜利后国共重庆谈判，10月10日签订《双十协定》。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1945-10-10",
-   "to": "1946-1-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "《双十协定》签订后蒋介石尚不敢贸然撕毁协定，国共双方达成停止军事冲突协定。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1946-1-5",
-   "to": "1946-1-10",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "1月10日双方下达停战令，同一天政治协商会议在重庆开幕。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1946-1-10",
-   "to": "1946-6-26",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "旧政协协议达成后蒋介石发布进攻解放区密令，全面内战由此爆发。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1946-1-10",
-   "to": "1946-5-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "旧政协期间党着手为应对内战危机做准备，发布《关于土地问题的指示》动员解放区农民。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1946-5-4",
-   "to": "1947-10-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "五四指示将减租减息改为没收地主土地，拉开解放区土地改革序幕，发展为《中国土地法大纲》。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1948-11-29",
-   "to": "1949-1-10",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "为统一指挥平津战役，党中央决定成立由林彪、罗荣桓、聂荣臻组成的平津前线总前委。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1949-1-10",
-   "to": "1949-3-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "平津战役胜利、北平和平解放后，党中央在西柏坡召开七届二中全会筹备建国。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1949-3-5",
-   "to": "1949-4-21",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "七届二中全会规划夺取全国胜利后，人民解放军发起渡江战役。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1949-4-21",
-   "to": "1949-4-23",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "渡江战役突破长江防线，4月23日解放军占领南京，宣告国民党反动统治覆灭。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1952-12-31",
-   "to": "1953-9-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "土地改革基本完成、国民经济恢复后，党认为应当提出向社会主义逐步过渡的总路线。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1953-9-24",
-   "to": "1956-12-15",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "过渡时期总路线提出“一化三改”，指引对农业、手工业和资本主义工商业的社会主义改造到1956年底基本完成。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1953-9-24",
-   "to": "1956-1-15",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "总路线指引下公私合营等高级形式国家资本主义迅速推进，首都各界庆祝社会主义改造胜利。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1956-1-15",
-   "to": "1956-12-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "庆祝社会主义改造胜利时改造高潮已至，年底三大改造基本完成。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1975-1-5",
-   "to": "1975-3-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "邓小平主持全面整顿，把整顿铁路部门作为经济领域扭转混乱局面的突破口。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1975-3-5",
-   "to": "1975-11-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "铁路整顿等全面整顿工作受挫于1975年11月发动的“批邓、反击右倾翻案风”。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1986-9-28",
-   "to": "1989-6-9",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十二届六中全会决议强调的反对资产阶级自由化内容未得到认真贯彻，思潮泛滥引发政治风波，邓小平接见戒严部队干部回答发展方向问题。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1989-6-9",
-   "to": "1989-6-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "风波后党冷静思考，十三届四中全会形成以江泽民为核心的中央领导集体。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1990-3-3",
-   "to": "1992-1-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "邓小平对农村改革“两个飞跃”的思考与其南方谈话关于深化改革的论述一脉相承。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "2000-2-20",
-   "to": "2000-2-21",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "江泽民在广东考察时明确提出“三个代表”要求，是此前逐步提出的“三个代表”重要思想的进一步明确。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2000-2-21",
-   "to": "2001-7-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "江泽民在庆祝建党80周年大会上系统阐述“三个代表”重要思想，强调其立党之本、执政之基地位。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2001-7-1",
-   "to": "2002-11-8",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "“三个代表”重要思想在党的十六大被确立为党的指导思想并写入党章。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1971-10-25",
-   "to": "2000-9-7",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "恢复联合国合法席位后中国作为安理会常任理事国积极参与国际事务，倡议举行五常首脑首次会晤。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2000-9-7",
-   "to": "2001-6-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中国以更加开放的姿态参与多边外交，推动上海合作组织成立。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2002-11-8",
-   "to": "2002-12-5",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "党的十六大后新当选的中共中央总书记胡锦涛率中央书记处到西柏坡考察，重温“两个务必”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2002-12-5",
-   "to": "2003-3-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "西柏坡考察为十六大后工作定调，随后十届全国人大选举胡锦涛为国家主席。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2003-4-1",
-   "to": "2003-5-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "抗击非典期间，胡锦涛在四川考察农村防治非典工作。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2003-5-12",
-   "to": "2003-10-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "非典疫情引发党中央深入思考发展问题，十六届三中全会完整提出科学发展观。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2004-3-10",
-   "to": "2005-4-22",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "科学发展观提出后，党中央顺应和平发展时代潮流，在亚非峰会上提出建设“和谐世界”主张。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2005-4-22",
-   "to": "2005-9-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "胡锦涛在联合国成立60周年首脑会议上发表《努力建设持久和平、共同繁荣的和谐世界》讲话，系统阐述“和谐世界”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2005-9-15",
-   "to": "2007-10-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“和谐世界”理念被党的十七大报告重申，成为指导中国外交的重要理念。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2005-12-29",
-   "to": "2006-1-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "十届全国人大常委会第十九次会议决定自2006年1月1日起废止《农业税条例》，存在2600年的古老税种宣告终结。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2006-1-1",
-   "to": "2006-3-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "废止农业税条例后，国家不再针对农业单独征税，全面取消农业税。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2001-6-15",
-   "to": "2009-7-5",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "上海合作组织成员国合作打击三股势力，为依法平息乌鲁木齐严重暴力犯罪事件提供反恐合作背景。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2009-7-5",
-   "to": "2009-10-1",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "依法平息严重暴力犯罪事件、维护民族团结和社会稳定，为建国60周年阅兵营造稳定环境。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "2012-11-8",
-   "to": "2013-1-5",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "党的十八大后，习近平在新进中央委员研讨班开班式上坚定申明必须毫不动摇坚持和发展中国特色社会主义。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2013-1-5",
-   "to": "2013-11-9",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "坚持和发展中国特色社会主义的政治宣示，为十八届三中全会部署全面深化改革奠定思想基础。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2012-12-4",
-   "to": "2015-1-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中央八项规定出台后全面从严治党深入推进，中央政治局常委会开始定期听取五大党组工作汇报。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2015-1-16",
-   "to": "2017-10-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "党对各方面工作集中统一领导制度化，为十九大强调坚持和加强党的全面领导提供实践基础。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2013-9-7",
-   "to": "2017-1-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“一带一路”倡议的实践推动习近平在联合国日内瓦总部系统阐释构建人类命运共同体。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2017-1-18",
-   "to": "2017-5-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "人类命运共同体理念提出后，首届“一带一路”国际合作高峰论坛在北京举行。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2012-11-8",
-   "to": "2016-5-17",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "党的十八大强调坚定道路自信、理论自信、制度自信，为习近平在哲学社会科学工作座谈会提出文化自信奠定基础。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2016-5-17",
-   "to": "2017-10-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "习近平在哲学社会科学工作座谈会提出文化自信是更基本更深沉更持久的力量，相关论述在十九大进一步展开。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2017-10-18",
-   "to": "2018-1-5",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "学习贯彻党的十九大精神专题研讨班开班，习近平强调统揽“四个伟大”、实干兴邦。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2018-1-5",
-   "to": "2018-3-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "研讨班讲话强调的习近平新时代中国特色社会主义思想随后载入宪法。",
-   "source": "《中国共产党简史》第八章"
-  },
-  {
-   "from": "2020-1-1",
-   "to": "2020-2-23",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "针对疫情冲击，党中央召开统筹推进新冠肺炎疫情防控和经济社会发展工作部署会议。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2020-2-23",
-   "to": "2020-11-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "统筹推进疫情防控和经济社会发展，如期完成脱贫攻坚目标任务。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2020-10-26",
-   "to": "2021-1-11",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "学习贯彻党的十九届五中全会精神专题研讨班开班，习近平阐述经济社会发展系列重大问题。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "2021-1-11",
-   "to": "2022-10-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十九届五中全会部署的“十四五”规划和2035年远景目标，为党的二十大提出中国式现代化奠定基础。",
-   "source": "《中国共产党简史》第十章"
-  },
-  {
-   "from": "1911-10-10",
-   "to": "1912-1-1",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "辛亥革命推翻清朝统治，1912年1月1日孙中山在南京就任临时大总统，中华民国成立。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1912-1-1",
-   "to": "1912-2-12",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "中华民国成立后，宣统帝溥仪下诏退位，清王朝灭亡。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1912-2-12",
-   "to": "1912-3-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "清帝退位后，袁世凯在北京就任临时大总统，临时政府北迁，北洋集团掌权。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1912-3-10",
-   "to": "1913-3-20",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "袁世凯就任后独裁野心显露，派人刺杀主张责任内阁的宋教仁。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1913-3-20",
-   "to": "1913-7-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "宋教仁遇刺震动全国，孙中山发动讨袁的二次革命。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1913-7-12",
-   "to": "1914-7-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "二次革命失败后，孙中山在日本东京将国民党改组为中华革命党，继续反袁斗争。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1911-10-10",
-   "to": "1915-9-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "辛亥革命后民主共和观念传播，陈独秀创办《青年杂志》发起新文化运动，倡导民主与科学。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1912-3-10",
-   "to": "1915-12-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "袁世凯就任总统后复辟帝制，蔡锷等在云南发动护国战争讨袁。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1915-12-12",
-   "to": "1916-6-6",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "护国战争讨伐帝制，袁世凯被迫取消帝制并于1916年6月病逝。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1916-6-6",
-   "to": "1917-7-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "袁世凯病逝后北洋军阀割据混战，张勋趁机拥溥仪复辟。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1917-7-1",
-   "to": "1917-8-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "张勋复辟激起全国反对，孙中山在广州发起护法运动。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1917-11-7",
-   "to": "1918-11-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十月革命胜利后，李大钊发表《庶民的胜利》等文，热情讴歌十月革命，宣传社会主义。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1918-11-15",
-   "to": "1919-5-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "马克思主义在中国传播为五四运动提供思想武器，五四运动标志新民主主义革命开端。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1919-5-4",
-   "to": "1919-6-3",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "五四运动6月3日后发展为以工人罢工为主体的新阶段，工人阶级登上政治舞台。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1919-6-3",
-   "to": "1920-8-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "五四运动促进马克思主义同工人运动结合，陈独秀等在上海成立第一个共产党早期组织。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1921-7-23",
-   "to": "1922-9-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "党的一大后集中力量领导工人运动，毛泽东、李立三、刘少奇等领导安源路矿工人大罢工。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1922-9-14",
-   "to": "1923-2-7",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "安源罢工等掀起工人运动第一次高潮，京汉铁路大罢工遭军阀镇压酿成二七惨案。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1923-2-7",
-   "to": "1923-6-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "二七惨案表明工人阶级孤军奋战不行，中共三大决定实行国共合作。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1924-1-20",
-   "to": "1925-3-12",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "国共合作实现后革命形势发展，孙中山抱病北上并于1925年3月在北京病逝。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1925-3-12",
-   "to": "1927-3-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "孙中山逝世后国民党内右派势力抬头，蒋介石1926年制造中山舰事件排斥共产党。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1924-1-20",
-   "to": "1925-5-30",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "国共合作开创反帝革命新局面，顾正红被害引发五卅惨案，掀起全国反帝怒潮。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1925-5-30",
-   "to": "1925-6-19",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "五卅运动激发全国反帝浪潮，广州香港工人举行持续16个月的省港大罢工。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1925-6-19",
-   "to": "1926-7-9",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "省港大罢工等群众运动为北伐奠定群众基础，1926年7月国民革命军誓师北伐。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1927-3-1",
-   "to": "1927-4-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中山舰事件是蒋介石排斥共产党的预演，1927年4月12日其在上海发动反革命政变。",
-   "source": "《中国共产党简史》第一章"
-  },
-  {
-   "from": "1927-8-7",
-   "to": "1927-12-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八七会议确定武装反抗国民党总方针，张太雷、叶挺等领导广州起义。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1927-12-11",
-   "to": "1928-6-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "南昌、秋收、广州起义相继受挫，为总结经验中共六大在莫斯科召开。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1928-6-18",
-   "to": "1929-12-28",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "六大后革命力量在根据地发展，古田会议确立思想建党、政治建军原则。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1927-4-18",
-   "to": "1928-10-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "南京国民政府成立后，国民党颁布《训政纲领》实行一党训政。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1928-10-1",
-   "to": "1928-12-29",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "国民党训政巩固统治，张学良通电易帜服从南京国民政府，全国形式上统一。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1929-12-28",
-   "to": "1930-1-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "古田会议后毛泽东总结根据地斗争经验，写信阐明“农村包围城市、武装夺取政权”道路。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1930-5-1",
-   "to": "1931-9-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中原大战削弱中国、日本趁隙发动九一八事变侵占东北，中国人民局部抗战开始。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1931-9-18",
-   "to": "1932-1-28",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "九一八事变后日本扩大侵略，1932年1月28日进攻上海，一二八事变爆发。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1932-1-28",
-   "to": "1933-5-31",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "一二八事变后日军继续进逼华北，国民政府签订《塘沽协定》。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1931-11-7",
-   "to": "1934-1-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中华苏维埃共和国成立后“左”倾错误发展，六届五中全会进一步强化“左”倾路线。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1934-1-15",
-   "to": "1934-10-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "六届五中全会后第五次反“围剿”失败，中央红军被迫开始长征。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1933-5-31",
-   "to": "1935-8-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "华北危机加深，中共中央发表《为抗日救国告全体同胞书》（八一宣言）呼吁一致抗日。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1931-9-18",
-   "to": "1935-12-9",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "九一八以来民族危机日益深重，北平学生发动一二九运动掀起抗日救亡新高潮。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1935-12-9",
-   "to": "1935-12-17",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "一二九运动推动全国抗日救亡高潮，瓦窑堡会议确定建立抗日民族统一战线的策略方针。",
-   "source": "《中国共产党简史》第二章"
-  },
-  {
-   "from": "1937-7-7",
-   "to": "1937-8-22",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "卢沟桥事变后全民族抗战爆发，洛川会议制定全面抗战路线和《抗日救国十大纲领》。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1937-8-22",
-   "to": "1937-8-25",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "洛川会议后红军主力改编为八路军、南方游击队改编为新四军，开赴抗日前线。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1937-8-25",
-   "to": "1937-9-25",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "改编后八路军开赴前线，一一五师取得平型关大捷，是全面抗战以来第一个大胜仗。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1937-12-13",
-   "to": "1938-3-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "日军占领南京后继续进攻，国民党军队在台儿庄重创日军取得抗战初期正面战场最大胜利。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1938-10-21",
-   "to": "1939-11-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "相持阶段到来后，国民党五届五中全会确定“溶共、防共、限共、反共”方针。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1938-5-26",
-   "to": "1940-1-9",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "毛泽东在《论持久战》等著作基础上发表《新民主主义论》，系统阐明新民主主义革命理论。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1939-11-1",
-   "to": "1941-1-6",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "国民党五届五中全会后反共摩擦加剧，1941年1月制造皖南事变围歼新四军军部。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1941-12-8",
-   "to": "1942-1-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "太平洋战争爆发后日军进攻长沙，国民党军取得第三次长沙会战胜利。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1941-12-8",
-   "to": "1942-3-1",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "太平洋战争爆发后为保卫滇缅公路、支援盟军，中国远征军入缅作战。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1942-2-1",
-   "to": "1942-5-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "延安整风运动开展后，毛泽东主持召开延安文艺座谈会指明文艺为工农兵服务方向。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1941-1-6",
-   "to": "1943-9-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "皖南事变后中共坚持有理有利有节斗争，1943年挫败国民党第三次反共高潮。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1943-9-1",
-   "to": "1944-9-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "反共高潮被制止后，林伯渠在国民参政会提出结束一党统治、成立民主联合政府的主张。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1940-1-9",
-   "to": "1945-4-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "新民主主义理论成熟标志毛泽东思想多方面展开，中共七大确立毛泽东思想为指导思想。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1945-4-23",
-   "to": "1945-8-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "七大团结胜利为夺取抗战最后胜利作了准备，日本随后宣布无条件投降。",
-   "source": "《中国共产党简史》第三章"
-  },
-  {
-   "from": "1946-6-26",
-   "to": "1946-11-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "全面内战爆发后，国民党单独召开制宪国大。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1946-6-26",
-   "to": "1947-6-30",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "全面内战爆发后人民解放军转入战略防御，1947年6月刘邓大军挺进大别山揭开战略进攻序幕。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1947-6-30",
-   "to": "1948-9-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "刘邓大军挺进大别山标志战略进攻开始，为三大战役创造条件，辽沈战役打响。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1946-11-15",
-   "to": "1948-5-20",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "国民党单方面制宪后实行“行宪”，蒋介石1948年5月就任总统。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1948-5-20",
-   "to": "1949-12-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "蒋介石就任总统未能挽救统治危机，1949年12月国民党集团退据台湾。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1949-4-23",
-   "to": "1949-9-21",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "人民解放军占领南京后筹建新中国，1949年9月人民政协第一届全体会议召开。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1949-9-21",
-   "to": "1949-10-1",
-   "tier": "verified",
-   "confidence": 0.95,
-   "evidence": "人民政协通过《共同纲领》，10月1日中华人民共和国开国大典举行。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1949-10-21",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "开国大典后中央人民政府政务院成立，周恩来任总理，新中国行政体系建立。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1949-11-9",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "新中国成立鼓舞人心，中国、中央两航空公司员工在香港宣布起义飞回内地。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1949-4-23",
-   "to": "1949-12-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "南京解放后国民党统治覆灭，国民党集团退守台湾，形成两岸分隔局面。",
-   "source": "《中国共产党简史》第四章"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1949-12-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "新中国成立后毛泽东首次出访苏联，为中苏结盟奠定基础。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1949-12-16",
-   "to": "1950-2-14",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "毛泽东访苏期间签订《中苏友好同盟互助条约》，巩固新中国外交。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1950-2-14",
-   "to": "1950-10-19",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中苏同盟为抗美援朝提供战略支撑，1950年10月中国人民志愿军入朝作战。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1950-5-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "新中国建立后颁布第一部法律《婚姻法》，废除封建婚姻制度。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1950-6-25",
-   "to": "1950-10-8",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "朝鲜战争爆发、美军越过三八线威胁中国安全，毛泽东发布组建志愿军命令。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1950-10-8",
-   "to": "1950-10-19",
-   "tier": "verified",
-   "confidence": 0.9,
-   "evidence": "组建志愿军命令下达后，中国人民志愿军跨过鸭绿江抗美援朝。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1951-5-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "新中国成立后推进国家统一，1951年5月中央人民政府与西藏地方政府签订协议，西藏和平解放。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1951-12-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "新中国执政后开展“三反”运动，反对贪污、浪费和官僚主义，巩固人民政权。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1951-12-1",
-   "to": "1952-1-26",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“三反”运动牵出不法资本家问题，中共中央开展“五反”斗争。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1952-1-26",
-   "to": "1953-9-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“五反”运动为和平改造资本主义工商业作了铺垫，过渡时期总路线随之提出。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1950-10-19",
-   "to": "1952-10-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "抗美援朝战争中志愿军依托坑道在上甘岭抗击敌军优势兵力轮番进攻。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1952-10-14",
-   "to": "1953-7-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "上甘岭战役等打出国威军威，1953年7月27日朝鲜停战协定签订。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1953-7-13",
-   "to": "1953-7-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "金城战役歼敌5万余人，有力配合朝鲜停战谈判，随后停战协定签订。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1953-7-27",
-   "to": "1953-12-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "抗美援朝胜利提高中国国际地位，周恩来提出和平共处五项原则。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1953-12-1",
-   "to": "1954-4-26",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "和平共处五项原则提出后，中国以五大国身份参加日内瓦会议登上多边外交舞台。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1954-4-26",
-   "to": "1955-4-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "日内瓦会议后，周恩来率团出席万隆会议提出“求同存异”。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1955-4-18",
-   "to": "1971-10-25",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "万隆会议增进亚非团结，为新中国恢复联合国合法席位积累国际支持。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1954-9-28",
-   "to": "1955-9-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "国务院成立后军队正规化建设推进，1955年人民解放军实行军衔制。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1953-9-24",
-   "to": "1956-4-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "过渡时期总路线推进中，毛泽东作《论十大关系》报告探索社会主义建设道路。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1956-4-25",
-   "to": "1956-9-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "毛泽东作《论十大关系》探索建设道路，为中共八大作了思想准备。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1956-9-15",
-   "to": "1956-11-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八大后召开八届二中全会，确定1957年“保证重点，适当收缩”的经济建设方针。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1956-9-15",
-   "to": "1957-2-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八大后毛泽东发表《关于正确处理人民内部矛盾的问题》，阐述社会主义社会矛盾学说。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1957-2-27",
-   "to": "1957-4-27",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "《关于正确处理人民内部矛盾的问题》推动全党整风运动开展。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1957-4-27",
-   "to": "1957-6-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "整风运动中极少数右派进攻，反右派斗争于6月8日后开始并扩大化。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1957-6-8",
-   "to": "1958-8-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "反右派扩大化后党内民主受损，“左”倾思想发展，1958年掀起大跃进和人民公社化运动。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1949-12-10",
-   "to": "1958-8-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "两岸对峙局面下，1958年人民解放军炮击金门，反对美国制造“两个中国”图谋。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1958-8-23",
-   "to": "1979-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "炮击金门维护一个中国原则，1979年全国人大常委会发表《告台湾同胞书》停止炮击、争取和平统一。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1958-8-1",
-   "to": "1958-12-9",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "大跃进中出现问题，八届六中全会通过决议初步纠正部分错误。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1958-12-9",
-   "to": "1959-7-2",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八届六中全会后召开庐山会议，初期继续纠“左”，后期转向批判彭德怀。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1951-5-23",
-   "to": "1959-3-28",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "西藏和平解放后，1959年国务院解散西藏地方政府、平定叛乱，实行民主改革废除封建农奴制度。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1953-1-1",
-   "to": "1959-9-26",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "“一五”计划推进工业化建设，1959年大庆油田发现，中国甩掉“贫油国”帽子。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1959-9-26",
-   "to": "1964-12-21",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "大庆油田等工业化成就支撑四个现代化目标，三届全国人大重申实现“四化”。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1959-7-2",
-   "to": "1960-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "庐山会议后反右倾斗争加剧经济困难，1960年起实行“调整、巩固、充实、提高”八字方针。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1958-8-1",
-   "to": "1960-3-22",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "大跃进时期企业管理探索，中共中央批转《鞍钢宪法》确立“两参一改三结合”。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1960-1-1",
-   "to": "1960-11-3",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "国民经济调整中，中央发出农村工作紧急指示信着手纠正农村“左”倾错误。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1960-11-3",
-   "to": "1961-1-14",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "紧急指示信后，八届九中全会正式通过八字方针，国民经济转入调整轨道。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1961-1-14",
-   "to": "1962-1-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八届九中全会后召开七千人大会，初步总结“大跃进”教训，统一全党认识。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1962-1-11",
-   "to": "1962-9-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "七千人大会后党对形势认识出现分歧，八届十中全会重提阶级斗争。",
-   "source": "《中国共产党简史》第五章"
-  },
-  {
-   "from": "1962-9-24",
-   "to": "1965-11-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八届十中全会后阶级斗争扩大化发展，姚文元发表《评新编历史剧〈海瑞罢官〉》成为文革导火索。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1963-3-5",
-   "to": "1966-8-18",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "学习雷锋运动培育社会主义新风，文革中红卫兵运动兴起亦标榜学雷锋。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1962-10-20",
-   "to": "1963-10-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中印边境自卫反击战凸显国防布局需要，1963年起大规模三线建设在内地展开。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1963-10-1",
-   "to": "1965-4-5",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "三线建设等内地建设时期，河南林县红旗渠总干渠通水，创造“人工天河”奇迹。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1965-7-20",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "新中国统一战线政策感召下，前国民政府代总统李宗仁1965年从海外归来。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1956-1-14",
-   "to": "1965-9-17",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "知识分子政策与科技投入积累，1965年中国首次人工合成结晶牛胰岛素。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1965-11-10",
-   "to": "1966-5-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "姚文元评海瑞罢官引发批判，1966年5月中央政治局扩大会议通过《五一六通知》，文革全面发动。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1966-5-16",
-   "to": "1966-8-8",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "《五一六通知》后八届十一中全会通过《十六条》，毛泽东写《炮打司令部》大字报。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1966-8-8",
-   "to": "1966-8-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八届十一中全会后毛泽东第一次接见红卫兵，红卫兵运动迅速兴起。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1966-8-18",
-   "to": "1967-1-6",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "红卫兵运动迅猛兴起，1967年1月上海造反派发动“一月风暴”夺权。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1967-1-6",
-   "to": "1967-2-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "各地夺权局面失控，谭震林、陈毅等老帅在怀仁堂批评文革错误。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1967-2-11",
-   "to": "1968-10-13",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "二月抗争被诬为“二月逆流”后，八届十二中全会错误通过开除刘少奇党籍的决定。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1968-10-13",
-   "to": "1969-4-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "八届十二中全会为九大作准备，九大使文革错误理论合法化。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1966-8-18",
-   "to": "1968-12-22",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "文革中毛泽东号召知识青年到农村去，大规模上山下乡运动开始。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1964-10-16",
-   "to": "1969-9-23",
-   "tier": "verified",
-   "confidence": 0.8,
-   "evidence": "第一颗原子弹爆炸后核工业持续发展，1969年首次地下核试验成功。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1969-4-1",
-   "to": "1971-9-13",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "九大后林彪集团权欲膨胀，1971年9月13日外逃坠毁，反革命集团覆灭。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1964-10-16",
-   "to": "1970-4-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "两弹一星工程持续推进，1970年4月24日东方红一号卫星发射成功。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1963-10-1",
-   "to": "1970-12-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "三线建设带动内地大型工程，1970年12月葛洲坝水利枢纽动工兴建。",
-   "source": "《中国共产党简史》第六章"
-  },
-  {
-   "from": "1972-2-21",
-   "to": "1972-9-25",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中美关系缓和直接推动中日关系改善，1972年9月田中角荣访华实现邦交正常化。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1971-9-13",
-   "to": "1973-3-10",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "林彪事件后党重新启用老干部，1973年3月恢复邓小平的组织生活和国务院副总理职务。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1971-9-13",
-   "to": "1973-8-24",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "林彪事件后中共十大继续九大“左”倾错误路线，王洪文进入政治局。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1973-8-24",
-   "to": "1974-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十大后江青集团借“批林批孔”运动攻击周恩来等老一辈革命家。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1949-10-1",
-   "to": "1974-1-19",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "新中国捍卫南海领土主权，1974年1月中国海军在西沙击退南越军队。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1972-9-25",
-   "to": "1974-4-6",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "中日邦交正常化等外交突破后，邓小平出席联合国大会第六届特别会议阐述“三个世界”理论。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1964-12-21",
-   "to": "1975-1-13",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "三届全国人大重申四个现代化，1975年四届全国人大再次强调实现“四化”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1970-12-25",
-   "to": "1975-2-4",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "葛洲坝等大型水利工程推进，1975年刘家峡水电站建成。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1974-1-1",
-   "to": "1976-1-8",
-   "tier": "background",
-   "confidence": 0.4,
-   "evidence": "批林批孔运动冲击老干部，周恩来总理1976年1月8日逝世。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1976-1-8",
-   "to": "1976-4-5",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "周恩来逝世引发群众悼念，清明节前后爆发四五运动，反对“四人帮”。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1976-4-5",
-   "to": "1976-10-6",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "四五运动为粉碎“四人帮”奠定民意基础，1976年10月党中央一举粉碎江青反革命集团。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1976-10-6",
-   "to": "1977-8-12",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "粉碎“四人帮”后拨乱反正，1977年恢复高考。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1977-8-12",
-   "to": "1978-3-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "恢复高考推动尊重知识，1978年3月全国科学大会召开。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1976-10-6",
-   "to": "1978-5-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "粉碎“四人帮”后冲破“两个凡是”，《实践是检验真理的唯一标准》引发真理标准大讨论。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1978-5-11",
-   "to": "1978-12-18",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "真理标准大讨论为十一届三中全会奠定思想基础，全会作出改革开放历史性决策。",
-   "source": "《中国共产党简史》第七章"
-  },
-  {
-   "from": "1915-9-15",
-   "to": "1918-11-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "新文化运动倡导民主与科学、解放思想，为马克思主义在中国的传播创造了思想条件，李大钊随后发表《庶民的胜利》等文宣传社会主义。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "1930-1-5",
-   "to": "1931-11-7",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "《星星之火，可以燎原》阐明农村包围城市、武装夺取政权道路，中央苏区据此发展壮大，1931年11月中华苏维埃共和国成立。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "1937-8-22",
-   "to": "1938-5-26",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "洛川会议制定全面抗战路线后，毛泽东系统总结抗战经验，发表《论持久战》科学预见抗战三阶段。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "1938-3-24",
-   "to": "1938-10-21",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "台儿庄战役后正面战场连续作战，1938年10月广州、武汉相继失守，抗战进入战略相持阶段。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "2013-11-9",
-   "to": "2015-1-1",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十八届三中全会部署全面深化改革，中央据此推进经济结构战略性调整，2015年提出供给侧结构性改革。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "2015-1-1",
-   "to": "2015-10-26",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "供给侧结构性改革成为经济工作主线，十八届五中全会通过的“十三五”规划建议作出全面部署。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "2021-10-1",
-   "to": "2022-10-16",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "COP15在昆明成功举办彰显生态文明建设成就，党的二十大进一步部署人与自然和谐共生的现代化。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "1938-9-29",
-   "to": "1945-4-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "六届六中全会首次提出“马克思主义中国化”命题、基本纠正王明右倾错误，为中共七大确立毛泽东思想作了思想准备。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "1938-10-21",
-   "to": "1940-3-30",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "广州武汉失守后抗战进入相持阶段，日本对国民党政治诱降，汪精卫叛国投敌并于1940年在南京成立伪国民政府。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "1940-3-30",
-   "to": "1945-8-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "汪伪政权是日本扶植的汉奸政权，日本宣布无条件投降后汪伪政权随之覆灭。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "1969-4-1",
-   "to": "1970-8-23",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "九大后林彪集团权势扩张，1970年九届二中全会上其抢班夺权图谋暴露。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "1970-8-23",
-   "to": "1971-9-13",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "九届二中全会后林彪集团铤而走险，1971年9月13日外逃坠毁，反革命集团覆灭。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "2004-9-16",
-   "to": "2006-10-11",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "十六届四中全会加强执政能力建设后，十六届六中全会提出构建社会主义和谐社会的重大战略目标。",
-   "source": "人工判定补充边"
-  },
-  {
-   "from": "2006-10-11",
-   "to": "2007-10-15",
-   "tier": "verified",
-   "confidence": 0.85,
-   "evidence": "构建社会主义和谐社会写入党的十七大报告，中国特色社会主义事业总体布局扩展为“四位一体”。",
-   "source": "人工判定补充边"
-  }
- ]
+  "edges": [
+    {
+      "from": "1911-10-10",
+      "to": "1919-5-4",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1919-5-4",
+      "to": "1921-7-23",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1921-7-23",
+      "to": "1922-7-16",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1921-7-23",
+      "to": "1923-6-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1921-7-23",
+      "to": "1924-1-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1922-7-16",
+      "to": "1923-6-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1923-6-12",
+      "to": "1924-1-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1924-1-20",
+      "to": "1924-5-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1924-1-20",
+      "to": "1926-7-9",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1926-7-9",
+      "to": "1927-8-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-8-1",
+      "to": "1927-9-9",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-8-7",
+      "to": "1927-9-9",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-9-9",
+      "to": "1927-10-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-10-27",
+      "to": "1928-4-28",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-10-27",
+      "to": "1929-12-28",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-10-10",
+      "to": "1935-1-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-10-10",
+      "to": "1936-10-9",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-12-12",
+      "to": "1937-7-7",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-7-7",
+      "to": "1937-9-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-7-7",
+      "to": "1940-8-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-7-7",
+      "to": "1945-8-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1945-8-15",
+      "to": "1945-8-28",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1945-8-28",
+      "to": "1946-6-26",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1946-6-26",
+      "to": "1948-9-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-9-12",
+      "to": "1949-10-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1950-6-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1950-11-4",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1947-10-10",
+      "to": "1950-6-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1950-6-30",
+      "to": "1952-12-31",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1952-12-31",
+      "to": "1956-12-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1956-9-15",
+      "to": "1956-12-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1956-12-15",
+      "to": "1958-5-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1956-12-15",
+      "to": "1958-8-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1977-7-16",
+      "to": "1978-12-18",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1979-7-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1979-12-6",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1980-2-23",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1981-6-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1979-7-15",
+      "to": "1980-8-26",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1980-8-26",
+      "to": "1984-1-24",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1982-9-1",
+      "to": "1987-10-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1987-10-25",
+      "to": "1992-10-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1992-1-18",
+      "to": "1992-10-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1982-9-24",
+      "to": "1997-7-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1997-7-1",
+      "to": "1999-12-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "2012-11-8",
+      "to": "2017-10-18",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "2012-11-8",
+      "to": "2013-11-9",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "2013-11-9",
+      "to": "2014-10-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "2014-10-20",
+      "to": "2015-10-26",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "2015-10-26",
+      "to": "2017-10-18",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "2017-10-18",
+      "to": "2021-2-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "2017-10-18",
+      "to": "2022-10-16",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "2020-11-23",
+      "to": "2021-2-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1911-10-10",
+      "to": "2011-10-9",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1914-7-8",
+      "to": "1918-7-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中华革命党成立后，孙中山总结挫折，1919年将其改组为中国国民党。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1920-8-1",
+      "to": "1920-11-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "上海成立第一个共产党早期组织后，各地相继建立共产主义小组。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1921-7-1",
+      "to": "1941-6-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1921-7-23",
+      "to": "1955-3-21",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1927-4-18",
+      "to": "1928-12-29",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1927-8-1",
+      "to": "1928-4-28",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "朱德、陈毅率南昌起义余部与毛泽东部在井冈山会师，合编红四军。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1934-10-10",
+      "to": "1935-10-19",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中央红军长征历经艰险于1935年10月到达陕北吴起镇，长征胜利结束。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1937-12-13",
+      "to": "2014-12-13",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1942-2-1",
+      "to": "1957-4-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1947-2-1",
+      "to": "1947-5-13",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1948-11-6",
+      "to": "1948-11-29",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1948-9-12",
+      "to": "1948-11-29",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1950-10-19",
+      "to": "1950-11-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "志愿军入朝后，中国共产党与各民主党派联合发表抗美援朝保家卫国宣言。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1952-7-1",
+      "to": "2006-7-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1953-1-1",
+      "to": "1955-3-21",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1953-1-1",
+      "to": "1955-7-30",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1953-3-1",
+      "to": "1954-9-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "《选举法》颁布为普选奠定基础，第一届全国人民代表大会召开。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1954-9-15",
+      "to": "1954-9-28",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "一届全国人大决定设立国务院，任命周恩来为国务院总理。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1954-9-15",
+      "to": "1982-12-4",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1954-9-28",
+      "to": "1959-4-18",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1956-1-14",
+      "to": "1962-3-2",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1957-10-15",
+      "to": "1968-12-29",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1958-10-25",
+      "to": "1965-9-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1962-10-20",
+      "to": "1969-3-2",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1962-10-20",
+      "to": "1979-2-17",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1963-1-29",
+      "to": "1964-12-21",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "周恩来提出四个现代化后，三届全国人大重申实现“四化”目标。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1964-10-16",
+      "to": "1967-6-17",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "第一颗原子弹爆炸成功后，中国仅用两年八个月实现氢弹空爆试验成功。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1969-3-2",
+      "to": "1979-2-17",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1970-12-25",
+      "to": "1994-12-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1971-7-9",
+      "to": "1972-2-21",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "基辛格秘密访华为尼克松访华和中美关系正常化铺路，1972年2月尼克松访华。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1976-7-6",
+      "to": "1976-9-9",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1976-9-9",
+      "to": "1997-2-19",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1978-2-26",
+      "to": "1982-12-4",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1979-7-15",
+      "to": "1984-1-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "兴办经济特区决策后，邓小平1984年视察深圳等特区并肯定办特区决策。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1984-10-1",
+      "to": "2019-10-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1984-12-19",
+      "to": "1987-4-13",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1984-9-26",
+      "to": "1984-12-19",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中英两国草签联合声明后正式签署，确认1997年香港回归。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1984-9-26",
+      "to": "1987-4-13",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1984-9-26",
+      "to": "1997-7-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中英联合声明确认1997年7月1日中国对香港恢复行使主权，香港如期回归。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1985-3-13",
+      "to": "1985-5-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1988-4-1",
+      "to": "1991-11-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "治理整顿经济政策实施后，1991年任务基本完成、经济增速回升。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1992-10-12",
+      "to": "1993-11-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十四大确立市场经济体制目标，十四届三中全会通过建立市场经济体制决定。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1997-9-12",
+      "to": "2002-11-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1997-9-12",
+      "to": "2012-11-8",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1997-9-12",
+      "to": "2017-10-18",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1999-12-20",
+      "to": "2019-12-20",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1999-12-20",
+      "to": "2024-12-20",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1999-6-17",
+      "to": "2000-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "1999年提出西部大开发战略后，2000年起战略全面启动，国家加大中西部投入。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2000-2-20",
+      "to": "2002-11-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“三个代表”提出后，中共十六大将其确立为党的指导思想。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2001-7-13",
+      "to": "2015-7-31",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2002-11-15",
+      "to": "2012-11-15",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2002-11-8",
+      "to": "2012-11-8",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2002-11-8",
+      "to": "2017-10-18",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2002-12-3",
+      "to": "2010-5-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "上海获得世博会主办权后，2010年上海世博会开幕。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2002-12-3",
+      "to": "2015-7-31",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2003-3-15",
+      "to": "2004-3-14",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2003-3-15",
+      "to": "2005-3-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十届全国人大三次会议高票通过《反分裂国家法》。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2003-3-15",
+      "to": "2006-3-14",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2003-3-15",
+      "to": "2007-3-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十届全国人大五次会议通过《物权法》。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2004-3-14",
+      "to": "2018-3-11",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2006-3-14",
+      "to": "2026-3-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2007-10-15",
+      "to": "2012-11-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2007-10-24",
+      "to": "2010-10-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "嫦娥一号实现绕月探测后，嫦娥二号发射为探月二期先导。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2009-10-1",
+      "to": "2019-10-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2011-10-9",
+      "to": "2021-7-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2011-11-1",
+      "to": "2016-10-17",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2011-9-29",
+      "to": "2011-11-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "天宫一号发射后，神舟八号与其成功实现自动交会对接。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2012-11-15",
+      "to": "2022-10-23",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2013-6-11",
+      "to": "2016-10-17",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2015-9-3",
+      "to": "2019-10-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2015-9-3",
+      "to": "2025-9-3",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2017-10-18",
+      "to": "2017-10-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十九大将习近平新时代中国特色社会主义思想写入党章，确立为党的指导思想。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2017-5-14",
+      "to": "2019-4-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "首届“一带一路”高峰论坛后，第二届论坛2019年在北京举行。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2017-5-14",
+      "to": "2023-10-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2018-3-5",
+      "to": "2018-3-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十三届全国人大一次会议修改宪法，将习近平新时代中国特色社会主义思想载入宪法。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2019-10-1",
+      "to": "2021-7-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2019-12-20",
+      "to": "2024-12-20",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2019-4-23",
+      "to": "2019-10-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2019-4-23",
+      "to": "2023-10-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“一带一路”论坛系列延续，2023年第三届论坛庆祝倡议十周年。",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2023-3-10",
+      "to": "2025-3-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "2023-3-10",
+      "to": "2026-3-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "",
+      "source": "星火日历CAUSAL_INFERRED"
+    },
+    {
+      "from": "1926-7-9",
+      "to": "1927-3-24",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "北伐军占领南京当日，英美军舰借口保护侨民猛烈炮击南京，中国军民伤亡严重。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1927-3-24",
+      "to": "1927-4-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "南京事件加速了蒋介石同帝国主义势力勾结，蒋介石反共活动日益公开化。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1927-4-12",
+      "to": "1927-5-21",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "四一二政变后反革命逆流蔓延，湖北、湖南、江西都发生查封革命团体、逮捕工农领袖的事件。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1927-5-21",
+      "to": "1927-7-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "马日事变后湖南处于白色恐怖之中，大革命危机加深，最终导致汪精卫集团七一五分共。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1927-9-9",
+      "to": "1927-9-29",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "1927年9月9日毛泽东领导湘赣边界秋收起义，起义部队在永新三湾村进行改编。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1927-9-29",
+      "to": "1927-10-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "三湾改编确立支部建在连上，从组织上确立党对军队的领导，随后部队进军井冈山。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1927-9-29",
+      "to": "1929-12-28",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "三湾改编奠定新型人民军队建设基础，为古田会议确立思想建党、政治建军原则作了准备。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1930-5-1",
+      "to": "1931-5-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中原大战结束后，蒋介石集中兵力对中央革命根据地发动第二次“围剿”。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1931-5-16",
+      "to": "1931-12-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "受红军反“围剿”胜利的影响，国民党军第二十六路军在宁都起义。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1931-12-14",
+      "to": "1934-10-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "宁都起义部队改编为红五军团，成为中央红军主力之一，随主力参加长征。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1934-10-10",
+      "to": "1935-1-7",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "中央红军长征途中改向贵州北部进军，1935年1月7日攻克黔北重镇遵义。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1935-1-7",
+      "to": "1935-1-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "红军攻克遵义，一个决定党和红军命运的转折点正在到来，为遵义会议召开创造条件。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1979-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十一届三中全会确立和平统一方针，全国人大常委会发表《告台湾同胞书》停止炮击金门。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1979-1-31",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十一届三中全会作出改革开放决策，蛇口工业区成为改革开放最早的试验场。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1979-3-30",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "改革开放同时强调坚持四项基本原则，邓小平在务虚会上提出。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1979-1-1",
+      "to": "1981-9-30",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "《告台湾同胞书》阐明和平统一方针，叶剑英1981年发表九条方针阐明“一国两制”构想。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1982-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "改革开放首先在农村突破，1982年中央发出第一个“一号文件”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1979-1-31",
+      "to": "1979-7-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "蛇口工业区试验后，中央决定试办深圳、珠海、汕头、厦门出口特区。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1979-7-15",
+      "to": "1984-5-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "经济特区经验推广，1984年中央决定开放14个沿海港口城市。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1984-5-4",
+      "to": "1988-4-13",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "沿海开放战略基础上，1988年设立海南省并建经济特区。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1984-1-24",
+      "to": "1984-10-20",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "邓小平视察经济特区肯定改革开放，十二届三中全会通过《关于经济体制改革的决定》。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1982-1-1",
+      "to": "1983-1-1",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "第一个“一号文件”后家庭联产承包责任制在全国农村普遍推行。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1978-3-18",
+      "to": "1983-10-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "全国科学大会推动科教事业发展，邓小平1983年为景山学校题词“三个面向”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1981-9-30",
+      "to": "1982-9-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "叶剑英九条方针阐明“一国两制”构想后，撒切尔夫人访华拉开中英香港问题谈判序幕。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1984-1-24",
+      "to": "1984-5-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "邓小平视察特区肯定开放政策后，1984年5月开放14个沿海城市。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1985-3-13",
+      "to": "1986-3-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "科技体制改革决定推动科技发展，1986年三位科学家建议发展高技术，中央批准863计划。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1982-12-4",
+      "to": "1986-4-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "1982年宪法确立法治框架，1986年六届全国人大通过《民法通则》。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1982-9-1",
+      "to": "1984-10-20",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十二大后经济体制改革深化，十二届三中全会通过改革决定。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1984-10-20",
+      "to": "1987-10-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "城市经济体制改革展开，中共十三大系统阐述初级阶段理论。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1987-10-25",
+      "to": "1988-3-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十三大后召开七届全国人大，选举产生新一届国家机构领导人员。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1987-10-25",
+      "to": "1989-6-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十三大后经历政治风波，十三届四中全会形成以江泽民为核心的中央领导集体。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1989-6-23",
+      "to": "1989-11-6",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "十三届四中全会后邓小平辞去中央军委主席职务，实现领导层新老交替。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1989-11-6",
+      "to": "1992-1-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "邓小平退休后仍关注改革开放，1992年初视察南方发表重要谈话。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1983-1-1",
+      "to": "1990-3-3",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "家庭联产承包推行多年后，邓小平1990年谈农业“两个飞跃”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1984-5-4",
+      "to": "1990-4-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "沿海开放战略基础上，1990年中央决定开发开放上海浦东。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1984-10-20",
+      "to": "1990-12-19",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "经济体制改革推动资本市场建立，1990年12月上海证券交易所开业。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1991-12-25",
+      "to": "1992-1-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "苏联解体后中国坚持社会主义道路，邓小平南方谈话冲破姓“社”姓“资”束缚。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1989-5-15",
+      "to": "1991-12-25",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "中苏关系正常化后苏联政局剧变，1991年12月苏联解体、冷战结束。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1992-11-1",
+      "to": "1993-4-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "九二共识基础上，1993年汪道涵与辜振甫在新加坡举行首次会谈。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1993-4-27",
+      "to": "1995-1-30",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "汪辜会谈推动两岸关系发展，江泽民1995年提出发展两岸关系八项主张。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1994-9-1",
+      "to": "1996-3-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "分税制改革理顺中央地方关系后，“九五”计划开始实施。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1997-9-12",
+      "to": "1998-3-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十五大后召开九届全国人大一次会议，选举江泽民为国家主席。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1997-9-12",
+      "to": "1998-10-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十五大后推进农村改革，十五届三中全会通过农业和农村工作决定。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1997-9-12",
+      "to": "1999-9-22",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十五大部署国有企业改革，十五届四中全会通过国企改革和发展决定。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1995-5-6",
+      "to": "2001-2-19",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "科教兴国战略推动下，2001年国家最高科学技术奖首次颁发。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1999-5-8",
+      "to": "2000-1-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "驻南联盟使馆被炸激发自立自强，2000年西部大开发战略全面启动。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2000-10-11",
+      "to": "2001-9-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十五届五中全会规划“十五”计划，十五届六中全会通过加强和改进党的作风建设决定。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2000-1-1",
+      "to": "2002-12-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "西部大开发战略实施带动重点工程，西气东输工程全线开工。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2001-9-24",
+      "to": "2004-9-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十五届六中全会加强党建，十六届四中全会通过加强党的执政能力建设决定。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1995-1-30",
+      "to": "2005-4-29",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八项主张推动两岸政党交流，2005年胡锦涛与连战会面，是国共领导人60年来首次会谈。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2005-4-29",
+      "to": "2008-12-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "国共会谈推动两岸关系缓和，2008年两岸实现“大三通”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2003-10-15",
+      "to": "2005-10-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "神舟五号实现首次载人飞行后，神舟六号实现多人多天飞行。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2005-10-12",
+      "to": "2008-9-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "神舟六号多人多天飞行后，神舟七号完成中国首次太空出舱活动。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2008-5-12",
+      "to": "2008-8-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "汶川特大地震后全国抗震救灾凝聚人心，2008年北京奥运会成功举办。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2007-10-15",
+      "to": "2008-10-9",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十七大部署后，十七届三中全会通过推进农村改革发展决定。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2008-12-15",
+      "to": "2009-4-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "两岸“大三通”后，两岸签署金融、空运等协议推进经贸合作。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2008-12-26",
+      "to": "2012-9-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "海军赴亚丁湾护航锻炼远洋能力，2012年中国第一艘航母辽宁舰入列。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2001-12-11",
+      "to": "2011-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "加入世贸组织后中国经济深度融入全球化，2011年经济总量跃居世界第二。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2011-11-1",
+      "to": "2012-6-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "神舟八号实现交会对接后，神舟九号实现手控交会对接，载人航天技术连续突破。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2012-9-25",
+      "to": "2017-6-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "辽宁舰入列后中国掌握航母建造技术，2017年第一艘国产航母下水。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2013-1-1",
+      "to": "2018-11-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "上海自贸区试验开放举措，2018年首届中国国际进口博览会举行。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2012-11-8",
+      "to": "2013-3-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "党的十八大后，十二届全国人大一次会议选举习近平为国家主席。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2013-11-9",
+      "to": "2014-1-22",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十八届三中全会部署全面深化改革，2014年1月中央深改领导小组召开首次会议。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2014-1-22",
+      "to": "2014-2-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "全面深化改革开局后，2014年2月成立中央网络安全和信息化领导小组。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2012-12-4",
+      "to": "2014-3-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中央八项规定出台后全面从严治党，十八届中央纪委三次全会部署反腐斗争。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2013-9-7",
+      "to": "2014-11-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“一带一路”倡议提出后开展主场外交，2014年APEC北京峰会举行。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2014-11-11",
+      "to": "2016-9-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "APEC北京峰会后，2016年G20杭州峰会举行，中国为全球治理贡献方案。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2013-9-7",
+      "to": "2015-3-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“一带一路”倡议推动金融合作，2015年中国倡议的亚投行正式成立。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2014-2-1",
+      "to": "2015-12-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中央网信领导小组成立后加强互联网治理，2015年第二届世界互联网大会举行。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2015-10-26",
+      "to": "2016-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十八届五中全会部署“十三五”后，2016年长江经济带发展规划纲要印发。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2015-3-1",
+      "to": "2016-9-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "亚投行成立提升中国国际金融话语权，2016年G20杭州峰会举行。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2016-1-1",
+      "to": "2017-4-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "区域协调发展战略推进，2017年4月中共中央决定设立雄安新区。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2012-9-25",
+      "to": "2017-5-5",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "重大装备自主创新推进，2017年5月C919大型客机首飞成功。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2017-10-18",
+      "to": "2018-2-26",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十九大部署党和国家机构改革，十九届三中全会通过机构改革决定。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2018-2-26",
+      "to": "2018-3-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十九届三中全会后，十三届全国人大一次会议修改宪法、选举新一届国家机构。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "2018-12-18",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "十一届三中全会开启改革开放，2018年庆祝改革开放40周年大会举行。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2018-3-11",
+      "to": "2019-10-28",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "宪法修正案完善国家治理体系，十九届四中全会通过坚持和完善中国特色社会主义制度决定。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2019-10-28",
+      "to": "2021-11-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十九届四中全会后，十九届六中全会通过《党的百年奋斗重大成就和历史经验的决议》。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2019-10-1",
+      "to": "2020-5-28",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "香港局势变化背景下，2020年全国人大常委会通过《香港国安法》维护国家安全。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2018-11-5",
+      "to": "2020-6-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "进博会等开放平台基础上，《海南自由贸易港建设总体方案》印发。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2017-10-18",
+      "to": "2021-10-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十九大强调加快生态文明体制改革，中国积极承办COP15体现生态文明理念与全球责任。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2021-7-1",
+      "to": "2021-11-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "建党100周年后，十九届六中全会总结党的百年奋斗重大成就和历史经验。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2015-7-31",
+      "to": "2022-2-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "北京获得冬奥会主办权后，2022年北京冬奥会开幕，北京成为“双奥之城”。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2022-10-16",
+      "to": "2022-11-30",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "党的二十大召开后不久，江泽民同志于2022年11月30日逝世。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2020-2-23",
+      "to": "2023-1-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "统筹疫情防控与经济社会发展，2023年1月起实施“乙类乙管”，防控平稳转段。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "1998-8-1",
+      "to": "2023-8-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "抗洪抢险精神传承，2023年夏京津冀、东北地区防汛抗洪救灾取得胜利。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2022-10-16",
+      "to": "2024-7-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "二十大部署全面深化改革，二十届三中全会通过进一步全面深化改革决定。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2022-2-4",
+      "to": "2024-7-26",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "北京冬奥会展示体育强国形象，2024年巴黎奥运会中国代表团取得境外参赛最好成绩。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "1952-7-1",
+      "to": "1960-5-25",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "新中国建设成就不断涌现，1960年5月中国登山队首次从北坡登顶珠穆朗玛峰，鼓舞民族精神。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1960-5-25",
+      "to": "1981-11-16",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "登顶珠峰等体育成就传承拼搏精神，1981年中国女排首夺世界冠军。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1954-4-26",
+      "to": "1964-1-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "日内瓦会议后中国外交影响力提升，1964年中法建交，法国成为第一个与新中国建交的西方大国。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1964-1-27",
+      "to": "1971-10-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中法建交等外交突破打开局面，1971年中国恢复联合国合法席位。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1976-4-5",
+      "to": "1976-7-28",
+      "tier": "background",
+      "confidence": 0.35,
+      "evidence": "1976年是多难之年，四五运动后唐山发生7.8级强震，24万余人遇难。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1976-7-28",
+      "to": "2008-5-12",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "唐山抗震救灾经验为2008年汶川特大地震救援提供借鉴。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1964-10-16",
+      "to": "1980-5-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "两弹一星工程持续推进，1980年5月中国成功发射第一枚洲际导弹。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1980-5-18",
+      "to": "2008-12-26",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "战略武器与国防能力提升，2008年12月中国海军首批编队赴亚丁湾护航。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1981-11-16",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "改革开放新时期民族精神振奋，1981年中国女排首夺世界冠军。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1981-11-16",
+      "to": "1984-7-29",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "女排夺冠提振体育信心，1984年许海峰实现中国奥运金牌“零的突破”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1978-3-18",
+      "to": "1985-2-15",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "全国科学大会迎来科学春天，1985年中国建成第一个南极科学考察站长城站。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1985-2-15",
+      "to": "2003-10-15",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "极地与航天等科技成就积累，2003年神舟五号实现中国首次载人航天。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1978-12-18",
+      "to": "1985-9-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "以经济建设为中心后，1985年中央军委决定裁军100万，军队建设转向和平时期轨道。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1985-9-1",
+      "to": "2012-9-25",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "百万大裁军推动精兵强军，2012年中国第一艘航母辽宁舰入列。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1984-7-29",
+      "to": "1990-9-22",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "奥运首金后中国体育蓬勃发展，1990年北京成功举办第十一届亚运会。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1990-9-22",
+      "to": "2001-7-13",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "亚运会成功举办积累经验，2001年北京获得2008年奥运会举办权。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1992-10-12",
+      "to": "1993-3-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中共十四大后，1993年3月八届全国人大一次会议选举江泽民为国家主席。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1993-3-15",
+      "to": "1998-3-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八届全国人大后，1998年九届全国人大一次会议选举江泽民为国家主席。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1993-11-11",
+      "to": "1995-5-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "社会主义市场经济体制建立后，1995年5月中国开始实行双休日制度。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1995-5-1",
+      "to": "2001-12-11",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "工时制度等劳动保障改革推进，2001年中国正式加入世界贸易组织。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1993-11-11",
+      "to": "1995-9-28",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十四届三中全会后，十四届五中全会通过“九五”计划与2010年远景目标建议。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1995-9-28",
+      "to": "1996-3-1",
+      "tier": "verified",
+      "confidence": 0.7,
+      "evidence": "十四届五中全会通过“九五”计划建议，1996年起“九五”计划开始实施。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1995-1-30",
+      "to": "1996-3-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "江泽民八项主张阐明对台方针后，1996年3月解放军在东海南海演习震慑“台独”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1996-3-8",
+      "to": "2005-3-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "反“台独”斗争持续推进，2005年十届全国人大通过《反分裂国家法》。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1995-9-28",
+      "to": "1996-10-7",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十四届五中全会后，十四届六中全会通过加强社会主义精神文明建设决议。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1996-10-7",
+      "to": "1997-9-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十四届六中全会为十五大作思想准备，1997年中共十五大召开。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1936-12-12",
+      "to": "1937-9-22",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "西安事变和平解决促成国共两党重新合作，为《国共合作宣言》发表奠定基础。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1937-7-7",
+      "to": "1937-9-22",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "卢沟桥事变后全民族抗战爆发，为促进国共合作抗日，中共中央宣言于9月22日由国民党中央通讯社发表。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1937-9-22",
+      "to": "1937-9-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "宣言与蒋介石谈话宣告抗日民族统一战线形成，随后八路军开赴前线取得平型关大捷。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1938-10-21",
+      "to": "1939-7-7",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "广州、武汉失守后抗战进入战略相持阶段，党中央正确分析形势，发出《为抗战两周年纪念对时局宣言》。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1939-7-7",
+      "to": "1940-8-20",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "宣言提出坚持抗战到底、反对中途妥协的三大口号，敌后战场随后发动百团大战重击日军。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1941-12-8",
+      "to": "1942-1-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "日军偷袭珍珠港挑起太平洋战争后，中、美、英、苏等26国签署《联合国家宣言》，正式形成国际反法西斯统一战线。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1942-1-1",
+      "to": "1945-8-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "国际反法西斯统一战线为中国争取抗日战争胜利创造了有利的国际条件。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1945-8-15",
+      "to": "1945-9-3",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "日本天皇宣布无条件投降后，日本代表在投降书上签字，抗日战争取得完全胜利。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1945-9-3",
+      "to": "1945-10-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "抗战胜利后国共重庆谈判，10月10日签订《双十协定》。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1945-10-10",
+      "to": "1946-1-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "《双十协定》签订后蒋介石尚不敢贸然撕毁协定，国共双方达成停止军事冲突协定。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1946-1-5",
+      "to": "1946-1-10",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "1月10日双方下达停战令，同一天政治协商会议在重庆开幕。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1946-1-10",
+      "to": "1946-6-26",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "旧政协协议达成后蒋介石发布进攻解放区密令，全面内战由此爆发。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1946-1-10",
+      "to": "1946-5-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "旧政协期间党着手为应对内战危机做准备，发布《关于土地问题的指示》动员解放区农民。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1946-5-4",
+      "to": "1947-10-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "五四指示将减租减息改为没收地主土地，拉开解放区土地改革序幕，发展为《中国土地法大纲》。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1948-11-29",
+      "to": "1949-1-10",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "为统一指挥平津战役，党中央决定成立由林彪、罗荣桓、聂荣臻组成的平津前线总前委。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1949-1-10",
+      "to": "1949-3-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "平津战役胜利、北平和平解放后，党中央在西柏坡召开七届二中全会筹备建国。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1949-3-5",
+      "to": "1949-4-21",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "七届二中全会规划夺取全国胜利后，人民解放军发起渡江战役。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1949-4-21",
+      "to": "1949-4-23",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "渡江战役突破长江防线，4月23日解放军占领南京，宣告国民党反动统治覆灭。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1952-12-31",
+      "to": "1953-9-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "土地改革基本完成、国民经济恢复后，党认为应当提出向社会主义逐步过渡的总路线。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1953-9-24",
+      "to": "1956-12-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "过渡时期总路线提出“一化三改”，指引对农业、手工业和资本主义工商业的社会主义改造到1956年底基本完成。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1953-9-24",
+      "to": "1956-1-15",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "总路线指引下公私合营等高级形式国家资本主义迅速推进，首都各界庆祝社会主义改造胜利。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1956-1-15",
+      "to": "1956-12-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "庆祝社会主义改造胜利时改造高潮已至，年底三大改造基本完成。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1975-1-5",
+      "to": "1975-3-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "邓小平主持全面整顿，把整顿铁路部门作为经济领域扭转混乱局面的突破口。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1975-3-5",
+      "to": "1975-11-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "铁路整顿等全面整顿工作受挫于1975年11月发动的“批邓、反击右倾翻案风”。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1986-9-28",
+      "to": "1989-6-9",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十二届六中全会决议强调的反对资产阶级自由化内容未得到认真贯彻，思潮泛滥引发政治风波，邓小平接见戒严部队干部回答发展方向问题。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1989-6-9",
+      "to": "1989-6-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "风波后党冷静思考，十三届四中全会形成以江泽民为核心的中央领导集体。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1990-3-3",
+      "to": "1992-1-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "邓小平对农村改革“两个飞跃”的思考与其南方谈话关于深化改革的论述一脉相承。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "2000-2-20",
+      "to": "2000-2-21",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "江泽民在广东考察时明确提出“三个代表”要求，是此前逐步提出的“三个代表”重要思想的进一步明确。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2000-2-21",
+      "to": "2001-7-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "江泽民在庆祝建党80周年大会上系统阐述“三个代表”重要思想，强调其立党之本、执政之基地位。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2001-7-1",
+      "to": "2002-11-8",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "“三个代表”重要思想在党的十六大被确立为党的指导思想并写入党章。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1971-10-25",
+      "to": "2000-9-7",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "恢复联合国合法席位后中国作为安理会常任理事国积极参与国际事务，倡议举行五常首脑首次会晤。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2000-9-7",
+      "to": "2001-6-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中国以更加开放的姿态参与多边外交，推动上海合作组织成立。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2002-11-8",
+      "to": "2002-12-5",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "党的十六大后新当选的中共中央总书记胡锦涛率中央书记处到西柏坡考察，重温“两个务必”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2002-12-5",
+      "to": "2003-3-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "西柏坡考察为十六大后工作定调，随后十届全国人大选举胡锦涛为国家主席。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2003-4-1",
+      "to": "2003-5-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "抗击非典期间，胡锦涛在四川考察农村防治非典工作。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2003-5-12",
+      "to": "2003-10-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "非典疫情引发党中央深入思考发展问题，十六届三中全会完整提出科学发展观。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2004-3-10",
+      "to": "2005-4-22",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "科学发展观提出后，党中央顺应和平发展时代潮流，在亚非峰会上提出建设“和谐世界”主张。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2005-4-22",
+      "to": "2005-9-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "胡锦涛在联合国成立60周年首脑会议上发表《努力建设持久和平、共同繁荣的和谐世界》讲话，系统阐述“和谐世界”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2005-9-15",
+      "to": "2007-10-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“和谐世界”理念被党的十七大报告重申，成为指导中国外交的重要理念。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2001-6-15",
+      "to": "2009-7-5",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "上海合作组织成员国合作打击三股势力，为依法平息乌鲁木齐严重暴力犯罪事件提供反恐合作背景。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2009-7-5",
+      "to": "2009-10-1",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "依法平息严重暴力犯罪事件、维护民族团结和社会稳定，为建国60周年阅兵营造稳定环境。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "2012-11-8",
+      "to": "2013-1-5",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "党的十八大后，习近平在新进中央委员研讨班开班式上坚定申明必须毫不动摇坚持和发展中国特色社会主义。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2013-1-5",
+      "to": "2013-11-9",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "坚持和发展中国特色社会主义的政治宣示，为十八届三中全会部署全面深化改革奠定思想基础。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2012-12-4",
+      "to": "2015-1-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中央八项规定出台后全面从严治党深入推进，中央政治局常委会开始定期听取五大党组工作汇报。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2015-1-16",
+      "to": "2017-10-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "党对各方面工作集中统一领导制度化，为十九大强调坚持和加强党的全面领导提供实践基础。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2013-9-7",
+      "to": "2017-1-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“一带一路”倡议的实践推动习近平在联合国日内瓦总部系统阐释构建人类命运共同体。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2017-1-18",
+      "to": "2017-5-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "人类命运共同体理念提出后，首届“一带一路”国际合作高峰论坛在北京举行。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2012-11-8",
+      "to": "2016-5-17",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "党的十八大强调坚定道路自信、理论自信、制度自信，为习近平在哲学社会科学工作座谈会提出文化自信奠定基础。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2016-5-17",
+      "to": "2017-10-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "习近平在哲学社会科学工作座谈会提出文化自信是更基本更深沉更持久的力量，相关论述在十九大进一步展开。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2017-10-18",
+      "to": "2018-1-5",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "学习贯彻党的十九大精神专题研讨班开班，习近平强调统揽“四个伟大”、实干兴邦。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2018-1-5",
+      "to": "2018-3-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "研讨班讲话强调的习近平新时代中国特色社会主义思想随后载入宪法。",
+      "source": "《中国共产党简史》第八章"
+    },
+    {
+      "from": "2020-1-1",
+      "to": "2020-2-23",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "针对疫情冲击，党中央召开统筹推进新冠肺炎疫情防控和经济社会发展工作部署会议。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2020-2-23",
+      "to": "2020-11-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "统筹推进疫情防控和经济社会发展，如期完成脱贫攻坚目标任务。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2020-10-26",
+      "to": "2021-1-11",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "学习贯彻党的十九届五中全会精神专题研讨班开班，习近平阐述经济社会发展系列重大问题。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "2021-1-11",
+      "to": "2022-10-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十九届五中全会部署的“十四五”规划和2035年远景目标，为党的二十大提出中国式现代化奠定基础。",
+      "source": "《中国共产党简史》第十章"
+    },
+    {
+      "from": "1911-10-10",
+      "to": "1912-1-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "辛亥革命推翻清朝统治，1912年1月1日孙中山在南京就任临时大总统，中华民国成立。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1912-1-1",
+      "to": "1912-2-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "中华民国成立后，宣统帝溥仪下诏退位，清王朝灭亡。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1912-2-12",
+      "to": "1912-3-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "清帝退位后，袁世凯在北京就任临时大总统，临时政府北迁，北洋集团掌权。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1912-3-10",
+      "to": "1913-3-20",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "袁世凯就任后独裁野心显露，派人刺杀主张责任内阁的宋教仁。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1913-3-20",
+      "to": "1913-7-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "宋教仁遇刺震动全国，孙中山发动讨袁的二次革命。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1913-7-12",
+      "to": "1914-7-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "二次革命失败后，孙中山在日本东京将国民党改组为中华革命党，继续反袁斗争。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1911-10-10",
+      "to": "1915-9-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "辛亥革命后民主共和观念传播，陈独秀创办《青年杂志》发起新文化运动，倡导民主与科学。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1912-3-10",
+      "to": "1915-12-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "袁世凯就任总统后复辟帝制，蔡锷等在云南发动护国战争讨袁。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1915-12-12",
+      "to": "1916-6-6",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "护国战争讨伐帝制，袁世凯被迫取消帝制并于1916年6月病逝。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1916-6-6",
+      "to": "1917-7-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "袁世凯病逝后北洋军阀割据混战，张勋趁机拥溥仪复辟。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1917-7-1",
+      "to": "1917-8-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "张勋复辟激起全国反对，孙中山在广州发起护法运动。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1917-11-7",
+      "to": "1918-11-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十月革命胜利后，李大钊发表《庶民的胜利》等文，热情讴歌十月革命，宣传社会主义。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1918-11-15",
+      "to": "1919-5-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "马克思主义在中国传播为五四运动提供思想武器，五四运动标志新民主主义革命开端。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1919-5-4",
+      "to": "1919-6-3",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "五四运动6月3日后发展为以工人罢工为主体的新阶段，工人阶级登上政治舞台。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1919-6-3",
+      "to": "1920-8-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "五四运动促进马克思主义同工人运动结合，陈独秀等在上海成立第一个共产党早期组织。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1921-7-23",
+      "to": "1922-9-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "党的一大后集中力量领导工人运动，毛泽东、李立三、刘少奇等领导安源路矿工人大罢工。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1922-9-14",
+      "to": "1923-2-7",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "安源罢工等掀起工人运动第一次高潮，京汉铁路大罢工遭军阀镇压酿成二七惨案。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1923-2-7",
+      "to": "1923-6-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "二七惨案表明工人阶级孤军奋战不行，中共三大决定实行国共合作。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1924-1-20",
+      "to": "1925-3-12",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "国共合作实现后革命形势发展，孙中山抱病北上并于1925年3月在北京病逝。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1925-3-12",
+      "to": "1927-3-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "孙中山逝世后国民党内右派势力抬头，蒋介石1926年制造中山舰事件排斥共产党。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1924-1-20",
+      "to": "1925-5-30",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "国共合作开创反帝革命新局面，顾正红被害引发五卅惨案，掀起全国反帝怒潮。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1925-5-30",
+      "to": "1925-6-19",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "五卅运动激发全国反帝浪潮，广州香港工人举行持续16个月的省港大罢工。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1925-6-19",
+      "to": "1926-7-9",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "省港大罢工等群众运动为北伐奠定群众基础，1926年7月国民革命军誓师北伐。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1927-3-1",
+      "to": "1927-4-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中山舰事件是蒋介石排斥共产党的预演，1927年4月12日其在上海发动反革命政变。",
+      "source": "《中国共产党简史》第一章"
+    },
+    {
+      "from": "1927-8-7",
+      "to": "1927-12-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八七会议确定武装反抗国民党总方针，张太雷、叶挺等领导广州起义。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1927-12-11",
+      "to": "1928-6-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "南昌、秋收、广州起义相继受挫，为总结经验中共六大在莫斯科召开。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1928-6-18",
+      "to": "1929-12-28",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "六大后革命力量在根据地发展，古田会议确立思想建党、政治建军原则。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1927-4-18",
+      "to": "1928-10-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "南京国民政府成立后，国民党颁布《训政纲领》实行一党训政。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1928-10-1",
+      "to": "1928-12-29",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "国民党训政巩固统治，张学良通电易帜服从南京国民政府，全国形式上统一。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1929-12-28",
+      "to": "1930-1-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "古田会议后毛泽东总结根据地斗争经验，写信阐明“农村包围城市、武装夺取政权”道路。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1930-5-1",
+      "to": "1931-9-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中原大战削弱中国、日本趁隙发动九一八事变侵占东北，中国人民局部抗战开始。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1931-9-18",
+      "to": "1932-1-28",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "九一八事变后日本扩大侵略，1932年1月28日进攻上海，一二八事变爆发。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1932-1-28",
+      "to": "1933-5-31",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "一二八事变后日军继续进逼华北，国民政府签订《塘沽协定》。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1931-11-7",
+      "to": "1934-1-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中华苏维埃共和国成立后“左”倾错误发展，六届五中全会进一步强化“左”倾路线。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1934-1-15",
+      "to": "1934-10-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "六届五中全会后第五次反“围剿”失败，中央红军被迫开始长征。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1933-5-31",
+      "to": "1935-8-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "华北危机加深，中共中央发表《为抗日救国告全体同胞书》（八一宣言）呼吁一致抗日。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1931-9-18",
+      "to": "1935-12-9",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "九一八以来民族危机日益深重，北平学生发动一二九运动掀起抗日救亡新高潮。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1935-12-9",
+      "to": "1935-12-17",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "一二九运动推动全国抗日救亡高潮，瓦窑堡会议确定建立抗日民族统一战线的策略方针。",
+      "source": "《中国共产党简史》第二章"
+    },
+    {
+      "from": "1937-7-7",
+      "to": "1937-8-22",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "卢沟桥事变后全民族抗战爆发，洛川会议制定全面抗战路线和《抗日救国十大纲领》。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1937-8-22",
+      "to": "1937-8-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "洛川会议后红军主力改编为八路军、南方游击队改编为新四军，开赴抗日前线。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1937-8-25",
+      "to": "1937-9-25",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "改编后八路军开赴前线，一一五师取得平型关大捷，是全面抗战以来第一个大胜仗。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1937-12-13",
+      "to": "1938-3-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "日军占领南京后继续进攻，国民党军队在台儿庄重创日军取得抗战初期正面战场最大胜利。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1938-10-21",
+      "to": "1939-11-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "相持阶段到来后，国民党五届五中全会确定“溶共、防共、限共、反共”方针。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1938-5-26",
+      "to": "1940-1-9",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "毛泽东在《论持久战》等著作基础上发表《新民主主义论》，系统阐明新民主主义革命理论。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1939-11-1",
+      "to": "1941-1-6",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "国民党五届五中全会后反共摩擦加剧，1941年1月制造皖南事变围歼新四军军部。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1941-12-8",
+      "to": "1942-1-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "太平洋战争爆发后日军进攻长沙，国民党军取得第三次长沙会战胜利。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1941-12-8",
+      "to": "1942-3-1",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "太平洋战争爆发后为保卫滇缅公路、支援盟军，中国远征军入缅作战。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1942-2-1",
+      "to": "1942-5-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "延安整风运动开展后，毛泽东主持召开延安文艺座谈会指明文艺为工农兵服务方向。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1941-1-6",
+      "to": "1943-9-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "皖南事变后中共坚持有理有利有节斗争，1943年挫败国民党第三次反共高潮。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1943-9-1",
+      "to": "1944-9-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "反共高潮被制止后，林伯渠在国民参政会提出结束一党统治、成立民主联合政府的主张。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1940-1-9",
+      "to": "1945-4-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "新民主主义理论成熟标志毛泽东思想多方面展开，中共七大确立毛泽东思想为指导思想。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1945-4-23",
+      "to": "1945-8-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "七大团结胜利为夺取抗战最后胜利作了准备，日本随后宣布无条件投降。",
+      "source": "《中国共产党简史》第三章"
+    },
+    {
+      "from": "1946-6-26",
+      "to": "1946-11-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "全面内战爆发后，国民党单独召开制宪国大。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1946-6-26",
+      "to": "1947-6-30",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "全面内战爆发后人民解放军转入战略防御，1947年6月刘邓大军挺进大别山揭开战略进攻序幕。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1947-6-30",
+      "to": "1948-9-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "刘邓大军挺进大别山标志战略进攻开始，为三大战役创造条件，辽沈战役打响。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1946-11-15",
+      "to": "1948-5-20",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "国民党单方面制宪后实行“行宪”，蒋介石1948年5月就任总统。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1948-5-20",
+      "to": "1949-12-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "蒋介石就任总统未能挽救统治危机，1949年12月国民党集团退据台湾。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1949-4-23",
+      "to": "1949-9-21",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "人民解放军占领南京后筹建新中国，1949年9月人民政协第一届全体会议召开。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1949-9-21",
+      "to": "1949-10-1",
+      "tier": "verified",
+      "confidence": 0.95,
+      "evidence": "人民政协通过《共同纲领》，10月1日中华人民共和国开国大典举行。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1949-10-21",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "开国大典后中央人民政府政务院成立，周恩来任总理，新中国行政体系建立。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1949-11-9",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "新中国成立鼓舞人心，中国、中央两航空公司员工在香港宣布起义飞回内地。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1949-4-23",
+      "to": "1949-12-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "南京解放后国民党统治覆灭，国民党集团退守台湾，形成两岸分隔局面。",
+      "source": "《中国共产党简史》第四章"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1949-12-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "新中国成立后毛泽东首次出访苏联，为中苏结盟奠定基础。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1949-12-16",
+      "to": "1950-2-14",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "毛泽东访苏期间签订《中苏友好同盟互助条约》，巩固新中国外交。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1950-2-14",
+      "to": "1950-10-19",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中苏同盟为抗美援朝提供战略支撑，1950年10月中国人民志愿军入朝作战。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1950-5-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "新中国建立后颁布第一部法律《婚姻法》，废除封建婚姻制度。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1950-6-25",
+      "to": "1950-10-8",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "朝鲜战争爆发、美军越过三八线威胁中国安全，毛泽东发布组建志愿军命令。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1950-10-8",
+      "to": "1950-10-19",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "组建志愿军命令下达后，中国人民志愿军跨过鸭绿江抗美援朝。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1951-5-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "新中国成立后推进国家统一，1951年5月中央人民政府与西藏地方政府签订协议，西藏和平解放。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1951-12-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "新中国执政后开展“三反”运动，反对贪污、浪费和官僚主义，巩固人民政权。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1951-12-1",
+      "to": "1952-1-26",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“三反”运动牵出不法资本家问题，中共中央开展“五反”斗争。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1952-1-26",
+      "to": "1953-9-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“五反”运动为和平改造资本主义工商业作了铺垫，过渡时期总路线随之提出。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1950-10-19",
+      "to": "1952-10-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "抗美援朝战争中志愿军依托坑道在上甘岭抗击敌军优势兵力轮番进攻。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1952-10-14",
+      "to": "1953-7-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "上甘岭战役等打出国威军威，1953年7月27日朝鲜停战协定签订。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1953-7-13",
+      "to": "1953-7-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "金城战役歼敌5万余人，有力配合朝鲜停战谈判，随后停战协定签订。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1953-7-27",
+      "to": "1953-12-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "抗美援朝胜利提高中国国际地位，周恩来提出和平共处五项原则。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1953-12-1",
+      "to": "1954-4-26",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "和平共处五项原则提出后，中国以五大国身份参加日内瓦会议登上多边外交舞台。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1954-4-26",
+      "to": "1955-4-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "日内瓦会议后，周恩来率团出席万隆会议提出“求同存异”。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1955-4-18",
+      "to": "1971-10-25",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "万隆会议增进亚非团结，为新中国恢复联合国合法席位积累国际支持。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1954-9-28",
+      "to": "1955-9-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "国务院成立后军队正规化建设推进，1955年人民解放军实行军衔制。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1953-9-24",
+      "to": "1956-4-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "过渡时期总路线推进中，毛泽东作《论十大关系》报告探索社会主义建设道路。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1956-4-25",
+      "to": "1956-9-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "毛泽东作《论十大关系》探索建设道路，为中共八大作了思想准备。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1956-9-15",
+      "to": "1956-11-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八大后召开八届二中全会，确定1957年“保证重点，适当收缩”的经济建设方针。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1956-9-15",
+      "to": "1957-2-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八大后毛泽东发表《关于正确处理人民内部矛盾的问题》，阐述社会主义社会矛盾学说。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1957-2-27",
+      "to": "1957-4-27",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "《关于正确处理人民内部矛盾的问题》推动全党整风运动开展。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1957-4-27",
+      "to": "1957-6-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "整风运动中极少数右派进攻，反右派斗争于6月8日后开始并扩大化。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1957-6-8",
+      "to": "1958-8-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "反右派扩大化后党内民主受损，“左”倾思想发展，1958年掀起大跃进和人民公社化运动。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1949-12-10",
+      "to": "1958-8-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "两岸对峙局面下，1958年人民解放军炮击金门，反对美国制造“两个中国”图谋。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1958-8-23",
+      "to": "1979-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "炮击金门维护一个中国原则，1979年全国人大常委会发表《告台湾同胞书》停止炮击、争取和平统一。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1958-8-1",
+      "to": "1958-12-9",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "大跃进中出现问题，八届六中全会通过决议初步纠正部分错误。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1958-12-9",
+      "to": "1959-7-2",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八届六中全会后召开庐山会议，初期继续纠“左”，后期转向批判彭德怀。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1951-5-23",
+      "to": "1959-3-28",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "西藏和平解放后，1959年国务院解散西藏地方政府、平定叛乱，实行民主改革废除封建农奴制度。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1953-1-1",
+      "to": "1959-9-26",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "“一五”计划推进工业化建设，1959年大庆油田发现，中国甩掉“贫油国”帽子。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1959-9-26",
+      "to": "1964-12-21",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "大庆油田等工业化成就支撑四个现代化目标，三届全国人大重申实现“四化”。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1959-7-2",
+      "to": "1960-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "庐山会议后反右倾斗争加剧经济困难，1960年起实行“调整、巩固、充实、提高”八字方针。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1958-8-1",
+      "to": "1960-3-22",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "大跃进时期企业管理探索，中共中央批转《鞍钢宪法》确立“两参一改三结合”。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1960-1-1",
+      "to": "1960-11-3",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "国民经济调整中，中央发出农村工作紧急指示信着手纠正农村“左”倾错误。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1960-11-3",
+      "to": "1961-1-14",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "紧急指示信后，八届九中全会正式通过八字方针，国民经济转入调整轨道。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1961-1-14",
+      "to": "1962-1-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八届九中全会后召开七千人大会，初步总结“大跃进”教训，统一全党认识。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1962-1-11",
+      "to": "1962-9-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "七千人大会后党对形势认识出现分歧，八届十中全会重提阶级斗争。",
+      "source": "《中国共产党简史》第五章"
+    },
+    {
+      "from": "1962-9-24",
+      "to": "1965-11-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八届十中全会后阶级斗争扩大化发展，姚文元发表《评新编历史剧〈海瑞罢官〉》成为文革导火索。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1963-3-5",
+      "to": "1966-8-18",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "学习雷锋运动培育社会主义新风，文革中红卫兵运动兴起亦标榜学雷锋。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1962-10-20",
+      "to": "1963-10-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中印边境自卫反击战凸显国防布局需要，1963年起大规模三线建设在内地展开。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1963-10-1",
+      "to": "1965-4-5",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "三线建设等内地建设时期，河南林县红旗渠总干渠通水，创造“人工天河”奇迹。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1965-7-20",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "新中国统一战线政策感召下，前国民政府代总统李宗仁1965年从海外归来。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1956-1-14",
+      "to": "1965-9-17",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "知识分子政策与科技投入积累，1965年中国首次人工合成结晶牛胰岛素。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1965-11-10",
+      "to": "1966-5-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "姚文元评海瑞罢官引发批判，1966年5月中央政治局扩大会议通过《五一六通知》，文革全面发动。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1966-5-16",
+      "to": "1966-8-8",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "《五一六通知》后八届十一中全会通过《十六条》，毛泽东写《炮打司令部》大字报。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1966-8-8",
+      "to": "1966-8-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八届十一中全会后毛泽东第一次接见红卫兵，红卫兵运动迅速兴起。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1966-8-18",
+      "to": "1967-1-6",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "红卫兵运动迅猛兴起，1967年1月上海造反派发动“一月风暴”夺权。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1967-1-6",
+      "to": "1967-2-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "各地夺权局面失控，谭震林、陈毅等老帅在怀仁堂批评文革错误。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1967-2-11",
+      "to": "1968-10-13",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "二月抗争被诬为“二月逆流”后，八届十二中全会错误通过开除刘少奇党籍的决定。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1968-10-13",
+      "to": "1969-4-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "八届十二中全会为九大作准备，九大使文革错误理论合法化。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1966-8-18",
+      "to": "1968-12-22",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "文革中毛泽东号召知识青年到农村去，大规模上山下乡运动开始。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1964-10-16",
+      "to": "1969-9-23",
+      "tier": "verified",
+      "confidence": 0.8,
+      "evidence": "第一颗原子弹爆炸后核工业持续发展，1969年首次地下核试验成功。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1969-4-1",
+      "to": "1971-9-13",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "九大后林彪集团权欲膨胀，1971年9月13日外逃坠毁，反革命集团覆灭。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1964-10-16",
+      "to": "1970-4-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "两弹一星工程持续推进，1970年4月24日东方红一号卫星发射成功。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1963-10-1",
+      "to": "1970-12-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "三线建设带动内地大型工程，1970年12月葛洲坝水利枢纽动工兴建。",
+      "source": "《中国共产党简史》第六章"
+    },
+    {
+      "from": "1972-2-21",
+      "to": "1972-9-25",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中美关系缓和直接推动中日关系改善，1972年9月田中角荣访华实现邦交正常化。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1971-9-13",
+      "to": "1973-3-10",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "林彪事件后党重新启用老干部，1973年3月恢复邓小平的组织生活和国务院副总理职务。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1971-9-13",
+      "to": "1973-8-24",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "林彪事件后中共十大继续九大“左”倾错误路线，王洪文进入政治局。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1973-8-24",
+      "to": "1974-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十大后江青集团借“批林批孔”运动攻击周恩来等老一辈革命家。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1974-1-19",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "新中国捍卫南海领土主权，1974年1月中国海军在西沙击退南越军队。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1972-9-25",
+      "to": "1974-4-6",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "中日邦交正常化等外交突破后，邓小平出席联合国大会第六届特别会议阐述“三个世界”理论。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1964-12-21",
+      "to": "1975-1-13",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "三届全国人大重申四个现代化，1975年四届全国人大再次强调实现“四化”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1970-12-25",
+      "to": "1975-2-4",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "葛洲坝等大型水利工程推进，1975年刘家峡水电站建成。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1974-1-1",
+      "to": "1976-1-8",
+      "tier": "background",
+      "confidence": 0.4,
+      "evidence": "批林批孔运动冲击老干部，周恩来总理1976年1月8日逝世。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1976-1-8",
+      "to": "1976-4-5",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "周恩来逝世引发群众悼念，清明节前后爆发四五运动，反对“四人帮”。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1976-4-5",
+      "to": "1976-10-6",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "四五运动为粉碎“四人帮”奠定民意基础，1976年10月党中央一举粉碎江青反革命集团。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1976-10-6",
+      "to": "1977-8-12",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "粉碎“四人帮”后拨乱反正，1977年恢复高考。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1977-8-12",
+      "to": "1978-3-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "恢复高考推动尊重知识，1978年3月全国科学大会召开。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1976-10-6",
+      "to": "1978-5-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "粉碎“四人帮”后冲破“两个凡是”，《实践是检验真理的唯一标准》引发真理标准大讨论。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1978-5-11",
+      "to": "1978-12-18",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "真理标准大讨论为十一届三中全会奠定思想基础，全会作出改革开放历史性决策。",
+      "source": "《中国共产党简史》第七章"
+    },
+    {
+      "from": "1915-9-15",
+      "to": "1918-11-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "新文化运动倡导民主与科学、解放思想，为马克思主义在中国的传播创造了思想条件，李大钊随后发表《庶民的胜利》等文宣传社会主义。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "1930-1-5",
+      "to": "1931-11-7",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "《星星之火，可以燎原》阐明农村包围城市、武装夺取政权道路，中央苏区据此发展壮大，1931年11月中华苏维埃共和国成立。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "1937-8-22",
+      "to": "1938-5-26",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "洛川会议制定全面抗战路线后，毛泽东系统总结抗战经验，发表《论持久战》科学预见抗战三阶段。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "1938-3-24",
+      "to": "1938-10-21",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "台儿庄战役后正面战场连续作战，1938年10月广州、武汉相继失守，抗战进入战略相持阶段。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "2013-11-9",
+      "to": "2015-1-1",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十八届三中全会部署全面深化改革，中央据此推进经济结构战略性调整，2015年提出供给侧结构性改革。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "2015-1-1",
+      "to": "2015-10-26",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "供给侧结构性改革成为经济工作主线，十八届五中全会通过的“十三五”规划建议作出全面部署。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "2021-10-1",
+      "to": "2022-10-16",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "COP15在昆明成功举办彰显生态文明建设成就，党的二十大进一步部署人与自然和谐共生的现代化。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "1938-9-29",
+      "to": "1945-4-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "六届六中全会首次提出“马克思主义中国化”命题、基本纠正王明右倾错误，为中共七大确立毛泽东思想作了思想准备。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "1938-10-21",
+      "to": "1940-3-30",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "广州武汉失守后抗战进入相持阶段，日本对国民党政治诱降，汪精卫叛国投敌并于1940年在南京成立伪国民政府。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "1940-3-30",
+      "to": "1945-8-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "汪伪政权是日本扶植的汉奸政权，日本宣布无条件投降后汪伪政权随之覆灭。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "1969-4-1",
+      "to": "1970-8-23",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "九大后林彪集团权势扩张，1970年九届二中全会上其抢班夺权图谋暴露。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "1970-8-23",
+      "to": "1971-9-13",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "九届二中全会后林彪集团铤而走险，1971年9月13日外逃坠毁，反革命集团覆灭。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "2004-9-16",
+      "to": "2006-10-11",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "十六届四中全会加强执政能力建设后，十六届六中全会提出构建社会主义和谐社会的重大战略目标。",
+      "source": "人工判定补充边"
+    },
+    {
+      "from": "2006-10-11",
+      "to": "2007-10-15",
+      "tier": "verified",
+      "confidence": 0.85,
+      "evidence": "构建社会主义和谐社会写入党的十七大报告，中国特色社会主义事业总体布局扩展为“四位一体”。",
+      "source": "人工判定补充边"
+    }
+  ]
 }
