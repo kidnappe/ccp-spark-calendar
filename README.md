@@ -19,6 +19,7 @@
 - **时间轴**：横向时间线，快速定位不同历史阶段。
 - **检索与筛选**：按关键词搜索事件；按分类（中共 / 国家大事 / 其他力量）筛选。
 - **关于页**：内置更新日志与操作指南（弹窗 Tab 切换）。
+- **PWA**：可安装到桌面、离线兜底（manifest + Service Worker；`/api` 不缓存保证工具实时；仅 HTTPS / localhost 生效，双击 `file://` 自动跳过）。
 - **三合一工具台**（`tools/workshop.html`）：OCR 清洗、合并应用、详情丰富三个维护工具合并为一个页面，含「⚙️ 构建 index」一键重建与实时进度条。
 - **移动端适配**：窄屏布局自适应、触控缩放/平移、去除点按延迟、弹窗内部滚动。
 
@@ -44,6 +45,8 @@ ccp-spark-calendar/
 ├── index.html                      # 主程序（单文件应用，含全部样式与脚本）
 ├── events.json                     # 事件库（外部化事实源，419 条，含详情 6 子块与 causes）
 ├── causality.json                  # 因果链（外部化事实源，451 条边）
+├── manifest.webmanifest            # PWA 应用清单（可安装）
+├── sw.js                           # PWA Service Worker（网络优先 + 离线兜底）
 ├── backups/                        # 统一备份目录（各工具写入 events.json 前自动快照）
 ├── README.md                       # 本文件
 ├── LICENSE                         # MIT 协议
@@ -126,20 +129,31 @@ python scripts/causal_algorithm.py # 输出：事件数 / 边数 / 校验错误�
   "meta": { "...": "..." },
   "events": [
     {
+      "key": "1921-7-23",
       "year": 1921, "month": 7, "day": 23,
       "title": "中国共产党第一次全国代表大会召开",
-      "desc": "事件描述……",
+      "desc": "1921年7月23日中共一大在上海召开，后转嘉兴南湖，宣告中国共产党正式成立……",
       "cat": "party",
-      "source": "《中国共产党简史》"
+      "source": "《中国共产党简史》",
+      "ocrDesc": "史料原文（OCR 清洗/补写结果）……",
+      "bg": "背景（80-150 字）……",
+      "significance": "历史意义（80-150 字）……",
+      "quotes": ["重要论述（1-3 条）……"],
+      "figures": ["陈独秀", "李大钊"],
+      "srcCite": ["共产党员网 https://news.12371.cn/…"],
+      "furtherReading": [{ "title": "中共党史研究", "url": "http://…" }],
+      "detailSource": { "site": "共产党员网", "url": "https://…" },
+      "detailVerified": true,
+      "causes": ["1922-7-16", "1923-6-12"]
     }
   ]
 }
 ```
 
-- 主键规则：`年-月-日`，**月日不补零**（如 `1921-7-23`），与 `index.html` 内部 `keyOf()` 完全一致。
+- 主键规则：事件含显式 `key` 字段（`年-月-日`，**月日不补零**，如 `1921-7-23`），与 `index.html` 内部 `keyOf()` 完全一致；`causes` / `causedBy` 亦以该格式引用其他事件。
 - `cat`：`"party"`（中共，红）/ `"nation"`（国家大事，金）/ `"kmt"`（其他力量，蓝）三档。
-- 详情字段（可选）：`bg` / `significance` / `quotes` / `figures` / `srcCite` / `furtherReading`（史料详情 6 子块）、`detailSource`/`detailVerified`（来源与官方标记）、`ocrDesc`（史料原文）。
-- `causes`：该事件直接导致的后续事件主键数组（因 → 果，单向维护；`causedBy` 由页面反向推导）。
+- 详情字段（可选）：`bg` / `significance` / `quotes` / `figures` / `srcCite` / `furtherReading`（史料详情 6 子块）、`detailSource` / `detailVerified`（来源与官方/非官方标记）、`ocrDesc`（史料原文）。
+- `causes`：该事件直接导致的后续事件主键数组（因 → 果，单向维护）；`causedBy`（前因）由页面程序反向推导，无需手工维护。
 
 **`causality.json`**
 
@@ -153,7 +167,7 @@ python scripts/causal_algorithm.py # 输出：事件数 / 边数 / 校验错误�
 ```
 
 - `from` → `to` 表示**因 → 果**。
-- `tier`：`"verified"` 进入已证实层（实线）；其他（如 `"background"`、`"inferred"`）进入推断层（虚线）。
+- `tier`：`"verified"` 进入已证实层（实线）；`"background"` 进入弱因果背景层（虚线）。
 
 ---
 

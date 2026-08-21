@@ -14,6 +14,7 @@
 #   - 方向 = 因 -> 果；"前因"(causedBy) 由 index.html 程序反向推导。
 # ============================================================================
 import re, json, sys, math, random, os
+from changelog_html import md_to_log_html
 
 # 项目根目录（scripts/ 的上一级），保证无论从哪个 cwd 运行都能定位数据文件。
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -210,6 +211,15 @@ def replace_layout(html, layout_json):
                   block, html, flags=re.S, count=1)
 
 
+def replace_log(html, log_html):
+    """用 CHANGELOG.md 生成的 HTML 替换 index.html 中 const logHTML = [ ... ].join(''); 块。"""
+    pat = r"const logHTML = \[.*?\]\.join\(''\);"
+    new = "const logHTML = [" + json.dumps(log_html, ensure_ascii=False) + "].join('');"
+    if not re.search(pat, html, re.S):
+        raise SystemExit("未找到 index.html 的 logHTML 块")
+    return re.sub(pat, lambda m: new, html, count=1, flags=re.S)
+
+
 def validate(ev, ca):
     issues = []
     keys = set(key_of(e) for e in ev)
@@ -271,8 +281,11 @@ def main():
     html = replace_block(html, "CAUSAL_INFERRED",
                         json.dumps(inferred, ensure_ascii=False, indent=1))
     html = replace_layout(html, json.dumps(layout, ensure_ascii=False, indent=1))
+    # 更新日志：由 CHANGELOG.md 生成（单一事实源）
+    log_html = md_to_log_html(open(os.path.join(ROOT, "CHANGELOG.md"), encoding="utf-8").read())
+    html = replace_log(html, log_html)
     open(HTML_PATH, "w", encoding="utf-8").write(html)
-    print("已重写 index.html 的 historyData / CAUSAL / CAUSAL_INFERRED / CAUSAL_LAYOUT 四块数据")
+    print("已重写 index.html 的 historyData / CAUSAL / CAUSAL_INFERRED / CAUSAL_LAYOUT + 更新日志(logHTML)")
 
 
 if __name__ == "__main__":

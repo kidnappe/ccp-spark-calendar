@@ -8,6 +8,22 @@
     <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-calendar-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-calendar-16.png">
     <link rel="apple-touch-icon" href="icons/icon-calendar-180.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#b22222">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script>
+    /* PWA：仅在 https 或 localhost 注册 Service Worker（file:// 下自动跳过，不影响双击使用） */
+    (function(){
+      if ('serviceWorker' in navigator){
+        var h = location.hostname;
+        if (location.protocol === 'https:' || h === 'localhost' || h === '127.0.0.1'){
+          window.addEventListener('load', function(){
+            navigator.serviceWorker.register('./sw.js').catch(function(){});
+          });
+        }
+      }
+    })();
+    </script>
     <style>
         * {
             margin: 0;
@@ -17543,74 +17559,7 @@ function openAbout(){
     const title = document.getElementById('modalTitle');
     const content = document.getElementById('modalContent');
     title.textContent = '关于 · 星火日历';
-    const logHTML = [
-        '<p class="log-updated">最后更新：2026-08-19</p>',
-        '<h4><span class="ver">v1.7</span> 详情弹窗与时间轴视觉升级 <small>2026-08-19</small></h4>',
-        '<ul>',
-        '<li>「史料详情」面板（背景 / 历史意义 / 重要论述 / 相关人物 / 文献出处 / 延伸阅读 6 子块）：样板 #7 已填充，其余事件空壳优雅降级；移除独立的「史料原文」区块（史料内容并入详情丰富）</li>',
-        '<li>弹窗交互：全部二级跳转弹窗（同类事件 / 因果脉络 / 相关人物清单）统一「← 返回上一级」；主弹窗右上角常驻 × + 底部「关闭」双保险，长内容滚动时 × 不随内容滚走</li>',
-        '<li>启动定位：默认年份 1921 → 1911；日历进入停在 1911 有事件的首月（10 月）；时间轴进入停在序言处</li>',
-        '<li>前言 / 结语重写（序章以辛亥革命破题、续章落到民族复兴），书挡面板视觉升级（红色书脊 + 红金渐变 + 胶囊徽标 + 水印年份 + 题词）</li>',
-        '<li>时间轴背景优化：红金渐变粗主轴 + 淡红丝线 + 宣纸颗粒（方案 1 / 4 / 5）；背景渐变与年份水印经预览后移除</li>',
-        '<li>OCR 数据管道：单文件清洗 GUI、质检脚本 qc_ocr、进度看板 ocr_status、patch_history 增量重建；events.json 新增史料详情 6 字段 schema</li>',
-        '</ul>',
-        '<h4><span class="ver">v1.6</span> 搜索与工具栏收敛 <small>2026-08-18</small></h4>',
-        '<ul>',
-        '<li>分类筛选由 5 个 chips 收敛为搜索框旁的一个下拉菜单（全部分类 / 中共相关 / 其他力量 / 科技·文教 / 重大政治），工具栏第三行取消</li>',
-        '<li>移除「年份区间」起止筛选（年份导航器已覆盖跳年，跨年区间很少用）；相关 JS 与导出说明同步清理</li>',
-        '<li>参考文献作为「关于」页面的独立标签页（更新日志 / 操作指南 / 参考文献 三标签并列），不再并入操作指南</li>',
-        '<li>顶部「更多 ▾」菜单保留：重要会议 / 关于 / 历史上的今天 / 收藏 / 统计 / 标签</li>',
-        '</ul>',
-        '<h4><span class="ver">v1.5</span> 浏览体验与功能收敛 <small>2026-08-17 ~ 08-18</small></h4>',
-        '<ul>',
-        '<li>时间轴「历史时期」导航器：将跳转（T1）与时段筛选（T2）合并为单一选择器，按 13 个历史时期（建党初期 → 建党百年）一键跳转并聚焦该时段事件；原「历史脉络」更名为「历史时期」，与因果图解耦——展示某时期内发生的事件，而非因果链条</li>',
-        '<li>筛选由「淡出（opacity）」改为「隐藏（display:none）」：被筛掉的事件及其年份分隔一并隐去，同脉络事件保持相邻；默认占位符「选择历史时期…」兜底，清除筛选恢复全览</li>',
-        '<li>日历格子仅显示事件名称（去除年份前缀）</li>',
-        '<li>事件详情页：去除与标题重复的年份显示；删除「同日其他事件」分区</li>',
-        '<li>搜索命中高亮闪烁（I2）：搜索 / 分类 命中后，日历格与时间轴卡片琥珀色光环闪烁约 3 秒辅助定位</li>',
-        '<li>统计页分类色块点击展开清单（I3）：当前筛选 / 中共相关 / 其他力量 / 科技·文教 四个色块可点击展开对应事件列表</li>',
-        '<li>顶部工具栏收敛（U2）：重要会议 / 关于 / 参考文献 / 历史上的今天 / 收藏 / 统计 / 标签 收进「更多 ▾」菜单</li>',
-        '<li>导出格式扩展（F3）：新增「图片（SVG 矢量快照）」与「PDF（打印另存）」两种导出</li>',
-        '<li>时间轴两端恢复「引言 / 结语」书挡面板（C1）</li>',
-        '</ul>',
-        '<h4><span class="ver">v1.4</span> 因果网络图增强 <small>2026-08-15 ~ 08-17</small></h4>',
-        '<ul>',
-        '<li>新增「重要脉络」下拉，一键跳转并聚焦到关键历史节点（建党、长征、抗战、改革开放等）</li>',
-        '<li>因果图拖拽交互修复：滚轮以鼠标为中心缩放、节点可拖动微调、触摸支持与平移边界</li>',
-        '<li>聚焦视图布局算法（距离=关联性、左右=前后、上下=时间）+ 限制脉络展开深度</li>',
-        '<li>「+1层 / −1层」按钮，可逐层调整脉络展开深度</li>',
-        '<li>修复滚轮缩放「以鼠标指针为中心」灵敏度，缩放、平移、拖拽 1:1 跟手</li>',
-        '<li>脉络事件列表（侧栏）：按前因 / 后续 / 相关分组、类型配色、图↔列表双向联动、筛选与显隐</li>',
-        '<li>移动端适配：日历一屏紧凑、因果图缩放放开、脉络列表底部抽屉（默认 50% 无极拖动）、工具栏与弹窗防溢出</li>',
-        '<li>项目更名「星火日历 / CCP Spark Calendar」并补充开源说明（README / LICENSE / HTML 备份机制）</li>',
-        '<li>因果图交互精简：移除顶部「脉络列表 / 打开事件详情 / 关闭」按钮；关闭改为左上角 ×，事件详情改为列表内「详情」按钮；日夜切换钮仅显示于常规页面层</li>',
-        '<li>详情按钮风格统一；日夜钮与本年事件钮锚定到页面（不再钉视口边缘）</li>',
-        '<li>日历页精简说明文字：仅保留颜色图例，其余说明并入「关于」页面</li>',
-        '</ul>',
-        '<h4><span class="ver">v1.3</span> 因果关系网络图</h4>',
-        '<ul>',
-        '<li>新增因果关系网络图（力导向布局），直观展示事件间的「前因—后果」脉络</li>',
-        '<li>聚焦模式：点击任意节点以其为根，自动展开前因后续</li>',
-        '<li>「仅看脉络 / 显示推断关联 / 打开事件详情 / 重置视图」</li>',
-        '</ul>',
-        '<h4><span class="ver">v1.2</span> 视图与浏览</h4>',
-        '<ul>',
-        '<li>时间轴模式：横向时间线浏览全部事件</li>',
-        '<li>历史上的今天、收藏（本地保存）、统计可视化、标签云</li>',
-        '</ul>',
-        '<h4><span class="ver">v1.1</span> 筛选与检索</h4>',
-        '<ul>',
-        '<li>关键词 / 年份搜索（与年份选择器相互独立）</li>',
-        '<li>分类筛选（中共相关 / 其他力量 / 科技·文教 / 重大政治）</li>',
-        '<li>导出清单（CSV / Markdown，支持当月 / 全年 / 当前筛选）</li>',
-        '</ul>',
-        '<h4><span class="ver">v1.0</span> 基础版</h4>',
-        '<ul>',
-        '<li>日历模式：按月方格展示，颜色深浅表示当日 / 当月事件密度</li>',
-        '<li>事件详情弹窗，含史料描述与资料来源标注</li>',
-        '<li>夜间模式、参考文献速查、重要会议速查</li>',
-        '</ul>'
-    ].join('');
+    const logHTML = ["<p class=\"log-updated\">最后更新：2026-08-21</p>\n<h4><span class=\"ver\">v1.8</span> 官方史料源、事件三级分类与三合一工具台 <small>2026-08-21</small></h4>\n<h5>新增</h5>\n<ul>\n<li>官方史料取源链（<code>detail_server.py</code>）：<b>共产党员网官方站内搜索 rank-0 → Bing <code>site:</code> 官方域桥接 → 维基百科 → 搜索兜底</b>；落盘标注 <code>detailVerified</code>（官方/非官方）</li>\n<li>事件三级分类：<code>cat</code> 新增 <code>\"nation\"</code>（国家大事：科技 / 工程 / 外交 / 回归 / 体育 / 灾害 / 民生，弱党史关联），页面以琥珀/金色系呈现，配套图例、分类筛选与因果图过滤（<code>scripts/classify_rel.py</code> 产出候选清单）</li>\n<li>三合一工具台 <code>tools/workshop.html</code>：OCR 清洗 / 合并应用 / 详情丰富 一个页面三个标签（由 <code>tools/build_workshop.py</code> 真实 DOM 合并生成，标签样式同主站「关于」页）</li>\n<li>工作台「⚙️ 构建 index」按钮 + 实时进度条：<code>POST /api/build</code> 后台运行 <code>build_data.py</code>，<code>GET /api/build/status</code> 轮询（布局计算阶段有进度输出）</li>\n<li>统一备份目录 <code>backups/</code>：落盘 / 构建 / 分类 / OCR 合并 任一操作写入 <code>events.json</code> 前自动快照（events + causality 双备份，带类型与时间戳）</li>\n<li>详情丰富工具：来源日志与分布统计、失败条目导出、一键落盘（<code>/api/apply</code>）、单条重跑、批量「重跑失败 / 重跑非官方」、抓取文本字数可视化</li>\n<li>PWA：新增 <code>manifest.webmanifest</code> 与 Service Worker（可安装到桌面、离线兜底；<code>/api</code> 不缓存保证工具实时性；仅 HTTPS / localhost 生效，<code>file://</code> 双击打开自动跳过）</li>\n</ul>\n<h5>更改</h5>\n<ul>\n<li>统一本地服务（端口 8001）：<code>detail_server.py</code> 并入 OCR 的 <code>/api/fill</code>；<code>start_ocr_gui.bat</code> 与 <code>start_detail_gui.bat</code> 合并为 <code>start_workshop.bat</code>（单入口）</li>\n<li>事件去重：423 → <b>419 条</b>（入世 ×2、农业税 ×3、世博会弱占位条目清理），因果边 460 → 451</li>\n<li>丰富工具载入时自动跳过已丰富事件（<code>/api/events</code> 返回 <code>enriched</code> 标记），「重跑非官方数据」可把旧的非官方结果按新官方源整体升级</li>\n<li>修复：结果分组折叠状态持久化、载入恢复 localStorage 的 bug、「已生成」标记口径（区分「成功」与「已处理」）</li>\n</ul>\n<h5>移除</h5>\n<ul>\n<li><code>start_ocr_gui.bat</code> / <code>start_detail_gui.bat</code>（被 <code>start_workshop.bat</code> 取代）</li>\n<li>根目录散落的 <code>events.json.bak-*</code> / <code>causality.json.bak-*</code>（统一归入 <code>backups/</code>）</li>\n</ul>\n<h4><span class=\"ver\">v1.7</span> 详情弹窗与时间轴视觉升级 <small>2026-08-19</small></h4>\n<h5>新增</h5>\n<ul>\n<li>详情弹窗「史料详情」面板（6 子块：背景 / 历史意义 / 重要论述 / 相关人物 / 文献出处 / 延伸阅读），样板 #7（新文化运动兴起）已填充数据，其余事件空壳、优雅降级</li>\n<li>OCR 数据管道：<code>tools/ocr_clean_gui.html</code> 单文件清洗 GUI、<code>scripts/qc_ocr.py</code> 质检脚本、<code>scripts/ocr_status.py</code> 进度看板、<code>scripts/patch_history.py</code> 增量重建（跳过力导向布局烘焙）</li>\n<li><code>events.json</code> 事件新增 6 字段 schema：<code>bg</code> / <code>significance</code> / <code>quotes</code> / <code>figures</code> / <code>srcCite</code> / <code>furtherReading</code></li>\n</ul>\n<h5>更改</h5>\n<ul>\n<li>启动默认年份 1921 → 1911；日历进入停在 1911 有事件的首月（10 月·辛亥革命）；时间轴进入停在序言可见处</li>\n<li>前言 / 结语重写（序章以辛亥革命破题、续章落到民族复兴，含题眼与题词），书挡面板视觉升级（红色书脊 + 红金渐变底 + 胶囊徽标 + 水印年份 + 斜体名言）</li>\n<li>时间轴背景：红金渐变粗主轴（方案 1）+ 淡红丝线（方案 4）+ 宣纸颗粒（方案 5）</li>\n<li>弹窗关闭改为右上角常驻 × + 底部「关闭」双保险；全部二级跳转弹窗（同类事件 / 因果脉络 / 相关人物清单）统一「← 返回上一级」</li>\n</ul>\n<h5>移除</h5>\n<ul>\n<li>详情弹窗独立的「史料原文」区块（史料内容并入「史料详情」面板）</li>\n<li>时间轴背景的流向渐变（方案 2）与年份水印（方案 6），经预览后移除</li>\n</ul>\n<h4><span class=\"ver\">v1.6</span> 搜索与工具栏收敛 <small>2026-08-18</small></h4>\n<ul>\n<li>分类筛选由 5 个 chips 收敛为搜索框旁的一个下拉菜单（全部分类 / 中共相关 / 其他力量 / 科技·文教 / 重大政治），工具栏第三行取消</li>\n<li>移除「年份区间」起止筛选（年份导航器已覆盖跳年，跨年区间很少用）；相关 JS 与导出说明同步清理</li>\n<li>参考文献作为「关于」页面的独立标签页（更新日志 / 操作指南 / 参考文献 三标签并列），不再并入操作指南</li>\n<li>顶部「更多 ▾」菜单保留：重要会议 / 关于 / 历史上的今天 / 收藏 / 统计 / 标签</li>\n</ul>\n<h4><span class=\"ver\">v1.5</span> 浏览体验与功能收敛 <small>2026-08-17 ~ 08-18</small></h4>\n<ul>\n<li>时间轴「历史时期」导航器：将跳转（T1）与时段筛选（T2）合并为单一选择器，按 13 个历史时期（建党初期 → 建党百年）一键跳转并聚焦该时段事件；原「历史脉络」更名为「历史时期」，与因果图解耦——展示某时期内发生的事件，而非因果链条</li>\n<li>筛选由「淡出（opacity）」改为「隐藏（display:none）」：被筛掉的事件及其年份分隔一并隐去，同脉络事件保持相邻；默认占位符「选择历史时期…」兜底，清除筛选恢复全览</li>\n<li>日历格子仅显示事件名称（去除年份前缀）</li>\n<li>事件详情页：去除与标题重复的年份显示；删除「同日其他事件」分区</li>\n<li>搜索命中高亮闪烁（I2）：搜索 / 分类 命中后，日历格与时间轴卡片琥珀色光环闪烁约 3 秒辅助定位</li>\n<li>统计页分类色块点击展开清单（I3）：当前筛选 / 中共相关 / 其他力量 / 科技·文教 四个色块可点击展开对应事件列表</li>\n<li>顶部工具栏收敛（U2）：重要会议 / 关于 / 参考文献 / 历史上的今天 / 收藏 / 统计 / 标签 收进「更多 ▾」菜单</li>\n<li>导出格式扩展（F3）：新增「图片（SVG 矢量快照）」与「PDF（打印另存）」两种导出</li>\n<li>时间轴两端恢复「引言 / 结语」书挡面板（C1）</li>\n</ul>\n<h4><span class=\"ver\">v1.4</span> 因果网络图增强 <small>2026-08-15 ~ 08-17</small></h4>\n<ul>\n<li>新增「重要脉络」下拉，一键跳转并聚焦到关键历史节点（建党、长征、抗战、改革开放等）</li>\n<li>因果图拖拽交互修复：滚轮以鼠标为中心缩放、节点可拖动微调、触摸支持与平移边界</li>\n<li>聚焦视图布局算法（距离=关联性、左右=前后、上下=时间）+ 限制脉络展开深度</li>\n<li>「+1层 / −1层」按钮，可逐层调整脉络展开深度</li>\n<li>修复滚轮缩放「以鼠标指针为中心」灵敏度，缩放、平移、拖拽 1:1 跟手</li>\n<li>脉络事件列表（侧栏）：按前因 / 后续 / 相关分组、类型配色、图↔列表双向联动、筛选与显隐</li>\n<li>移动端适配：日历一屏紧凑、因果图缩放放开、脉络列表底部抽屉（默认 50% 无极拖动）、工具栏与弹窗防溢出</li>\n<li>项目更名「星火日历 / CCP Spark Calendar」并补充开源说明（README / LICENSE / HTML 备份机制）</li>\n<li>因果图交互精简：移除顶部「脉络列表 / 打开事件详情 / 关闭」按钮；关闭改为左上角 ×，事件详情改为列表内「详情」按钮；日夜切换钮仅显示于常规页面层</li>\n<li>详情按钮风格统一；日夜钮与本年事件钮锚定到页面（不再钉视口边缘）</li>\n<li>日历页精简说明文字：仅保留颜色图例，其余说明并入「关于」页面</li>\n</ul>\n<h4><span class=\"ver\">v1.3</span> 因果关系网络图</h4>\n<ul>\n<li>新增因果关系网络图（力导向布局），直观展示事件间的「前因—后果」脉络</li>\n<li>聚焦模式：点击任意节点以其为根，自动展开前因后续</li>\n<li>「仅看脉络 / 显示推断关联 / 打开事件详情 / 重置视图」</li>\n</ul>\n<h4><span class=\"ver\">v1.2</span> 视图与浏览</h4>\n<ul>\n<li>时间轴模式：横向时间线浏览全部事件</li>\n<li>历史上的今天、收藏（本地保存）、统计可视化、标签云</li>\n</ul>\n<h4><span class=\"ver\">v1.1</span> 筛选与检索</h4>\n<ul>\n<li>关键词 / 年份搜索（与年份选择器相互独立）</li>\n<li>分类筛选（中共相关 / 其他力量 / 科技·文教 / 重大政治）</li>\n<li>导出清单（CSV / Markdown，支持当月 / 全年 / 当前筛选）</li>\n</ul>\n<h4><span class=\"ver\">v1.0</span> 基础版</h4>\n<ul>\n<li>日历模式：按月方格展示，颜色深浅表示当日 / 当月事件密度</li>\n<li>事件详情弹窗，含史料描述与资料来源标注</li>\n<li>夜间模式、参考文献速查、重要会议速查</li>\n</ul>"].join('');
     const guideHTML = [
         '<h4>① 看日历</h4>',
         '<ul>',
