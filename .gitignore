@@ -20,6 +20,9 @@ __pycache__/
 index.html.bak_*
 CAUSAL_INFERRED_reconstructed.json
 
+# 临时检查 / 下载目录（p.zip、解压包等）
+.tmp-check/
+
 # 页面历史备份目录
 html-backups/
 
@@ -33,8 +36,13 @@ venv/
 # ===== 系统 / 编辑器 =====
 .DS_Store
 Thumbs.db
+desktop.ini
 *.swp
 ._*
+
+# 个人编辑器配置（不入库；如团队需要共享可删除此行保留）
+.vscode/
+.idea/
 
 # OCR 清洗工作目录（临时）
 .ocr_work/

@@ -1,26 +1,31 @@
-# 生成「日历·星」图标的多尺寸 PNG（与 icons/icon-calendar.svg 几何一致）
+# 生成「朱砂印·日历·星火」图标的多尺寸 PNG（与 icons/icon-calendar.svg 几何一致）
 # 用法: python scripts/gen_icons.py
 from PIL import Image, ImageDraw
 import os
 
-STAR = [(64,50),(67.53,61.15),(79.22,61.06),(69.71,67.85),(73.4,78.94),
-        (64,72),(54.6,78.94),(58.29,67.85),(48.78,61.06),(60.47,61.15)]
+# 星火四角星顶点（128 坐标，中心 64,69，外径 10）
+STAR = [(64,59),(66.9,66.1),(74,69),(66.9,71.9),
+        (64,79),(61.1,71.9),(54,69),(61.1,66.1)]
 
 def draw(size):
     s = size / 128.0
     img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
-    def rr(x, y, w, h, r, fill):
-        d.rounded_rectangle([x*s, y*s, (x+w)*s, (y+h)*s], radius=r*s, fill=fill)
+    def rr(x, y, w, h, r, fill=None, outline=None, width=1):
+        d.rounded_rectangle([x*s, y*s, (x+w)*s, (y+h)*s], radius=r*s, fill=fill,
+                            outline=outline, width=max(1, round(width*s)))
     def cir(cx, cy, r, fill):
         d.ellipse([(cx-r)*s, (cy-r)*s, (cx+r)*s, (cy+r)*s], fill=fill)
-    rr(8, 8, 112, 112, 24, (163, 45, 45, 255))      # 红底圆角方块
-    rr(28, 30, 72, 74, 12, (255, 255, 255, 255))    # 白色日历卡
-    rr(28, 30, 72, 20, 12, (178, 34, 34, 255))      # 红色标题条
-    d.rectangle([28*s, 40*s, 100*s, 50*s], fill=(178, 34, 34, 255))
-    cir(44, 40, 3.5, (255, 255, 255, 255))          # 装订孔
-    cir(84, 40, 3.5, (255, 255, 255, 255))
-    d.polygon([(x*s, y*s) for x, y in STAR], fill=(217, 164, 65, 255))  # 金星
+    rr(8, 8, 112, 112, 22, (139, 26, 26, 255))                  # 朱砂印身
+    rr(20, 20, 88, 88, 12, (240, 233, 216, 255))                # 宣纸印芯
+    rr(26, 26, 76, 76, 9, None, (139, 26, 26, 255), 1.5)        # 印内框（细线）
+    rr(30, 32, 68, 58, 5, (240, 233, 216, 255), (201, 169, 98, 255), 2.5)  # 日历页（档案金线框，主角）
+    rr(30, 32, 68, 16, 4, (139, 26, 26, 255))                   # 朱砂表头条
+    cir(43, 44, 3, (240, 233, 216, 255))                        # 装订孔
+    cir(85, 44, 3, (240, 233, 216, 255))
+    d.polygon([(x*s, y*s) for x, y in STAR], fill=(139, 26, 26, 255))  # 星火（朱砂）
+    rr(38, 84, 16, 3, 1.5, (201, 169, 98, 255))                 # 日期短线（档案金）
+    rr(60, 84, 28, 3, 1.5, (201, 169, 98, 255))
     return img
 
 out = os.path.join(os.path.dirname(__file__), '..', 'icons')
