@@ -10,7 +10,7 @@
 - 修复触屏 hover 粘滞：悬浮上抬 / 下划线 / 圆钮放大三类 hover 动效包进 `@media (hover: hover) and (pointer: fine)`，仅鼠标指针生效，触屏点按不再残留"抬起"姿态
 - 时间轴工具栏窄屏适配：≤768px 改为 flex 换行排布、提示文字下沉末行、历史时期下拉收窄（190px，480px 屏 170px），7 控件不再横向溢出堆叠失控
 - 全局 `-webkit-tap-highlight-color: transparent`：点按不再闪现系统灰块，保持宣纸质感
-- `theme-color` 双 meta：亮色 #f0e9d8 / 暗色 #1a1a17 随系统切换（原固定品牌红）
+- `theme-color` 保持品牌朱砂 #b22222 不变（与 manifest 一致，PWA 状态栏/地址栏颜色不动；亮暗背景随 `color-scheme` 与页面自身日夜钮切换，不靠 meta 跟随系统）
 - 时间轴横向滚动容器加 `overscroll-behavior-x: contain`：滑到边缘不再误触浏览器返回手势
 - `touch-action: manipulation` 名单补齐：时间轴按钮 / 每日一史 / 历史时期下拉 / 菜单钮 / 抽屉关闭钮等
 

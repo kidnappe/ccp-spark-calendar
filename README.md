@@ -21,7 +21,27 @@
 - **关于页**：内置更新日志与操作指南（弹窗 Tab 切换）。
 - **PWA**：可安装到桌面、离线兜底（manifest + Service Worker；`/api` 不缓存保证工具实时；仅 HTTPS / localhost 生效，双击 `file://` 自动跳过）。
 - **三合一工具台**（`tools/workshop.html`）：OCR 清洗、合并应用、详情丰富三个维护工具合并为一个页面，含「⚙️ 构建 index」一键重建与实时进度条。
-- **移动端适配**：窄屏布局自适应、触控缩放/平移、去除点按延迟、弹窗内部滚动。
+## 🚀 快速开始
+
+**在线体验（推荐）** —— GitHub Pages 已部署最新版，点开即用：
+
+```
+https://kidnappe.github.io/ccp-spark-calendar/
+```
+
+支持 **PWA 安装**：手机 / 桌面浏览器打开后，通过浏览器菜单「添加到主屏幕 / 安装应用」即可安装为独立应用，**离线可用**。
+
+**本地运行**（任选其一）：
+
+| 方式 | 操作 | 备注 |
+|---|---|---|
+| ① 最简单 | 直接双击 `index.html` | `file://` 打开，PWA 自动跳过，功能不受影响 |
+| ② 静态服务 | `python -m http.server 8080` → 访问 `http://localhost:8080` | PWA 离线可用 |
+| ③ 维护工具 | 双击 `tools/start_workshop.bat` | 启动三合一工具台（OCR 清洗 / 合并应用 / 详情丰富） |
+
+> 数据已烘焙进 `index.html`，运行时不依赖 `events.json` / `causality.json`，
+> 这两个文件只在**重新生成数据**时才需要。
+> 维护工具（OCR 清洗）另需本机运行 Ollama 服务。
 
 ---
 
@@ -73,27 +93,6 @@ ccp-spark-calendar/
     ├── 因果图外部增强方案.md
     └── assets/                     # 预览图（SVG）
 ```
-
----
-
-## 🚀 本地运行
-
-**方式一（最简单）**：直接用浏览器打开 `index.html` 即可。
-
-**方式二（推荐，维护工具）**：双击 `tools/start_workshop.bat`，会自动启动统一本地服务（端口 8001）
-并打开**三合一工具台**（OCR 清洗 / 合并应用 / 详情丰富）。
-
-**方式三（手动起静态服务）**：
-
-```bash
-# 任选其一
-python -m http.server 8080
-# 然后访问 http://localhost:8080
-```
-
-> 数据已烘焙进 `index.html`，运行时不依赖 `events.json` / `causality.json`，
-> 这两个文件只在**重新生成数据**时才需要。
-> 维护工具（OCR 清洗）另需本机运行 Ollama 服务。
 
 ---
 
