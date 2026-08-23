@@ -74,6 +74,8 @@ def main():
                      f"{ROOT}/.ocr/tier_plan3.json",
                      f"{ROOT}/.ocr/tier_plan4.json",
                      f"{ROOT}/.ocr/tier_plan5.json"):
+        if not os.path.exists(planfile):
+            continue   # 历史计划文件可缺省（目录已随旧产物清理）
         plan = json.load(open(planfile, encoding="utf-8"))
         del_keys = {tuple(k) for k in plan.get("delete", [])}
         up_raw = plan.get("upgrade", [])

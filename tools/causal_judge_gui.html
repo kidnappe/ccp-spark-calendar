@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星火日历 · 因果裁判工作台</title>
+<style>
+  :root{--bg:#f7f8fa;--card:#fff;--line:#e3e6eb;--ink:#1f2329;--sub:#6b7280;
+    --brand:#b91c1c;--brand2:#2563eb;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;--code:#f3f4f6;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;font-size:14px}
+  .wrap{max-width:1120px;margin:0 auto;padding:18px}
+  h1{font-size:19px;margin:0 0 2px}
+  .sub{color:var(--sub);font-size:12.5px;margin:0 0 14px}
+  .muted{color:var(--sub);font-size:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  label{display:block;font-size:12px;color:var(--sub);margin-bottom:3px}
+  input,select{width:100%;font:inherit;padding:7px 9px;border:1px solid var(--line);
+    border-radius:7px;background:#fff;color:var(--ink)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  button{cursor:pointer;font:inherit;border:none;border-radius:7px;padding:8px 13px;font-weight:600}
+  .b-primary{background:var(--brand);color:#fff}.b-blue{background:var(--brand2);color:#fff}
+  .b-ghost{background:#eef1f5;color:var(--ink)}.b-ok{background:var(--ok);color:#fff}
+  .b-bad{background:var(--bad);color:#fff}.b-warn{background:var(--warn);color:#fff}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:#eef1f5;color:var(--sub)}
+  .pill.ok{background:#e8f5e9;color:var(--ok)}.pill.warn{background:#fef3e2;color:var(--warn)}
+  .pill.bad{background:#fde8e8;color:var(--bad)}.pill.blue{background:#e8effd;color:var(--brand2)}
+  .hint{font-size:12px;color:var(--sub);background:#fff8eb;border:1px solid #fde68a;border-radius:8px;padding:9px 11px;margin-top:10px}
+  .file-warn{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px}
+  .hidden{display:none}
+  .log{font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12px;white-space:pre-wrap;
+    background:#0f172a;color:#cbd5e1;border-radius:8px;padding:10px;max-height:180px;overflow:auto;margin-top:10px}
+  .log .ok{color:#86efac}.log .bad{color:#fca5a5}.log .warn{color:#fcd34d}
+  .prog{height:8px;background:#eef1f5;border-radius:999px;overflow:hidden;margin:6px 0}
+  .prog>i{display:block;height:100%;background:var(--brand2);width:0;transition:width .2s}
+  /* 日志监控增强 */
+  .lstats{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:#cbd5e1;
+    background:#1e293b;border-radius:8px 8px 0 0;padding:7px 12px;margin-top:10px}
+  .lstats b{color:#fff;font-family:ui-monospace,Consolas,monospace}
+  .lstats .lt{color:#94a3b8;margin-right:2px}
+  .lstats+.log{border-radius:0 0 8px 8px;margin-top:0;max-height:260px}
+  .jl{padding:1px 0;line-height:1.75}
+  .jl .jt{color:#64748b;font-family:ui-monospace,Consolas,monospace;font-size:11px;margin-right:6px}
+  .jl .jpill{display:inline-block;font-size:10px;padding:0 6px;border-radius:999px;margin-right:6px;
+    vertical-align:1px;font-weight:600}
+  .jp-v-causal{background:#7f1d1d;color:#fecaca}.jp-v-background{background:#78350f;color:#fde68a}
+  .jp-v-unrelated{background:#14532d;color:#bbf7d0}.jp-v-insufficient{background:#334155;color:#cbd5e1}
+  .jl .jmeta{color:#94a3b8;font-size:11px;font-family:ui-monospace,Consolas,monospace;margin-left:8px}
+  /* 边勾选列表 */
+  .evlist{max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:8px;margin-top:10px}
+  .evrow{display:flex;gap:8px;align-items:center;padding:5px 10px;border-bottom:1px solid #f0f0f0;font-size:13px}
+  .evrow:last-child{border-bottom:none}
+  .evrow .tt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .evrow .arrow{color:var(--sub);flex:none}
+  .evrow.done .tt{color:#999}
+  .evrow .meta-r{margin-left:auto;display:flex;gap:5px;flex:none}
+  .evrow input[type=checkbox]{width:auto}
+  /* 结果分组（四态归类） */
+  .res-group{margin-bottom:12px;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .res-group>.group-head{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;font-weight:700;user-select:none}
+  .res-group>.group-head .cnt{font-size:12px;color:var(--sub);font-weight:600}
+  .res-group>.group-head .tg{margin-left:auto;transition:transform .15s;font-size:12px;color:var(--sub)}
+  .res-group.collapsed>.group-body{display:none}
+  .res-group.collapsed>.group-head .tg{transform:rotate(-90deg)}
+  .group-up{background:#e8f5e9;color:var(--ok)}.group-bg{background:#fef3e2;color:var(--warn)}
+  .group-del{background:#fde8e8;color:var(--bad)}.group-err{background:#fde8e8;color:var(--bad)}
+  .group-none{background:#fdf4e6;color:var(--warn)}
+  .group-pend{background:#eef1f5;color:#374151}
+  .group-exam{background:#e8effd;color:var(--brand2)}
+  .res-group>.group-body{padding:10px}
+  .ritem{border:1px solid var(--line);border-left:4px solid var(--brand2);border-radius:8px;
+    padding:9px 11px;margin-bottom:8px;font-size:13px;background:#fff}
+  .ritem.c-up{border-left-color:var(--ok)}.ritem.c-bg{border-left-color:var(--warn)}
+  .ritem.c-del{border-left-color:var(--bad)}.ritem.c-pend{border-left-color:#94a3b8}
+  .ritem.c-none{border-left-color:var(--warn)}.ritem.c-err{border-left-color:var(--bad)}
+  .ritem .bt{font-weight:700;margin-bottom:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .ritem .meta{color:var(--sub);font-size:12px;margin-top:2px}
+  .ritem .quote{background:var(--code);border-radius:6px;padding:6px 9px;margin-top:5px;font-size:12px;color:#374151}
+  /* 混淆矩阵表（考试折叠区用） */
+  table.mx{border-collapse:collapse;font-size:12.5px;margin-top:8px}
+  table.mx th,table.mx td{border:1px solid var(--line);padding:4px 10px;text-align:center}
+  table.mx th{background:#f3f4f6;font-weight:600}
+  table.mx td.diag{background:#e8f5e9;color:var(--ok);font-weight:700}
+  table.mx td.off{color:var(--bad);font-weight:700}
+  table.mx td.z{color:#cbd5e1}
+  .legend{display:flex;gap:12px;font-size:12px;color:var(--sub);margin:8px 0 2px;flex-wrap:wrap}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+  .cmp-row{display:flex;align-items:center;gap:8px;margin-top:7px}
+  .cmp-name{width:96px;flex:none;font-size:12.5px;text-align:right}
+  .cmp-bars{flex:1;display:flex;flex-direction:column;gap:3px}
+  .cmp-bar{display:flex;align-items:center;gap:8px}
+  .cmp-bar .trk{flex:1;height:11px;background:#eef1f5;border-radius:999px;overflow:hidden}
+  .cmp-bar .fil{height:100%;border-radius:999px;transition:width .5s}
+  .cmp-bar .val{flex:none;width:88px;font-size:11.5px;color:var(--sub);font-family:ui-monospace,Consolas,monospace}
+  .dist-title{font-size:13px;font-weight:700;margin:14px 0 4px}
+  .f-up{background:#15803d}.f-bg{background:#b45309}.f-del{background:#b91c1c}
+  .f-pend{background:#94a3b8}.f-keep{background:#60a5fa}.f-none{background:#ca8a04}
+  .r1{background:#94a3b8}.r2{background:#60a5fa}.r3{background:var(--brand)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="file-warn hidden" id="fileWarn">⚠️ 请勿用 file:// 直接打开本页。请双击 <b>tools/start_workshop.bat</b>（统一服务 8001 并打开工具台）。</div>
+  <h1>星火日历 · 因果裁判工作台</h1>
+  <p class="sub">本地 Ollama 批量预审因果边（补书证 / 挑错边）· prompt 与 causal_exam.py 冻结一致 · 引文程序验伪 · 只产草稿不落库 · 数据不出本机 · 配套 tools/causal_judge/交接文档.md</p>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">① 连接设置</h2>
+    <div class="grid">
+      <div><label>模型（与 ollama list 一致，生产基线 qwen2.5:local7b）</label><select id="model"></select></div>
+    </div>
+    <div class="row">
+      <button class="b-ghost" id="testBtn">测试连接</button>
+      <span id="testMsg" class="pill"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">② 选择因果边（从 causality.json 载入）</h2>
+    <div class="row" style="margin-top:0">
+      <button class="b-primary" id="loadBtn">载入因果边</button>
+      <select id="queueSel" style="max-width:230px">
+        <option value="p0">P0 队列·verified 缺书证（第一步）</option>
+        <option value="p1">P1 队列·background 复审</option>
+        <option value="inferred">仅算法推断源（考卷同源）</option>
+        <option value="all">全部 451 条</option>
+      </select>
+      <input id="kw" placeholder="搜索两端标题关键词…" style="max-width:220px">
+      <button class="b-ghost" id="selAll">全选</button>
+      <span class="pill blue" id="loadCount"></span>
+      <span class="pill" id="selStat"></span>
+    </div>
+    <div class="evlist" id="edgeList"><p style="color:#999;font-size:13px;padding:10px">点「载入因果边」开始。</p></div>
+    <div class="hint"><b>队列口径</b>（与交接文档一致）：P0 = verified 且 evidence 为空（约 109 条，补证价值最大）；
+      P1 = 全部 background（71 条复审）；推断源 = source 含 CAUSAL_INFERRED（与考试考卷同源，带期望标签可对答案）。</div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">③ 批量裁判</h2>
+    <div class="row" style="margin-top:0">
+      <button class="b-blue" id="runBtn">▶ 开始批量裁判</button>
+      <button class="b-bad hidden" id="stopBtn">■ 停止</button>
+      <span class="pill" id="progMsg"></span>
+    </div>
+    <div class="prog"><i id="bar"></i></div>
+    <div class="lstats hidden" id="lstats"></div>
+    <div class="log" id="log">就绪。②载入 → 勾选 → 开始批量裁判。已答过的边自动跳过（断点续跑），结果存本机浏览器。</div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">④ 结果与导出（只产草稿，绝不写正式数据）</h2>
+    <div class="row" style="margin-top:0">
+      <button class="b-ok" id="saveBtn">⬇ 服务端写盘草稿（tier_plan6_draft + 报告）</button>
+      <button class="b-ghost" id="dlBtn">下载 JSON</button>
+      <button class="b-ghost" id="copyBtn">复制 JSON</button>
+      <button class="b-warn hidden" id="rerunNoneBtn">↻ 重跑未找到线索条目（联网找证）</button>
+      <button class="b-bad hidden" id="rerunErrBtn">↻ 重跑失败条目</button>
+      <button class="b-bad hidden" id="clearBtn">🗑 清空全部结果</button>
+    </div>
+    <p class="muted" style="margin:8px 0 0">写盘产物：<b>tools/causal_judge/tier_plan6_draft.json</b>（沿用 tier_plan 格式，人工审后改名即可进 build_causality.py，流水线零改动）+
+      <b>judge_report.md</b>（四态归类 + 待人工清单）。写前自动备份旧稿到 backups/。</p>
+    <div class="file-warn hidden" id="corpusWarn" style="margin-top:10px;background:#fff8eb;border-color:#fde68a;color:#92400e">
+      ⚠ events.json / causality.json 在已有结果产生后<b>被更新过</b>——「未找到线索 / 引文待人工」条目的旧结论可能基于过期语料，建议重跑后再导出。</div>
+    <div class="row" id="statRow">
+      <span class="pill ok" id="stUp">补证/升级 0</span>
+      <span class="pill warn" id="stBg">降级候选 0</span>
+      <span class="pill bad" id="stDel">删除候选 0</span>
+      <span class="pill" id="stPend">引文待人工 0</span>
+      <span class="pill" id="stKeep">维持原判 0</span>
+      <span class="pill ok" id="stRvOk">已采纳 0</span>
+      <span class="pill bad" id="stRvNo">已驳回 0</span>
+      <button class="b-blue hidden" id="autoBtn" style="padding:4px 11px;font-size:12px">🤖 画像自动翻牌 v1</button>
+      <button class="b-ghost hidden" id="syncRvBtn" style="padding:4px 11px;font-size:12px">⬆ 同步翻牌到服务端</button>
+    </div>
+    <div class="row" id="resToolsRow">
+      <input id="resKw" placeholder="🔍 搜索结果标题关键词…" style="min-width:200px">
+      <select id="resView" style="width:auto" title="只看某一组待办">
+        <option value="">全部结果</option>
+        <option value="arb">⚖️ 仲裁意见</option>
+        <option value="sug">🧠 qwen 建议</option>
+        <option value="batch">📌 画像补充清单</option>
+        <option value="human-bg">⚠️ 降级·待亲判</option>
+        <option value="human-qp">？伪引文·待亲判</option>
+      </select>
+      <button class="b-warn hidden" id="prefillBtn" style="padding:4px 11px;font-size:12px">🧠 qwen 预填建议(up档)</button>
+      <button class="b-ok hidden" id="acceptSugBtn" style="padding:4px 11px;font-size:12px">✓ 接受全部建议(<span id="sugN">0</span>)</button>
+      <button class="b-blue hidden" id="autoBtn" style="padding:4px 11px;font-size:12px">🤖 画像自动翻牌 v1</button>
+      <button class="b-ghost hidden" id="syncRvBtn" style="padding:4px 11px;font-size:12px">⬆ 同步翻牌到服务端</button>
+      <span class="pill blue hidden" id="resCnt"></span>
+    </div>
+    <div id="distBox"></div>
+    <div id="results"></div>
+  </div>
+
+  <div class="card">
+    <div class="res-group collapsed" id="examWrap" style="margin-bottom:0;border:none">
+      <div class="group-head group-exam" id="examHead"><span>📊 资格考试复盘（三轮盲测，已完成存档）</span>
+        <span class="cnt">v1 裸考 → v2 +ocrDesc → v3 +三条规则｜总正确率 62%→71%→76%</span><span class="tg">▾</span></div>
+      <div class="group-body hidden" id="examBody">
+        <div class="row" style="margin-top:0">
+          <button class="b-blue" id="examBtn">载入三轮成绩并出图</button>
+          <select id="roundSel" style="width:auto"><option value="">全部轮次</option><option value="v1">v1 裸考</option>
+            <option value="v2">v2 +ocrDesc 书证</option><option value="v3">v3 +三条规则</option></select>
+          <span id="examMsg" class="pill"></span>
+        </div>
+        <div id="examBox"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+if(location.protocol === 'file:') $('fileWarn').classList.remove('hidden');
+
+/* ==================== 共享状态与加载器 ==================== */
+const state = {
+  loaded:false,       /* 是否已完成数据载入（区分「待载入」与「真缺失」） */
+  resKw:'',           /* ④区结果搜索词 */
+  resView:'',         /* 只看视图：batch/human-bg/human-qp */
+  pinned:new Set(),   /* 本次会话内翻过的卡：在过滤视图中保持可见以便撤回 */
+  batchKeys:new Set(),
+  events:new Map(),   /* key -> event */
+  edges:[],           /* causality.json 全量边 */
+  visible:[],         /* 当前筛选可见边 */
+  selected:new Set(), /* 勾选的 "from>to" */
+  results:new Map(),  /* "from>to" -> 裁判记录 */
+  collapsed:{up:true,bg:false,del:false,pend:false},
+  exams:{},
+};
+const LS = 'cj_gui_state_v1';
+const PATH = {
+  events:'/events.json',
+  causality:'/causality.json',
+  exam:{ v1:'/tools/causal_judge/exam_results_v1.jsonl',
+         v2:'/tools/causal_judge/exam_results_v2.jsonl',
+         v3:'/tools/causal_judge/exam_results_v3.jsonl' },
+};
+const cache = {};
+function loadJSON(p){
+  if(!cache[p]) cache[p] = fetch(p).then(r=>{
+    if(!r.ok) throw new Error('HTTP '+r.status+' '+p); return r.json(); });
+  return cache[p];
+}
+function loadJSONL(p){
+  if(!cache[p]) cache[p] = fetch(p).then(r=>{
+    if(!r.ok) throw new Error('HTTP '+r.status+' '+p); return r.text(); })
+    .then(t=>t.split(/\r?\n/).filter(Boolean).map(s=>JSON.parse(s)));
+  return cache[p];
+}
+async function api(path, body){
+  const opt = body ? {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)} : {};
+  const r = await fetch(path, opt);
+  return r.json().catch(()=>({ok:false, error:'非 JSON 响应 HTTP '+r.status}));
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,
+  c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function log(msg, cls){
+  const d = document.createElement('div');
+  if(cls) d.className = cls;
+  d.textContent = '['+new Date().toLocaleTimeString()+'] '+msg;
+  $('log').appendChild(d); $('log').scrollTop = $('log').scrollHeight;
+}
+
+/* 与 causal_exam.py 一字不差的三件套 */
+function ekeyOf(e){ return e.key || (e.year+'-'+e.month+'-'+e.day); }
+function blockOf(ev){
+  const parts = ['《'+(ev.title||'')+'》（'+ev.year+'年'+ev.month+'月'+ev.day+'日）'];
+  [['简介','desc'],['书证','ocrDesc'],['背景','bg'],['意义','significance']].forEach(pair=>{
+    if(ev[pair[1]]) parts.push(pair[0]+'：'+ev[pair[1]]);
+  });
+  const qs = ev.quotes || [];
+  if(qs.length) parts.push('引文：'+qs.join('；'));
+  return parts.join('\n');
+}
+function normTxt(s){
+  return (s||'').replace(/[\s，。、；：「」『“”‘’（）()《》\[\]—\-·…！!?？]/g,'');
+}
+function quoteValid(quote, aKey, bKey){
+  const q = normTxt(quote);
+  if(q.length < 6 || q.indexOf('|') >= 0) return false;
+  const a = state.events.get(aKey), b = state.events.get(bKey);
+  if(!a || !b) return false;
+  return (normTxt(blockOf(a))+'|'+normTxt(blockOf(b))).indexOf(q) >= 0;
+}
+function evTitle(key){
+  const e = state.events.get(key);
+  if(e) return e.title||key;
+  /* 区分「还没载入数据」与「载入后确认缺失」，避免启动期误报 */
+  return state.loaded ? (key||'')+'（端点缺失）' : (key||'')+'（待载入）';
+}
+function expectedOf(edge){
+  if((edge.source||'').indexOf('CAUSAL_INFERRED') < 0) return null;
+  return ({verified:'causal', background:'background'})[edge.tier] || null;
+}
+const ek = e => e.from+'>'+e.to;
+
+/* ==================== ① 连接设置 ==================== */
+(async ()=>{
+  try{
+    const d = await api('/api/models');
+    if(d.ok && d.models && d.models.length){
+      $('model').innerHTML = d.models.map(m=>'<option>'+esc(m)+'</option>').join('');
+      const def = d.models.indexOf('qwen2.5:local7b');
+      if(def>=0) $('model').selectedIndex = def;
+    }
+  }catch(_){}
+})();
+$('testBtn').onclick = async ()=>{
+  $('testMsg').textContent='连接中…'; $('testMsg').className='pill';
+  try{
+    const d = await api('/api/models');
+    if(!d.ok) throw new Error(d.error||'失败');
+    $('testMsg').textContent = 'Ollama ✓ ' + d.models.join(', ');
+    $('testMsg').className = 'pill ok';
+    log('Ollama 可用模型：'+d.models.join(', '), 'ok');
+  }catch(e){
+    $('testMsg').textContent = '失败：'+e.message; $('testMsg').className='pill bad';
+    log('Ollama 连接失败：'+e.message, 'bad');
+  }
+};
+
+/* ==================== 状态持久化（断点续跑） ==================== */
+function saveState(){
+  try{ localStorage.setItem(LS, JSON.stringify({
+    sel:[...state.selected], res:Object.fromEntries(state.results), col:state.collapsed,
+    stamp:state.corpusStamp||'' }));
+  }catch(_){}
+}
+function savedStamp(){
+  try{ return JSON.parse(localStorage.getItem(LS)||'{}').stamp||''; }catch(_){ return ''; }
+}
+async function refreshCorpusStamp(){
+  try{
+    const d=await api('/api/corpus/stamp');
+    state.corpusStamp='e'+d.events+'c'+d.causality;
+    const old=savedStamp();
+    $('corpusWarn').classList.toggle('hidden', !(old&&old!==state.corpusStamp));
+    saveState();
+  }catch(_){}
+}
+function restoreState(){
+  try{
+    const s = JSON.parse(localStorage.getItem(LS)||'{}');
+    (s.sel||[]).forEach(k=>state.selected.add(k));
+    state.results = new Map(Object.entries(s.res||{}));
+    state.collapsed = s.col || state.collapsed;
+  }catch(_){}
+}
+restoreState();
+
+/* ==================== ② 选择因果边 ==================== */
+function queueFilter(edges){
+  const q = $('queueSel').value;
+  if(q==='p0')   return edges.filter(e=>e.tier==='verified' && !(e.evidence||'').trim());
+  if(q==='p1')   return edges.filter(e=>e.tier==='background');
+  if(q==='inferred') return edges.filter(e=>(e.source||'').indexOf('CAUSAL_INFERRED')>=0);
+  return edges;
+}
+$('loadBtn').onclick = async ()=>{
+  const btn=$('loadBtn'); btn.disabled=true;
+  try{
+    state.loaded=false;
+    log('读取 events.json / causality.json …');
+    const evs = (await loadJSON(PATH.events)).events;
+    state.events = new Map(evs.map(e=>[ekeyOf(e), e]));
+    state.edges = (await loadJSON(PATH.causality)).edges;
+    state.loaded=true;
+    /* 恢复的勾选中已不存在的边剔除 */
+    const alive = new Set(state.edges.map(ek));
+    [...state.selected].forEach(k=>{ if(!alive.has(k)) state.selected.delete(k); });
+    /* 服务端工作区恢复：本地没有的键从 judge_workspace.json 补齐（防浏览器缓存丢失） */
+    try{
+      const w = await api('/api/judge/workspace');
+      let restored=0;
+      if(w.ok && w.items) Object.keys(w.items).forEach(k=>{
+        if(k.charAt(0)==='_') return;
+        if(!state.results.has(k)){ state.results.set(k, w.items[k]); restored++; }
+        else{
+          /* 字段级和解：工作区是翻牌的唯一权威源（每次翻牌即自动同步），
+             本地仅在「尚未同步」的瞬间可能更新，故以服务端覆盖 review 字段 */
+          const loc=state.results.get(k), wr=w.items[k];
+          if(wr.review){
+            const changed = loc.review!==wr.review
+              || (loc.reviewBy||'')!==(wr.reviewBy||'');
+            loc.review=wr.review;
+            loc.reviewBy=wr.reviewBy||'';
+            loc.auto=(wr.reviewBy||'').indexOf('auto-profile-v1')===0;
+            if(wr.review==='ok' && wr.quoteValid && wr.quote){
+              loc.quote=wr.quote; loc.quoteValid=true;
+            }
+            if(wr.arbNote) loc.arbNote=wr.arbNote;
+            if(changed) restored++;
+          }
+        }
+      });
+      log('与服务端工作区对账：更新 '+restored+' 条（工作区共 '
+        +Object.keys(w.items||{}).filter(x=>!x.startsWith('_')).length+' 条）',
+        restored?'ok':'');
+    }catch(_){}
+    renderResults();
+    renderList();
+    $('loadCount').textContent = '共 '+state.edges.length+' 条边';
+    log('载入完成：事件 '+state.events.size+'，边 '+state.edges.length
+      +'，恢复结果 '+state.results.size+' 条', 'ok');
+    refreshCorpusStamp();
+  }catch(e){ alert('载入失败：'+e.message); log('载入失败：'+e.message+'（需经统一服务打开）','bad'); }
+  btn.disabled=false;
+};
+function renderList(){
+  const box=$('edgeList'); box.innerHTML='';
+  if(!state.edges.length){
+    box.innerHTML='<p style="color:#999;font-size:13px;padding:10px">点「载入因果边」开始。</p>';
+    updateSelStat(); return;
+  }
+  const kw=($('kw').value||'').trim();
+  state.visible = queueFilter(state.edges).filter(e=>{
+    if(!kw) return true;
+    return (evTitle(e.from)+'\u2192'+evTitle(e.to)).indexOf(kw)>=0;
+  });
+  if(!state.visible.length){
+    box.innerHTML='<p style="color:#999;font-size:13px;padding:10px">该队列无匹配边。</p>';
+    updateSelStat(); return;
+  }
+  const frag=document.createDocumentFragment();
+  state.visible.forEach(e=>{
+    const k=ek(e), has=state.results.has(k);
+    const row=document.createElement('label');
+    row.className='evrow'+(has?' done':'');
+    const exp=expectedOf(e);
+    row.innerHTML='<input type="checkbox" data-k="'+k+'"'
+      +(state.selected.has(k)?' checked':'')+'>'
+      +'<span class="tt">'+esc(evTitle(e.from))+'</span><span class="arrow">→</span>'
+      +'<span class="tt">'+esc(evTitle(e.to))+'</span>'
+      +'<span class="meta-r">'
+      +((e.evidence||'').trim()?'<span class="pill ok">有书证</span>':'<span class="pill warn">缺书证</span>')
+      +(exp?'<span class="pill blue" title="考试考卷期望">考:'+exp+'</span>':'')
+      +'<span class="pill '+(e.tier==='verified'?'ok':'warn')+'">'+e.tier+'</span></span>';
+    row.querySelector('input').onchange=function(){
+      this.checked ? state.selected.add(k) : state.selected.delete(k);
+      updateSelStat();
+    };
+    frag.appendChild(row);
+  });
+  box.appendChild(frag);
+  updateSelStat();
+}
+function updateSelStat(){
+  const n=[...state.selected].length, done=[...state.selected].filter(k=>state.results.has(k)).length;
+  $('selStat').textContent='已选 '+n+' 个（已完成 '+done+'）';
+}
+$('queueSel').onchange=$('kw').oninput=renderList;
+/* 点击「全选」：未全选 → 全选可见；已全选 → 取消全部 */
+$('selAll').onclick=()=>{
+  if(!state.visible.length) return;
+  const allSel=state.visible.every(e=>state.selected.has(ek(e)));
+  if(allSel) state.visible.forEach(e=>state.selected.delete(ek(e)));
+  else state.visible.forEach(e=>state.selected.add(ek(e)));
+  renderList(); saveState();
+};
+
+/* ==================== ③ 批量裁判 ==================== */
+let running=false;
+/* ---- 批量监控统计栏 + 结构化日志 ---- */
+const JUDGE_CLS={up:['补证','#86efac'],qp:['伪引文','#fca5a5'],bg:['降级','#fcd34d'],
+  del:['删除','#f87171'],none:['无线索','#fde68a'],err:['失败','#f87171'],keep:['维持','#94a3b8']};
+let batchStat=null;
+function fmtDur(s){ const m=Math.floor(s/60),r=Math.round(s%60); return m>0?m+'分'+r+'秒':r+'秒'; }
+function beginBatchStat(total,label){
+  batchStat={total:total,done:0,t:0,up:0,qp:0,bg:0,del:0,none:0,err:0,keep:0};
+  $('lstats').classList.remove('hidden');
+  renderBatchStat(label);
+}
+function renderBatchStat(label){
+  const b=batchStat; if(!b) return;
+  const avg=b.done?b.t/b.done:0;
+  let h='<span class="lt">'+esc(label||'')+'</span><span>进度 <b>'+b.done+'/'+b.total+'</b></span>';
+  for(const id of ['up','qp','bg','del','none','err'])
+    h+='<span style="color:'+JUDGE_CLS[id][1]+'">'+JUDGE_CLS[id][0]+' <b>'+b[id]+'</b></span>';
+  if(b.done) h+='<span>均耗 <b>'+avg.toFixed(1)+'s</b></span>'
+    +'<span>预计剩余 <b>'+fmtDur((b.total-b.done)*avg)+'</b></span>';
+  $('lstats').innerHTML=h;
+}
+function judgeLog(i,total,e,rec,label){
+  const b=batchStat;
+  if(b){
+    const c=classifyRec(rec);
+    b[c]!==undefined&&c!=='keep'?b[c]++:b.keep++;
+    b.done=i; if(rec.elapsed) b.t+=rec.elapsed;
+    renderBatchStat(label);
+  }
+  const vp={causal:'jp-v-causal',background:'jp-v-background',
+            unrelated:'jp-v-unrelated',insufficient:'jp-v-insufficient'}[rec.verdict]||'';
+  let h='<div class="jl"><span class="jt">'+new Date().toLocaleTimeString()+'</span>'
+    +'<b>'+i+'/'+total+'</b> '
+    +'<span class="jpill '+vp+'">'+esc(rec.verdict||'parse_error')+'</span>';
+  if(rec.verdict==='causal')
+    h+=rec.quoteValid
+      ?'<span style="color:#86efac">引文有效('+((rec.quote||'').length)+'字)</span> '
+      :'<b style="color:#fca5a5">伪引文</b> ';
+  if(rec.expected)
+    h+=(rec.verdict===rec.expected)
+      ?'<span style="color:#86efac">✓合期望</span> '
+      :'<b style="color:#fca5a5">✗期望'+esc(rec.expected)+'</b> ';
+  h+=esc(evTitle(e.from))+' → '+esc(evTitle(e.to))
+    +'<span class="jmeta">'+(rec.elapsed!=null?rec.elapsed+'s':'')
+    +(rec.web?(rec.web.found?'｜外部书证'+(rec.web.site?'·'+esc(rec.web.site):''):'｜未找到外部书证'):'')
+    +(rec.error?'｜'+esc(rec.error).slice(0,80):'')+'</span></div>';
+  const d=document.createElement('div'); d.innerHTML=h;
+  const el=$('log'); el.appendChild(d.firstChild); el.scrollTop=el.scrollHeight;
+}
+$('runBtn').onclick=async ()=>{
+  if(running) return;
+  if(!state.edges.length){ alert('先在 ② 载入因果边'); return; }
+  const model=$('model').value;
+  const todo=[];
+  for(const e of state.edges){
+    const k=ek(e);
+    if(state.selected.has(k) && !state.results.has(k)
+       && state.events.has(e.from) && state.events.has(e.to)) todo.push(e);
+  }
+  if(!todo.length){ alert('没有待裁判的边（已勾选的可能都完成过，或端点缺失）'); return; }
+  running=true;
+  $('runBtn').classList.add('hidden'); $('stopBtn').classList.remove('hidden');
+  $('clearBtn').classList.add('hidden');
+  beginBatchStat(todo.length,'批量裁判·'+model);
+  log('开始批量裁判 '+todo.length+' 条（模型 '+model+'，prompt 冻结 v3）…');
+  for(const e of todo){
+    if(!running) break;
+    const i=batchStat.done+1;
+    $('bar').style.width=Math.round(i/todo.length*100)+'%';
+    $('progMsg').textContent=i+'/'+todo.length;
+    const k=ek(e);
+    try{
+      let d=await api('/api/judge',{a:e.from,b:e.to,model:model});
+      if(!d.ok) throw new Error(d.error||'失败');
+      /* A级本地无线索 → 自动静默转 B级联网找证（主查B辅查A），无需手动补跑 */
+      if(d.verdict==='insufficient'){
+        log('⊘ 无线索，自动联网找证：'+evTitle(e.from)+' → '+evTitle(e.to),'warn');
+        const w=await api('/api/judge/web',{a:e.from,b:e.to,model:model});
+        if(w.ok) d=w;
+      }
+      state.results.set(k,{a:e.from,b:e.to,currentTier:d.currentTier!=null?d.currentTier:e.tier,
+        expected:expectedOf(e),verdict:d.verdict,quote:d.quote,quoteValid:!!d.quoteValid,
+        reason:d.reason,elapsed:d.elapsed,model:d.model||model,web:d.web||null});
+    }catch(err){
+      state.results.set(k,{a:e.from,b:e.to,currentTier:e.tier,expected:expectedOf(e),
+        verdict:'parse_error',quote:'',quoteValid:false,model:model,
+        error:String(err.message).slice(0,200)});
+    }
+    judgeLog(i,todo.length,e,state.results.get(k),'批量裁判·'+model);
+    renderResults(); saveState();
+  }
+  const s=batchStat;
+  running=false;
+  $('runBtn').classList.remove('hidden'); $('stopBtn').classList.add('hidden');
+  $('bar').style.width='0%'; $('progMsg').textContent='';
+  log((s.done<todo.length?'已停止。':'本批完成。')
+    +'补证/升级 '+s.up+'｜伪引文 '+s.qp+'｜降级 '+s.bg+'｜删除 '+s.del
+    +'｜无线索 '+s.none+'｜失败 '+s.err,
+    s.done<todo.length?'warn':'ok');
+};
+$('stopBtn').onclick=()=>{ running=false; log('已请求停止（当前条完成后生效）','warn'); };
+
+/* ==================== ④ 结果与导出 ==================== */
+const VERDICT_PILL={causal:'bad',background:'warn',unrelated:'ok',insufficient:''};
+/* 六态归类：up 补证/升级；qp causal但引文未过验(伪引文,禁止入库)；bg 降级候选；
+   del 删除候选；none 无线索(insufficient·可联网找证重裁)；err 失败(parse_error/异常) */
+function classifyRec(r){
+  const v=(r.verdict||'').trim();
+  if(!v||v==='parse_error'||r.error) return 'err';
+  if(v==='insufficient') return 'none';
+  if(v==='causal') return r.quoteValid?'up':'qp';
+  if(v==='background') return r.currentTier==='verified'?'bg':'keep';
+  if(v==='unrelated') return (r.currentTier==='verified'||r.currentTier==='background')?'del':'keep';
+  return 'err';
+}
+const GROUPS=[
+  {id:'up',  label:'✓ 补证/升级候选（causal·引文过验 → tier_plan.upgrade）', cls:'group-up'},
+  {id:'qp',  label:'？引文待人工（causal 但引文未过验，禁止入库）', cls:'group-pend'},
+  {id:'bg',  label:'⚠ 降级候选（verified 判 background）', cls:'group-bg'},
+  {id:'del', label:'✗ 删除候选（判 unrelated，需人工确认）', cls:'group-del'},
+  {id:'none',label:'⊘ 未找到线索（insufficient·可联网找证后重裁）', cls:'group-none'},
+  {id:'err', label:'✗ 失败（网络/模型异常，可直接重跑）', cls:'group-err'},
+];
+/* 结果分布统计图（考试对比条形图同款，随批量进度实时增长） */
+function renderDist(){
+  const box=$('distBox'); box.innerHTML='';
+  const entries=[...state.results.entries()];
+  if(!entries.length){ box.classList.add('hidden'); return; }
+  box.classList.remove('hidden');
+  const cnt={up:0,bg:0,del:0,qp:0,none:0,err:0,keep:0};
+  entries.forEach(([,r])=>cnt[classifyRec(r)]++);
+  const n=entries.length;
+  let h='<div class="dist-title">本批结果分布（共 '+n+' 条）</div>';
+  [['补证/升级',cnt.up,'f-up'],['引文待人工',cnt.qp,'f-pend'],['降级候选',cnt.bg,'f-bg'],
+   ['删除候选',cnt.del,'f-del'],['未找到线索',cnt.none,'f-none'],
+   ['失败',cnt.err,'f-del'],['维持原判',cnt.keep,'f-keep']].forEach(it=>{
+    h+='<div class="cmp-row"><span class="cmp-name">'+it[0]+'</span>'
+      +'<div class="cmp-bar"><div class="trk"><div class="fil '+it[2]
+      +'" style="width:'+Math.round(100*it[1]/n)+'%"></div></div>'
+      +'<span class="val">'+it[1]+' 条 · '+Math.round(100*it[1]/n)+'%</span></div></div>';
+  });
+  /* 与考卷期望一致性（仅推断源边有期望标签） */
+  let match=0,mismatch=0,noExp=0;
+  entries.forEach(([,r])=>{
+    if(!r.expected){ noExp++; return; }
+    r.verdict===r.expected ? match++ : mismatch++;
+  });
+  const ne=match+mismatch;
+  if(ne){
+    h+='<div class="dist-title" style="margin-top:10px">与考卷期望比对（有期望标签的 '+ne+' 条）</div>'
+      +'<div class="cmp-row"><span class="cmp-name">一致</span><div class="cmp-bar">'
+      +'<div class="trk"><div class="fil f-up" style="width:'+Math.round(100*match/ne)+'%"></div></div>'
+      +'<span class="val">'+match+' 条 · '+Math.round(100*match/ne)+'%</span></div></div>'
+      +'<div class="cmp-row"><span class="cmp-name">不一致</span><div class="cmp-bar">'
+      +'<div class="trk"><div class="fil f-del" style="width:'+Math.round(100*mismatch/ne)+'%"></div></div>'
+      +'<span class="val">'+mismatch+' 条 · '+Math.round(100*mismatch/ne)+'%</span></div></div>'
+      +'<div class="legend"><span>另有 '+noExp+' 条非推断源边无考卷期望可比对。</span></div>';
+  }
+  /* 书证质量验收（基线：考试 v3 引文有效率 88% / 伪引文率 12%，低于基线应停止扩量排查） */
+  let qT=0,qOk=0;
+  entries.forEach(([,r])=>{ if(r.verdict==='causal'&&r.quote){ qT++; if(r.quoteValid) qOk++; } });
+  if(qT){
+    const eff=Math.round(100*qOk/qT), ok=eff>=88;
+    h+='<div class="dist-title" style="margin-top:10px">书证质量验收（causal 引文 '+qT+' 条）</div>'
+      +'<div class="cmp-row"><span class="cmp-name">引文有效率</span><div class="cmp-bar">'
+      +'<div class="trk"><div class="fil '+(ok?'f-up':'f-del')+'" style="width:'+eff+'%"></div></div>'
+      +'<span class="val">'+eff+'%｜基线88%</span></div></div>'
+      +'<div class="legend"><span'+(ok?'':' style="color:var(--bad);font-weight:700"')
+      +'>'+(ok
+        ?'✓ 达到考试基线，可继续扩量。'
+        :'⚠ 低于基线 88%（伪引文率 '+((100-eff))+'% > 12% 红线）：按验收标准应停止扩量，'
+          +'先排查 prompt 版本/模型/语料是否变更。</span>');
+    h+='</div>';
+  }
+  box.innerHTML=h;
+}
+/* ④ 结果区过滤：关键词搜索 + 补充清单模式 */
+(async ()=>{
+  try{
+    const d = await loadJSON('/tools/causal_judge/sharpen_batch1.json');
+    (d.items||[]).forEach(it=>state.batchKeys.add(it.key));
+    $('batchN').textContent = state.batchKeys.size;
+  }catch(_){}
+})();
+$('resKw').oninput = ()=>{ state.resKw=($('resKw').value||'').trim(); renderResults(); };
+$('resView').onchange = ()=>{ state.resView=$('resView').value; state.pinned.clear(); renderResults(); };
+function pinFlip(k){ state.pinned.add(k); }
+
+function renderResults(){
+  const box=$('results'); box.innerHTML='';
+  const entries=[...state.results.entries()];
+  const cnt={up:0,bg:0,del:0,qp:0,none:0,err:0,keep:0};
+  let rvOk=0, rvNo=0, unreviewed=0;
+  entries.forEach(([,r])=>{
+    cnt[classifyRec(r)]++;
+    if(r.review==='ok') rvOk++;
+    else if(r.review==='no') rvNo++;
+    else if(classifyRec(r)!=='keep' && classifyRec(r)!=='err') unreviewed++;
+  });
+  $('stUp').textContent='补证/升级 '+cnt.up;
+  $('stBg').textContent='降级候选 '+cnt.bg;
+  $('stDel').textContent='删除候选 '+cnt.del;
+  $('stPend').textContent='引文待人工 '+cnt.qp;
+  $('stKeep').textContent='维持原判 '+cnt.keep;
+  $('stRvOk').textContent='已采纳 '+rvOk;
+  $('stRvNo').textContent='已驳回 '+rvNo;
+  $('syncRvBtn').classList.toggle('hidden', !(rvOk+rvNo));
+  $('autoBtn').classList.toggle('hidden', !(entries.length && unreviewed));
+  const upUnreviewed = entries.filter(([,r])=>classifyRec(r)==='up' && !r.review).length;
+  $('prefillBtn').classList.toggle('hidden', !upUnreviewed);
+  if(!upUnreviewed) $('prefillBtn').disabled=false;
+  $('saveBtn').disabled = !rvOk;
+  $('dlBtn').disabled = $('copyBtn').disabled = !entries.length;
+  $('rerunNoneBtn').classList.toggle('hidden', !cnt.none);
+  $('rerunErrBtn').classList.toggle('hidden', !cnt.err);
+  $('clearBtn').classList.toggle('hidden', !entries.length);
+  renderDist();
+  if(unreviewed){
+    box.insertAdjacentHTML('beforeend','<div class="hint" style="margin-bottom:10px">'
+      +'还有 <b>'+unreviewed+'</b> 条候选未翻牌——写盘草稿只收「✓采纳」的条目。'
+      +'可逐条翻牌，或用分组标题旁的「✓全组 / ✖全组」批量处理。</div>');
+  }
+  if(!entries.length){
+    box.innerHTML='<p class="muted" style="padding:6px 2px">暂无结果。②载入勾选后开始批量裁判。</p>';
+    return;
+  }
+  const filtering = state.resKw || state.resView;
+  $('resCnt').classList.toggle('hidden', !filtering);
+  let totalShown=0;
+  GROUPS.forEach(g=>{
+    let ks=entries.filter(([,r])=>classifyRec(r)===g.id).map(([k])=>k);
+    if(filtering){
+      ks=ks.filter(k=>{
+        const r=state.results.get(k);
+        /* qwen 建议视图：凡有建议的都列出（含已接受，便于逐条复核/撤销） */
+        if(state.resView==='sug'){
+          if(!r.suggest) return false;
+        } else {
+          if(r.review && !state.pinned.has(k)) return false;
+          if(state.resView==='arb'){
+            if(r.reviewBy!=='ox-alpha-arbitration') return false;
+          } else if(!r.review){
+            if(state.resView==='batch' && !state.batchKeys.has(k)) return false;
+            if(state.resView==='human-bg'){
+              if(classifyRec(r)!=='bg' || applyProfileRules(r,'bg')) return false;
+            }
+            if(state.resView==='human-qp'){
+              if(classifyRec(r)!=='qp') return false;
+            }
+          }
+        }
+        if(state.resKw){
+          const t=evTitle(r.a)+' '+evTitle(r.b);
+          if(t.indexOf(state.resKw)<0) return false;
+        }
+        return true;
+      });
+    }
+    if(!ks.length) return;
+    totalShown+=ks.length;
+    const grp=document.createElement('div');
+    const collapsed = filtering ? false : !!state.collapsed[g.id];
+    grp.className='res-group'+(collapsed?' collapsed':'');
+    grp.innerHTML='<div class="group-head '+g.cls+'"><span>'+g.label+'</span>'
+      +'<span class="cnt">'+(filtering?('匹配 '+ks.length+' 条'):(ks.length+' 条'))+'</span>'
+      +'<button class="b-ghost" data-gok="'+g.id+'" style="padding:2px 9px;font-size:11px">✓全组</button>'
+      +'<button class="b-ghost" data-gno="'+g.id+'" style="padding:2px 9px;font-size:11px">✖全组</button>'
+      +'<span class="tg">▾</span></div><div class="group-body"></div>';
+    const head=grp.querySelector('.group-head');
+    head.onclick=()=>{
+      state.collapsed[g.id]=!state.collapsed[g.id];
+      grp.classList.toggle('collapsed', state.collapsed[g.id]); saveState();
+    };
+    grp.querySelector('[data-gok]').onclick=ev=>{ ev.stopPropagation(); setGroupReview(g.id,'ok',ks); };
+    grp.querySelector('[data-gno]').onclick=ev=>{ ev.stopPropagation(); setGroupReview(g.id,'no',ks); };
+    const bd=grp.querySelector('.group-body');
+    ks.forEach(k=>bd.appendChild(buildCard(k)));
+    box.appendChild(grp);
+  });
+  if(filtering){
+    $('resCnt').textContent='显示 '+totalShown+' / 共 '+entries.length+' 条';
+    if(!totalShown){
+      let tip='';
+      if(state.resView==='batch') tip='（补充清单中的条目需已完成裁判才会出现在此）';
+      if(state.resView==='sug') tip='（尚无建议——先点上方「🧠 qwen 预填建议(up档)」运行，约 3 分钟）';
+      box.insertAdjacentHTML('beforeend','<p class="muted" style="padding:6px 2px">'
+        +'无匹配结果。'+tip+'</p>');
+    }
+  }
+  /* SUGGEST 预填相关按钮可见性 */
+  const sugCount = entries.filter(([,r])=>r.suggest && !r.review).length;
+  $('sugN').textContent = sugCount;
+  $('acceptSugBtn').classList.toggle('hidden', !sugCount);
+}
+function setGroupReview(id, v, ks){
+  const map={};
+  ks.forEach(k=>{ const r=state.results.get(k); if(r){ r.review=v; pinFlip(k); map[k]=v; } });
+  saveState(); renderResults(); syncReview(map);
+  log('已将 '+ks.length+' 条标记为'+(v==='ok'?'采纳':'驳回')+'，并同步服务端', v==='ok'?'ok':'warn');
+}
+/* ---- 画像自动翻牌 v1：只执行三条高置信规则，其余留人工/qwen预填 ----
+   R-bg1  采纳降级：理由为 纪念/同类平行/无直接因果/时代背景 且无组织延续实词（你的采纳率≥86%）
+   R-upA  驳回补证：同义记载对 / 同届会议接力（rule6 本命，batch1 全中）
+   R-upB  采纳补证：跨主体新主体诞生/条约兑现型（五四→早期组织、声明→回归 同型） */
+function applyProfileRules(r, c){
+  const ta=evTitle(r.a), tb=evTitle(r.b);
+  const txt=(r.reason||'');
+  if(c==='bg'){
+    const fam=/纪念|周年|公祭|诞辰|同类会议|平行|独立|各自|另一个|没有直接|未显示|无证据|不构成|并非直接|时代背景|大背景/.test(txt);
+    const org=/余部|部队|并入|会师|合编|改编|保留力量|前奏|试验田/.test(txt+'|'+ta+tb);
+    if(fam && !org) return {act:'adopt', rule:'R-bg1'};
+    return null;
+  }
+  if(c==='up'){
+    /* 同义/近义记载对：已知档案对 + 字符二元组重合度 */
+    if((ta.includes('三个代表')&&tb.includes('三个代表'))||
+       (/日本无条件投降/.test(ta)&&/日本投降|抗战胜利/.test(tb)))
+      return {act:'reject', rule:'R-upA-同义'};
+    const bg2=t=>{const s=[];for(let i=0;i<t.length-1;i++)s.push(t.slice(i,i+2));return s;};
+    const A=bg2(ta),B=new Set(bg2(tb));
+    const inter=A.filter(x=>B.has(x)).length;
+    const dice=A.length?2*inter/(A.length+B.size):0;
+    if(dice>=0.55) return {act:'reject', rule:'R-upA-同义'};
+    /* 会议接力：两端均为会议类且属同一届代际 */
+    const gens=t=>{const s=new Set();let m;
+      const r1=/([一二三四五六七八九十]{1,3})届/g;
+      while((m=r1.exec(t)))s.add('G'+m[1]);
+      const r2=/([一二三四五六七八九十]{1,3})次全国代表大会|([一二三四五六七八九十]{1,3})大(?![事学量中])/g;
+      while((m=r2.exec(t))){const g=m[1]||m[2];if(g)s.add('G'+g);}
+      return s;};
+    const ga=gens(ta), gb_=gens(tb);
+    const meetW=/全会|全国代表大会|党代会|人大|政协|会议/;
+    const ma=meetW.test(ta)||ga.size>0, mb=meetW.test(tb)||gb_.size>0;
+    let genHit=false;
+    if(ma&&mb){ga.forEach(g=>{if(gb_.has(g))genHit=true;});}
+    if(ma&&mb&&genHit) return {act:'reject', rule:'R-upA-接力'};
+    /* 跨主体新主体诞生 / 条约兑现 */
+    if(/催生|促[使进]?.{0,10}(成立|诞生|建立|统一)|恢复行使主权|回归祖国|兑现/.test(txt))
+      return {act:'adopt', rule:'R-upB'};
+  }
+  return null;
+}
+$('autoBtn').onclick=()=>{
+  try{
+    if(running){ alert('批量任务进行中'); return; }
+    const plan={adopt:[],reject:[],skip:0};
+    const updates={};
+    [...state.results.entries()].forEach(([k,r])=>{
+      if(r.review) return;
+      const c=classifyRec(r);
+      if(c==='keep'||c==='err'||c==='none'){ plan.skip++; return; }
+      const res=applyProfileRules(r,c);
+      if(res){
+        r.review = res.act==='adopt' ? 'ok' : 'no';
+        r.auto=true;
+        pinFlip(k);
+        updates[k]={v:r.review, by:'auto-profile-v1('+res.rule+')'};
+        plan[res.act].push(k);
+      } else plan.skip++;
+    });
+    if(!plan.adopt.length && !plan.reject.length){
+      alert('没有命中高置信规则的条目。\n其余候选属边界档，仍需你或 qwen 预填后人工确认。'); return;
+    }
+    if(!confirm('画像自动翻牌将处理：\n'
+      +'· ✓ 自动采纳 '+plan.adopt.length+' 条\n'
+      +'· ✖ 自动驳回 '+plan.reject.length+' 条\n'
+      +'· 跳过（边界档，留给你/qwen）'+plan.skip+' 条\n\n'
+      +'全部打「🤖自动」标记，可逐条撤销；确定？')) return;
+    saveState(); renderResults(); syncReview(updates);
+    log('🤖 自动翻牌完成：采纳 '+plan.adopt.length+'｜驳回 '+plan.reject.length
+      +'｜跳过 '+plan.skip+'（可按「🤖自动」徽标识别，撤销即覆盖）','ok');
+  }catch(err){
+    console.error('[auto-flip]', err);
+    alert('自动翻牌异常：'+err.message+'\n（已写入控制台，请反馈）');
+  }
+};
+/* 翻牌状态上传：脱离浏览器缓存持久到 judge_workspace.json（画像数据源 + 断档恢复） */
+/* ---- SUGGEST 预填层：qwen 带画像规则预测你的取向，只出建议不落数据 ---- */
+const RULE_TEXT = [
+ 'R-up-A 同体程序环节/同事项两阶段/全会接力/同义记载 → 驳回（例：人大通过自家议程产物、十一大→十一届三中全会）',
+ 'R-up-B 跨主体实质推动：思想奠基催生新主体、条约义务兑现、政策线延续到新载体 → 采纳（例：五四→早期组织、中英声明→香港回归）',
+ 'R-up-C 使能条件/标志性立法类 → 人工终审，不给建议',
+ 'R-bg1 纪念/同类平行/无直接因果措辞且无组织延续实词 → 采纳降级',
+ 'R-bg2 理由含 余部/并入/会师/前奏/试验田 等真机制词 → 人工终审',
+].join('\n');
+function fewshotText(){
+  const pick=(test,n)=>{
+    const out=[];
+    for(const [k,r] of state.results.entries()){
+      if(!r.review) continue;
+      if(test(titleOf(r))) { out.push((r.review==='ok'?'例·采纳: ':'例·驳回: ')+titleOf(r)); }
+      if(out.length>=n) break;
+    }
+    return out;
+  };
+  const t=titleOf;
+  return [].concat(
+    pick(t=>t.includes('五四')||t.includes('香港回归')||t.includes('浦东'),2),
+    pick(t=>t.includes('卢沟桥')||(t.includes('西安事变')),3),
+    pick(t=>t.includes('公祭日'),1),
+    pick(t=>t.includes('南昌起义')&&t.includes('秋收起义'),1),
+    pick(t=>t.includes('宪法修正案'),1)
+  ).join('\n');
+}
+function titleOf(r){ return evTitle(r.a)+' → '+evTitle(r.b); }
+$('prefillBtn').onclick=async ()=>{
+  if(running){ alert('批量任务进行中'); return; }
+  const model=$('model').value;
+  const todo=[...state.results.entries()]
+    .filter(([k,r])=>!r.review && classifyRec(r)==='up')
+    .map(([k])=>k);
+  if(!todo.length){ alert('没有待预填的补证候选'); return; }
+  running=true; $('prefillBtn').disabled=true;
+  $('runBtn').classList.add('hidden');
+  log('🧠 qwen 预填建议开始：'+todo.length+' 条（每条一次本地推理）…');
+  let done=0, sugOk=0;
+  for(const k of todo){
+    const p=k.split('>');
+    const e=state.edges.find(x=>x.from===p[0]&&x.to===p[1]);
+    done++;
+    $('bar').style.width=Math.round(done/todo.length*100)+'%';
+    $('progMsg').textContent=done+'/'+todo.length+'（预填建议）';
+    try{
+      const r=state.results.get(k);
+      const d=await api('/api/judge/prefill',{a:r.a,b:r.b,model:model,
+        rules:RULE_TEXT,fewshot:fewshotText(),cls:'up',reason:r.reason});
+      if(!d.ok) throw new Error(d.error||'失败');
+      r.suggest={v:d.suggest,rule:d.rule,conf:d.conf,basis:d.basis};
+      sugOk++;
+      log('['+done+'/'+todo.length+'] 建议'+(d.suggest==='ok'?'✓采纳':'✖驳回')
+        +'｜'+d.rule+'·'+d.conf+'｜'+evTitle(r.a).slice(0,14)+'…','ok');
+    }catch(err){
+      log('['+done+'/'+todo.length+'] 预填失败：'+err.message,'bad');
+    }
+    renderResults(); saveState();
+  }
+  running=false; $('prefillBtn').disabled=false;
+  $('bar').style.width='0%'; $('progMsg').textContent='';
+  $('runBtn').classList.remove('hidden');
+  log('预填完成：成功 '+sugOk+' 条。点「✓ 接受全部建议」或逐卡处理。','ok');
+};
+$('acceptSugBtn').onclick=()=>{
+  const items=[...state.results.entries()].filter(([,r])=>r.suggest && !r.review);
+  if(!items.length){ alert('没有待接受的建议'); return; }
+  if(!confirm('将按 qwen 建议翻牌 '+items.length+' 条（署名 qwen-prefill），确定？')) return;
+  const updates={};
+  items.forEach(([k,r])=>{
+    r.review=r.suggest.v; pinFlip(k); updates[k]={v:r.review,by:'qwen-prefill'};
+    r.suggestAccepted=true;
+  });
+  saveState(); renderResults(); syncReview(updates);
+  log('已接受 '+items.length+' 条建议并同步服务端','ok');
+};
+
+async function syncReview(map){
+  const clean={};
+  Object.keys(map).forEach(k=>{ clean[k]=map[k]||null; });
+  if(!Object.keys(clean).length) return;
+  try{
+    const d=await api('/api/judge/review',{reviews:clean});
+    if(d.ok && d.applied) log('翻牌已同步服务端工作区（'+d.applied+' 条）');
+  }catch(_){}
+}
+$('syncRvBtn').onclick=()=>{
+  const map={};
+  [...state.results.entries()].forEach(([k,r])=>{
+    const c=classifyRec(r);
+    if(r.review && c!=='keep' && c!=='err') map[k]=r.review;
+  });
+  const n=Object.keys(map).length;
+  if(!n){ alert('没有可同步的翻牌记录'); return; }
+  syncReview(map);
+};
+function buildCard(k){
+  const r=state.results.get(k);
+  const c=classifyRec(r);
+  const rv=r.review||'';
+  const card=document.createElement('div');
+  card.className='ritem c-'+c;
+  if(rv==='ok') card.style.borderLeftColor='var(--ok)';
+  else if(rv==='no') card.style.opacity=.55;
+  const exp=r.expected;
+  let h='<div class="bt">'+esc(evTitle(r.a))+' <span style="color:var(--sub)">→</span> '+esc(evTitle(r.b))
+    +(r.auto?'<span class="pill blue" title="由画像规则自动判定，可撤销">🤖 自动</span>':'')
+    +(rv==='ok'?'<span class="pill ok">✓ 已采纳</span>':rv==='no'?'<span class="pill bad">✖ 已驳回</span>':'')
+    +'<span class="pill '+(VERDICT_PILL[r.verdict]||'')+'">'+esc(r.verdict||'?')+'</span>';
+  if(exp) h+='<span class="pill blue">考卷期望 '+exp+'</span>'
+    +'<span class="pill '+(r.verdict===exp?'ok':'bad')+'">'+(r.verdict===exp?'✓ 一致':'✗ 不一致')+'</span>';
+  h+= rv
+    ?'<button class="b-ghost" data-undo="'+k+'" style="padding:3px 9px;font-size:12px">↩ 撤销翻牌</button>'
+    :'<button class="b-ghost" data-ok="'+k+'" style="padding:3px 9px;font-size:12px">✓ 采纳</button>'
+      +'<button class="b-ghost" data-no="'+k+'" style="padding:3px 9px;font-size:12px">✖ 驳回</button>';
+  h+='<button class="b-ghost" data-rerun="'+k+'" style="margin-left:auto;padding:3px 9px;font-size:12px'
+    +((running||!state.events.has(r.a)||!state.events.has(r.b))?';display:none':'')
+    +'">重跑本条</button></div>';
+  if(r.error) h+='<div class="meta" style="color:var(--bad)">错误：'+esc(r.error)+'</div>';
+  else h+='<div class="meta">理由：'+esc(r.reason||'—')
+    +(r.elapsed?'｜耗时 '+esc(r.elapsed)+'s':'')+'｜原 tier：'+esc(r.currentTier)
+    +(r.web?(r.web.found
+        ?'｜外部书证：<a href="'+esc(r.web.url)+'" target="_blank" rel="noopener" style="color:var(--brand2)">'
+          +esc(r.web.site||'来源')+'（'+(r.web.tlen||0)+'字）</a>'
+        :'｜外部书证：未找到'):'')
+    +(r.reviewBy==='ox-alpha-arbitration'?' <span class="pill blue">⚖️ 仲裁</span>':'')
+    +(r.arbNote?'｜'+esc(r.arbNote):'')
+    +'</div>';
+  if(r.quote) h+='<div class="quote">引文（'+(r.quoteValid
+    ?'<b style="color:var(--ok)">有效</b>':'<b style="color:var(--bad)">伪引文</b>')
+    +'）：'+esc(r.quote)+'</div>';
+  if(r.suggest && !r.review){
+    const sv=r.suggest.v==='ok';
+    h+='<div class="hint" style="margin:6px 0 0;padding:5px 9px">🧠 qwen建议：<b>'
+      +(sv?'✓ 采纳':'✖ 驳回')+'</b>｜'+esc(r.suggest.rule||'—')
+      +'·置信 '+esc(r.suggest.conf)+'｜'+esc(r.suggest.basis||'')
+      +' <button class="b-ghost" data-sacc="'+k+'" style="padding:2px 8px;font-size:11px">接受</button>'
+      +'<button class="b-ghost" data-srej="'+k+'" style="padding:2px 8px;font-size:11px">'
+      +(sv?'改判驳回':'改判采纳')+'</button></div>';
+  }
+  card.innerHTML=h;
+  const sacc=card.querySelector('[data-sacc]');
+  const srej=card.querySelector('[data-srej]');
+  if(sacc) sacc.onclick=()=>{ pinFlip(k); r.review='ok'; saveState(); renderResults(); syncReview({[k]:{v:'ok',by:'qwen-suggest'}}); };
+  if(srej) srej.onclick=()=>{ pinFlip(k); r.review = (r.suggest.v==='ok')?'no':'ok'; saveState(); renderResults(); syncReview({[k]:{v:r.review,by:'qwen-suggest'}}); };
+  const bok=card.querySelector('[data-ok]');
+  const bno=card.querySelector('[data-no]');
+  const bun=card.querySelector('[data-undo]');
+  if(bok) bok.onclick=()=>{ pinFlip(k); r.review='ok'; saveState(); renderResults(); syncReview({[k]:'ok'}); };
+  if(bno) bno.onclick=()=>{ pinFlip(k); r.review='no'; saveState(); renderResults(); syncReview({[k]:'no'}); };
+  if(bun) bun.onclick=()=>{ pinFlip(k); r.review=null; r.auto=false; saveState(); renderResults(); syncReview({[k]:null}); };
+  const brerun=card.querySelector('[data-rerun]');
+  if(brerun) brerun.onclick=()=>rerunOne(k);
+  return card;
+}
+async function rerunOne(k){
+  if(running){ alert('批量任务进行中，请先停止'); return; }
+  const [a,b]=k.split('>');
+  const e=state.edges.find(x=>x.from===a&&x.to===b);
+  if(!e) return;
+  await judgeOne(e);
+  renderResults(); saveState();
+}
+async function judgeOne(e, useWeb){
+  const model=$('model').value;
+  log((useWeb?'联网重裁':'重跑')+' '+ek(e)+' …');
+  try{
+    const d=await api(useWeb?'/api/judge/web':'/api/judge',{a:e.from,b:e.to,model:model});
+    if(!d.ok) throw new Error(d.error||'失败');
+    state.results.set(ek(e),{a:e.from,b:e.to,currentTier:e.tier,expected:expectedOf(e),
+      verdict:d.verdict,quote:d.quote,quoteValid:!!d.quoteValid,
+      reason:d.reason,elapsed:d.elapsed,model:model,web:d.web||null});
+    log('  ✓ verdict='+d.verdict+(d.web&&d.web.found?'｜外部书证 '+(d.web.site||''):''),'ok');
+  }catch(err){ 
+    state.results.set(ek(e),{a:e.from,b:e.to,currentTier:e.tier,
+      verdict:'parse_error',quote:'',quoteValid:false,model:model,error:String(err.message).slice(0,200)});
+    log('  ✗ '+err.message,'bad');
+  }
+}
+/* 分类重跑核心：kind='err' 失败条目 → 本地原样重试（瞬时问题）；
+   kind='none' 未找到线索条目 → B级联网找证重裁（主查B辅查A，磁盘缓存+2.5s限流，
+   quote 在外部文本过验才收；本地语料刚更新过的条目建议先用「重跑失败」同款本地路径） */
+async function rerunKind(kind){
+  if(running){ alert('批量任务进行中'); return; }
+  const keys=[...state.results.entries()].filter(([,r])=>classifyRec(r)===kind).map(([k])=>k)
+    .filter(k=>{ const p=k.split('>'); return state.events.has(p[0])&&state.events.has(p[1]); });
+  if(!keys.length){ alert(kind==='err'?'没有失败条目（端点缺失的除外）':'没有未找到线索的条目（端点缺失的除外）'); return; }
+  const tip=kind==='err'
+    ? '将重跑 '+keys.length+' 条失败条目（网络/模型异常，通常为瞬时问题）。确定？'
+    : '将联网找证并重裁 '+keys.length+' 条历史遗留的未找到线索条目。\n\n'
+      +'（批量跑的过程中 insufficient 已会自动联网，此按钮用于旧数据补跑。）确定？';
+  if(!confirm(tip)) return;
+  running=true; $('runBtn').classList.add('hidden'); $('stopBtn').classList.remove('hidden');
+  beginBatchStat(keys.length,(kind==='err'?'重跑失败':'联网找证')+'·'+$('model').value);
+  for(let i=0;i<keys.length;i++){
+    const p=keys[i].split('>');
+    const e=state.edges.find(x=>x.from===p[0]&&x.to===p[1]);
+    $('bar').style.width=Math.round((i+1)/keys.length*100)+'%';
+    $('progMsg').textContent=(i+1)+'/'+keys.length+'（'+(kind==='err'?'重跑失败':'联网找证')+'）';
+    try{
+      const d=await api(kind==='none'?'/api/judge/web':'/api/judge',
+        {a:e.from,b:e.to,model:$('model').value});
+      if(!d.ok) throw new Error(d.error||'失败');
+      state.results.set(ek(e),{a:e.from,b:e.to,currentTier:d.currentTier!=null?d.currentTier:e.tier,
+        expected:expectedOf(e),verdict:d.verdict,quote:d.quote,quoteValid:!!d.quoteValid,
+        reason:d.reason,elapsed:d.elapsed,model:d.model||$('model').value,
+        web:d.web||null});
+    }catch(err){
+      state.results.set(ek(e),{a:e.from,b:e.to,currentTier:e.tier,
+        verdict:'parse_error',quote:'',quoteValid:false,model:$('model').value,
+        error:String(err.message).slice(0,200)});
+    }
+    judgeLog(i+1,keys.length,e,state.results.get(ek(e)),
+      (kind==='err'?'重跑失败':'联网找证')+'·'+$('model').value);
+    renderResults(); saveState();
+  }
+  running=false; $('runBtn').classList.remove('hidden'); $('stopBtn').classList.add('hidden');
+  $('bar').style.width='0%'; $('progMsg').textContent='';
+}
+$('rerunErrBtn').onclick=()=>rerunKind('err');
+$('rerunNoneBtn').onclick=()=>rerunKind('none');
+$('clearBtn').onclick=()=>{
+  if(!confirm('将清空全部裁判结果（含未导出的），确定？')) return;
+  state.results.clear(); renderResults(); saveState(); log('已清空全部结果','warn');
+};
+/* 服务端写盘：只收「✓采纳」条目（模型产候选、人翻牌、落盘三段分离） */
+$('saveBtn').onclick=async ()=>{
+  const all=[...state.results.entries()];
+  const adopted=all.filter(([,r])=>r.review==='ok').map(([,r])=>r);
+  const rejected=all.filter(([,r])=>r.review==='no').length;
+  const pending=all.filter(([,r])=>!r.review && classifyRec(r)!=='keep' && classifyRec(r)!=='err').length;
+  if(!adopted.length){ alert('没有已采纳的条目——请先在结果卡片上点「✓ 采纳」（或分组标题的「✓全组」）。'); return; }
+  if(!confirm('将把 '+adopted.length+' 条【已采纳】结果送服务端分类落盘：\n'
+    +'tools/causal_judge/tier_plan6_draft.json + judge_report.md\n\n'
+    +(rejected?'驳回 '+rejected+' 条不写入。\n':'')
+    +(pending?'⚠ 另有 '+pending+' 条候选尚未翻牌，本次不写入。\n':'')
+    +'（只产草稿，绝不写正式数据；旧稿自动备份），确定？')) return;
+  try{
+    log('服务端写盘草稿（采纳 '+adopted.length+' 条）…');
+    const d=await api('/api/judge/save',{items:adopted,model:$('model').value});
+    if(!d.ok) throw new Error(d.error||'失败');
+    log('✅ 草稿已写入：补证/升级 '+d.upgrade+'｜降级 '+d.background+'｜删除候选 '+d.delete
+      +'｜待人工 '+d.pending+'｜维持 '+d.kept+(d.backups.length?'｜旧稿备份 '+d.backups.join(', '):''),'ok');
+    alert('草稿写盘完成：\n'+d.files.join('\n')
+      +'\n\n下一步（人工）：审阅 draft → 改名 tier_plan6.json 放回 .ocr/ → 跑 build_causality.py');
+  }catch(e){ alert('写盘失败：'+e.message); log('写盘失败：'+e.message,'bad'); }
+};
+/* 下载/复制 JSON：同样只含已采纳 */
+function buildOut(){
+  const plan={upgrade:[],background:[],delete:[],pending:[],kept:[]};
+  [...state.results.values()].filter(r=>r.review==='ok').forEach(r=>{
+    const c=classifyRec(r);
+    if(c==='up') plan.upgrade.push({from:r.a,to:r.b,evidence:'【本地语料裁决·'+r.model+'】'+r.quote});
+    else if(c==='bg') plan.background.push([r.a,r.b]);
+    else if(c==='del') plan.delete.push([r.a,r.b]);
+    else if(c!=='keep') plan.pending.push({a:r.a,b:r.b,verdict:r.verdict,kind:c,reason:r.reason,error:r.error});
+    else plan.kept.push([r.a,r.b]);
+  });
+  return plan;
+}
+$('dlBtn').onclick=()=>{
+  const blob=new Blob([JSON.stringify(buildOut(),null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='tier_plan6_draft_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click(); URL.revokeObjectURL(a.href);
+};
+$('copyBtn').onclick=()=>{ navigator.clipboard.writeText(JSON.stringify(buildOut(),null,2)).then(()=>log('已复制 JSON')); };
+
+/* ==================== 考试复盘折叠区 ==================== */
+$('examHead').onclick=()=>{
+  const body=$('examBody');
+  const show=body.classList.contains('hidden');
+  body.classList.toggle('hidden',!show);
+  $('examWrap').classList.toggle('collapsed',!show);
+};
+$('examBtn').onclick=async ()=>{
+  const btn=$('examBtn'); btn.disabled=true;
+  $('examMsg').textContent='解析三轮作答…'; $('examMsg').className='pill';
+  try{
+    /* 引文验伪依赖事件材料块 */
+    if(!state.events.size){
+      const evs=(await loadJSON(PATH.events)).events;
+      state.events=new Map(evs.map(e=>[ekeyOf(e),e]));
+    }
+    for(const rd of ['v1','v2','v3']) state.exams[rd]=await loadJSONL(PATH.exam[rd]);
+    renderExam();
+    $('examMsg').className='pill ok';
+  }catch(e){ $('examMsg').textContent='失败：'+e.message; $('examMsg').className='pill bad'; }
+  btn.disabled=false;
+};
+
+/* ==================== 考试可视化（阅卷口径与 rescore() 一致） ==================== */
+function scoreRound(records){
+  const labels=['causal','background','unrelated'];
+  const matrix={}; labels.forEach(x=>matrix[x]={});
+  let total=0,insuf=0,qTot=0,qOk=0;
+  records.forEach(r=>{
+    const exp=r.expected,v=r.verdict||'parse_error';
+    if(!(exp in matrix)) return;
+    matrix[exp][v]=(matrix[exp][v]||0)+1; total++;
+    if(v==='insufficient') insuf++;
+    if(v==='causal'&&r.quote){ qTot++; if(quoteValid(r.quote,r.a,r.b)) qOk++; }
+  });
+  const rowSum=exp=>labels.reduce((a,x)=>a+(matrix[exp][x]||0),0)
+    +(matrix[exp]['insufficient']||0)
+    +Object.keys(matrix[exp]).filter(k=>labels.indexOf(k)<0&&k!=='insufficient')
+        .reduce((a,k)=>a+matrix[exp][k],0);
+  const hit={};
+  labels.forEach(exp=>{
+    const n=rowSum(exp),h=matrix[exp][exp]||0;
+    hit[exp]=n?Math.round(100*h/n):null;
+  });
+  const right=labels.reduce((a,x)=>a+(matrix[x][x]||0),0);
+  return {matrix:matrix,labels:labels,total:total,insuf:insuf,
+    quoteRate:qTot?Math.round(100*qOk/qTot):null,
+    accuracy:total?Math.round(100*right/total):null,hit:hit};
+}
+const ROUND_META={
+  v1:{name:'v1 裸考',cls:'r1'}, v2:{name:'v2 +ocrDesc 书证',cls:'r2'},
+  v3:{name:'v3 +三条规则',cls:'r3'},
+};
+function renderExam(){
+  const box=$('examBox'); box.innerHTML='';
+  const sel=$('roundSel').value;
+  const rounds=['v1','v2','v3'].filter(rd=>state.exams[rd]&&(!sel||sel===rd));
+  if(!rounds.length){ box.innerHTML='<p style="color:#999;font-size:13px">该轮次无数据。</p>'; return; }
+  const scored={}; rounds.forEach(rd=>scored[rd]=scoreRound(state.exams[rd]));
+  const metrics=[
+    ['真因果命中',rd=>scored[rd].hit.causal],
+    ['背景命中',rd=>scored[rd].hit.background],
+    ['总正确率',rd=>scored[rd].accuracy],
+    ['引文有效率',rd=>scored[rd].quoteRate],
+    ['弃权率',rd=>scored[rd].total?Math.round(100*scored[rd].insuf/scored[rd].total):null],
+  ];
+  const cmp=document.createElement('div');
+  cmp.innerHTML='<h3 style="margin:12px 0 2px;font-size:14px">跨轮对比</h3>'
+    +'<div class="legend">'+rounds.map(rd=>
+      '<span><i class="'+ROUND_META[rd].cls+'"></i>'+ROUND_META[rd].name+'</span>').join('')+'</div>';
+  metrics.forEach(mt=>{
+    const row=document.createElement('div'); row.className='cmp-row';
+    row.innerHTML='<span class="cmp-name">'+mt[0]+'</span>';
+    const bars=document.createElement('div'); bars.className='cmp-bars';
+    rounds.forEach(rd=>{
+      const v=mt[1](rd);
+      const bar=document.createElement('div'); bar.className='cmp-bar';
+      bar.innerHTML='<div class="trk"><div class="fil '+ROUND_META[rd].cls
+        +'" style="width:'+(v==null?0:v)+'%"></div></div>'
+        +'<span class="val">'+(v==null?'—':v+'%')+'</span>';
+      bars.appendChild(bar);
+    });
+    row.appendChild(bars); cmp.appendChild(row);
+  });
+  box.appendChild(cmp);
+  rounds.forEach(rd=>{
+    const s=scored[rd],m=s.matrix,L=s.labels;
+    let h='<h3 style="margin:16px 0 0;font-size:14px">'+ROUND_META[rd].name
+      +' <span class="pill">实考 '+s.total+' 题</span></h3>';
+    h+='<table class="mx"><tr><th>期望＼作答</th>'
+      +L.concat(['insufficient','其他']).map(x=>'<th>'+x+'</th>').join('')+'</tr>';
+    L.forEach(exp=>{
+      const others=Object.keys(m[exp]).filter(k=>L.indexOf(k)<0&&k!=='insufficient')
+        .reduce((a,k)=>a+m[exp][k],0);
+      h+='<tr><th>'+exp+'</th>'+L.concat(['insufficient']).map(v=>{
+        const n=m[exp][v]||0;
+        return '<td class="'+(v===exp?'diag':(n?'off':'z'))+'">'+n+'</td>';
+      }).join('')+'<td>'+(others||'-')+'</td></tr>';
+    });
+    h+='</table><div style="font-size:12px;color:var(--sub);margin-top:6px">'
+      +L.map(exp=>s.hit[exp]==null?'':'期望 '+exp+' 命中 '+s.hit[exp]+'%').filter(Boolean).join(' · ')
+      +(s.quoteRate!=null?' · 引文有效 '+s.quoteRate+'%':'')
+      +' · 弃权 '+s.insuf+' 题</div>';
+    const sec=document.createElement('div'); sec.innerHTML=h; box.appendChild(sec);
+  });
+}
+$('roundSel').onchange=()=>{ if(Object.keys(state.exams).length) renderExam(); };
+$('examMsg').textContent='';
+/* 启动即预载数据：本地服务读取很快，免去「先载入才不误报」的心智负担 */
+(async ()=>{
+  try{ $('loadBtn').click(); }catch(_){}
+})();
+</script>
+</body>
+</html>
