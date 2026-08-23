@@ -2,6 +2,18 @@
 
 本项目所有版本迭代记录。页面内的完整交互说明见「关于 → 更新日志」。
 
+## [v1.8.4] - 2026-08-23 移动端弹窗/旋转/按钮布局优化
+
+### 修复
+- 弹窗手机模式收敛：`.modal-box` 宽上限 `min(92vw, 480px)`、`#modalContent` 加 `width:100%; min-width:0; overflow-x:hidden`，长内容一律纵向滚动，手机弹窗不再横滚、不过长溢出
+- PWA 旋转跟随：manifest `orientation` 由 `portrait-primary` 改为 `any`，PWA 打开后手机横置时页面跟随旋转，不再锁定竖屏
+- 手机模式右上角三按钮竖排：theme（日/夜）→ menu（☰）→ rail（本年事件）自上而下垂直排布于右上角（≤700px 生效，含安全区偏移），不再横向挤压工具栏
+- 手机模式搜索框缩短：`#searchInput` 加 `margin-right: 52px; max-width: calc(100% - 52px)`，给竖排按钮腾出右侧空间，避免与按钮重叠
+- 手机横屏时间轴适配：新增 `@media (orientation: landscape) and (max-height: 560px)`——轨道高 `calc(100vh - 128px)`（min-height 250px）、上下卡片距轴缩短至 38px、卡片/年份/字号收敛、横向滚动容器禁纵向放行（`overflow-y:hidden`），中心轴上下事件全部落入可视高度
+
+### 隔离性
+- 全部改动限于 `max-width:768px/700px/480px` 断点与 `landscape+max-height` 专项媒体查询，桌面端（>768px 宽、>560px 高）布局不受影响
+
 ## [v1.8.3] - 2026-08-23 移动端适配修复（以小米 15 为基准）
 
 ### 修复

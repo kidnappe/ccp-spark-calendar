@@ -61,6 +61,11 @@ _build*.log
 # 工具备份目录（合并/改动前的整目录快照，可删可留，不进仓库）
 tools/_backup_*/
 
+# 工具台构建产物与临时判官工具（由脚本生成/本地使用，不进仓库）
+tools/workshop.html
+tools/causal_judge/
+tools/causal_judge_gui.html
+
 # events/causality 统一备份目录（各工具写入前自动快照）
 backups/
 

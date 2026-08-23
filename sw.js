@@ -2,7 +2,7 @@
  * sw.js —— 星火日历 Service Worker（PWA 离线缓存）
  * 策略：
  *   - /api/*        ：一律不缓存（工具依赖实时数据）
- *   - 文档/iframe   ：网络优先，离线时回退缓存（保证 build_data.py 重建后立即生效）
+ *   - 文档/iframe/changelog.json/manifest.webmanifest：网络优先，离线时回退缓存（保证构建产物重建后立即生效，PWA 安装后也能拿到最新 orientation 等 manifest 配置）
  *   - 其余静态资源  ：缓存优先 + 后台更新（stale-while-revalidate）
  * 注意：仅 https 或 localhost 生效；file:// 打开时浏览器不会注册本脚本。
  * ============================================================ */
@@ -29,8 +29,8 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.pathname.indexOf('/api/') >= 0) return;      // API 走网络
-  if (req.destination === 'document' || req.destination === 'iframe') {
-    e.respondWith(networkFirst(req));
+  if (req.destination === 'document' || req.destination === 'iframe' || url.pathname.indexOf('changelog.json') >= 0 || url.pathname.indexOf('manifest.webmanifest') >= 0) {
+    e.respondWith(networkFirst(req));   // 文档 / 更新日志 / manifest：网络优先（构建后立即生效，离线回退缓存）
   } else {
     e.respondWith(staleWhileRevalidate(req));
   }

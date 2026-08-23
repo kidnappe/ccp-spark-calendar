@@ -601,6 +601,7 @@
         .modal-box {
             position: relative;
             width: min(600px, 90%);
+            max-width: 100%;
             max-height: 88vh;
             display: flex;
             flex-direction: column;
@@ -662,7 +663,10 @@
         #modalContent {
             flex: 1 1 auto;
             min-height: 0;
+            width: 100%;
+            min-width: 0;
             overflow-y: auto;
+            overflow-x: hidden;   /* 手机模式禁用横向滚动条，长内容一律纵向收进 */
             padding-right: 4px;
         }
         .modal-event {
@@ -974,16 +978,38 @@
             font-size:16px; letter-spacing:3px; background:var(--paper);
             border:1px solid var(--edge); border-radius:3px; padding:10px 4px; z-index:2;
         }
+        /* 选中年份事件速览：右上角按钮（absolute 随页面滚动，与左上徽标、主题钮呼应），点击后再展开 */
+        .rail-toggle {
+            position: absolute;
+            top: calc(12px + env(safe-area-inset-top, 0px)); right: 120px; z-index: 60;
+            width: 40px; height: 40px; border-radius: 50%; padding: 0;
+            cursor: pointer; border: 1px solid var(--edge);
+            background: var(--paper); color: var(--vermilion-deep);
+            box-shadow: 0 2px 8px rgba(90,70,40,0.18);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .rail-toggle:hover { background: var(--paper-hover); }
+        .rail-toggle .rt-icon { width: 26px; height: 26px; display: block; fill: currentColor; }
+        .rail-toggle .badge {
+            position: absolute; top: -11px; right: -8px;
+            background: var(--vermilion); color: #fff; border-radius: 50%;
+            min-width: 18px; height: 18px; line-height: 14px; padding: 0 4px;
+            font-size: 11px; font-weight: bold; border: 2px solid var(--paper);
+            box-sizing: border-box; text-align: center;
+        }
         @media (max-width: 768px){
             /* 移动端：左上角徽标收窄为纯图标，避免遮挡工具栏；日夜按钮右上角保持 */
             .brand-fab { padding: 5px 9px 5px 7px; }
             .brand-fab .bf-text { display: none; }
             .brand-fab img { width: 28px; height: 28px; }
-            .theme-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; width: 38px; height: 38px; }
-            .menu-fab { right: 54px; }
-            .rail-toggle { right: 100px; width: 40px; height: 40px; padding: 0; }
+            /* 手机竖屏：右上角三钮改为右侧竖排（theme → menu → rail 自上而下），避免横向挤压搜索框布局 */
+            .theme-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
+            .menu-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
+            .rail-toggle { top: calc(102px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; padding: 0; }
             .rail-toggle .rt-icon { width: 22px; height: 22px; }
-            .tl-track { height:calc(100vh - 190px); min-height:480px; }
+            /* 手机模式时间轴区域不再设高度下限，随视口自由缩小 */
+            .tl-track { height:calc(100vh - 190px); min-height:0; }
+            .tl-card { max-height: max(48px, calc(50% - 44px)); }
             .tl-item { flex:0 0 170px; width:170px; }
             /* 移动端：卡片内边距与字号收敛，连线间隙加长到 44px（移动端，即原 22px 的两倍），保证窄卡片内文字完整不溢出 */
             .tl-card { padding:8px 9px; }
@@ -999,6 +1025,31 @@
             .tl-card { padding:7px 8px; }
             .tl-card .tl-title { font-size:12px; }
             .tl-card .tl-desc { font-size:10.5px; }
+        }
+        /* 手机横屏（矮视口）：中心轴上下事件都必须落在可视范围内 —— 轨道高度让位、卡片收敛、连线缩短 */
+        @media (orientation: landscape) and (max-height: 560px){
+            body { padding: 6px 8px; }
+            /* 横屏手机：右上角三按钮同样改为右侧竖排（避免与报头/工具栏横向挤压），rail 面板下移避让 */
+            .theme-fab { top: calc(8px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; }
+            .menu-fab { top: calc(50px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; font-size: 16px; }
+            .rail-toggle { top: calc(92px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; padding: 0; }
+            .rail-right { top: calc(138px + env(safe-area-inset-top, 0px)); right: 6px; width: min(80vw, 320px); max-height: calc(100vh - 190px); }
+            /* 时间轴区域高度不再设下限，随视口自由缩小（卡片保底 40px 可读） */
+            .tl-track { height: calc(100vh - 128px); min-height: 0; }
+            .tl-item { flex:0 0 130px; width:130px; }
+            .tl-card { max-height: max(40px, calc(50% - 38px)); padding:6px 8px; }
+            .tl-card .tl-title { font-size:11px; margin-top:2px; }
+            .tl-card .tl-desc { font-size:10px; -webkit-line-clamp:2; line-height:1.35; }
+            .tl-item.up .tl-card { bottom:calc(50% + 38px); }
+            .tl-item.down .tl-card { top:calc(50% + 38px); }
+            .tl-item.up .tl-link { top:calc(50% - 38px); height:38px; }
+            .tl-item.down .tl-link { top:50%; height:38px; }
+            .tl-dot { width:12px; height:12px; }
+            .tl-year { flex:0 0 48px; width:48px; }
+            .tl-year span { font-size:13px; padding:6px 3px; }
+            .tl-toolbar { padding:6px 6px; margin-bottom:6px; gap:4px 8px; }
+            .tl-toolbar .tl-select { max-width:150px; }
+            .tl-scroll { overflow-y:hidden; overscroll-behavior-y:contain; }   /* 横屏只允许横向滚动，纵向不放行 */
         }
 
         /* ===================== 重要会议（emoji 入口 + 筛选） ===================== */
@@ -1199,25 +1250,6 @@
             max-width: 1500px;
             margin: 4px auto 0;
         }
-        /* 选中年份事件速览：右上角按钮（absolute 随页面滚动，与左上徽标、主题钮呼应），点击后再展开 */
-        .rail-toggle {
-            position: absolute;
-            top: calc(12px + env(safe-area-inset-top, 0px)); right: 120px; z-index: 60;
-            width: 40px; height: 40px; border-radius: 50%; padding: 0;
-            cursor: pointer; border: 1px solid var(--edge);
-            background: var(--paper); color: var(--vermilion-deep);
-            box-shadow: 0 2px 8px rgba(90,70,40,0.18);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .rail-toggle:hover { background: var(--paper-hover); }
-        .rail-toggle .rt-icon { width: 26px; height: 26px; display: block; fill: currentColor; }
-        .rail-toggle .badge {
-            position: absolute; top: -11px; right: -8px;
-            background: var(--vermilion); color: #fff; border-radius: 50%;
-            min-width: 18px; height: 18px; line-height: 14px; padding: 0 4px;
-            font-size: 11px; font-weight: bold; border: 2px solid var(--paper);
-            box-sizing: border-box; text-align: center;
-        }
         .rail-right {
             position: absolute;
             top: 54px;
@@ -1273,10 +1305,12 @@
             .rail-list { max-height: 62vh; }
         }
         @media (max-width: 700px){
-            .rail-toggle { right: 100px; width: 40px; height: 40px; padding: 0; }
+            /* 手机竖排三按钮（theme → menu → rail），与 768 断点竖排规则一致 */
+            .theme-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; }
+            .menu-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; }
+            .rail-toggle { top: calc(102px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; padding: 0; }
             .rail-toggle .rt-icon { width: 20px; height: 20px; }
-            .menu-fab { right: 54px; }
-            .rail-right { width: min(86vw, 320px); top: calc(50px + env(safe-area-inset-top, 0px)); right: 6px; max-height: calc(100vh - 112px); }
+            .rail-right { width: min(86vw, 320px); top: calc(150px + env(safe-area-inset-top, 0px)); right: 6px; max-height: calc(100vh - 260px); }
             .rail-list { max-height: 58vh; }
         }
         /* 暗色模式适配 */
@@ -1781,7 +1815,8 @@
   h1 { font-size: 21px; margin-bottom: 8px; }
   /* 工具栏：搜索框独占整行，按钮换行并放大点按区域 */
   .toolbar-row { gap: 8px; }
-  #searchInput { flex: 1 1 100%; min-width: 0; order: -1; }
+  /* 搜索框缩短：手机模式三按钮竖排在右上角，给按钮腾出右侧空间，避免重叠 */
+  #searchInput { flex: 1 1 100%; min-width: 0; order: -1; margin-right: 52px; max-width: calc(100% - 52px); }
   .toolbar button { padding: 12px 14px; font-size: 13px; }
   .mode-btn { padding: 12px 18px; }   /* 移动端触控目标 ≥40px */
   .cal-masthead .year-nav { width: 38px; height: 38px; }
@@ -1798,8 +1833,9 @@
   .day-num { font-size: 15px; margin-bottom: 4px; }
   /* 移动端：事件名完整换行显示（不截断），格子随内容增高，同行对齐保持美观 */
   .event-item { font-size: 11px; padding-left: 5px; white-space: normal; overflow: visible; line-height: 1.35; margin-bottom: 3px; }
-  /* 弹窗：限制高度，长内容内部滚动，避免溢出视口 */
-  .modal-box { max-height: 92vh; padding: 16px; }
+  /* 弹窗：限制高度，长内容内部滚动，避免溢出视口；宽度收敛到手机比例，内容禁止横向溢出 */
+  .modal-box { max-height: 92vh; padding: 16px; width: min(92vw, 480px); }
+  #modalContent { overflow-x: hidden; max-width: 100%; }
   /* 因果网络图：头部工具换行、按钮加大便于触控 */
   .cg-title { font-size: 14px; }
   .cg-btn, .cg-select { font-size: 13px; padding: 12px 13px; }
@@ -1832,7 +1868,7 @@
   .event-item { font-size: 10.5px; }
   .cg-btn, .cg-select { padding: 10px 10px; font-size: 12px; }
   .cg-side-head { font-size: 12px; padding: 7px 10px; }
-  .menu-fab { right: 54px; width: 40px; height: 40px; font-size: 18px; }
+  .menu-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; font-size: 18px; }
   .tl-toolbar { gap: 5px 8px; padding: 8px 6px; }
   .tl-toolbar .tl-select { max-width: 170px; }
   .tl-toolbar .year-label { padding: 4px 3px; min-width: 60px; }
@@ -18313,12 +18349,23 @@ function resolveSource(e){
 // ---------- 参考文献（独立页面） ----------
 
 // ---------- 关于：更新日志 + 操作指南 ----------
+// 更新日志不写死在页面：运行时 fetch changelog.json（由 CHANGELOG.md 构建生成）
+let logHTML = null;
+const LOG_FALLBACK = '<p class="log-updated">更新日志加载失败</p>'
+    + '<p>更新日志需通过 HTTP/HTTPS 访问加载（浏览器禁止 <code>file://</code> 下的本地读取）。'
+    + '离线可打开项目内的 <code>CHANGELOG.md</code> 查看完整版本记录。</p>';
+function loadLogHTML(cb){
+    if (logHTML !== null) { cb(logHTML); return; }
+    fetch('changelog.json', { cache: 'no-store' })
+        .then(function(r){ if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); })
+        .then(function(d){ logHTML = (d && d.html) ? d.html : LOG_FALLBACK; cb(logHTML); })
+        .catch(function(){ logHTML = LOG_FALLBACK; cb(logHTML); });
+}
 function openAbout(){
     const mask = document.getElementById('modalMask');
     const title = document.getElementById('modalTitle');
     const content = document.getElementById('modalContent');
     title.textContent = '关于 · 星火日历';
-    const logHTML = ["<p class=\"log-updated\">最后更新：2026-08-21</p>\n<h4><span class=\"ver\">v1.8</span> 官方史料源、事件三级分类与三合一工具台 <small>2026-08-21</small></h4>\n<h5>新增</h5>\n<ul>\n<li>官方史料取源链（<code>detail_server.py</code>）：<b>共产党员网官方站内搜索 rank-0 → Bing <code>site:</code> 官方域桥接 → 维基百科 → 搜索兜底</b>；落盘标注 <code>detailVerified</code>（官方/非官方）</li>\n<li>事件三级分类：<code>cat</code> 新增 <code>\"nation\"</code>（国家大事：科技 / 工程 / 外交 / 回归 / 体育 / 灾害 / 民生，弱党史关联），页面以琥珀/金色系呈现，配套图例、分类筛选与因果图过滤（<code>scripts/classify_rel.py</code> 产出候选清单）</li>\n<li>三合一工具台 <code>tools/workshop.html</code>：OCR 清洗 / 合并应用 / 详情丰富 一个页面三个标签（由 <code>tools/build_workshop.py</code> 真实 DOM 合并生成，标签样式同主站「关于」页）</li>\n<li>工作台「⚙️ 构建 index」按钮 + 实时进度条：<code>POST /api/build</code> 后台运行 <code>build_data.py</code>，<code>GET /api/build/status</code> 轮询（布局计算阶段有进度输出）</li>\n<li>统一备份目录 <code>backups/</code>：落盘 / 构建 / 分类 / OCR 合并 任一操作写入 <code>events.json</code> 前自动快照（events + causality 双备份，带类型与时间戳）</li>\n<li>详情丰富工具：来源日志与分布统计、失败条目导出、一键落盘（<code>/api/apply</code>）、单条重跑、批量「重跑失败 / 重跑非官方」、抓取文本字数可视化</li>\n<li>PWA：新增 <code>manifest.webmanifest</code> 与 Service Worker（可安装到桌面、离线兜底；<code>/api</code> 不缓存保证工具实时性；仅 HTTPS / localhost 生效，<code>file://</code> 双击打开自动跳过）</li>\n</ul>\n<h5>更改</h5>\n<ul>\n<li>统一本地服务（端口 8001）：<code>detail_server.py</code> 并入 OCR 的 <code>/api/fill</code>；<code>start_ocr_gui.bat</code> 与 <code>start_detail_gui.bat</code> 合并为 <code>start_workshop.bat</code>（单入口）</li>\n<li>事件去重：423 → <b>419 条</b>（入世 ×2、农业税 ×3、世博会弱占位条目清理），因果边 460 → 451</li>\n<li>丰富工具载入时自动跳过已丰富事件（<code>/api/events</code> 返回 <code>enriched</code> 标记），「重跑非官方数据」可把旧的非官方结果按新官方源整体升级</li>\n<li>修复：结果分组折叠状态持久化、载入恢复 localStorage 的 bug、「已生成」标记口径（区分「成功」与「已处理」）</li>\n</ul>\n<h5>移除</h5>\n<ul>\n<li><code>start_ocr_gui.bat</code> / <code>start_detail_gui.bat</code>（被 <code>start_workshop.bat</code> 取代）</li>\n<li>根目录散落的 <code>events.json.bak-*</code> / <code>causality.json.bak-*</code>（统一归入 <code>backups/</code>）</li>\n</ul>\n<h4><span class=\"ver\">v1.7</span> 详情弹窗与时间轴视觉升级 <small>2026-08-19</small></h4>\n<h5>新增</h5>\n<ul>\n<li>详情弹窗「史料详情」面板（6 子块：背景 / 历史意义 / 重要论述 / 相关人物 / 文献出处 / 延伸阅读），样板 #7（新文化运动兴起）已填充数据，其余事件空壳、优雅降级</li>\n<li>OCR 数据管道：<code>tools/ocr_clean_gui.html</code> 单文件清洗 GUI、<code>scripts/qc_ocr.py</code> 质检脚本、<code>scripts/ocr_status.py</code> 进度看板、<code>scripts/patch_history.py</code> 增量重建（跳过力导向布局烘焙）</li>\n<li><code>events.json</code> 事件新增 6 字段 schema：<code>bg</code> / <code>significance</code> / <code>quotes</code> / <code>figures</code> / <code>srcCite</code> / <code>furtherReading</code></li>\n</ul>\n<h5>更改</h5>\n<ul>\n<li>启动默认年份 1921 → 1911；日历进入停在 1911 有事件的首月（10 月·辛亥革命）；时间轴进入停在序言可见处</li>\n<li>前言 / 结语重写（序章以辛亥革命破题、续章落到民族复兴，含题眼与题词），书挡面板视觉升级（红色书脊 + 红金渐变底 + 胶囊徽标 + 水印年份 + 斜体名言）</li>\n<li>时间轴背景：红金渐变粗主轴（方案 1）+ 淡红丝线（方案 4）+ 宣纸颗粒（方案 5）</li>\n<li>弹窗关闭改为右上角常驻 × + 底部「关闭」双保险；全部二级跳转弹窗（同类事件 / 因果脉络 / 相关人物清单）统一「← 返回上一级」</li>\n</ul>\n<h5>移除</h5>\n<ul>\n<li>详情弹窗独立的「史料原文」区块（史料内容并入「史料详情」面板）</li>\n<li>时间轴背景的流向渐变（方案 2）与年份水印（方案 6），经预览后移除</li>\n</ul>\n<h4><span class=\"ver\">v1.6</span> 搜索与工具栏收敛 <small>2026-08-18</small></h4>\n<ul>\n<li>分类筛选由 5 个 chips 收敛为搜索框旁的一个下拉菜单（全部分类 / 中共相关 / 其他力量 / 科技·文教 / 重大政治），工具栏第三行取消</li>\n<li>移除「年份区间」起止筛选（年份导航器已覆盖跳年，跨年区间很少用）；相关 JS 与导出说明同步清理</li>\n<li>参考文献作为「关于」页面的独立标签页（更新日志 / 操作指南 / 参考文献 三标签并列），不再并入操作指南</li>\n<li>顶部「更多 ▾」菜单保留：重要会议 / 关于 / 历史上的今天 / 收藏 / 统计 / 标签</li>\n</ul>\n<h4><span class=\"ver\">v1.5</span> 浏览体验与功能收敛 <small>2026-08-17 ~ 08-18</small></h4>\n<ul>\n<li>时间轴「历史时期」导航器：将跳转（T1）与时段筛选（T2）合并为单一选择器，按 13 个历史时期（建党初期 → 建党百年）一键跳转并聚焦该时段事件；原「历史脉络」更名为「历史时期」，与因果图解耦——展示某时期内发生的事件，而非因果链条</li>\n<li>筛选由「淡出（opacity）」改为「隐藏（display:none）」：被筛掉的事件及其年份分隔一并隐去，同脉络事件保持相邻；默认占位符「选择历史时期…」兜底，清除筛选恢复全览</li>\n<li>日历格子仅显示事件名称（去除年份前缀）</li>\n<li>事件详情页：去除与标题重复的年份显示；删除「同日其他事件」分区</li>\n<li>搜索命中高亮闪烁（I2）：搜索 / 分类 命中后，日历格与时间轴卡片琥珀色光环闪烁约 3 秒辅助定位</li>\n<li>统计页分类色块点击展开清单（I3）：当前筛选 / 中共相关 / 其他力量 / 科技·文教 四个色块可点击展开对应事件列表</li>\n<li>顶部工具栏收敛（U2）：重要会议 / 关于 / 参考文献 / 历史上的今天 / 收藏 / 统计 / 标签 收进「更多 ▾」菜单</li>\n<li>导出格式扩展（F3）：新增「图片（SVG 矢量快照）」与「PDF（打印另存）」两种导出</li>\n<li>时间轴两端恢复「引言 / 结语」书挡面板（C1）</li>\n</ul>\n<h4><span class=\"ver\">v1.4</span> 因果网络图增强 <small>2026-08-15 ~ 08-17</small></h4>\n<ul>\n<li>新增「重要脉络」下拉，一键跳转并聚焦到关键历史节点（建党、长征、抗战、改革开放等）</li>\n<li>因果图拖拽交互修复：滚轮以鼠标为中心缩放、节点可拖动微调、触摸支持与平移边界</li>\n<li>聚焦视图布局算法（距离=关联性、左右=前后、上下=时间）+ 限制脉络展开深度</li>\n<li>「+1层 / −1层」按钮，可逐层调整脉络展开深度</li>\n<li>修复滚轮缩放「以鼠标指针为中心」灵敏度，缩放、平移、拖拽 1:1 跟手</li>\n<li>脉络事件列表（侧栏）：按前因 / 后续 / 相关分组、类型配色、图↔列表双向联动、筛选与显隐</li>\n<li>移动端适配：日历一屏紧凑、因果图缩放放开、脉络列表底部抽屉（默认 50% 无极拖动）、工具栏与弹窗防溢出</li>\n<li>项目更名「星火日历 / CCP Spark Calendar」并补充开源说明（README / LICENSE / HTML 备份机制）</li>\n<li>因果图交互精简：移除顶部「脉络列表 / 打开事件详情 / 关闭」按钮；关闭改为左上角 ×，事件详情改为列表内「详情」按钮；日夜切换钮仅显示于常规页面层</li>\n<li>详情按钮风格统一；日夜钮与本年事件钮锚定到页面（不再钉视口边缘）</li>\n<li>日历页精简说明文字：仅保留颜色图例，其余说明并入「关于」页面</li>\n</ul>\n<h4><span class=\"ver\">v1.3</span> 因果关系网络图</h4>\n<ul>\n<li>新增因果关系网络图（力导向布局），直观展示事件间的「前因—后果」脉络</li>\n<li>聚焦模式：点击任意节点以其为根，自动展开前因后续</li>\n<li>「仅看脉络 / 显示推断关联 / 打开事件详情 / 重置视图」</li>\n</ul>\n<h4><span class=\"ver\">v1.2</span> 视图与浏览</h4>\n<ul>\n<li>时间轴模式：横向时间线浏览全部事件</li>\n<li>历史上的今天、收藏（本地保存）、统计可视化、标签云</li>\n</ul>\n<h4><span class=\"ver\">v1.1</span> 筛选与检索</h4>\n<ul>\n<li>关键词 / 年份搜索（与年份选择器相互独立）</li>\n<li>分类筛选（中共相关 / 其他力量 / 科技·文教 / 重大政治）</li>\n<li>导出清单（CSV / Markdown，支持当月 / 全年 / 当前筛选）</li>\n</ul>\n<h4><span class=\"ver\">v1.0</span> 基础版</h4>\n<ul>\n<li>日历模式：按月方格展示，颜色深浅表示当日 / 当月事件密度</li>\n<li>事件详情弹窗，含史料描述与资料来源标注</li>\n<li>夜间模式、参考文献速查、重要会议速查</li>\n</ul>"].join('');
     const guideHTML = [
         '<h4>① 看日历</h4>',
         '<ul>',
@@ -18369,17 +18416,25 @@ function openAbout(){
         + '<button class="about-tab active" data-tab="log">更新日志</button>'
         + '<button class="about-tab" data-tab="guide">操作指南</button>'
         + '<button class="about-tab" data-tab="ref">参考文献</button>'
-        + '</div><div class="about-body" id="aboutBody">' + logHTML + '</div>';
+        + '</div><div class="about-body" id="aboutBody"><p class="log-updated">更新日志加载中…</p></div>';
     const tabs = content.querySelectorAll('.about-tab');
     const body = content.querySelector('#aboutBody');
+    let curTab = 'log';
+    function showLogTab(){
+        if (logHTML !== null) { body.innerHTML = logHTML; return; }
+        body.innerHTML = '<p class="log-updated">更新日志加载中…</p>';
+        loadLogHTML(function(html){ if (curTab === 'log') body.innerHTML = html; });
+    }
     tabs.forEach(function(t){
         t.onclick = function(){
             tabs.forEach(function(x){ x.classList.remove('active'); });
             t.classList.add('active');
-            const tt = t.getAttribute('data-tab');
-            body.innerHTML = (tt === 'log') ? logHTML : (tt === 'ref') ? refHTML : guideHTML;
+            curTab = t.getAttribute('data-tab');
+            if (curTab === 'log') showLogTab();
+            else body.innerHTML = (curTab === 'ref') ? refHTML : guideHTML;
         };
     });
+    showLogTab();
     showModalMask();
 }
 

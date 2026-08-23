@@ -7,10 +7,14 @@
   POST /api/fetch     抓百度百科正文 {title}
   POST /api/generate  调 Ollama 生成 6 子块 {event, text, url, model}
   POST /api/apply     把成功详情写回 events.json（自动备份） {items:[{key,detail,...}]}
+  POST /api/judge       因果单边盲测（prompt 与 causal_exam.py 冻结一致） {a, b, model}
+  POST /api/judge/web   B级联网找证重裁（主查B辅查A，磁盘缓存+限流） {a, b, model}
+  POST /api/judge/save  批量裁判草稿落盘（tier_plan6_draft.json + judge_report.md，自动备份） {items:[...]}
 启动：双击 tools/start_detail_gui.bat，或 python tools/detail_server.py
 """
 import json
 import base64
+import hashlib
 import os
 import re
 import shutil
@@ -517,6 +521,418 @@ def do_fill(ev, model):
             "url": url, "page": source, "text": text[:300]}
 
 
+# ==================== 因果裁判 /api/judge（prompt 与 tools/causal_judge/causal_exam.py 冻结一致） ====================
+# ⚠️ 修改此 SYS 前必读交接文档：边界题对措辞敏感，改一次必须重考一次（回归测试）
+JUDGE_SYS = ("你是中共党史史料审核员。给你两个历史事件各自的材料摘录，"
+             "判断事件A是否在史实上促成、导致了事件B。"
+             "规则：1) 只依据给出的材料判断，材料无依据时 verdict=insufficient，"
+             "禁止凭自身知识补充史实；"
+             "2) A只是B的时代背景，或两者是同类会议/平行事件 → background；"
+             "3) 材料内容支持A促成B（思想奠基/组织准备/干部培养/经验教训等间接促成也算）→ causal；"
+             "4) 输出严格 JSON，不要任何解释文字。"
+             "5) 纪念不是因果：若B是为A举办的周年庆祝/纪念日/纪念活动/公祭日，"
+             "或两者互为周年纪念（如20周年与25周年），一律 background；"
+             "6) 同类会议之间只有理论继承、思想奠基、路线延续关系 → background；"
+             "7) 组织与人员的直接延续是最强因果：A的余部/部队/保留力量并入、会师、合编为B的主体，"
+             "或A工程是B的直接前奏/试验田 → causal。")
+
+JUDGE_PROMPT = """事件A：
+{a}
+
+事件B：
+{b}
+
+问题：事件A 是否在史实上促成、导致了事件B？
+verdict 取值：causal / background / unrelated / insufficient
+quote 填支持判断的材料原句（必须是上面材料中出现过的文字），无则填空串。
+输出格式：{{"verdict":"...","quote":"","reason":"一句话理由"}}"""
+
+
+def judge_block(ev):
+    parts = ["《%s》（%d年%d月%d日）" % (ev.get("title", ""), ev["year"], ev["month"], ev["day"])]
+    for tag, field in (("简介", "desc"), ("书证", "ocrDesc"), ("背景", "bg"), ("意义", "significance")):
+        if ev.get(field):
+            parts.append("%s：%s" % (tag, ev[field]))
+    qs = ev.get("quotes") or []
+    if qs:
+        parts.append("引文：" + "；".join(qs))
+    return "\n".join(parts)
+
+
+def judge_norm(s):
+    return re.sub(r"[\s，。、；：「」『“”‘’（）()《》\[\]—\-·…！!?？]", "", s or "")
+
+
+def api_judge(body):
+    """单边盲测：只喂两端事件材料块（绝不含 tier 信息），返回 verdict + 引文验伪结果。
+    裁判只产草稿不落库——写入仍走 tier_plan → build_causality.py 老路。"""
+    a_key, b_key = body.get("a"), body.get("b")
+    if not a_key or not b_key:
+        return {"ok": False, "error": "缺少边端点 a/b"}
+    evs = json.load(open(os.path.join(ROOT, "events.json"), encoding="utf-8"))["events"]
+    by_key = {e.get("key") or f"{e['year']}-{e['month']}-{e['day']}": e for e in evs}
+    ea, eb = by_key.get(a_key), by_key.get(b_key)
+    if not ea or not eb:
+        return {"ok": False, "error": "端点事件不存在：%s" % (a_key if not ea else b_key)}
+    cur_tier = None
+    try:
+        for e in json.load(open(os.path.join(ROOT, "causality.json"),
+                                encoding="utf-8")).get("edges", []):
+            if e["from"] == a_key and e["to"] == b_key:
+                cur_tier = e.get("tier")
+                break
+    except Exception:
+        pass
+    payload = {
+        "model": body.get("model") or "qwen2.5:local7b",
+        "system": JUDGE_SYS,
+        "prompt": JUDGE_PROMPT.format(a=judge_block(ea), b=judge_block(eb)),
+        "format": "json", "stream": False,
+        "options": {"temperature": 0, "num_ctx": 4096, "num_predict": 400},
+    }
+    t0 = time.time()
+    d = ollama_generate(payload)
+    obj = parse_json(d.get("response", ""))
+    verdict = (obj.get("verdict") or "").strip()
+    quote = (obj.get("quote") or "").strip()
+    q = judge_norm(quote)
+    quote_valid = False
+    if len(q) >= 6 and "|" not in q:
+        corpus = judge_norm(judge_block(ea)) + "|" + judge_norm(judge_block(eb))
+        quote_valid = q in corpus
+    return {"ok": True, "a": a_key, "b": b_key,
+            "currentTier": cur_tier,
+            "verdict": verdict, "quote": quote, "quoteValid": quote_valid,
+            "reason": (obj.get("reason") or "").strip(),
+            "elapsed": round(time.time() - t0, 1),
+            "model": payload["model"]}
+
+
+def api_judge_save(body):
+    """把批量裁判结果落成草稿（绝不写回正式数据，写入仍走 tier_plan → build_causality.py 老路）：
+      tools/causal_judge/tier_plan6_draft.json —— 沿用 tier_plan {upgrade/background/delete} 格式，
+          审完改名即可进 build_causality.py，流水线零改动；
+      tools/casual_judge 同目录 judge_report.md —— 四态归类 + 待人工清单。
+    分类规则（服务端权威）：causal 且引文过验→upgrade(补书证)；verified 判 background→background(降级)；
+      verified/background 判 unrelated→delete(删除候选)；insufficient / causal 无有效引文 / 解析失败→pending 待人工。
+    写前自动备份旧草稿到 backups/。"""
+    items = body.get("items") or []
+    if not isinstance(items, list) or not items:
+        return {"ok": False, "error": "items 为空"}
+
+    def classify(rec):
+        cur = rec.get("currentTier") or ""
+        v = (rec.get("verdict") or "").strip()
+        if not v or v == "parse_error" or v == "insufficient":
+            return "pending"
+        if v == "causal":
+            return "upgrade" if rec.get("quoteValid") else "pending"
+        if v == "background":
+            return "background" if cur == "verified" else "keep"
+        if v == "unrelated":
+            return "delete" if cur in ("verified", "background") else "keep"
+        return "pending"
+
+    plan = {"upgrade": [], "background": [], "delete": []}
+    pending, kept = [], 0
+    for it in items:
+        c = classify(it)
+        if c == "upgrade":
+            plan["upgrade"].append({
+                "from": it.get("a"), "to": it.get("b"),
+                "evidence": "【本地语料裁决·%s】%s" % (it.get("model", ""),
+                                                   (it.get("quote") or "").strip())})
+        elif c in ("background", "delete"):
+            plan[c].append([it.get("a"), it.get("b")])
+        elif c == "pending":
+            pending.append({"a": it.get("a"), "b": it.get("b"),
+                            "verdict": it.get("verdict"),
+                            "reason": it.get("reason") or "",
+                            "error": it.get("error") or ""})
+        else:
+            kept += 1
+
+    out_dir = os.path.join(ROOT, "tools", "causal_judge")
+    os.makedirs(out_dir, exist_ok=True)
+    ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+    saved = []
+    for name in ("tier_plan6_draft.json", "judge_report.md"):
+        p = os.path.join(out_dir, name)
+        if os.path.exists(p):
+            dst = os.path.join(BACKUP_DIR, "%s.bak-judgesave-%s" % (name, ts))
+            shutil.copy2(p, dst)
+            saved.append(os.path.basename(dst))
+    json.dump(plan, open(os.path.join(out_dir, "tier_plan6_draft.json"), "w",
+                         encoding="utf-8"), ensure_ascii=False, indent=2)
+    rep = ["# 因果裁判批量报告（A级·本地语料裁决）\n",
+           "- 时间：%s" % datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+           "- 模型：%s" % (body.get("model") or "?"),
+           "- 送审 %d 条｜补证/升级 %d｜降级候选 %d｜删除候选 %d｜待人工 %d｜维持原判 %d\n"
+           % (len(items), len(plan["upgrade"]), len(plan["background"]),
+              len(plan["delete"]), len(pending), kept)]
+    if pending:
+        rep.append("## 待人工复核清单（%d 条）\n" % len(pending))
+        for p in pending:
+            rep.append("- %s → %s｜verdict=`%s`｜%s" % (
+                p["a"], p["b"], p["verdict"], p["reason"] or p["error"] or "无引文过验"))
+    open(os.path.join(out_dir, "judge_report.md"), "w", encoding="utf-8").write("\n".join(rep))
+    return {"ok": True, "upgrade": len(plan["upgrade"]),
+            "background": len(plan["background"]), "delete": len(plan["delete"]),
+            "pending": len(pending), "kept": kept, "backups": saved,
+            "files": ["tools/causal_judge/tier_plan6_draft.json",
+                      "tools/causal_judge/judge_report.md"]}
+
+
+JUDGE_WEB_PROMPT = """事件A：
+{a}
+
+事件B：
+{b}
+
+外部史料摘录（来源：{src}）：
+---BEGIN---
+{ext}
+---END---
+
+问题：事件A 是否在史实上促成、导致了事件B？
+verdict 取值：causal / background / unrelated / insufficient
+quote 填支持判断的材料原句（必须是上面材料中出现过的文字），无则填空串。
+输出格式：{{"verdict":"...","quote":"","reason":"一句话理由"}}"""
+
+# ---- B级联网找证：磁盘缓存 + 全局限流（复用 detail 侧抓取函数，查询策略见交接文档） ----
+FETCH_CACHE = os.path.join(ROOT, "tools", "causal_judge", "fetch_cache")
+_FETCH_LOCK = threading.Lock()
+_LAST_FETCH = [0.0]
+FETCH_INTERVAL = 2.5   # 秒，礼貌限流
+
+
+def _cached_fetch(event):
+    """带磁盘缓存与限流的外部史料抓取。返回 (text,url,site)；无结果 (None,None,'')。"""
+    os.makedirs(FETCH_CACHE, exist_ok=True)
+    key = hashlib.md5(("v1|" + (event.get("title") or "")).encode("utf-8")).hexdigest()[:24]
+    path = os.path.join(FETCH_CACHE, key + ".json")
+    if os.path.exists(path):
+        try:
+            d = json.load(open(path, encoding="utf-8"))
+            return d.get("text"), d.get("url"), d.get("site") or ""
+        except Exception:
+            pass
+    with _FETCH_LOCK:
+        wait = FETCH_INTERVAL - (time.time() - _LAST_FETCH[0])
+        if wait > 0:
+            time.sleep(wait)
+        text, url = fetch_source({"title": event.get("title") or "",
+                                  "year": event.get("year"),
+                                  "month": event.get("month"), "day": event.get("day")})
+        _LAST_FETCH[0] = time.time()
+    site = _site_label(url) if url else ""
+    if text:
+        try:
+            json.dump({"text": text, "url": url, "site": site},
+                      open(path, "w", encoding="utf-8"), ensure_ascii=False)
+        except Exception:
+            pass
+    return text, url, site
+
+
+def api_judge_web(body):
+    """B级联网找证重裁：主查 B 标题（史书惯例果的条目回溯原因），无果辅查 A；
+    带「本地块+外部文本」送审（SYS 一字不差），quote 在本地块或外部文本中过验才收。"""
+    a_key, b_key = body.get("a"), body.get("b")
+    if not a_key or not b_key:
+        return {"ok": False, "error": "缺少边端点 a/b"}
+    evs = json.load(open(os.path.join(ROOT, "events.json"), encoding="utf-8"))["events"]
+    by_key = {e.get("key") or f"{e['year']}-{e['month']}-{e['day']}": e for e in evs}
+    ea, eb = by_key.get(a_key), by_key.get(b_key)
+    if not ea or not eb:
+        return {"ok": False, "error": "端点事件不存在：%s" % (a_key if not ea else b_key)}
+    cur_tier = None
+    try:
+        for e in json.load(open(os.path.join(ROOT, "causality.json"),
+                                encoding="utf-8")).get("edges", []):
+            if e["from"] == a_key and e["to"] == b_key:
+                cur_tier = e.get("tier")
+                break
+    except Exception:
+        pass
+    ext_text, ext_url, ext_site = None, "", ""
+    t, u, s = _cached_fetch(eb)
+    if t:
+        ext_text, ext_url, ext_site = t, u, s
+    else:
+        t, u, s = _cached_fetch(ea)
+        if t:
+            ext_text, ext_url, ext_site = t, u, s
+    payload = {
+        "model": body.get("model") or "qwen2.5:local7b",
+        "system": JUDGE_SYS,
+        "prompt": JUDGE_WEB_PROMPT.format(
+            a=judge_block(ea), b=judge_block(eb),
+            src=(ext_site + (" " + ext_url if ext_url else "")) or "网络",
+            ext=ext_text or "（未找到可用外部史料，仅依据本地材料判断）"),
+        "format": "json", "stream": False,
+        "options": {"temperature": 0, "num_ctx": 8192, "num_predict": 400},
+    }
+    t0 = time.time()
+    d = ollama_generate(payload)
+    obj = parse_json(d.get("response", ""))
+    verdict = (obj.get("verdict") or "").strip()
+    quote = (obj.get("quote") or "").strip()
+    q = judge_norm(quote)
+    quote_valid = False
+    if len(q) >= 6 and "|" not in q:
+        corpus = [judge_norm(judge_block(ea)), judge_norm(judge_block(eb))]
+        if ext_text:
+            corpus.append(judge_norm(ext_text))
+        quote_valid = any(q in c for c in corpus)
+    return {"ok": True, "a": a_key, "b": b_key,
+            "currentTier": cur_tier,
+            "verdict": verdict, "quote": quote, "quoteValid": quote_valid,
+            "reason": (obj.get("reason") or "").strip(),
+            "elapsed": round(time.time() - t0, 1),
+            "model": payload["model"],
+            "web": {"found": bool(ext_text), "url": ext_url,
+                    "site": ext_site, "tlen": len(ext_text or "")}}
+
+
+# ---- 工作区快照：每次判定即时落盘（防浏览器缓存丢失），含语料修改时间戳 ----
+# 注意：仲裁脚本等外部工具会直接改写本文件，故读取时按 mtime 失效缓存
+WS_PATH = os.path.join(ROOT, "tools", "causal_judge", "judge_workspace.json")
+_WS = {"data": None, "mtime": 0}
+
+
+def _ws_data():
+    try:
+        mt = os.path.getmtime(WS_PATH)
+    except OSError:
+        mt = 0
+    if _WS["data"] is None or mt != _WS["mtime"]:
+        try:
+            _WS["data"] = json.load(open(WS_PATH, encoding="utf-8"))
+            _WS["mtime"] = mt
+        except Exception:
+            if _WS["data"] is None:
+                _WS["data"] = {}
+    return _WS["data"]
+
+
+def _corpus_stamp():
+    def mt(p):
+        try:
+            return int(os.path.getmtime(p))
+        except OSError:
+            return 0
+    return {"events": mt(os.path.join(ROOT, "events.json")),
+            "causality": mt(os.path.join(ROOT, "causality.json"))}
+
+
+def _ws_put(rec):
+    data = _ws_data()
+    data[rec["a"] + ">" + rec["b"]] = rec
+    data["_meta"] = {"updatedAt": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                     "corpus": _corpus_stamp()}
+    tmp = WS_PATH + ".tmp"
+    json.dump(data, open(tmp, "w", encoding="utf-8"), ensure_ascii=False)
+    os.replace(tmp, WS_PATH)
+
+
+def api_judge_review(body):
+    """翻牌状态同步：{"reviews": {"a>b": "ok"|"no"|null}} 合并进工作区对应条目。
+    让翻牌决策脱离浏览器缓存、持久到磁盘，供复核画像与断档恢复使用。"""
+    rv = body.get("reviews")
+    if not isinstance(rv, dict) or not rv:
+        return {"ok": False, "error": "reviews 为空或非对象"}
+    data = _ws_data()
+    applied, skipped = 0, 0
+    for k, v in rv.items():
+        if k.startswith("_") or k not in data:
+            skipped += 1
+            continue
+        rec = dict(data[k])
+        if isinstance(v, dict):
+            val, by = v.get("v"), v.get("by") or ""
+        else:
+            val, by = v, ""
+        if val is None:
+            rec.pop("review", None)
+            rec.pop("reviewBy", None)
+        else:
+            rec["review"] = str(val)
+            if by:
+                rec["reviewBy"] = by
+            else:
+                rec.pop("reviewBy", None)
+        data[k] = rec
+        applied += 1
+    data["_meta"] = {"updatedAt": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                     "corpus": _corpus_stamp()}
+    tmp = WS_PATH + ".tmp"
+    json.dump(data, open(tmp, "w", encoding="utf-8"), ensure_ascii=False)
+    os.replace(tmp, WS_PATH)
+    try:
+        _WS["mtime"] = os.path.getmtime(WS_PATH)
+    except OSError:
+        pass
+    return {"ok": True, "applied": applied, "skipped": skipped}
+
+
+# ---- SUGGEST 预填层：qwen 带画像规则预测审阅者取向（只出建议，不落任何数据） ----
+PREFILL_SYS = ("你是党史因果边复核助手。你的任务不是重新判断史实，而是根据给定的裁决规则表"
+               "和审阅者历史先例，预测审阅者会对这条候选「采纳」还是「驳回」。"
+               "规则与先例冲突时以先例为准；拿不准就降低 conf。输出严格 JSON。")
+
+PREFILL_PROMPT = """【裁决规则】
+{rules}
+
+【审阅者历史先例】
+{fewshot}
+
+【待预判候选】（当前类别：{cls}）
+事件A材料：
+{a}
+
+事件B材料：
+{b}
+
+模型判定理由：{reason}
+
+问题：按规则与先例，审阅者会采纳还是驳回？
+输出格式：{{"suggest":"ok或no","rule":"引用的规则编号","conf":0到1的小数,"basis":"一句话依据"}}"""
+
+
+def api_judge_prefill(body):
+    a_key, b_key = body.get("a"), body.get("b")
+    evs = json.load(open(os.path.join(ROOT, "events.json"), encoding="utf-8"))["events"]
+    by_key = {e.get("key") or f"{e['year']}-{e['month']}-{e['day']}": e for e in evs}
+    ea, eb = by_key.get(a_key), by_key.get(b_key)
+    if not ea or not eb:
+        return {"ok": False, "error": "端点事件不存在"}
+    payload = {
+        "model": body.get("model") or "qwen2.5:local7b",
+        "system": PREFILL_SYS,
+        "prompt": PREFILL_PROMPT.format(
+            rules=body.get("rules") or "", fewshot=body.get("fewshot") or "",
+            cls=body.get("cls") or "up",
+            a=judge_block(ea), b=judge_block(eb),
+            reason=body.get("reason") or ""),
+        "format": "json", "stream": False,
+        "options": {"temperature": 0, "num_ctx": 8192, "num_predict": 300},
+    }
+    d = ollama_generate(payload)
+    obj = parse_json(d.get("response", ""))
+    sug = (obj.get("suggest") or "").strip().lower()
+    if sug not in ("ok", "no"):
+        raise ValueError("模型未给出有效建议")
+    try:
+        conf = max(0.0, min(1.0, float(obj.get("conf", 0.5))))
+    except Exception:
+        conf = 0.5
+    return {"ok": True, "suggest": sug,
+            "rule": (obj.get("rule") or "").strip(),
+            "conf": round(conf, 2),
+            "basis": (obj.get("basis") or "").strip()}
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *a, **kw):
         super().__init__(*a, directory=ROOT, **kw)
@@ -557,6 +973,11 @@ class Handler(SimpleHTTPRequestHandler):
                 send_json(self, {"ok": True, "models": names})
             except Exception as ex:
                 send_json(self, {"ok": False, "error": str(ex)})
+        elif p.startswith("/api/judge/workspace"):
+            send_json(self, {"ok": True, "items": _ws_data(),
+                             "corpus": _corpus_stamp()})
+        elif p.startswith("/api/corpus/stamp"):
+            send_json(self, {"ok": True, **_corpus_stamp()})
         elif p.startswith("/api/build/status"):
             send_json(self, build_status())
         else:
@@ -605,6 +1026,43 @@ class Handler(SimpleHTTPRequestHandler):
                 d = ollama_generate(payload)
                 detail = parse_json(d.get("response", ""))
                 send_json(self, {"ok": True, "detail": detail, "raw": d.get("response", "")})
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/judge":
+            try:
+                d = api_judge(body)
+                if d.get("ok"):
+                    try:
+                        _ws_put(d)
+                    except Exception:
+                        pass
+                send_json(self, d)
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/judge/web":
+            try:
+                d = api_judge_web(body)
+                if d.get("ok"):
+                    try:
+                        _ws_put(d)
+                    except Exception:
+                        pass
+                send_json(self, d)
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/judge/prefill":
+            try:
+                send_json(self, api_judge_prefill(body))
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/judge/review":
+            try:
+                send_json(self, api_judge_review(body))
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/judge/save":
+            try:
+                send_json(self, api_judge_save(body))
             except Exception as ex:
                 send_json(self, {"ok": False, "error": str(ex)})
         elif self.path == "/api/apply":
@@ -715,4 +1173,8 @@ if __name__ == "__main__":
         HTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
     except OSError as ex:
         print(f"启动失败：{ex}（端口 {PORT} 可能被占用，先关闭旧服务窗口）")
-        input("按回车退出…")
+        try:
+            if sys.stdin.isatty():
+                input("按回车退出…")
+        except Exception:
+            pass
