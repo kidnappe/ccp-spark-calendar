@@ -783,6 +783,8 @@
         }
         .tl-scroll.dragging { cursor:grabbing; }
         .tl-scroll.dragging * { user-select:none; }
+        /* 电脑版时间轴模式：锁定页面竖向滚动，滚轮让位给时间轴前后导航 */
+        html.tl-noscroll, body.tl-noscroll { overflow: hidden !important; }
         .tl-track {
             position:relative; display:inline-flex; align-items:stretch;
             min-width:100%; height:calc(100vh - 200px); min-height:560px;
@@ -1002,9 +1004,9 @@
             .brand-fab { padding: 5px 9px 5px 7px; }
             .brand-fab .bf-text { display: none; }
             .brand-fab img { width: 28px; height: 28px; }
-            /* 手机竖屏：右上角三钮改为右侧竖排（theme → menu → rail 自上而下），避免横向挤压搜索框布局 */
-            .theme-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
-            .menu-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
+            /* 手机竖屏：右上角三钮改为右侧竖排（menu → theme → rail 自上而下），避免横向挤压搜索框布局 */
+            .menu-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
+            .theme-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
             .rail-toggle { top: calc(102px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; padding: 0; }
             .rail-toggle .rt-icon { width: 22px; height: 22px; }
             .tl-track { height:calc(100vh - 190px); min-height:480px; }
@@ -1027,9 +1029,9 @@
         /* 手机横屏（矮视口）：中心轴上下事件都必须落在可视范围内 —— 轨道高度让位、卡片收敛、连线缩短 */
         @media (orientation: landscape) and (max-height: 560px){
             body { padding: 6px 8px; }
-            /* 横屏手机：右上角三按钮同样改为右侧竖排（避免与报头/工具栏横向挤压），rail 面板下移避让 */
-            .theme-fab { top: calc(8px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; }
-            .menu-fab { top: calc(50px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; font-size: 16px; }
+            /* 横屏手机：右上角三按钮同样改为右侧竖排（menu → theme → rail），rail 面板下移避让 */
+            .menu-fab { top: calc(8px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; font-size: 16px; }
+            .theme-fab { top: calc(50px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; }
             .rail-toggle { top: calc(92px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; padding: 0; }
             .rail-right { top: calc(138px + env(safe-area-inset-top, 0px)); right: 6px; width: min(80vw, 320px); max-height: calc(100vh - 190px); }
             .tl-track { height: calc(100vh - 128px); min-height: 250px; }
@@ -1302,9 +1304,9 @@
             .rail-list { max-height: 62vh; }
         }
         @media (max-width: 700px){
-            /* 手机竖排三按钮（theme → menu → rail），与 768 断点竖排规则一致 */
-            .theme-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; }
-            .menu-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; }
+            /* 手机竖排三按钮（menu → theme → rail），与 768 断点竖排规则一致 */
+            .menu-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; }
+            .theme-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; }
             .rail-toggle { top: calc(102px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; padding: 0; }
             .rail-toggle .rt-icon { width: 20px; height: 20px; }
             .rail-right { width: min(86vw, 320px); top: calc(150px + env(safe-area-inset-top, 0px)); right: 6px; max-height: calc(100vh - 260px); }
@@ -1865,7 +1867,7 @@
   .event-item { font-size: 10.5px; }
   .cg-btn, .cg-select { padding: 10px 10px; font-size: 12px; }
   .cg-side-head { font-size: 12px; padding: 7px 10px; }
-  .menu-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; font-size: 18px; }
+  .menu-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; font-size: 18px; }
   .tl-toolbar { gap: 5px 8px; padding: 8px 6px; }
   .tl-toolbar .tl-select { max-width: 170px; }
   .tl-toolbar .year-label { padding: 4px 3px; min-width: 60px; }
@@ -18817,6 +18819,48 @@ const timelineView = document.getElementById('timelineView');
 const modeCalendar = document.getElementById('modeCalendar');
 const modeTimeline = document.getElementById('modeTimeline');
 
+/* ===== 电脑版：时间轴模式锁定页面竖向滚动，滚轮驱动时间轴向前/向后 =====
+   作用域：仅桌面宽度(≥769px)+时间轴模式+滚轮位于时间轴轨道上；
+   弹窗/因果图打开、工具栏控件、移动端 均交还原生行为 */
+const TlWheel=(function(){
+    const mq=window.matchMedia('(min-width: 769px)');
+    let lockY=0;
+    function allowed(e){
+        if(!mq.matches) return false;
+        const tv=document.getElementById('timelineView');
+        if(!tv || !tv.classList.contains('show')) return false;
+        const mask=document.getElementById('modalMask');
+        if(mask && mask.classList.contains('show')) return false;   // 详情弹窗：内部滚动
+        const cg=document.getElementById('cgOverlay');
+        if(cg && (!cg.hidden || cg.classList.contains('show'))) return false; // 因果网络图全屏
+        const t=e.target;
+        if(!(t && t.closest && t.closest('#tlScrollWrap'))) return false;   // 仅轨道区域接管滚轮
+        return true;
+    }
+    function setLock(on){
+        const de=document.documentElement, bd=document.body;
+        if(on){
+            if(!bd.classList.contains('tl-noscroll')){
+                lockY=window.scrollY||de.scrollTop||0;
+                de.classList.add('tl-noscroll'); bd.classList.add('tl-noscroll');
+            }
+        }else if(bd.classList.contains('tl-noscroll')){
+            de.classList.remove('tl-noscroll'); bd.classList.remove('tl-noscroll');
+            window.scrollTo(0, lockY||0);
+        }
+    }
+    function sync(on){ setLock(!!on && mq.matches); }
+    window.addEventListener('wheel', function(e){
+        if(!allowed(e)) return;              // 其余场景交给原生滚动
+        e.preventDefault();
+        setLock(true);
+        const d=(Math.abs(e.deltaY)>=Math.abs(e.deltaX))?e.deltaY:e.deltaX;
+        document.getElementById('tlScroll').scrollLeft += d;   // 下滚=向未来，上滚=回溯
+    }, {passive:false});
+    window.addEventListener('resize', ()=>sync(document.getElementById('timelineView').classList.contains('show')));
+    return {sync:sync};
+})();
+
 function renderTimeline(){
     const track = document.getElementById('tlTrack');
     track.innerHTML = "";
@@ -18944,6 +18988,7 @@ function setMode(mode){
         renderTimeline();
         document.getElementById('tlScroll').scrollLeft = 0;
         closeRail();
+        TlWheel.sync(true);   // 桌面：进入时间轴即锁定页面竖向滚动
         // 降级 / 动画进行中：直接静态切换
         if(reduced || modeAnimating){ cal.style.display = 'none'; return; }
         modeAnimating = true;
@@ -18955,6 +19000,7 @@ function setMode(mode){
     }else{
         modeCalendar.classList.add('active'); modeTimeline.classList.remove('active');
         setExtras(true);
+        TlWheel.sync(false);  // 离开时间轴：恢复页面滚动
         cal.classList.remove('tear-out','tear-in');
         cal.style.display = '';
         // 降级 / 动画进行中：直接静态切换
