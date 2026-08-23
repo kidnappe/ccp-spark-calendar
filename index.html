@@ -810,20 +810,6 @@
         .tl-rod::after  { bottom:-3px; }
         .tl-rod-l { left:0; }
         .tl-rod-r { right:0; }
-        /* 手机模式：时间轴区域高度拖拽调整条（仅时间轴模式显示，桌面隐藏） */
-        .tl-resize {
-            display:none; position:relative; height:16px; margin-top:2px;
-            align-items:center; justify-content:center; cursor:ns-resize;
-            touch-action:none; user-select:none;
-            border-top:1px dashed rgba(139,26,26,0.18);
-        }
-        .tl-resize::before {
-            content:""; width:40px; height:4px; border-radius:3px;
-            background:rgba(139,26,26,0.45);
-        }
-        .tl-resize:active::before { background:var(--vermilion-deep); }
-        [data-theme="dark"] .tl-resize { border-top-color:rgba(229,115,115,0.22); }
-        [data-theme="dark"] .tl-resize::before { background:rgba(229,115,115,0.5); }
         [data-theme="dark"] .tl-rod {
             background: linear-gradient(to right, #3a2a18 0%, #6e4e2c 38%, #b9925a 50%, #6e4e2c 62%, #3a2a18 100%);
             box-shadow: 0 0 7px rgba(0,0,0,0.6), inset 0 0 3px rgba(255,230,200,0.25);
@@ -1021,10 +1007,7 @@
             .menu-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
             .rail-toggle { top: calc(102px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; padding: 0; }
             .rail-toggle .rt-icon { width: 22px; height: 22px; }
-            /* 手机模式时间轴区域不再设高度下限，随视口自由缩小 */
-            .tl-track { height:calc(100vh - 190px); min-height:0; }
-            .tl-card { max-height: max(48px, calc(50% - 44px)); }
-            .tl-resize { display:flex; }
+            .tl-track { height:calc(100vh - 190px); min-height:480px; }
             .tl-item { flex:0 0 170px; width:170px; }
             /* 移动端：卡片内边距与字号收敛，连线间隙加长到 44px（移动端，即原 22px 的两倍），保证窄卡片内文字完整不溢出 */
             .tl-card { padding:8px 9px; }
@@ -1049,11 +1032,9 @@
             .menu-fab { top: calc(50px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; font-size: 16px; }
             .rail-toggle { top: calc(92px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; padding: 0; }
             .rail-right { top: calc(138px + env(safe-area-inset-top, 0px)); right: 6px; width: min(80vw, 320px); max-height: calc(100vh - 190px); }
-            /* 时间轴区域高度不再设下限，随视口自由缩小（卡片保底 40px 可读） */
-            .tl-track { height: calc(100vh - 128px); min-height: 0; }
+            .tl-track { height: calc(100vh - 128px); min-height: 250px; }
             .tl-item { flex:0 0 130px; width:130px; }
-            .tl-card { max-height: max(40px, calc(50% - 38px)); padding:6px 8px; }
-            .tl-resize { display:flex; height:14px; }
+            .tl-card { max-height: calc(50% - 38px); padding:6px 8px; }
             .tl-card .tl-title { font-size:11px; margin-top:2px; }
             .tl-card .tl-desc { font-size:10px; -webkit-line-clamp:2; line-height:1.35; }
             .tl-item.up .tl-card { bottom:calc(50% + 38px); }
@@ -2121,8 +2102,6 @@
             </div>
             <div class="tl-rod tl-rod-l" aria-hidden="true"></div>
             <div class="tl-rod tl-rod-r" aria-hidden="true"></div>
-            <!-- 手机模式：时间轴区域高度拖拽调整条（仅时间轴模式显示；桌面隐藏） -->
-            <div class="tl-resize" id="tlResize" title="拖动调整时间轴高度" aria-hidden="true"></div>
         </div>
     </div>
 
@@ -18918,33 +18897,6 @@ function renderTimeline(){
 
     applyThreadFilter();
 }
-
-/* 手机模式：时间轴区域高度拖拽调整（pointer 事件，触摸/鼠标通用；手柄仅时间轴模式显示） */
-(function(){
-    const bar = document.getElementById('tlResize');
-    const track = document.getElementById('tlTrack');
-    if (!bar || !track) return;
-    let dragging = false, startY = 0, startH = 0, defaultH = 0;
-    bar.addEventListener('pointerdown', function(e){
-        dragging = true; startY = e.clientY;
-        startH = track.getBoundingClientRect().height;
-        if (defaultH <= 0) defaultH = startH;   // 首次拖动记录默认高度（CSS 计算值），作为放大上限
-        try { bar.setPointerCapture(e.pointerId); } catch(_) {}
-        bar.classList.add('active');
-        // 不 preventDefault：.tl-resize 已有 touch-action:none + user-select:none，避免阻断 click/dblclick 合成
-    });
-    bar.addEventListener('pointermove', function(e){
-        if (!dragging) return;
-        const d = e.clientY - startY;
-        const maxH = Math.max(defaultH, 90);
-        const h = Math.round(Math.max(90, Math.min(startH + d, maxH)));
-        track.style.height = h + 'px';
-    });
-    const end = function(){ dragging = false; bar.classList.remove('active'); };
-    bar.addEventListener('pointerup', end);
-    bar.addEventListener('pointercancel', end);
-    bar.addEventListener('dblclick', function(){ track.style.height = ''; });   // 双击恢复默认
-})();
 
 // 时间轴滚动到指定年份的首个事件位置
 function scrollTimelineToYear(y){

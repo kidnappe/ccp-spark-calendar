@@ -6,7 +6,7 @@
  *   - 其余静态资源  ：缓存优先 + 后台更新（stale-while-revalidate）
  * 注意：仅 https 或 localhost 生效；file:// 打开时浏览器不会注册本脚本。
  * ============================================================ */
-const CACHE = 'spark-calendar-v1';
+const CACHE = 'spark-calendar-v2';
 const CORE = ['./manifest.webmanifest'];
 
 self.addEventListener('install', (e) => {
@@ -29,6 +29,7 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.pathname.indexOf('/api/') >= 0) return;      // API 走网络
+  if (url.pathname.indexOf('/tools/') >= 0) return;    // 工具页面/脚本：一律直连，永不缓存
   if (req.destination === 'document' || req.destination === 'iframe' || url.pathname.indexOf('changelog.json') >= 0 || url.pathname.indexOf('manifest.webmanifest') >= 0) {
     e.respondWith(networkFirst(req));   // 文档 / 更新日志 / manifest：网络优先（构建后立即生效，离线回退缓存）
   } else {
