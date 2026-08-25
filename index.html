@@ -71,8 +71,8 @@
         .brand-fab {
             position: absolute; top: calc(clamp(12px, 2vw, 22px) + env(safe-area-inset-top, 0px)); left: clamp(14px, 2vw, 24px); z-index: 55;
             display: inline-flex; align-items: center; gap: clamp(8px, 1.2vw, 14px);
-            text-decoration: none; cursor: default; user-select: none;
-            pointer-events: none;   /* 不可交互 */
+            text-decoration: none; user-select: none;
+            pointer-events: auto; cursor: pointer;   /* 诊断控制台：连点三次开合 */
         }
         .brand-fab img {
             width: clamp(36px, 4.5vw, 52px); height: clamp(36px, 4.5vw, 52px);
@@ -150,7 +150,19 @@
             transition: background .15s, color .15s, border-color .15s;
         }
         .toolbar button:hover { background:var(--vermilion); color:#fff; border-color:var(--vermilion); }
-        #searchInput { min-width: 240px; }
+        .search-box { position:relative; flex:1 1 180px; min-width:240px; }
+        .search-box .sx { position:absolute; right:6px; top:50%; transform:translateY(-50%);
+            display:flex; align-items:center; justify-content:center;
+            width:20px; height:20px; border:none; border-radius:0;
+            background:transparent; color:#4a3f28; z-index:2;
+            font-family:"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+            font-size:16px; font-weight:700; line-height:1;
+            padding:0; cursor:pointer;
+            transition:none; -webkit-tap-highlight-color:transparent; }
+        .search-box .sx:active { color:var(--vermilion); }
+        .search-box .sx:focus-visible { outline:1px solid var(--edge); outline-offset:2px; }
+        .search-box .sx:focus:not(:focus-visible) { outline:none; }
+        #searchInput { width:100%; padding-right:30px; box-sizing:border-box; }
         /* 顶部右上角：功能菜单按钮（打开右侧抽屉，与日夜钮/本年事件呼应） */
         .menu-fab {
             position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 14px; left: auto; z-index: 60;
@@ -586,9 +598,14 @@
             animation: hitPulse .55s cubic-bezier(0.22,1,0.36,1) 6;
         }
         /* 弹窗样式 */
+        /* 可视视口高度：随手机浏览器顶/底栏收展实时更新（visualViewport 驱动），
+           弹窗/遮罩以它取尺寸，避免被浏览器底栏遮挡 */
+        :root { --vvh: 100svh; }
+        @supports not (height: 100svh) { :root { --vvh: 100vh; } }
         .modal-mask {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0; left: 0; right: 0;
+            height: var(--vvh, 100vh);
             background: rgba(0,0,0,0.5);
             display: none;
             align-items: center;
@@ -602,7 +619,7 @@
             position: relative;
             width: min(600px, 90%);
             max-width: 100%;
-            max-height: 88vh;
+            max-height: min(88vh, calc(var(--vvh, 100vh) - 24px));
             display: flex;
             flex-direction: column;
             /* 背景/边框/阴影已下沉到 ::before 装饰层：卡片弹动时文字层保持静止 */
@@ -980,6 +997,17 @@
             font-size:16px; letter-spacing:3px; background:var(--paper);
             border:1px solid var(--edge); border-radius:3px; padding:10px 4px; z-index:2;
         }
+        /* 年份虚影：横置于相邻两条分割线之间，卡片错位留出的中轴空白带内 */
+        .tyw {
+            position:absolute; top:0; height:100%;
+            display:flex; align-items:center; justify-content:center;
+            font-size:min(72px, 11vw); font-weight:800;
+            color:rgba(139,26,26,0.08);
+            pointer-events:none; user-select:none; z-index:0;
+            overflow:hidden;
+        }
+        @media (max-width:480px){ .tyw { font-size:34px; } }
+        [data-theme="dark"] .tyw { color:rgba(229,115,115,0.12); }
         /* 选中年份事件速览：右上角按钮（absolute 随页面滚动，与左上徽标、主题钮呼应），点击后再展开 */
         .rail-toggle {
             position: absolute;
@@ -1408,12 +1436,17 @@
         .ev-detail { margin-top: 14px; }
         .ev-detail-h { font-size: 13px; font-weight: bold; color: var(--vermilion); margin-bottom: 6px; }
         .ev-sub { margin: 9px 0; padding-left: 10px; border-left: 2px solid #f0d6d6; }
+        .q-meta { font-size: 11px; color: #a0937a; margin: -2px 0 6px 2px; }
+        .q-meta a { color: var(--brand2); text-decoration: none; }
+        .q-meta a:hover { text-decoration: underline; }
         .ev-sub-h { font-size: 12px; color: #a32d2d; font-weight: 600; margin-bottom: 4px; }
         .ev-sub-t { font-size: 13px; line-height: 1.7; color: #444; white-space: pre-wrap; }
         .ev-quote { font-size: 13px; line-height: 1.7; color: #444; margin: 4px 0; padding-left: 10px; border-left: 2px solid #eee; }
         .ev-fig { display: inline-block; margin: 0 6px 6px 0; padding: 3px 9px; font-size: 12px; border-radius: 12px; background: #f3f2ef; border: 1px solid #ddd; color: #555; cursor: pointer; transition: background .15s, border-color .15s; }
         .ev-fig:hover { background: #efe7e0; border-color: #c9a; color: var(--vermilion); }
-        .ev-cite { font-size: 12px; line-height: 1.6; color: #666; margin: 3px 0; }
+        .ev-cite { font-size: 12px; line-height: 1.6; color: #666; margin: 3px 0; word-break: break-all; }
+        .ev-cite-link { color: var(--brand2); text-decoration: none; }
+        .ev-cite-link:hover { text-decoration: underline; }
         .ev-link { display: block; font-size: 12px; color: #185fa5; margin: 3px 0; text-decoration: none; }
         .ev-link:hover { text-decoration: underline; }
         .rel-chip {
@@ -1486,6 +1519,7 @@
         [data-theme="dark"] .fav-star { color: #555; }
         [data-theme="dark"] .fav-star.on { color: #f1c40f; }
         [data-theme="dark"] .ev-source { color: #8a6a6a; border-top-color: #444; }
+        [data-theme="dark"] .q-meta { color: #8a8371; }
         [data-theme="dark"] .ev-rel-h { color: var(--vermilion-soft); }
         [data-theme="dark"] .ev-detail-h { color: var(--vermilion-soft); }
         [data-theme="dark"] .ev-sub { border-left-color: #5a3a3a; }
@@ -1493,6 +1527,8 @@
         [data-theme="dark"] .ev-sub-t, [data-theme="dark"] .ev-quote { color: #ccc; }
         [data-theme="dark"] .ev-fig { background: #2a2a2a; border-color: #444; color: #bbb; }
         [data-theme="dark"] .ev-cite { color: #aaa; }
+        [data-theme="dark"] .ev-cite-link { color: #7fb3d5; }
+        [data-theme="dark"] .search-box .sx { color:#b9ad91; }
         [data-theme="dark"] .ev-link { color: #7fb3e0; }
         [data-theme="dark"] .rel-chip { background: #33282a; color: var(--vermilion-soft); border-color: #4a3434; }
         [data-theme="dark"] .rel-chip:hover { background: #3e2e30; }
@@ -1815,7 +1851,7 @@
   /* 工具栏：搜索框独占整行，按钮换行并放大点按区域 */
   .toolbar-row { gap: 8px; }
   /* 搜索框缩短：手机模式三按钮竖排在右上角，给按钮腾出右侧空间，避免重叠 */
-  #searchInput { flex: 1 1 100%; min-width: 0; order: -1; margin-right: 52px; max-width: calc(100% - 52px); }
+  .search-box { flex: 1 1 100%; min-width: 0; order: -1; margin-right: 52px; max-width: calc(100% - 52px); }
   .toolbar button { padding: 12px 14px; font-size: 13px; }
   .mode-btn { padding: 12px 18px; }   /* 移动端触控目标 ≥40px */
   .cal-masthead .year-nav { width: 38px; height: 38px; }
@@ -1833,8 +1869,8 @@
   /* 移动端：事件名完整换行显示（不截断），格子随内容增高，同行对齐保持美观 */
   .event-item { font-size: 11px; padding-left: 5px; white-space: normal; overflow: visible; line-height: 1.35; margin-bottom: 3px; }
   /* 弹窗：限制高度，长内容内部滚动，避免溢出视口；宽度收敛到手机比例，内容禁止横向溢出 */
-  .modal-box { max-height: 92vh; padding: 16px; width: min(92vw, 480px); }
-  #modalContent { overflow-x: hidden; max-width: 100%; }
+  .modal-box { max-height: min(92vh, calc(var(--vvh, 100vh) - 16px)); padding: 16px; width: min(92vw, 480px); }
+  #modalContent { overflow-x: hidden; max-width: 100%; padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)); }
   /* 因果网络图：头部工具换行、按钮加大便于触控 */
   .cg-title { font-size: 14px; }
   .cg-btn, .cg-select { font-size: 13px; padding: 12px 13px; }
@@ -2016,6 +2052,69 @@
 </style>
 </head>
 <body>
+<script>
+/* 诊断控制台：静默收集运行时错误，连点三次左上品牌图标弹出窗口查看 */
+(function(){
+    var logs=[], panel=null;
+    function render(){
+        try{
+            if(!panel) return;
+            var pre=panel.querySelector('pre');
+            pre.textContent = logs.length ? logs.join('\n') : '暂无捕获的运行时错误。';
+            pre.scrollTop = pre.scrollHeight;
+        }catch(_){}
+    }
+    function record(m){
+        var t=new Date().toTimeString().slice(0,8);
+        logs.push('['+t+'] '+m);
+        if(logs.length>200) logs.shift();
+        render();
+    }
+    window.addEventListener('error', function(e){
+        record('[错误] '+((e && e.message)||'未知')+' @'+((e && e.lineno)||'?'));
+    });
+    window.addEventListener('unhandledrejection', function(e){
+        record('[Promise] '+((e.reason && e.reason.message)||e.reason||'未处理的拒绝'));
+    });
+    function build(){
+        panel=document.createElement('div');
+        panel.style.cssText='position:fixed;left:12px;bottom:12px;z-index:99998;'
+            +'width:min(92vw,560px);max-height:52vh;'
+            +'background:#0f172a;color:#cbd5e1;border-radius:10px;'
+            +'box-shadow:0 10px 30px rgba(0,0,0,.45);font:12px/1.6 Consolas,monospace;';
+        panel.innerHTML='<div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:#1e293b;">'
+            +'<b style="color:#e2e8f0">诊断控制台</b><span style="color:#64748b">连点三次品牌图标开合</span>'
+            +'<button data-c style="margin-left:auto;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:12px;">清空</button>'
+            +'<button data-x style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:14px;">×</button></div>'
+            +'<pre style="margin:0;padding:10px 12px;overflow:auto;white-space:pre-wrap;max-height:44vh;"></pre>';
+        panel.querySelector('[data-c]').onclick=function(){logs.length=0;render();};
+        panel.querySelector('[data-x]').onclick=function(){panel.style.display='none';};
+        document.body.appendChild(panel);
+    }
+    function toggle(){
+        try{
+            if(!panel) build();
+            var show = panel.style.display!=='flex';
+            panel.style.display = show?'flex':'none';
+            if(show) render();
+        }catch(e){ console.error('[diag]', e); }
+    }
+    var clicks=0, timer=null;
+    function boot(){
+        var fab=document.querySelector('.brand-fab');
+        if(!fab) return;
+        fab.style.pointerEvents='auto';
+        fab.style.cursor='pointer';
+        fab.addEventListener('click',function(){
+            clicks++; clearTimeout(timer);
+            timer=setTimeout(function(){ clicks=0; },700);
+            if(clicks>=3){ clicks=0; toggle(); }
+        });
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+    else boot();
+})();
+</script>
 <div class="container">
     <div class="brand-fab" aria-label="星火日历" title="星火日历">
         <img src="icons/icon-calendar.svg" alt="">
@@ -2031,7 +2130,7 @@
     <!-- 第一行：搜索 + 分类筛选 + 导出 + 入口（与年份选择隔离） -->
     <div class="toolbar">
         <div class="toolbar-row">
-            <input id="searchInput" placeholder="搜索事件关键词 / 年份（与下方年份选择相互独立）" aria-label="搜索事件关键词或年份">
+            <span class="search-box"><input id="searchInput" placeholder="搜索事件关键词 / 年份（与下方年份选择相互独立）" aria-label="搜索事件关键词或年份"><button id="searchClear" class="sx" type="button" aria-label="清除搜索内容" hidden>×</button></span>
             <button id="searchBtn" type="button">搜索</button>
             <select id="catSelect" class="cat-select" title="分类筛选">
                 <option value="all">全部分类</option>
@@ -18177,7 +18276,24 @@ function renderModalBody(){
       if(d.significance){ const n=document.createElement('div'); n.className='ev-sub-t'; n.textContent=d.significance; addSub('历史意义', n); }
       if(d.quotes.length){
         const box=document.createElement('div');
-        d.quotes.forEach(q=>{ const n=document.createElement('div'); n.className='ev-quote'; n.textContent='\u201c'+q+'\u201d'; box.appendChild(n); });
+        d.quotes.forEach(q=>{
+          const n=document.createElement('div'); n.className='ev-quote'; n.textContent='\u201c'+q+'\u201d';
+          box.appendChild(n);
+          /* 出处/作者线索：从引文自身提取《著作》与讲话人，并提供站外检索核对 */
+          const meta=document.createElement('div'); meta.className='q-meta';
+          const parts=[];
+          const wm=q.match(/《([^》]{2,30})》/);
+          if(wm) parts.push('出处：《'+wm[1]+'》');
+          const sp=q.match(/^[\s\u201c]*([^，。；”\u201d]{2,14}?)(?:同志)?(?:在[^，。]{0,14})?(?:曾经)?(?:指出|强调|写道|号召|提出|说过)/);
+          if(sp && /[\u4e00-\u9fff]/.test(sp[1])) parts.push(sp[1].trim());
+          const a=document.createElement('a');
+          a.href='https://search.12371.cn/search.php?t=newsmerge&client=no&q='+encodeURIComponent(q.slice(0,24));
+          a.target='_blank'; a.rel='noopener';
+          a.textContent=parts.length?'🔍 核对出处':'🔍 查找出处';
+          meta.appendChild(document.createTextNode(parts.length?parts.join(' · ')+' · ':''));
+          meta.appendChild(a);
+          box.appendChild(meta);
+        });
         addSub('重要论述', box);
       }
       if(d.figures.length){
@@ -18193,7 +18309,23 @@ function renderModalBody(){
       }
       if(d.srcCite.length){
         const box=document.createElement('div');
-        d.srcCite.forEach(s=>{ const n=document.createElement('div'); n.className='ev-cite'; n.textContent=s; box.appendChild(n); });
+        d.srcCite.forEach(s=>{
+          const n=document.createElement('div'); n.className='ev-cite';
+          /* 与延伸阅读同款文字超链接：前缀文字为链名，悬停显示完整 URL */
+          const m=String(s).match(/^(.*?)\s*(https?:\/\/[^\s，。；、）】」"'”]+)\s*$/);
+          const a=document.createElement('a'); a.className='ev-link';
+          if(m){
+            a.textContent=m[1].replace(/[：:，,\-—–]\s*$/,'') || '查看链接';
+            a.href=m[2]; a.target='_blank'; a.rel='noopener';
+            a.title='🔗 '+m[2];
+          }else{
+            a.textContent=String(s);
+            a.href='javascript:void(0)';
+            a.style.cursor='default';
+            a.title='';
+          }
+          n.appendChild(a); box.appendChild(n);
+        });
         addSub('文献出处', box);
       }
       if(d.furtherReading.length){
@@ -18202,7 +18334,7 @@ function renderModalBody(){
           const a=document.createElement('a'); a.className='ev-link';
           const t = (r && r.title) ? r.title : r;
           a.textContent = t;
-          if(r && r.url){ a.href=r.url; a.target='_blank'; a.rel='noopener'; } else { a.href='javascript:void(0)'; }
+          if(r && r.url){ a.href=r.url; a.target='_blank'; a.rel='noopener'; a.title='🔗 '+r.url; } else { a.href='javascript:void(0)'; }
           box.appendChild(a);
         });
         addSub('延伸阅读', box);
@@ -18706,7 +18838,16 @@ document.getElementById('mtgBtn').onclick = openMeetings;
 document.getElementById('aboutBtn').onclick = openAbout;
 document.getElementById('searchInput').onkeydown = function(e){
     if(e.key === "Enter") doSearch();
-}
+};
+/* 搜索框内嵌 × 清除钮：有输入时出现，点击清空并立即刷新结果 */
+;(function(){
+    const si=document.getElementById('searchInput'), sc=document.getElementById('searchClear');
+    if(!si||!sc) return;
+    const sync=()=>{ sc.hidden = !si.value; };
+    si.addEventListener('input', sync);
+    sc.onclick = ()=>{ si.value=''; sync(); si.dispatchEvent(new Event('input')); doSearch(); si.focus(); };
+    sync();
+})();
 
 // 分类筛选下拉（替代原 5 个 chips，收纳进更紧凑的下拉）
 document.getElementById('catSelect').onchange = function(){
@@ -18861,6 +19002,23 @@ const TlWheel=(function(){
     return {sync:sync};
 })();
 
+/* ===== 可视视口高度 --vvh：随手机浏览器顶/底栏收展实时刷新 =====
+   弹窗遮罩/卡片以此取尺寸，双工具栏同现时不再遮挡内容 */
+(function(){
+    function upd(){
+        const h = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+        document.documentElement.style.setProperty('--vvh', h + 'px');
+    }
+    if(window.visualViewport){
+        window.visualViewport.addEventListener('resize', upd);
+        window.visualViewport.addEventListener('scroll', upd);
+    }
+    window.addEventListener('resize', upd);
+    window.addEventListener('orientationchange', upd);
+    window.addEventListener('load', upd);
+    upd();
+})();
+
 function renderTimeline(){
     const track = document.getElementById('tlTrack');
     track.innerHTML = "";
@@ -18895,6 +19053,7 @@ function renderTimeline(){
 
     // 因果脉络已改为网络图展示，时间轴不再高亮
     let lastYear = null, i = 0;
+    const yearSeps = [];
     list.forEach(e=>{
         if(e.year !== lastYear){
             lastYear = e.year;
@@ -18904,6 +19063,7 @@ function renderTimeline(){
             sp.textContent = e.year;
             sep.appendChild(sp);
             track.appendChild(sep);
+            yearSeps.push({ el: sep, y: e.year });
         }
         const item = document.createElement('div');
         item.className = 'tl-item ' + (i % 2 === 0 ? 'up' : 'down') + (e.cat==='kmt' ? ' kmt' : e.cat==='nation' ? ' nation' : '');
@@ -18955,8 +19115,41 @@ function renderTimeline(){
         + '<div class="tep-quote">征途漫漫，惟有奋斗</div>';
     track.appendChild(outro);
 
+    // C2：年份虚影——横置于相邻两条分割线之间的空白带（随窗口尺寸重排）
+    window.__ygArgs = [yearSeps, track];
+    layoutYearGhosts(yearSeps, track);
+
     applyThreadFilter();
 }
+
+/* 年份虚影：以分割线中心为界切分年段，浅印大字落于段内空白（卡片上下错位留出的中轴带） */
+function layoutYearGhosts(yearSeps, track){
+    if(!track) return;
+    track.querySelectorAll(':scope > .tyw').forEach(function(g){ g.remove(); });
+    var W = track.scrollWidth || track.offsetWidth;
+    for(var idx=0; idx<yearSeps.length; idx++){
+        var s = yearSeps[idx];
+        var nxt = yearSeps[idx+1] && yearSeps[idx+1].el;
+        var start = s.el.offsetLeft + s.el.offsetWidth/2;
+        var end = nxt ? (nxt.offsetLeft + nxt.offsetWidth/2)
+                      : (W - 60);
+        if(end - start < 80) continue;
+        var g = document.createElement('div');
+        g.className = 'tyw';
+        g.setAttribute('aria-hidden','true');
+        g.textContent = s.y;
+        g.style.left = start + 'px';
+        g.style.width = (end - start) + 'px';
+        track.insertBefore(g, nxt || null);
+    }
+}
+window.addEventListener('resize', function(){
+    try{
+        var a = window.__ygArgs;
+        var tv = document.getElementById('timelineView');
+        if(a && tv && tv.classList.contains('show')) layoutYearGhosts(a[0], a[1]);
+    }catch(_){}
+});
 
 // 时间轴滚动到指定年份的首个事件位置
 function scrollTimelineToYear(y){
