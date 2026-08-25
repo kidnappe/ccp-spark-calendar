@@ -1529,6 +1529,38 @@
         [data-theme="dark"] .ev-cite { color: #aaa; }
         [data-theme="dark"] .ev-cite-link { color: #7fb3d5; }
         [data-theme="dark"] .search-box .sx { color:#b9ad91; }
+        /* ===== 事件扭蛋机（单屏紧凑版，不出滚动条） ===== */
+        .gp-wrap{display:flex;flex-direction:column;align-items:center;position:relative}
+        .gp-machine{position:relative;width:200px;height:250px;margin:0 auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+        .gp-dome{position:absolute;top:0;left:50%;transform:translateX(-50%);width:150px;height:150px;border:3px solid var(--edge);border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.78),rgba(253,250,242,.26) 58%);box-shadow:inset 0 -6px 14px rgba(90,70,40,.10)}
+        .gp-ball{position:absolute;width:20px;height:20px;border-radius:50%;box-shadow:inset -3px -3px 4px rgba(0,0,0,.16),inset 2px 2px 3px rgba(255,255,255,.6),0 0 0 1px rgba(90,70,40,.16)}
+        .gp-base{position:absolute;left:50%;transform:translateX(-50%);top:124px;width:170px;height:118px;background:var(--paper-2);border:3px solid var(--edge);border-radius:12px 12px 9px 9px;box-shadow:0 2px 10px rgba(90,70,40,.13)}
+        .gp-brand{position:absolute;top:8px;left:0;right:0;text-align:center;font-family:"Songti SC","SimSun",serif;font-weight:800;font-size:13px;letter-spacing:4px;color:var(--vermilion-deep)}
+        .gp-knob{position:absolute;left:50%;transform:translateX(-50%);top:30px;width:40px;height:40px;border-radius:50%;cursor:pointer;user-select:none;font:800 13px/1 "Microsoft YaHei",sans-serif;color:#fdf3ea;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 36% 30%,#dd6050,var(--vermilion-deep));box-shadow:0 2px 7px rgba(0,0,0,.28),inset 0 0 0 2px rgba(255,243,234,.35)}
+        .gp-chute{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;width:60px;height:34px;background:#332c22;border-radius:8px;box-shadow:inset 0 4px 8px rgba(0,0,0,.5)}
+        .gp-stage{position:relative;width:min(84vw,300px);height:140px;margin:6px auto 0}
+        .gp-capsule{position:absolute;left:50%;margin-left:-23px;top:222px;width:46px;height:46px;border-radius:50%;display:none;z-index:1;box-shadow:0 5px 12px rgba(0,0,0,.24),0 0 0 1px rgba(90,70,40,.28)}
+        .gp-cap-top,.gp-cap-bot{position:absolute;left:0;width:100%;height:50%}
+        .gp-cap-top{top:0;background:linear-gradient(180deg,#d05545,var(--vermilion-deep));transform-origin:center bottom;transition:transform 240ms cubic-bezier(.32,.72,0,1)}
+        .gp-cap-top::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:5px;background:#efe6cf}
+        .gp-cap-bot{bottom:0;background:linear-gradient(180deg,#fffdf6,#efe6cf)}
+        .gp-capsule.open .gp-cap-top{transform:rotateX(-104deg)}
+        .gp-capsule.vanish{filter:blur(3px);opacity:0;transition:filter 220ms ease,opacity 220ms ease}
+        .gp-card{position:absolute;left:50%;top:24px;transform:translateX(-50%) translateY(14px) scale(.92);opacity:0;z-index:2;width:100%;background:var(--paper-2);border:2px solid var(--edge);border-left:5px solid var(--vermilion);border-radius:10px;padding:12px 14px;box-shadow:0 5px 16px rgba(90,70,40,.16);transition:transform 300ms cubic-bezier(.22,1,.36,1),opacity 240ms ease-out}
+        .gp-card.show{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+        .gp-card .gp-date{font-family:"Songti SC","SimSun",serif;font-weight:800;font-size:12px;letter-spacing:2px;color:var(--vermilion)}
+        .gp-card .gp-ttl{font-size:16px;font-weight:800;margin:2px 0 7px;line-height:1.45;text-wrap:balance}
+        .gp-card .gp-desc{font-size:12px;color:#5a5245;line-height:1.7;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+        .gp-cardx{position:absolute;top:6px;right:6px}
+        .gp-acts{display:flex;gap:7px;flex-wrap:wrap}
+        .gp-acts button{font:inherit;font-size:12px;font-weight:600;padding:7px 11px;border-radius:6px;cursor:pointer;border:1px solid var(--edge);background:var(--paper);color:var(--ink);transition:background .15s,color .15s}
+        .gp-acts button:hover{background:var(--vermilion);color:#fff;border-color:var(--vermilion)}
+        .gp-acts button.pri{background:var(--vermilion);color:#fff;border-color:var(--vermilion-deep)}
+        [data-theme="dark"] .gp-base,[data-theme="dark"] .gp-card{background:#232019;border-color:#3a362c}
+        [data-theme="dark"] .gp-desc{color:#b9b2a3}
+        /* 定位闪烁：目标事件卡片金色描边脉冲两次 */
+        @keyframes gpFlash{0%,100%{outline:2px solid transparent;outline-offset:2px}45%,70%{outline:4px solid rgba(217,178,63,.95)}}
+        .tl-item.gp-flash .tl-card{animation:gpFlash 1100ms ease-out 2}
         [data-theme="dark"] .ev-link { color: #7fb3e0; }
         [data-theme="dark"] .rel-chip { background: #33282a; color: var(--vermilion-soft); border-color: #4a3434; }
         [data-theme="dark"] .rel-chip:hover { background: #3e2e30; }
@@ -2247,6 +2279,10 @@
             <button id="statsBtn" class="menu-item" title="统计可视化">
                 <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="20.5" x2="21" y2="20.5"/><rect x="5.5" y="12" width="3.5" height="8"/><rect x="10.5" y="7" width="3.5" height="13"/><rect x="15.5" y="9.5" width="3.5" height="10.5"/></svg></span>
                 <span class="mi-txt">统计</span>
+            </button>
+            <button id="gachaBtn" class="menu-item" title="随机抽取一件党史事件">
+                <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="9.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="14.8" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+                <span class="mi-txt">事件扭蛋机</span>
             </button>
             <button id="tagBtn" class="menu-item" title="标签云">
                 <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="M3 12 L12 3 H20 V11 L11 20 Z"/><circle cx="15" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg></span>
@@ -18161,6 +18197,10 @@ function openModal(month, day, eventList, backFn){
     currentModalMonth = month; currentModalDay = day;
     renderModalBody();
     showModalMask();
+    /* 每次打开新弹窗都回到滚动最顶（不记忆上次位置） */
+    var box=document.querySelector('.modal-box'), mc=document.getElementById('modalContent');
+    if(box) box.scrollTop=0;
+    if(mc) mc.scrollTop=0;
 }
 
 // ---------- 相关人物 → 相关事件列表（待全量数据齐全后成为常用入口） ----------
@@ -18396,6 +18436,11 @@ function renderModalBody(){
 }
 function closeModal(){
     hideModalMask();
+    /* 扭蛋机→详情 的返回钩子：用户点弹窗 × 时也回到扭蛋机而非底层页面 */
+    if(window.__gpResume){
+        var f=window.__gpResume; window.__gpResume=null;
+        setTimeout(f,60);
+    }
 }
 
 // 本年事件速览：右上角按钮展开/收起（默认收起，仅显示一个按钮）
@@ -18836,6 +18881,175 @@ function doSearch(){
 document.getElementById('searchBtn').onclick = doSearch;
 document.getElementById('mtgBtn').onclick = openMeetings;
 document.getElementById('aboutBtn').onclick = openAbout;
+
+/* ==================== 事件扭蛋机 ==================== */
+const GP_BALL_COLORS=["#c86a5a","#d9b23f","#5f87b5","#efe6cf","#d05545"];
+const GP_BALL_POS=[[30,42],[56,26],[82,32],[102,52],[106,80],[90,104],[62,112],[36,98],[30,64],[56,58],[82,60],[62,84]];
+const GP_SHAKE=[
+ {transform:"translate(0,0)"},
+ {transform:"translate(-5px,2px) rotate(-10deg)"},
+ {transform:"translate(4px,-2px) rotate(8deg)"},
+ {transform:"translate(-3px,1px) rotate(-6deg)"},
+ {transform:"translate(0,0)"}
+];
+const GP_DROP=[
+ {transform:"translateY(-16px)",opacity:0,easing:"cubic-bezier(.55,0,1,.45)"},
+ {transform:"translateY(2px)",opacity:1,offset:.16},
+ {transform:"translateY(96px)",offset:.48,easing:"ease-out"},
+ {transform:"translateY(81px)",offset:.62,easing:"ease-in"},
+ {transform:"translateY(96px)",offset:.76,easing:"ease-out"},
+ {transform:"translateY(89px)",offset:.88,easing:"ease-in"},
+ {transform:"translateY(96px)"}
+];
+var gpPlaying=false,gpPhase="idle",gpLive=[],gpLast=-1,gpEv=null;
+function gpReg(a){if(a)gpLive.push(a);return a;}
+function gpWait(ms){var rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;return new Promise(r=>setTimeout(r,rm?0:ms));}
+function gpPick(){
+    let i;
+    do{ i=Math.floor(Math.random()*historyData.length); }while(i===gpLast && historyData.length>1);
+    gpLast=i; return historyData[i];
+}
+function openGashapon(){
+    const title=document.getElementById('modalTitle');
+    const content=document.getElementById('modalContent');
+    title.textContent='事件扭蛋机 · 随机抽取一段岁月';
+    content.innerHTML=
+      '<div class="gp-wrap">'
+      +'<div class="gp-machine" id="gpMachine">'
+      +'<div class="gp-dome">'+GP_BALL_POS.map(function(p,i){return '<div class="gp-ball" style="left:'+p[0]+'px;top:'+p[1]+'px;background:'+GP_BALL_COLORS[i%GP_BALL_COLORS.length]+'"></div>';}).join('')+'</div>'
+      +'<div class="gp-base"><div class="gp-brand">星火日历</div>'
+      +'<button class="gp-knob" id="gpKnob" title="点击抽取">扭</button>'
+      +'<div class="gp-chute"></div></div>'
+      +'<button class="modal-x" style="position:absolute;top:-13px;right:-13px;" onclick="closeModal()" aria-label="关闭扭蛋机" title="关闭">×</button>'
+      +'</div>'
+      +'<div class="gp-stage"><div class="gp-card" id="gpCard">'
+      +'<button class="modal-x gp-cardx" onclick="collapseGpCard()" aria-label="收起结果卡" title="收起">×</button>'
+      +'<div class="gp-date" id="gpDate"></div><div class="gp-ttl" id="gpTtl"></div><div class="gp-desc" id="gpDesc"></div>'
+      +'<div class="gp-acts"><button class="pri" id="gpDetail">查看详情</button>'
+      +'<button id="gpLocate">到时间轴定位</button><button id="gpAgain">🎲 再扭一次</button></div>'
+      +'</div></div>'
+      +'<div class="gp-capsule" id="gpCapsule"><div class="gp-cap-top"></div><div class="gp-cap-bot"></div></div>'
+      +'<p style="text-align:center;font-size:11.5px;color:#a0937a;margin:8px 0 0" id="gpHint">点「扭」钮或机器任意处，随机抽出一件事</p>'
+      +'</div>';
+    document.getElementById('gpKnob').onclick=function(e){ e.stopPropagation(); gashaponTap(); };
+    document.getElementById('gpMachine').onclick=function(){ gashaponTap(); };
+    document.getElementById('gpAgain').onclick=function(){ startGashapon(); };
+    showModalMask();
+}
+function gashaponTap(){ gpPlaying ? skipGashapon() : startGashapon(); }
+function skipGashapon(){
+    gpPhase='skipped';
+    gpLive.forEach(function(a){ try{ a.finish(); }catch(_){} });
+}
+async function startGashapon(){
+    if(gpPlaying) return;
+    var rm=window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    gpPlaying=true; gpPhase="twist";
+    var hint=document.getElementById('gpHint');
+    if(hint) hint.textContent='正在抽取…';
+    gpLive.forEach(function(a){ try{ a.cancel(); }catch(_){} });
+    gpLive.length=0;
+    var card=document.getElementById('gpCard');
+    card.classList.remove('show');
+    var capTop=document.getElementById('gpCapTop') || document.querySelector('#gpCapsule .gp-cap-top');
+    capTop.classList.remove('open');
+    var capsule=document.getElementById('gpCapsule');
+    capsule.classList.remove('vanish');
+    capsule.style.opacity=''; capsule.style.transform='';
+    capsule.style.display='none';
+    gpEv=gpPick();
+    if(rm){
+        setGpResult(gpEv,true);
+        gpPlaying=false;
+        return;
+    }
+    /* ① 扭钮旋转 + 罩内搅动 */
+    gpReg(document.getElementById('gpKnob').animate([
+        {transform:'translateX(-50%) rotate(0deg)'},
+        {transform:'translateX(-50%) rotate(360deg)'}
+    ],{duration:620,easing:'ease-in-out'}));
+    document.querySelectorAll('#gpMachine .gp-ball').forEach(function(b,i){
+        gpReg(b.animate(GP_SHAKE,{duration:600,delay:i*45,easing:'ease-in-out'}));
+    });
+    try{ await Promise.all(gpLive.map(function(a){return a.finished;})); }catch(_){}
+    if(gpPhase==='skipped'){ finishGashapon(); return; }
+    /* ② 胶囊自出蛋口坠落 */
+    gpPhase='drop';
+    var capsule=document.getElementById('gpCapsule');
+    capsule.style.display='block';
+    var drop=gpReg(capsule.animate(GP_DROP,{duration:820,fill:'forwards'}));
+    try{ await drop.finished; }catch(_){}
+    if(gpPhase==='skipped'){ finishGashapon(); return; }
+    /* ③ 开壳 */
+    gpPhase='open';
+    capTop.classList.add('open');
+    await gpWait(230);
+    /* ④ 卡片以胶囊方向生长浮现；胶囊 blur 淡出 */
+    setGpResult(gpEv,false);
+    card.classList.add('show');
+    capsule.classList.add('vanish');
+    await gpWait(360);
+    gpPlaying=false; gpPhase='idle';
+    if(hint) hint.textContent='再扭一次，换一段岁月';
+}
+function finishGashapon(){
+    setGpResult(gpEv,true);
+    var capsule=document.getElementById('gpCapsule');
+    capsule.style.display='block';
+    capsule.style.opacity=0;
+    gpPlaying=false; gpPhase='idle';
+    var h=document.getElementById('gpHint'); if(h) h.textContent='已为你抽出一段岁月';
+}
+function setGpResult(ev,keepCapsuleVisible){
+    document.getElementById('gpDate').textContent=ev.year+'年'+ev.month+'月'+ev.day+'日';
+    document.getElementById('gpTtl').textContent=ev.title;
+    document.getElementById('gpDesc').textContent=ev.desc||'';
+    var d=document.getElementById('gpDetail'), l=document.getElementById('gpLocate');
+    /* 查看详情：保存扭蛋机现场 → 打开事件详情（自带「← 返回」）→ 返回时原样恢复 */
+    d.onclick=function(){
+        var content=document.getElementById('modalContent');
+        var frag=document.createDocumentFragment();
+        while(content.firstChild) frag.appendChild(content.firstChild);
+        window.__gpResume=function(){
+            var cc=document.getElementById('modalContent');
+            cc.innerHTML='';
+            while(frag.firstChild) cc.appendChild(frag.firstChild);
+            document.getElementById('modalTitle').textContent='事件扭蛋机 · 随机抽取一段岁月';
+            showModalMask();
+            var mc=document.getElementById('modalContent'); if(mc) mc.scrollTop=0;
+            gpPlaying=false; gpPhase='idle';
+        };
+        openModal(ev.month,ev.day,[ev],function(){
+            if(window.__gpResume){ var f=window.__gpResume; window.__gpResume=null; f(); }
+        });
+    };
+    /* 到时间轴定位：切模式 → 年份定位 → 事件卡水平居中 → 金色描边脉冲闪烁 */
+    l.onclick=function(){
+        hideModalMask();
+        setMode('timeline');
+        requestAnimationFrame(function(){
+            scrollTimelineToYear(ev.year);
+            var node=null;
+            try{
+                if(typeof keyOf==='function') node=keyNode[keyOf(ev)];
+                if(!node && typeof yearFirstNode!=='undefined') node=yearFirstNode[ev.year]||null;
+            }catch(_){}
+            var sc=document.getElementById('tlScroll');
+            if(node&&sc){
+                sc.scrollLeft=Math.max(0, node.offsetLeft - (sc.clientWidth-node.offsetWidth)/2);
+                node.classList.remove('gp-flash'); void node.offsetWidth;
+                node.classList.add('gp-flash');
+                setTimeout(function(){node.classList.remove('gp-flash');},2200);
+            }
+        });
+    };
+}
+function collapseGpCard(){
+    var c=document.getElementById('gpCard');
+    if(c) c.classList.remove('show');
+}
+
+document.getElementById('gachaBtn').onclick = openGashapon;
 document.getElementById('searchInput').onkeydown = function(e){
     if(e.key === "Enter") doSearch();
 };
