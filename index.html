@@ -18964,7 +18964,7 @@ const modeTimeline = document.getElementById('modeTimeline');
    作用域：仅桌面宽度(≥769px)+时间轴模式+滚轮位于时间轴轨道上；
    弹窗/因果图打开、工具栏控件、移动端 均交还原生行为 */
 const TlWheel=(function(){
-    const mq=window.matchMedia('(min-width: 769px)');
+    const mq=window.matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine)');
     let lockY=0;
     function allowed(e){
         if(!mq.matches) return false;
