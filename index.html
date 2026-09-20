@@ -2325,7 +2325,7 @@
     </div>
     <div class="cg-legend">
       <span><i class="cg-lg-root"></i>当前根事件</span>
-      <span><i class="cg-lg-active"></i>因果脉络（前因 + 后续）</span>
+      <span><i class="cg-lg-active"></i>因果脉络（前序 + 后续）</span>
       <span><i class="cg-lg-dim"></i>无直接因果</span>
       <span><i class="cg-lg-infer"></i>推断关联（算法）</span>
     </div>
@@ -17679,7 +17679,7 @@ function setCausalRoot(k){
     info.innerHTML = '';
     const b = document.createElement('b'); b.textContent = ev.year + '年 ' + ev.title;
     const sp = document.createElement('span'); sp.className = 'cg-root-sub';
-    sp.textContent = ` · 前因 ${causedByOf(k).length} 件 · 后续 ${causesOf(k).length} 件 · 脉络（前后各 ${cgDepth} 层）共 ${closure.size} 个事件` + (hasMore ? ' · 可展开更多' : '');
+    sp.textContent = ` · 前序 ${causedByOf(k).length} 件 · 后续 ${causesOf(k).length} 件 · 脉络（前后各 ${cgDepth} 层）共 ${closure.size} 个事件` + (hasMore ? ' · 可展开更多' : '');
     info.appendChild(b); info.appendChild(sp);
   }
   applyCgFocus();
@@ -17736,7 +17736,7 @@ function renderCgSide(){
   }
   const byYear = (a, b) => (a.e.year - b.e.year) || ((a.e.month || 0) - (b.e.month || 0));
   cause.sort(byYear); effect.sort(byYear); other.sort(byYear);
-  if(cause.length) wrap.appendChild(makeCgSideGroup('前因 · 导致此事发生（' + cause.length + '）', cause, -1));
+  if(cause.length) wrap.appendChild(makeCgSideGroup('前序 · 导致此事发生（' + cause.length + '）', cause, -1));
   if(effect.length) wrap.appendChild(makeCgSideGroup('后续 · 此事导致的（' + effect.length + '）', effect, 1));
   if(other.length) wrap.appendChild(makeCgSideGroup('相关事件', other, 0));
 }
@@ -17798,7 +17798,7 @@ let keyNode = {};                // 时间轴：事件键 -> DOM 节点（用于
 function makeCausalChip(x, dir, originEvent){
   const c = document.createElement('span');
   c.className = 'causal-chip' + (x.cat === 'kmt' ? ' kmt' : x.cat === 'nation' ? ' nation' : '');
-  const arrow = dir === 'before' ? '↑前因 ' : '↓后续 ';
+  const arrow = dir === 'before' ? '↑前序 ' : '↓后续 ';
   c.textContent = arrow + x.year + '年 ' + x.title;
   c.title = x.desc;
   const backFn = (originEvent) ? () => openModal(originEvent.month, originEvent.day, [originEvent]) : null;
@@ -17945,15 +17945,9 @@ function setYearIndex(i){
     // 功能关联：时间轴模式下切换年份 -> 自动跳转到该年份
     if(timelineView.classList.contains('show')) scrollTimelineToYear(filterYear);
 }
-// 统计某一年在「当前搜索」下的事件数（用于年份角标，规则同月份角标）
+// 统计某一年在当前分类筛选下的事件数（用于年份角标）
 function getYearEventCount(y){
-    let list = softFilter(historyData);   // 尊重 分类 筛选
-    if(searchKey.trim() !== ""){
-        const key = searchKey.toLowerCase();
-        list = list.filter(item=>
-            item.title.toLowerCase().includes(key) || String(item.year).includes(key)
-        );
-    }
+    let list = softFilter(historyData);
     return list.filter(item=> item.year === y).length;
 }
 
@@ -18085,15 +18079,9 @@ function selectMonth(m){
     renderMonthBar(); renderCalendar();
 }
 
-// ---------- 获取筛选后事件（年份选择器 + 搜索 二者叠加） ----------
+// ---------- 获取筛选后事件（年份选择器 + 分类筛选） ----------
 function getFilteredEvents(){
     let list = historyData.filter(item=> item.year == filterYear);
-    if(searchKey.trim() !== ""){
-        const key = searchKey.toLowerCase();
-        list = list.filter(item=>
-            item.title.toLowerCase().includes(key) || String(item.year).includes(key)
-        );
-    }
     return softFilter(list);
 }
 
@@ -18139,6 +18127,7 @@ function renderCalendar(){
         events.slice(0,3).forEach(ev=>{
             const eDiv = document.createElement('div');
             eDiv.className = "event-item";
+            eDiv.dataset.eventKey = keyOf(ev);
             eDiv.innerText = ev.title;
             // 单条事件按所属主题着色：其他力量(蓝色) / 中共(红色)
             eDiv.style.borderLeftColor = (ev.cat==='kmt') ? '#1a5276' : (ev.cat==='nation') ? '#b7791f' : '#b22222';
@@ -18391,7 +18380,7 @@ function renderModalBody(){
       const ch = document.createElement('div'); ch.className = 'ev-rel-h'; ch.textContent = '因果脉络';
       causalBox.appendChild(ch);
       if(cBefore.length){
-        const sub = document.createElement('div'); sub.className = 'causal-sub'; sub.textContent = '前因（导致本事件）';
+        const sub = document.createElement('div'); sub.className = 'causal-sub'; sub.textContent = '前序（导致本事件）';
         causalBox.appendChild(sub);
         cBefore.forEach(x => causalBox.appendChild(makeCausalChip(x, 'before', e)));
       }
@@ -18454,6 +18443,10 @@ function toggleRail(){
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         const chev = btn.querySelector('.chev');
         if(chev) chev.textContent = open ? '▴' : '▾';
+    }
+    if(open){
+        const y = timelineView.classList.contains('show') && tlVisibleYear ? tlVisibleYear : filterYear;
+        renderYearRail(y);
     }
 }
 function closeRail(){
@@ -18572,7 +18565,7 @@ function openAbout(){
         '<ul>',
         '<li>在时间轴点「因果网络图」进入。</li>',
         '<li><b>滚轮缩放</b>（以鼠标指针为中心）、拖动空白处平移、拖动节点微调位置。</li>',
-        '<li>点击任意节点以其为「根」，自动展开其前因与后续脉络。</li>',
+        '<li>点击任意节点以其为「根」，自动展开其前序与后续脉络。</li>',
         '<li>「+1层 / −1层」调整展开深度；「重要脉络」下拉一键跳转关键节点。</li>',
         '<li>「仅看脉络」隐去无关节点、「显示推断关联」显示算法推测的关联、「重置视图」复位；左上角 × 退出因果图；脉络事件列表中每个事件右下角的「详情」按钮可查看该事件史料。</li>',
         '</ul>',
@@ -18836,47 +18829,70 @@ function toggleFav(e, starEl){
     const c = document.getElementById('favCount'); if(c) c.textContent = favs.length;
 }
 
-// ---------- 搜索命中高亮闪烁（I2） ----------
+// ---------- 搜索命中高亮闪烁 ----------
 let hitFlashTimer = null;
+let searchHits = [];   // 当前搜索命中的事件列表
 function flashHits(){
-    // 仅在结果被「搜索 / 分类」收窄时闪烁，避免默认全量时全盘闪烁
-    const narrowing = searchKey.trim() !== "" || catFilter !== 'all';
-    if(!narrowing) return;
+    if(!searchHits.length) return;
+    const hitKeys = new Set(searchHits.map(e=> keyOf(e)));
     const targets = [
         ...document.querySelectorAll('#calendarBody .event-item'),
         ...document.querySelectorAll('#tlTrack .tl-card')
     ];
     targets.forEach(el=>{
-        el.classList.remove('hit-flash');
-        void el.offsetWidth; // 强制回流以重启动画
-        el.classList.add('hit-flash');
+        const k = el.dataset.eventKey;
+        if(k && hitKeys.has(k)){
+            el.classList.remove('hit-flash');
+            void el.offsetWidth;
+            el.classList.add('hit-flash');
+        }
     });
     if(hitFlashTimer) clearTimeout(hitFlashTimer);
     hitFlashTimer = setTimeout(()=>{
         document.querySelectorAll('.hit-flash').forEach(el=> el.classList.remove('hit-flash'));
-    }, 3200); // 约 3 秒后自动清除
+    }, 3200);
 }
 
-// ---------- 搜索（与年份选择器独立） ----------
+// ---------- 搜索：全局匹配 → 跳转到首条 → 高亮闪烁（不隐去其他事件） ----------
 function doSearch(){
     searchKey = document.getElementById('searchInput').value.trim();
-    const matched = getFilteredEvents();
-    const monthsWith = [...new Set(matched.map(e=>e.month))].sort((a,b)=>a-b);
     const status = document.getElementById('statusText');
-    if(searchKey.trim() === ""){
+    if(searchKey === ""){
+        searchHits = [];
         status.textContent = "";
-    }else if(monthsWith.length === 0){
-        status.textContent = `未找到与“${searchKey}”相关的事件`;
-    }else{
-        status.textContent = `找到 ${matched.length} 条结果，分布在 ${monthsWith.length} 个月份`;
-        if(!monthsWith.includes(currentMonth)){
-            currentMonth = monthsWith[0];
-        }
+        document.querySelectorAll('.hit-flash').forEach(el=> el.classList.remove('hit-flash'));
+        return;
     }
-    renderMonthBar();
-    renderCalendar();
-    if(timelineView.classList.contains('show')) renderTimeline();
-    flashHits();
+    const key = searchKey.toLowerCase();
+    searchHits = historyData.filter(item=>
+        item.title.toLowerCase().includes(key) ||
+        (item.desc && item.desc.toLowerCase().includes(key)) ||
+        String(item.year).includes(key)
+    );
+    searchHits.sort((a,b)=> a.year-b.year || a.month-b.month || a.day-b.day);
+    if(searchHits.length === 0){
+        status.textContent = `未找到与”${searchKey}”相关的事件`;
+        return;
+    }
+    status.textContent = `找到 ${searchHits.length} 条与”${searchKey}”相关的事件`;
+    const first = searchHits[0];
+    if(timelineView.classList.contains('show')){
+        scrollTimelineToYear(first.year);
+        setTimeout(()=>{
+            const node = keyNode[keyOf(first)];
+            if(node) node.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+            flashHits();
+        }, 80);
+    } else {
+        const targetIdx = yearList.indexOf(first.year);
+        if(targetIdx >= 0 && targetIdx !== yearIndex){
+            setYearIndex(targetIdx);
+        }
+        currentMonth = first.month;
+        renderMonthBar();
+        renderCalendar();
+        setTimeout(flashHits, 60);
+    }
 }
 document.getElementById('searchBtn').onclick = doSearch;
 document.getElementById('mtgBtn').onclick = openMeetings;
@@ -19068,7 +19084,8 @@ document.getElementById('catSelect').onchange = function(){
     catFilter = this.value;
     renderMonthBar();
     renderCalendar();
-    renderYearRail(filterYear);
+    const railY = timelineView.classList.contains('show') && tlVisibleYear ? tlVisibleYear : filterYear;
+    renderYearRail(railY);
     if(timelineView.classList.contains('show')) renderTimeline();
     flashHits();
 };
@@ -19216,6 +19233,39 @@ const TlWheel=(function(){
     return {sync:sync};
 })();
 
+/* ===== 时间轴滚动 → 追踪当前可见年份，联动本年事件侧栏 ===== */
+let tlVisibleYear = null;
+function detectTlYear(){
+    const sc = document.getElementById('tlScroll');
+    if(!sc || !timelineView.classList.contains('show')) return;
+    const rect = sc.getBoundingClientRect();
+    const mid = rect.left + rect.width * 0.4;
+    const items = sc.querySelectorAll('.tl-item[data-y]');
+    let best = null, bestDist = Infinity;
+    for(let i=0;i<items.length;i++){
+        const r = items[i].getBoundingClientRect();
+        const d = Math.abs(r.left - mid);
+        if(d < bestDist){ bestDist = d; best = items[i]; }
+    }
+    if(best){
+        const y = parseInt(best.dataset.y, 10);
+        if(y !== tlVisibleYear){
+            tlVisibleYear = y;
+            const rail = document.getElementById('railRight');
+            if(rail && rail.classList.contains('open')) renderYearRail(y);
+        }
+    }
+}
+(function(){
+    const sc = document.getElementById('tlScroll');
+    if(!sc) return;
+    let raf = null;
+    sc.addEventListener('scroll', function(){
+        if(raf) return;
+        raf = requestAnimationFrame(function(){ raf = null; detectTlYear(); });
+    }, {passive:true});
+})();
+
 /* ===== 可视视口高度 --vvh：随手机浏览器顶/底栏收展实时刷新 =====
    弹窗遮罩/卡片以此取尺寸，双工具栏同现时不再遮挡内容 */
 (function(){
@@ -19240,14 +19290,6 @@ function renderTimeline(){
     keyNode = {};
 
     let list = historyData.slice();
-    if(searchKey.trim() !== ""){
-        const key = searchKey.toLowerCase();
-        list = list.filter(item =>
-            item.title.toLowerCase().includes(key) ||
-            item.desc.toLowerCase().includes(key) ||
-            String(item.year).includes(key)
-        );
-    }
     list = softFilter(list);
     list.sort((a,b)=> a.year-b.year || a.month-b.month || a.day-b.day);
 
@@ -19287,6 +19329,7 @@ function renderTimeline(){
 
         const card = document.createElement('div');
         card.className = 'tl-card';
+        card.dataset.eventKey = keyOf(e);
         const d = document.createElement('div');
         d.className = 'tl-date';
         d.textContent = `${e.year}.${e.month}.${e.day}`;
@@ -19395,6 +19438,8 @@ function setMode(mode){
         renderTimeline();
         document.getElementById('tlScroll').scrollLeft = 0;
         closeRail();
+        tlVisibleYear = null;
+        setTimeout(detectTlYear, 100);
         TlWheel.sync(true);   // 桌面：进入时间轴即锁定页面竖向滚动
         // 降级 / 动画进行中：直接静态切换
         if(reduced || modeAnimating){ cal.style.display = 'none'; return; }
