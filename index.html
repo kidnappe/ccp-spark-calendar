@@ -163,6 +163,11 @@
         .search-box .sx:focus-visible { outline:1px solid var(--edge); outline-offset:2px; }
         .search-box .sx:focus:not(:focus-visible) { outline:none; }
         #searchInput { width:100%; padding-right:30px; box-sizing:border-box; }
+        /* type=search 在 WebKit 会自带清除钮/装饰，与内嵌 × 重复，需一并抹掉 */
+        #searchForm { margin:0; }
+        #searchInput { -webkit-appearance:none; appearance:none; }
+        #searchInput::-webkit-search-cancel-button,
+        #searchInput::-webkit-search-decoration { -webkit-appearance:none; appearance:none; display:none; }
         /* 顶部右上角：功能菜单按钮（打开右侧抽屉，与日夜钮/本年事件呼应） */
         .menu-fab {
             position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 14px; left: auto; z-index: 60;
@@ -2162,7 +2167,7 @@
     <!-- 第一行：搜索 + 分类筛选 + 导出 + 入口（与年份选择隔离） -->
     <div class="toolbar">
         <div class="toolbar-row">
-            <span class="search-box"><input id="searchInput" placeholder="搜索事件关键词 / 年份（与下方年份选择相互独立）" aria-label="搜索事件关键词或年份"><button id="searchClear" class="sx" type="button" aria-label="清除搜索内容" hidden>×</button></span>
+            <form class="search-box" id="searchForm" autocomplete="off"><input id="searchInput" type="search" enterkeyhint="search" placeholder="搜索事件关键词 / 年份（与下方年份选择相互独立）" aria-label="搜索事件关键词或年份"><button id="searchClear" class="sx" type="button" aria-label="清除搜索内容" hidden>×</button></form>
             <button id="searchBtn" type="button">搜索</button>
             <select id="catSelect" class="cat-select" title="分类筛选">
                 <option value="all">全部分类</option>
@@ -25156,10 +25161,10 @@ function doSearch(){
     );
     searchHits.sort((a,b)=> a.year-b.year || a.month-b.month || a.day-b.day);
     if(searchHits.length === 0){
-        status.textContent = `未找到与”${searchKey}”相关的事件`;
+        status.textContent = `未找到与“${searchKey}”相关的事件`;
         return;
     }
-    status.textContent = `找到 ${searchHits.length} 条与”${searchKey}”相关的事件`;
+    status.textContent = `找到 ${searchHits.length} 条与“${searchKey}”相关的事件`;
     const first = searchHits[0];
     if(timelineView.classList.contains('show')){
         scrollTimelineToYear(first.year);
@@ -25177,6 +25182,8 @@ function doSearch(){
         renderMonthBar();
         renderCalendar();
         setTimeout(flashHits, 60);
+        // 换年走 animateCalendarSwap，它会在 700ms 后重建日历 DOM 抹掉第一次光效，需落地后重放
+        setTimeout(flashHits, 800);
     }
 }
 document.getElementById('searchBtn').onclick = doSearch;
@@ -25351,8 +25358,14 @@ function collapseGpCard(){
 }
 
 document.getElementById('gachaBtn').onclick = openGashapon;
-document.getElementById('searchInput').onkeydown = function(e){
-    if(e.key === "Enter") doSearch();
+/* 搜索统一走表单 submit：桌面回车与手机软键盘「搜索」键同源，且输入法合成期的回车不会误触发 */
+document.getElementById('searchForm').onsubmit = function(e){
+    e.preventDefault();
+    doSearch();
+    // 触屏设备收起软键盘，否则半屏键盘挡住刚跳转到的命中结果
+    if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+        document.getElementById('searchInput').blur();
+    }
 };
 /* 搜索框内嵌 × 清除钮：有输入时出现，点击清空并立即刷新结果 */
 ;(function(){
