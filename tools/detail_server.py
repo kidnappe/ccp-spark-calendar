@@ -933,6 +933,243 @@ def api_judge_prefill(body):
             "basis": (obj.get("basis") or "").strip()}
 
 
+# ==================== 语义标注 /api/tag/* ====================
+TAG_PERIODS = [
+    (1911, 1918, "辛亥革命与北洋时期"),
+    (1919, 1927, "建党与大革命"),
+    (1927, 1937, "土地革命战争"),
+    (1937, 1945, "抗日战争"),
+    (1945, 1949, "解放战争"),
+    (1949, 1956, "社会主义改造"),
+    (1956, 1966, "全面建设社会主义"),
+    (1966, 1976, "文化大革命"),
+    (1976, 1978, "拨乱反正"),
+    (1978, 2012, "改革开放"),
+    (2012, 9999, "新时代"),
+]
+TAG_NATURE_RULES = [
+    (r"代表大会|全会|会议|座谈会|政治局.*会|工作会议|代表会议|协商会议|人民代表大会", "会议"),
+    (r"战役|战斗|起义|暴动|战争|进攻|防御|突围|长征|渡江|淮海|平津|辽沈|百团大战|反围剿|反\"围剿\"", "军事行动"),
+    (r"条约|协定|协议|联合声明|公报|停战", "条约协定"),
+    (r"法|条例|决议|决定|指示|通知|纲要|规划|方案|意见|办法|规定|宣言", "政策法令"),
+    (r"运动|整风|三反|五反|大跃进|人民公社化|社会主义教育", "政治运动"),
+    (r"成立|建立|组建|创办|创建|设立|开幕|揭牌", "机构创设"),
+    (r"发射|建成|投产|通车|首飞|下水|并网|竣工|试飞|试车", "建设成就"),
+    (r"逝世|殉国|牺牲|遇难", "人物逝世"),
+    (r"选举|任命|当选|就任|卸任|罢免|改组", "人事变动"),
+    (r"示威|游行|罢工|罢课|抗议|请愿|集会|惨案|事件", "群众事件"),
+    (r"发表|出版|刊发|刊登|公布|发布", "文告发表"),
+    (r"外交|建交|断交|访问|出访|会晤|会谈|接见", "外交活动"),
+]
+TAG_NATURE_LIST = ["会议", "军事行动", "条约协定", "政策法令", "政治运动",
+                   "机构创设", "建设成就", "人物逝世", "人事变动", "群众事件",
+                   "文告发表", "外交活动", "其他"]
+TAG_THEME_LIST = ["军事", "政治", "经济", "外交", "思想文化", "科技教育", "社会民生", "组织制度"]
+
+SIMILAR_BUILD = {"proc": None, "start": 0, "log": "", "done": False, "code": None}
+
+
+def _tag_period(year):
+    for lo, hi, name in TAG_PERIODS:
+        if lo <= year <= hi:
+            return name
+    return "其他"
+
+
+def _tag_nature_rules(title, desc):
+    text = title + " " + (desc or "")
+    for pattern, label in TAG_NATURE_RULES:
+        if re.search(pattern, text):
+            return label, 0.95
+    return None, 0.0
+
+
+def api_tag_events():
+    data = json.load(open(os.path.join(ROOT, "events.json"), encoding="utf-8"))
+    items = []
+    for e in data["events"]:
+        key = e.get("key") or f"{e['year']}-{e['month']}-{e['day']}"
+        items.append({
+            "key": key, "year": e["year"], "month": e["month"], "day": e["day"],
+            "title": e["title"], "desc": (e.get("desc") or "")[:100],
+            "tags": e.get("tags"), "conf": e.get("_tagConf"),
+            "hasSimilar": bool(e.get("similar")),
+        })
+    tagged = sum(1 for i in items if i["tags"])
+    has_sim = sum(1 for i in items if i["hasSimilar"])
+    return {"ok": True, "total": len(items), "tagged": tagged,
+            "hasSimilar": has_sim, "items": items}
+
+
+def api_tag_rules(body):
+    keys = body.get("keys")
+    data = json.load(open(os.path.join(ROOT, "events.json"), encoding="utf-8"))
+    events = data["events"]
+    if keys:
+        kset = set(keys)
+        events = [e for e in events
+                  if (e.get("key") or f"{e['year']}-{e['month']}-{e['day']}") in kset]
+    results = []
+    for e in events:
+        key = e.get("key") or f"{e['year']}-{e['month']}-{e['day']}"
+        period = _tag_period(e["year"])
+        nature, nconf = _tag_nature_rules(e["title"], e.get("desc", ""))
+        if nature is None:
+            nature = "其他"
+            nconf = 0.3
+        results.append({
+            "key": key, "title": e["title"],
+            "tags": {"period": period, "nature": nature, "theme": None},
+            "conf": {"nature": nconf, "theme": 0.0},
+            "needsLLM": nconf < 0.7,
+        })
+    return {"ok": True, "count": len(results), "results": results}
+
+
+def api_tag_llm(body):
+    key = body.get("key")
+    model = body.get("model") or "qwen2.5:local7b"
+    if not key:
+        return {"ok": False, "error": "缺少 key"}
+    data = json.load(open(os.path.join(ROOT, "events.json"), encoding="utf-8"))
+    ev = None
+    for e in data["events"]:
+        k = e.get("key") or f"{e['year']}-{e['month']}-{e['day']}"
+        if k == key:
+            ev = e
+            break
+    if not ev:
+        return {"ok": False, "error": "未找到事件 " + key}
+    period = _tag_period(ev["year"])
+    nature, nconf = _tag_nature_rules(ev["title"], ev.get("desc", ""))
+    theme, theme_conf = None, 0.0
+    theme_prompt = (
+        f"事件：{ev['title']}\n"
+        f"日期：{ev['year']}年{ev['month']}月{ev['day']}日\n"
+        f"简述：{(ev.get('desc') or '')[:200]}\n\n"
+        f"请选择主题分类（{'/'.join(TAG_THEME_LIST)}）："
+    )
+    theme_sys = ("你是中共党史分类专家。任务：为给定事件选择最合适的主题分类。\n"
+                 "可选主题（8选1）：军事、政治、经济、外交、思想文化、科技教育、社会民生、组织制度\n"
+                 "规则：只输出 JSON {\"theme\":\"...\",\"confidence\":0.0-1.0}，不要解释。")
+    try:
+        payload = {"model": model, "system": theme_sys, "prompt": theme_prompt,
+                   "format": "json", "stream": False,
+                   "options": {"temperature": 0, "num_ctx": 2048, "num_predict": 100}}
+        d = ollama_generate(payload)
+        obj = parse_json(d.get("response", ""))
+        theme = obj.get("theme", "")
+        theme_conf = float(obj.get("confidence", 0.5))
+        if theme not in TAG_THEME_LIST:
+            for t in TAG_THEME_LIST:
+                if t in theme:
+                    theme = t
+                    break
+            else:
+                theme = "政治"
+                theme_conf = 0.3
+    except Exception as ex:
+        theme, theme_conf = "政治", 0.0
+    if nature is None:
+        nat_prompt = (
+            f"事件：{ev['title']}\n简述：{(ev.get('desc') or '')[:200]}\n\n"
+            f"请从以下选项中选择事件性质（只选1个）：\n{'/'.join(TAG_NATURE_LIST)}\n"
+            f'输出 JSON：{{"nature":"...","confidence":0.0-1.0}}'
+        )
+        nat_sys = "你是中共党史分类专家。只输出 JSON，不要解释。"
+        try:
+            payload = {"model": model, "system": nat_sys, "prompt": nat_prompt,
+                       "format": "json", "stream": False,
+                       "options": {"temperature": 0, "num_ctx": 2048, "num_predict": 100}}
+            d = ollama_generate(payload)
+            obj = parse_json(d.get("response", ""))
+            nature = obj.get("nature", "")
+            nconf = float(obj.get("confidence", 0.5))
+            if nature not in TAG_NATURE_LIST:
+                for n in TAG_NATURE_LIST:
+                    if n in nature:
+                        nature = n
+                        break
+                else:
+                    nature = "其他"
+                    nconf = 0.3
+        except Exception:
+            nature, nconf = "其他", 0.3
+    return {"ok": True, "key": key, "title": ev["title"],
+            "tags": {"period": period, "nature": nature or "其他", "theme": theme or "政治"},
+            "conf": {"nature": nconf, "theme": theme_conf}}
+
+
+def api_tag_save(body):
+    items = body.get("items") or []
+    if not items:
+        return {"ok": False, "error": "items 为空"}
+    path = os.path.join(ROOT, "events.json")
+    data = json.load(open(path, encoding="utf-8"))
+    by_key = {}
+    for e in data["events"]:
+        k = e.get("key") or f"{e['year']}-{e['month']}-{e['day']}"
+        by_key[k] = e
+    applied = 0
+    for it in items:
+        k = it.get("key")
+        tags = it.get("tags")
+        if not k or not tags or k not in by_key:
+            continue
+        ev = by_key[k]
+        ev["tags"] = tags
+        if it.get("conf"):
+            ev["_tagConf"] = it["conf"]
+        applied += 1
+    saved = snapshot("tagsave")
+    json.dump(data, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    return {"ok": True, "applied": applied, "backup": saved[0] if saved else ""}
+
+
+def start_similar_build():
+    p = SIMILAR_BUILD["proc"]
+    if p is not None and p.poll() is None:
+        return False
+    log = os.path.join(ROOT, "_similar_runtime.log")
+    try:
+        logf = open(log, "w", encoding="utf-8")
+    except OSError:
+        return False
+    SIMILAR_BUILD.update(proc=None, start=time.time(), log=log, done=False, code=None)
+    env = dict(os.environ, PYTHONIOENCODING="utf-8")
+    SIMILAR_BUILD["proc"] = subprocess.Popen(
+        [sys.executable, os.path.join(ROOT, "scripts", "build_similar.py")],
+        cwd=ROOT, stdout=logf, stderr=subprocess.STDOUT, env=env)
+    threading.Thread(target=_watch_similar, args=(logf,), daemon=True).start()
+    return True
+
+
+def _watch_similar(logf):
+    p = SIMILAR_BUILD["proc"]
+    code = p.wait()
+    try:
+        logf.close()
+    except Exception:
+        pass
+    SIMILAR_BUILD["code"] = code
+    SIMILAR_BUILD["done"] = True
+
+
+def similar_build_status():
+    p = SIMILAR_BUILD["proc"]
+    running = p is not None and p.poll() is None
+    tail = ""
+    try:
+        with open(SIMILAR_BUILD["log"], encoding="utf-8", errors="replace") as f:
+            tail = f.read()[-2000:]
+    except Exception:
+        pass
+    return {"ok": True, "running": running, "done": SIMILAR_BUILD["done"],
+            "code": SIMILAR_BUILD["code"],
+            "elapsed": int(time.time() - SIMILAR_BUILD["start"]) if SIMILAR_BUILD["start"] else 0,
+            "log": tail}
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *a, **kw):
         super().__init__(*a, directory=ROOT, **kw)
@@ -983,6 +1220,13 @@ class Handler(SimpleHTTPRequestHandler):
                              "corpus": _corpus_stamp()})
         elif p.startswith("/api/corpus/stamp"):
             send_json(self, {"ok": True, **_corpus_stamp()})
+        elif p.startswith("/api/tag/events"):
+            try:
+                send_json(self, api_tag_events())
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif p.startswith("/api/tag/similar/status"):
+            send_json(self, similar_build_status())
         elif p.startswith("/api/build/status"):
             send_json(self, build_status())
         else:
@@ -1070,6 +1314,28 @@ class Handler(SimpleHTTPRequestHandler):
                 send_json(self, api_judge_save(body))
             except Exception as ex:
                 send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/tag/rules":
+            try:
+                send_json(self, api_tag_rules(body))
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/tag/llm":
+            try:
+                send_json(self, api_tag_llm(body))
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/tag/save":
+            try:
+                send_json(self, api_tag_save(body))
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
+        elif self.path == "/api/tag/similar":
+            try:
+                started = start_similar_build()
+                send_json(self, {"ok": started, "running": not started,
+                                 "msg": "相关事件计算已启动" if started else "已有计算正在运行"})
+            except Exception as ex:
+                send_json(self, {"ok": False, "error": str(ex)})
         elif self.path == "/api/apply":
             try:
                 d = api_apply(body)
@@ -1136,9 +1402,10 @@ def start_build():
         logf.write("已备份到 backups/：" + ", ".join(saved) + "\n")
         logf.flush()
     BUILD.update(proc=None, start=time.time(), log=log, done=False, code=None)
+    env = dict(os.environ, PYTHONIOENCODING="utf-8")
     BUILD["proc"] = subprocess.Popen(
         [sys.executable, os.path.join(ROOT, "scripts", "build_data.py")],
-        cwd=ROOT, stdout=logf, stderr=subprocess.STDOUT)
+        cwd=ROOT, stdout=logf, stderr=subprocess.STDOUT, env=env)
     threading.Thread(target=_watch_build, args=(logf,), daemon=True).start()
     return True
 
@@ -1159,7 +1426,7 @@ def build_status():
     running = p is not None and p.poll() is None
     tail = ""
     try:
-        with open(BUILD["log"], encoding="utf-8") as f:
+        with open(BUILD["log"], encoding="utf-8", errors="replace") as f:
             tail = f.read()[-2000:]
     except Exception:
         pass

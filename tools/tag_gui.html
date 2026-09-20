@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星火日历 · 语义标注工具</title>
+<style>
+  :root{--bg:#f7f8fa;--card:#fff;--line:#e3e6eb;--ink:#1f2329;--sub:#6b7280;
+    --brand:#b91c1c;--brand2:#2563eb;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;--code:#f3f4f6;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;font-size:14px}
+  .wrap{max-width:1100px;margin:0 auto;padding:18px}
+  h1{font-size:19px;margin:0 0 2px}
+  .sub{color:var(--sub);font-size:12.5px;margin:0 0 14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  label{display:block;font-size:12px;color:var(--sub);margin-bottom:3px}
+  input,select,textarea{width:100%;font:inherit;padding:7px 9px;border:1px solid var(--line);
+    border-radius:7px;background:#fff;color:var(--ink)}
+  textarea{resize:vertical;font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12.5px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  button{cursor:pointer;font:inherit;border:none;border-radius:7px;padding:8px 13px;font-weight:600}
+  .b-primary{background:var(--brand);color:#fff}.b-blue{background:var(--brand2);color:#fff}
+  .b-ghost{background:#eef1f5;color:var(--ink)}.b-ok{background:var(--ok);color:#fff}
+  .b-warn{background:var(--warn);color:#fff}.b-bad{background:var(--bad);color:#fff}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:#eef1f5;color:var(--sub)}
+  .pill.ok{background:#e8f5e9;color:var(--ok)}.pill.warn{background:#fef3e2;color:var(--warn)}
+  .pill.bad{background:#fde8e8;color:var(--bad)}.pill.blue{background:#e8f0fe;color:var(--brand2)}
+  .evlist{max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:8px;margin-top:10px}
+  .evrow{display:flex;gap:8px;align-items:center;padding:5px 10px;border-bottom:1px solid #f0f0f0;font-size:13px}
+  .evrow:last-child{border-bottom:none}
+  .evrow:hover{background:#f8f9fb}
+  .evrow .yr{color:var(--sub);min-width:70px;font-size:12px}
+  .evrow .tt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .evrow .tags{display:flex;gap:4px;flex-wrap:nowrap}
+  .evrow .tag{font-size:10px;padding:1px 6px;border-radius:4px;white-space:nowrap}
+  .tag-period{background:#ede9fe;color:#6d28d9}
+  .tag-nature{background:#e0f2fe;color:#0369a1}
+  .tag-theme{background:#fef3c7;color:#92400e}
+  .tag-none{background:#f3f4f6;color:#9ca3af}
+  .tag-low{background:#fde8e8;color:#b91c1c}
+  .log{font-family:ui-monospace,Consolas,Menlo,monospace;font-size:12px;white-space:pre-wrap;
+    background:#0f172a;color:#cbd5e1;border-radius:8px;padding:10px;max-height:180px;overflow:auto;margin-top:10px}
+  .prog{height:8px;background:#eef1f5;border-radius:999px;overflow:hidden;margin:6px 0}
+  .prog>i{display:block;height:100%;background:var(--brand2);width:0;transition:width .2s}
+  .hint{font-size:12px;color:var(--sub);background:#fff8eb;border:1px solid #fde68a;border-radius:8px;padding:9px 11px;margin-top:10px}
+  .file-warn{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px}
+  .hidden{display:none}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+  .stat-card{background:#f8f9fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;text-align:center}
+  .stat-card .num{font-size:22px;font-weight:700;color:var(--brand2)}
+  .stat-card .lab{font-size:11px;color:var(--sub);margin-top:2px}
+  .dist{margin-top:10px}
+  .dist-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:12px}
+  .dist-row .dl{min-width:80px;color:var(--sub);text-align:right}
+  .dist-row .db{height:14px;border-radius:3px;background:var(--brand2);min-width:2px;transition:width .3s}
+  .dist-row .dn{min-width:30px;font-size:11px;color:var(--sub)}
+  .filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+  .fbtn{padding:4px 10px;border-radius:6px;border:1px solid var(--line);background:#fff;
+    cursor:pointer;font-size:12px;color:var(--sub)}
+  .fbtn.active{background:var(--brand2);color:#fff;border-color:var(--brand2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="file-warn hidden" id="fileWarn">请勿用 file:// 直接打开本页。请双击 <b>tools/start_workshop.bat</b>（统一服务 8001 并打开工具台）。</div>
+  <h1>星火日历 · 语义标注工具</h1>
+  <p class="sub">三维标签（时期/性质/主题）自动打标 + 相关事件预计算 · 规则引擎秒级 / 本地 Ollama 深度标注 · 数据不出本机</p>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">① 连接设置</h2>
+    <div class="grid">
+      <div><label>模型（LLM 标注用，与 ollama list 一致）</label><select id="model"></select></div>
+    </div>
+    <div class="row">
+      <button class="b-ghost" id="testBtn">测试连接</button>
+      <span id="testMsg" class="pill"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">② 事件标签总览</h2>
+    <div class="stats" id="statsBox">
+      <div class="stat-card"><div class="num" id="stTotal">-</div><div class="lab">事件总数</div></div>
+      <div class="stat-card"><div class="num" id="stTagged">-</div><div class="lab">已标注</div></div>
+      <div class="stat-card"><div class="num" id="stLow">-</div><div class="lab">低置信度</div></div>
+      <div class="stat-card"><div class="num" id="stSim">-</div><div class="lab">已有相关事件</div></div>
+    </div>
+    <div class="filter-row" style="margin-top:12px">
+      <button class="fbtn active" data-f="all">全部</button>
+      <button class="fbtn" data-f="untagged">未标注</button>
+      <button class="fbtn" data-f="low">低置信度</button>
+      <button class="fbtn" data-f="tagged">已完成</button>
+      <input id="kw" placeholder="搜索标题…" style="max-width:180px;padding:4px 8px;font-size:12px">
+      <button class="b-ghost" id="selAll" style="padding:4px 10px;font-size:12px">全选</button>
+      <button class="b-ghost" id="selNone" style="padding:4px 10px;font-size:12px">清空</button>
+      <span class="pill blue" id="selStat"></span>
+    </div>
+    <div class="evlist" id="evList"><p style="color:#999;font-size:13px;padding:10px">加载中…</p></div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">③ 批量标注</h2>
+    <div class="row" style="margin-top:0">
+      <button class="b-primary" id="rulesBtn">⚡ 规则打标（秒级）</button>
+      <button class="b-blue" id="llmBtn">🤖 LLM 深度标注</button>
+      <button class="b-bad hidden" id="stopBtn">■ 停止</button>
+      <span class="pill" id="progMsg"></span>
+    </div>
+    <div class="prog"><i id="bar"></i></div>
+    <div class="log" id="log">就绪。选择事件 → 规则打标（快）或 LLM 深度标注（慢但准确）→ 保存。</div>
+    <div class="hint"><b>规则打标</b>：period 100% 命中（年份映射）；nature 约 68% 命中（正则匹配）；theme 需 LLM。<br>
+      <b>LLM 深度标注</b>：逐条调用本地模型（约 10-20 秒/条），输出 theme + 补全 nature。建议先跑规则，再对「低置信度」条目跑 LLM。</div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">④ 保存与统计</h2>
+    <div class="row" style="margin-top:0">
+      <button class="b-ok" id="saveBtn">💾 保存标签到 events.json</button>
+      <span class="pill" id="saveMsg"></span>
+    </div>
+    <div class="dist" id="distBox"></div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;font-size:15px">⑤ 计算相关事件</h2>
+    <div class="row" style="margin-top:0">
+      <button class="b-blue" id="simBtn">🔗 计算相关事件（build_similar）</button>
+      <span class="pill" id="simMsg"></span>
+    </div>
+    <div class="prog"><i id="simBar"></i></div>
+    <div class="hint">基于标签加权 + TF-IDF 文本相似度 + 因果边，为每条事件预计算 top-8 相关事件。<br>
+      全量 419 条约需 2 秒（稀疏向量点积，非稠密矩阵）。计算完成后需重新「构建 index」才能在页面生效。</div>
+  </div>
+</div>
+
+<script>
+(function(){
+if(location.protocol==='file:'){document.getElementById('fileWarn').classList.remove('hidden');}
+
+var $=function(id){return document.getElementById(id);};
+var allEvents=[], localTags={}, running=false, filter='all', kw='';
+
+// ===== ① 模型列表 =====
+fetch('/api/models').then(function(r){return r.json();}).then(function(d){
+  var sel=$('model'); sel.innerHTML='';
+  if(d.ok&&d.models.length){
+    d.models.forEach(function(m){
+      var o=document.createElement('option');o.value=m;o.textContent=m;
+      if(m.indexOf('qwen2.5')>=0)o.selected=true;
+      sel.appendChild(o);
+    });
+  }else{sel.innerHTML='<option>无可用模型</option>';}
+}).catch(function(){});
+
+$('testBtn').onclick=function(){
+  $('testMsg').textContent='测试中…';$('testMsg').className='pill';
+  fetch('/api/models').then(function(r){return r.json();}).then(function(d){
+    if(d.ok){$('testMsg').textContent='Ollama 已连接（'+d.models.length+' 个模型）';$('testMsg').className='pill ok';}
+    else{$('testMsg').textContent='连接失败：'+d.error;$('testMsg').className='pill bad';}
+  }).catch(function(e){$('testMsg').textContent='无法连接服务';$('testMsg').className='pill bad';});
+};
+
+// ===== ② 事件列表 =====
+function loadEvents(){
+  fetch('/api/tag/events').then(function(r){return r.json();}).then(function(d){
+    if(!d.ok){log('加载失败：'+d.error);return;}
+    allEvents=d.items;
+    allEvents.forEach(function(ev){
+      if(ev.tags) localTags[ev.key]={tags:ev.tags,conf:ev.conf||{}};
+    });
+    $('stTotal').textContent=d.total;
+    $('stTagged').textContent=d.tagged;
+    $('stSim').textContent=d.hasSimilar;
+    countLow();
+    renderList();
+    renderDist();
+    log('已加载 '+d.total+' 条事件，其中 '+d.tagged+' 条已有标签。');
+  }).catch(function(e){log('加载事件失败：'+e);});
+}
+
+function countLow(){
+  var n=0;
+  allEvents.forEach(function(ev){
+    var lt=localTags[ev.key];
+    if(lt&&lt.tags){
+      var c=lt.conf||{};
+      if((c.theme||0)<0.7||(c.nature||0)<0.7) n++;
+    }
+  });
+  $('stLow').textContent=n;
+}
+
+function isLow(key){
+  var lt=localTags[key];
+  if(!lt||!lt.tags) return false;
+  var c=lt.conf||{};
+  return (c.theme||0)<0.7||(c.nature||0)<0.7;
+}
+
+function getFiltered(){
+  return allEvents.filter(function(ev){
+    if(kw&&ev.title.indexOf(kw)<0) return false;
+    var lt=localTags[ev.key];
+    if(filter==='untagged') return !lt||!lt.tags||!lt.tags.theme;
+    if(filter==='low') return isLow(ev.key);
+    if(filter==='tagged') return lt&&lt.tags&&lt.tags.theme&&(lt.conf||{}).theme>=0.7;
+    return true;
+  });
+}
+
+function renderList(){
+  var list=getFiltered(), el=$('evList');
+  if(!list.length){el.innerHTML='<p style="color:#999;font-size:13px;padding:10px">无匹配事件</p>';updateSelStat();return;}
+  var html='';
+  list.forEach(function(ev){
+    var lt=localTags[ev.key];
+    var checked=ev._sel?'checked':'';
+    var tags='';
+    if(lt&&lt.tags){
+      var t=lt.tags,c=lt.conf||{};
+      tags+='<span class="tag tag-period">'+esc(t.period||'?')+'</span>';
+      var nCls=(c.nature||0)<0.7?'tag-low':'tag-nature';
+      tags+='<span class="tag '+nCls+'">'+esc(t.nature||'?')+'</span>';
+      var thCls=(c.theme||0)<0.7?'tag-low':'tag-theme';
+      if(t.theme) tags+='<span class="tag '+thCls+'">'+esc(t.theme)+'</span>';
+      else tags+='<span class="tag tag-none">主题待标</span>';
+    }else{
+      tags='<span class="tag tag-none">未标注</span>';
+    }
+    html+='<div class="evrow" data-key="'+esc(ev.key)+'">'
+      +'<input type="checkbox" '+checked+' class="ck">'
+      +'<span class="yr">'+ev.year+'-'+pad(ev.month)+'-'+pad(ev.day)+'</span>'
+      +'<span class="tt" title="'+esc(ev.title)+'">'+esc(ev.title)+'</span>'
+      +'<span class="tags">'+tags+'</span></div>';
+  });
+  el.innerHTML=html;
+  el.querySelectorAll('.ck').forEach(function(ck){
+    ck.addEventListener('change',function(){
+      var key=this.closest('.evrow').dataset.key;
+      var ev=allEvents.find(function(e){return e.key===key;});
+      if(ev) ev._sel=this.checked;
+      updateSelStat();
+    });
+  });
+  updateSelStat();
+}
+
+function updateSelStat(){
+  var n=allEvents.filter(function(e){return e._sel;}).length;
+  $('selStat').textContent=n?'已选 '+n+' 条':'';
+}
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function pad(n){return n<10?'0'+n:''+n;}
+
+// 筛选按钮
+document.querySelectorAll('.fbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('active');});
+    this.classList.add('active');
+    filter=this.dataset.f;
+    renderList();
+  });
+});
+$('kw').addEventListener('input',function(){kw=this.value.trim();renderList();});
+$('selAll').onclick=function(){getFiltered().forEach(function(e){e._sel=true;});renderList();};
+$('selNone').onclick=function(){allEvents.forEach(function(e){e._sel=false;});renderList();};
+
+// ===== ③ 批量标注 =====
+function log(msg){
+  var el=$('log');
+  el.textContent+=('\n'+msg);
+  el.scrollTop=el.scrollHeight;
+}
+function setProg(pct){$('bar').style.width=pct+'%';}
+
+$('rulesBtn').onclick=function(){
+  var sel=allEvents.filter(function(e){return e._sel;});
+  if(!sel.length){log('请先勾选事件（或点「全选」）。');return;}
+  var keys=sel.map(function(e){return e.key;});
+  $('rulesBtn').disabled=true;
+  log('规则打标 '+keys.length+' 条…');
+  fetch('/api/tag/rules',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({keys:keys})})
+  .then(function(r){return r.json();}).then(function(d){
+    $('rulesBtn').disabled=false;
+    if(!d.ok){log('规则打标失败：'+d.error);return;}
+    var needLLM=0;
+    d.results.forEach(function(r){
+      var existing=localTags[r.key]||{tags:{},conf:{}};
+      var tags=Object.assign({},existing.tags,r.tags);
+      if(tags.theme===null) delete tags.theme;
+      var conf=Object.assign({},existing.conf,r.conf);
+      localTags[r.key]={tags:tags,conf:conf};
+      if(r.needsLLM) needLLM++;
+    });
+    setProg(100);
+    log('规则打标完成：'+d.count+' 条。其中 '+needLLM+' 条性质需 LLM 补充，主题全部需 LLM。');
+    countLow();renderList();renderDist();
+  }).catch(function(e){$('rulesBtn').disabled=false;log('请求失败：'+e);});
+};
+
+$('llmBtn').onclick=function(){
+  var sel=allEvents.filter(function(e){return e._sel;});
+  if(!sel.length){log('请先勾选事件。');return;}
+  if(running) return;
+  running=true;
+  $('llmBtn').disabled=true;$('rulesBtn').disabled=true;
+  $('stopBtn').classList.remove('hidden');
+  var total=sel.length, done=0, fail=0, idx=0;
+  log('LLM 深度标注 '+total+' 条（逐条调用，约 10-20s/条）…');
+
+  function next(){
+    if(!running||idx>=total){
+      finish();return;
+    }
+    var ev=sel[idx];idx++;
+    $('progMsg').textContent=(idx)+'/'+total;
+    setProg(Math.round(idx/total*100));
+    fetch('/api/tag/llm',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({key:ev.key,model:$('model').value})})
+    .then(function(r){return r.json();}).then(function(d){
+      if(d.ok){
+        localTags[d.key]={tags:d.tags,conf:d.conf};
+        done++;
+        if(done%5===0||done===total) log('  ['+done+'/'+total+'] '+d.key+' → '+d.tags.theme+'/'+d.tags.nature);
+      }else{
+        fail++;log('  [FAIL] '+ev.key+'：'+d.error);
+      }
+      renderList();
+      next();
+    }).catch(function(e){fail++;log('  [ERR] '+ev.key+'：'+e);next();});
+  }
+
+  function finish(){
+    running=false;
+    $('llmBtn').disabled=false;$('rulesBtn').disabled=false;
+    $('stopBtn').classList.add('hidden');
+    $('progMsg').textContent='';
+    log('LLM 标注结束：成功 '+done+'，失败 '+fail+'。');
+    countLow();renderList();renderDist();
+  }
+
+  next();
+};
+
+$('stopBtn').onclick=function(){running=false;log('已手动停止。');};
+
+// ===== ④ 保存 =====
+$('saveBtn').onclick=function(){
+  var items=[];
+  allEvents.forEach(function(ev){
+    var lt=localTags[ev.key];
+    if(lt&&lt.tags&&(lt.tags.theme||lt.tags.nature)){
+      items.push({key:ev.key,tags:lt.tags,conf:lt.conf});
+    }
+  });
+  if(!items.length){log('无可保存的标签数据。');return;}
+  $('saveBtn').disabled=true;$('saveMsg').textContent='保存中…';
+  fetch('/api/tag/save',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({items:items})})
+  .then(function(r){return r.json();}).then(function(d){
+    $('saveBtn').disabled=false;
+    if(d.ok){
+      $('saveMsg').textContent='已保存 '+d.applied+' 条';$('saveMsg').className='pill ok';
+      log('标签已保存到 events.json（'+d.applied+' 条）。备份：'+(d.backup||'无'));
+    }else{
+      $('saveMsg').textContent='保存失败';$('saveMsg').className='pill bad';
+      log('保存失败：'+d.error);
+    }
+  }).catch(function(e){$('saveBtn').disabled=false;$('saveMsg').textContent='请求失败';log('保存失败：'+e);});
+};
+
+// ===== 分布统计 =====
+function renderDist(){
+  var themes={},natures={},periods={};
+  Object.keys(localTags).forEach(function(k){
+    var t=localTags[k].tags;
+    if(!t)return;
+    if(t.theme) themes[t.theme]=(themes[t.theme]||0)+1;
+    if(t.nature) natures[t.nature]=(natures[t.nature]||0)+1;
+    if(t.period) periods[t.period]=(periods[t.period]||0)+1;
+  });
+  var html='';
+  html+=distSection('主题分布',themes);
+  html+=distSection('性质分布',natures);
+  html+=distSection('时期分布',periods);
+  $('distBox').innerHTML=html;
+}
+
+function distSection(title,obj){
+  var entries=Object.entries(obj).sort(function(a,b){return b[1]-a[1];});
+  if(!entries.length) return '';
+  var max=entries[0][1];
+  var h='<div style="font-size:12px;font-weight:600;margin:8px 0 4px;color:var(--sub)">'+title+'</div>';
+  entries.forEach(function(e){
+    var w=Math.max(2,Math.round(e[1]/max*200));
+    h+='<div class="dist-row"><span class="dl">'+esc(e[0])+'</span><span class="db" style="width:'+w+'px"></span><span class="dn">'+e[1]+'</span></div>';
+  });
+  return h;
+}
+
+// ===== ⑤ 计算相关事件 =====
+var simTimer=null;
+$('simBtn').onclick=function(){
+  $('simBtn').disabled=true;$('simMsg').textContent='启动中…';
+  fetch('/api/tag/similar',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
+  .then(function(r){return r.json();}).then(function(d){
+    if(!d.ok&&!d.running){$('simBtn').disabled=false;$('simMsg').textContent='启动失败：'+(d.error||'');return;}
+    if(d.running){$('simMsg').textContent='已有计算在运行';}
+    pollSim();simTimer=setInterval(pollSim,2000);
+  }).catch(function(e){$('simBtn').disabled=false;$('simMsg').textContent='请求失败';});
+};
+
+function pollSim(){
+  fetch('/api/tag/similar/status').then(function(r){return r.json();}).then(function(d){
+    if(!d.running&&d.done){
+      clearInterval(simTimer);simTimer=null;
+      $('simBtn').disabled=false;
+      if(d.code===0){
+        $('simMsg').textContent='计算完成';$('simMsg').className='pill ok';
+        $('simBar').style.width='100%';
+        log('相关事件计算完成（耗时 '+d.elapsed+'s）。请点工具台顶部「构建 index」使页面生效。');
+        loadEvents();
+      }else{
+        $('simMsg').textContent='计算失败(code '+d.code+')';$('simMsg').className='pill bad';
+        log('相关事件计算失败，详见 _similar_runtime.log');
+      }
+    }else if(d.running){
+      var pct=Math.min(95,d.elapsed>0?Math.round(d.elapsed/8*100):5);
+      $('simBar').style.width=pct+'%';
+      $('simMsg').textContent='计算中 '+d.elapsed+'s';$('simMsg').className='pill blue';
+      var lines=(d.log||'').trim().split('\n');
+      var last=lines[lines.length-1]||'';
+      if(last) $('simMsg').textContent='计算中 '+d.elapsed+'s · '+last.substring(0,40);
+    }
+  }).catch(function(){});
+}
+
+// 页面打开时检查是否有正在运行的计算
+fetch('/api/tag/similar/status').then(function(r){return r.json();}).then(function(d){
+  if(d.running){$('simBtn').disabled=true;pollSim();simTimer=setInterval(pollSim,2000);}
+}).catch(function(){});
+
+loadEvents();
+})();
+</script>
+</body>
+</html>

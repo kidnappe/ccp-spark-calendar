@@ -57,6 +57,7 @@ scripts/rel_candidates.md
 
 # ������ʱ��־������̨��?? ������������ _build*.log��
 _build*.log
+_similar*.log
 
 # ���߱���Ŀ¼���ϲ�/�Ķ�ǰ����Ŀ¼���գ���ɾ�����������ֿ⣩
 tools/_backup_*/

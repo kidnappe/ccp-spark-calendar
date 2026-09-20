@@ -3,6 +3,7 @@
 # 跳过 build_data.py 的力导向布局烘焙（那部分与本次改动无关，且耗时易超时）。
 # 字段透传与 build_data.build_history 保持一致：
 #   month/day / year / title / desc / cat / source / ocrDesc / ocrVerified / ocrFlagged
+#   / soft / bg / significance / quotes / figures / srcCite / furtherReading / tags / similar
 import re, json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +33,11 @@ def main():
             v = e.get(k)
             if v not in (None, "", [], {}):
                 item[k] = v
+        # 语义标签与相关事件（tag_events.py / build_similar.py 产出）：透传口径与 build_data.py 一致
+        if e.get("tags"):
+            item["tags"] = e["tags"]
+        if e.get("similar"):
+            item["similar"] = e["similar"]
         history.append(item)
 
     body = json.dumps(history, ensure_ascii=False, indent=1)

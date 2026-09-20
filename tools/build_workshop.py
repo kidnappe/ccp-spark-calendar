@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""build_workshop.py —— 把四个独立工具合并为 tools/workshop.html（真实 DOM 合并，非 iframe）
-四个工具：ocr_clean_gui.html / merge_apply.html / detail_rich_gui.html / causal_judge_gui.html
+"""build_workshop.py —— 把五个独立工具合并为 tools/workshop.html（真实 DOM 合并，非 iframe）
+五个工具：ocr_clean_gui.html / merge_apply.html / detail_rich_gui.html / causal_judge_gui.html / tag_gui.html
 
 合并策略（解决三个独立单页并存的三大冲突）：
   1) ID 冲突  → 每个工具的所有 id 加前缀（ocr- / mg- / dr-），JS 引用同步改
@@ -21,6 +21,7 @@ TOOLS = [
     ("mg",     "merge_apply.html"),
     ("dr",     "detail_rich_gui.html"),
     ("cj",     "causal_judge_gui.html"),
+    ("tg",     "tag_gui.html"),
 ]
 OUT = os.path.join(ROOT, "workshop.html")
 
@@ -189,7 +190,7 @@ body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHe
     tab_js = """
 /* ===== 标签切换 + 懒加载（参考 index 关于页交互）===== */
 (function(){
-  var TABS=[['ocr','pan-ocr','initToolOCR'],['merge','pan-mg','initToolMG'],['detail','pan-dr','initToolDR'],['cj','pan-cj','initToolCJ']];
+  var TABS=[['ocr','pan-ocr','initToolOCR'],['merge','pan-mg','initToolMG'],['detail','pan-dr','initToolDR'],['cj','pan-cj','initToolCJ'],['tag','pan-tg','initToolTG']];
   var inited={};
   function activate(name){
     TABS.forEach(function(t){
@@ -279,7 +280,7 @@ body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHe
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>星火日历 · 工具台（OCR 清洗 / 合并应用 / 详情丰富）</title>
+<title>星火日历 · 工具台（OCR 清洗 / 合并应用 / 详情丰富 / 因果裁判 / 语义标注）</title>
 <style>
 """ + shell_css + "\n" + "\n".join(styles) + """
 </style>
@@ -294,12 +295,13 @@ body{margin:0;font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHe
     <div class="bp-bar"><div class="bp-fill" id="bpFill"></div></div>
     <span class="bp-text" id="bpText">准备构建…</span>
   </div>
-  <div class="sub">统一服务（8001，双击 start_workshop.bat）＋ 本机 Ollama（OCR 清洗 / 因果裁判用）｜ 四个工具一键切换</div>
+  <div class="sub">统一服务（8001，双击 start_workshop.bat）＋ 本机 Ollama（OCR 清洗 / 因果裁判 / 语义标注用）｜ 五个工具一键切换</div>
   <div class="about-tabs">
     <button class="about-tab" data-t="ocr">🧹 OCR 清洗</button>
     <button class="about-tab" data-t="merge">🔗 合并应用</button>
     <button class="about-tab" data-t="detail">✨ 详情丰富</button>
     <button class="about-tab" data-t="cj">⚖️ 因果裁判</button>
+    <button class="about-tab" data-t="tag">🏷️ 语义标注</button>
   </div>
 </header>
 <main>
