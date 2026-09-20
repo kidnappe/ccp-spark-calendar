@@ -57,6 +57,10 @@ def build_history(ev):
             v = e.get(k)
             if v not in (None, "", [], {}):
                 item[k] = v
+        if e.get("tags"):
+            item["tags"] = e["tags"]
+        if e.get("similar"):
+            item["similar"] = e["similar"]
         out.append(item)
     return out
 
