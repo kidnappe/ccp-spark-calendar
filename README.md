@@ -1,194 +1,216 @@
-# 星火日历 · 交互式党史学习网页
+<div align="center">
+  <img src="icons/icon-calendar-256.png" width="96" alt="星火日历" />
 
-一个**纯前端、零依赖、单文件**的党史学习工具：把中共党史上的重要事件按"日历"组织起来，
-支持事件详情弹窗、因果脉络关系图、时间轴、关键词检索与分类筛选，并对移动端做了适配。
+  # 星火日历 · 交互式党史学习网页
 
-> 数据来源为公开出版的党史史料（如《中国共产党简史》等），仅作学习、教育用途。
-> 项目本身（代码、交互设计、可视化方案）以 **MIT 协议**开源，详见 [LICENSE](LICENSE)。
+  **把党史事件放进一张可以查、可以连、可以讲来龙去脉的日历。**
+
+  纯前端单文件 · 无框架 · 无构建 · PWA 离线可用
+
+  <img src="https://img.shields.io/badge/Web-HTML5-e34f26?style=flat-square&logo=html5&logoColor=white" alt="Web" />
+  <img src="https://img.shields.io/badge/build-none-555?style=flat-square" alt="无构建" />
+  <img src="https://img.shields.io/badge/PWA-installable-5a0fc8?style=flat-square" alt="PWA" />
+  <img src="https://img.shields.io/badge/license-MIT-2ea44f?style=flat-square" alt="MIT" />
+
+  <a href="https://kidnappe.github.io/ccp-spark-calendar/">在线体验</a> · <a href="CHANGELOG.md">更新日志</a> · <a href="LICENSE">许可证</a>
+</div>
+
+<img src="docs/screenshots/calendar.png" width="100%" alt="星火日历界面：1911 年 10 月日历，10 月 10 日标注辛亥革命爆发" />
 
 ---
 
-## ✨ 功能特性
+## 它是什么
 
-- **日历视图**：按真实公历日期排布事件，标注月份、年份，一眼看到"历史上的今天"。
-- **事件详情**：点击任意日期，弹窗展示事件标题、描述、三级分类（中共 / 国家大事 / 其他力量），以及史料详情 6 子块（背景 / 历史意义 / 重要论述 / 相关人物 / 文献出处 / 延伸阅读）。
-- **因果脉络图（Causal Graph）**：基于力导向布局的 SVG 关系网络，区分
-  - **已证实边**（实线，来自史料明确记载的因果）
-  - **推断边**（虚线，由本地文本算法推断的强关联）
-  - 支持"聚焦某条脉络"查看前因 / 后续，以及侧栏列表联动。
-- **时间轴**：横向时间线，快速定位不同历史阶段。
-- **检索与筛选**：按关键词搜索事件；按分类（中共 / 国家大事 / 其他力量）筛选。
-- **关于页**：内置更新日志与操作指南（弹窗 Tab 切换）。
-- **PWA**：可安装到桌面、离线兜底（manifest + Service Worker；`/api` 不缓存保证工具实时；仅 HTTPS / localhost 生效，双击 `file://` 自动跳过）。
-- **三合一工具台**（`tools/workshop.html`）：OCR 清洗、合并应用、详情丰富三个维护工具合并为一个页面，含「⚙️ 构建 index」一键重建与实时进度条。
-## 🚀 快速开始
+星火日历是一个纯前端的党史学习工具。它把中共党史上的重要事件按真实公历日期排布，点开某一天就能看到事件详情；再把事件之间的因果关系画成一张可以聚焦、可以追溯的网络。
 
-**在线体验（推荐）** —— GitHub Pages 已部署最新版，点开即用：
+整个项目就是一个 `index.html`：不需要 npm install，不需要打包，也不需要后端。数据已经烘焙进页面，双击文件就能打开。
 
-```
-https://kidnappe.github.io/ccp-spark-calendar/
-```
+当前数据规模：**419 个事件、451 条因果边**。
 
-支持 **PWA 安装**：手机 / 桌面浏览器打开后，通过浏览器菜单「添加到主屏幕 / 安装应用」即可安装为独立应用，**离线可用**。
+---
 
-**本地运行**（任选其一）：
+## 它和普通日历、时间轴的区别
 
-| 方式 | 操作 | 备注 |
+| | 普通日历 | 单一时间轴 | 星火日历 |
+|---|---|---|---|
+| 时间 | 按日期看事件 | 按年份线性排列 | 日历 + 时间轴双视图 |
+| 关系 | 事件之间彼此独立 | 只能看先后 | 因果网络，区分已证实边与推断边 |
+| 检索 | 关键词搜索 | 通常没有 | 关键词 + 分类筛选 |
+| 讲解 | 只有标题和日期 | 只有简述 | 背景 / 意义 / 论述 / 人物 / 出处 / 延伸阅读 |
+| 使用 | 需要联网 | 需要联网 | 单文件离线可用，可装成 PWA |
+
+---
+
+## 功能
+
+### 日历
+
+- 按真实公历日期排布事件，标注月份和年份。
+- 左右切换年份；左侧月份导航显示每月事件数量。
+- “每日一史”入口，适合课堂导入或自学。
+- 事件按三类着色：中共党史、国家大事、其他力量。
+
+### 事件详情
+
+点击任意日期，弹窗展示：
+
+- 事件标题、日期、简述与来源；
+- 三级分类；
+- 史料详情 6 个子块：背景、历史意义、重要论述、相关人物、文献出处、延伸阅读；
+- 来源标记（官方 / 非官方）与核验状态。
+
+### 因果脉络图
+
+- 力导向 SVG 关系网络；
+- 实线表示史料明确记载的因果关系，虚线表示本地文本算法推断的强关联；
+- 支持聚焦某条脉络，查看前因与后续；
+- 侧栏列表与图上节点联动。
+
+### 时间轴与检索
+
+- 横向时间线，快速定位不同历史阶段；
+- 按关键词搜索事件；
+- 按分类筛选；
+- 关于页内置更新日志与操作指南。
+
+### PWA
+
+- 可安装到桌面或手机主屏幕；
+- Service Worker 提供离线兜底；
+- `/api` 不缓存，保证维护工具的数据实时；
+- 仅 HTTPS / localhost 生效，`file://` 打开时自动跳过。
+
+### 维护工具台
+
+`tools/workshop.html` 把 OCR 清洗、合并应用、详情丰富三个维护工具合并成一个页面，并提供“构建 index”按钮和实时进度条。
+
+---
+
+## 快速开始
+
+### 在线体验
+
+打开 **<https://kidnappe.github.io/ccp-spark-calendar/>** 即可。支持 PWA 安装：手机或桌面浏览器打开后，通过菜单“添加到主屏幕 / 安装应用”安装，离线可用。
+
+### 本地运行
+
+| 方式 | 操作 | 说明 |
 |---|---|---|
-| ① 最简单 | 直接双击 `index.html` | `file://` 打开，PWA 自动跳过，功能不受影响 |
-| ② 静态服务 | `python -m http.server 8080` → 访问 `http://localhost:8080` | PWA 离线可用 |
-| ③ 维护工具 | 双击 `tools/start_workshop.bat` | 启动三合一工具台（OCR 清洗 / 合并应用 / 详情丰富） |
+| 直接打开 | 双击 `index.html` | `file://` 打开，PWA 自动跳过，功能不受影响 |
+| 静态服务 | `python -m http.server 8080` → 访问 `http://localhost:8080` | PWA 离线可用 |
+| 维护工具 | 双击 `tools/start_workshop.bat` | 启动三合一工具台 |
 
-> 数据已烘焙进 `index.html`，运行时不依赖 `events.json` / `causality.json`，
-> 这两个文件只在**重新生成数据**时才需要。
-> 维护工具（OCR 清洗）另需本机运行 Ollama 服务。
-
----
-
-## 🧱 技术栈
-
-| 层 | 说明 |
-|---|---|
-| 前端 | 原生 HTML + CSS + JavaScript（**单文件 `index.html`，无需打包、无框架**） |
-| 数据 | `events.json`（事件库）+ `causality.json`（因果链），由 Python 脚本生成并注入 `index.html` |
-| 构建 | Python 3 标准库脚本（无第三方依赖），用于数据再生与布局预计算 |
-| 可视化 | 自研 SVG 力导向布局（构建期预计算坐标，运行期零布局开销） |
-
-整个项目**不需要 npm install、不需要构建步骤**——拿到 `index.html` 直接双击即可在浏览器打开。
+> 数据已烘焙进 `index.html`，运行时不依赖 `events.json` / `causality.json`；这两个文件只在重新生成数据时才需要。
+> OCR 清洗工具另需本机运行 Ollama 服务。
 
 ---
 
-## 📁 目录结构
+## 数据与构建
 
-```
-ccp-spark-calendar/
-├── index.html                      # 主程序（单文件应用，含全部样式与脚本）
-├── events.json                     # 事件库（外部化事实源，419 条，含详情 6 子块与 causes）
-├── causality.json                  # 因果链（外部化事实源，451 条边）
-├── manifest.webmanifest            # PWA 应用清单（可安装）
-├── sw.js                           # PWA Service Worker（网络优先 + 离线兜底）
-├── backups/                        # 统一备份目录（各工具写入 events.json 前自动快照）
-├── README.md                       # 本文件
-├── LICENSE                         # MIT 协议
-├── .gitignore                      # 忽略私有/大文件（PDF、.ocr、备份、.workbuddy 等）
-├── scripts/                        # 数据生成与校验脚本（Python 标准库）
-│   ├── build_data.py               # 读取 events/causality → 重写 index.html 数据块 + 预计算布局
-│   ├── build_causality.py          # 合并多源种子边 → causality.json
-│   ├── build_events.py             # 合并基线事件库 + 新书片段 → events.json
-│   ├── classify_rel.py             # 事件三级分类（强党史 / 国家大事 / 其他力量）产出候选清单
-│   ├── causal_algorithm.py         # 因果图算法与校验（validate）
-│   ├── causal_infer_local.py       # 本地文本因果推断（生成推断边）
-│   ├── apply_ocr_results.py        # OCR 清洗/补缺结果合并回 events.json（写入前自动备份）
-│   └── ...                         # 其余质检、清洗、图标脚本
-├── tools/                          # 维护工具（三合一工作台 + 统一本地服务）
-│   ├── workshop.html               # 三合一工具台（OCR 清洗 / 合并应用 / 详情丰富）
-│   ├── build_workshop.py           # 由三个工具 HTML 真实 DOM 合并生成 workshop.html
-│   ├── detail_server.py            # 统一本地服务（8001）：静态托管 + 全部 API + /api/build
-│   ├── start_workshop.bat          # 双击启动统一服务并打开工具台（唯一入口）
-│   └── ...                         # 三个工具源 HTML、OCR 服务等
-└── docs/                           # 设计文档与资料
-    ├── 星火日历_项目概览.md
-    ├── 星火日历_续做指南.md
-    ├── 因果关系跳转方案.md
-    ├── 因果图外部增强方案.md
-    └── assets/                     # 预览图（SVG）
-```
+### 事实源
 
----
+- `events.json`：事件库，包含事件字段、详情 6 子块与 `causes`。
+- `causality.json`：因果边，`from` → `to` 表示因 → 果，`tier` 分为 `verified`（实线）与 `background`（虚线）。
 
-## 🔄 数据再生（可选）
+### 重新生成页面
 
-如果你想修改事件数据或重新生成因果图，按以下流程：
-
-1. 编辑事实源：`events.json`（事件）与 `causality.json`（因果边）。
-2. 运行生成器（脚本会自动定位项目根目录，无论从哪个目录执行都行）：
+1. 编辑 `events.json` / `causality.json`；
+2. 运行生成器：
 
 ```bash
-python scripts/build_data.py      # 重写 index.html 的数据块 + 预计算 SVG 布局（约 5-10 分钟）
+python scripts/build_data.py
 ```
 
-   或在**工具台**页面点「⚙️ 构建 index」按钮一键执行，带实时进度条
-   （构建前会自动把 `events.json` / `causality.json` 快照到 `backups/`）。
+脚本会重写 `index.html` 的数据块，并预计算 SVG 布局。完整构建约 5–10 分钟。
 
-3. 校验因果图数据完整性：
+3. 校验因果图数据：
 
 ```bash
-python scripts/causal_algorithm.py # 输出：事件数 / 边数 / 校验错误数（应为 0）
+python scripts/causal_algorithm.py
 ```
 
-> ⚠️ **不要在 `index.html` 里手工维护数据块**——每次运行 `build_data.py` 都会被覆盖。
-> 改数据请改 `events.json` / `causality.json` 后重跑脚本。
+输出事件数、边数和校验错误数；错误数应为 0。
 
-### 数据格式约定
+> 不要在 `index.html` 里手工维护数据块——每次运行 `build_data.py` 都会被覆盖。改数据请改事实源后重跑脚本。
 
-**`events.json`**
+### 事件字段
 
 ```json
 {
-  "meta": { "...": "..." },
-  "events": [
-    {
-      "key": "1921-7-23",
-      "year": 1921, "month": 7, "day": 23,
-      "title": "中国共产党第一次全国代表大会召开",
-      "desc": "1921年7月23日中共一大在上海召开，后转嘉兴南湖，宣告中国共产党正式成立……",
-      "cat": "party",
-      "source": "《中国共产党简史》",
-      "ocrDesc": "史料原文（OCR 清洗/补写结果）……",
-      "bg": "背景（80-150 字）……",
-      "significance": "历史意义（80-150 字）……",
-      "quotes": ["重要论述（1-3 条）……"],
-      "figures": ["陈独秀", "李大钊"],
-      "srcCite": ["共产党员网 https://news.12371.cn/…"],
-      "furtherReading": [{ "title": "中共党史研究", "url": "http://…" }],
-      "detailSource": { "site": "共产党员网", "url": "https://…" },
-      "detailVerified": true,
-      "causes": ["1922-7-16", "1923-6-12"]
-    }
-  ]
+  "key": "1921-7-23",
+  "year": 1921,
+  "month": 7,
+  "day": 23,
+  "title": "中国共产党第一次全国代表大会召开",
+  "desc": "1921年7月23日中共一大在上海召开，后转嘉兴南湖……",
+  "cat": "party",
+  "source": "《中国共产党简史》",
+  "bg": "背景……",
+  "significance": "历史意义……",
+  "quotes": ["重要论述……"],
+  "figures": ["陈独秀", "李大钊"],
+  "srcCite": ["共产党员网 https://news.12371.cn/…"],
+  "furtherReading": [{ "title": "中共党史研究", "url": "http://…" }],
+  "causes": ["1922-7-16", "1923-6-12"]
 }
 ```
 
-- 主键规则：事件含显式 `key` 字段（`年-月-日`，**月日不补零**，如 `1921-7-23`），与 `index.html` 内部 `keyOf()` 完全一致；`causes` / `causedBy` 亦以该格式引用其他事件。
-- `cat`：`"party"`（中共，红）/ `"nation"`（国家大事，金）/ `"kmt"`（其他力量，蓝）三档。
-- 详情字段（可选）：`bg` / `significance` / `quotes` / `figures` / `srcCite` / `furtherReading`（史料详情 6 子块）、`detailSource` / `detailVerified`（来源与官方/非官方标记）、`ocrDesc`（史料原文）。
-- `causes`：该事件直接导致的后续事件主键数组（因 → 果，单向维护）；`causedBy`（前因）由页面程序反向推导，无需手工维护。
+- 主键格式为 `年-月-日`，月日不补零，例如 `1921-7-23`。
+- `cat`：`party`（中共，红）/ `nation`（国家大事，金）/ `kmt`（其他力量，蓝）。
+- `causes` 只维护“因 → 果”方向；前因由页面程序反向推导。
 
-**`causality.json`**
+---
 
-```json
-{
-  "edges": [
-    { "from": "1921-7-23", "to": "1922-7-16", "tier": "verified" },
-    { "from": "1927-8-1", "to": "1928-4-28", "tier": "background" }
-  ]
-}
+## 项目结构
+
+```text
+index.html                     主程序（单文件应用，含全部样式与脚本）
+events.json                    事件库（外部化事实源）
+causality.json                 因果链（外部化事实源）
+manifest.webmanifest           PWA 应用清单
+sw.js                          PWA Service Worker（网络优先 + 离线兜底）
+backups/                       工具写入事实源前的自动快照
+scripts/                       数据生成、校验、清洗脚本（Python 标准库）
+tools/                         维护工具台与统一本地服务
+docs/                          设计文档、数据说明与预览素材
+icons/                         应用图标
+CHANGELOG.md                   版本更新日志
 ```
 
-- `from` → `to` 表示**因 → 果**。
-- `tier`：`"verified"` 进入已证实层（实线）；`"background"` 进入弱因果背景层（虚线）。
+---
+
+## 数据来源与边界
+
+- 事件内容整理自公开出版的党史史料（如《中国共产党简史》等），仅用于学习、教育和非商业用途。
+- 仓库**不包含**受版权保护的原始文献（如扫描 PDF）；相关文件已在 `.gitignore` 中排除。
+- 因果图中的虚线边由本地文本算法推断，不等于史学界定论；重要结论请以史料原文为准。
+- 事件整理力求准确，但难免有疏漏；欢迎以 Issue / PR 勘误。
 
 ---
 
-## 📝 版权与免责声明
+## 已知限制
 
-- 本仓库**不包含**任何受版权保护的原始文献（如扫描 PDF），相关文件已在 `.gitignore` 中排除。
-- 事件内容整理自公开出版的党史史料，力求准确；如有疏漏，欢迎以 PR 形式勘误。
-- 本项目仅用于学习、教育与非商业用途。
-
----
-
-## 🤝 贡献
-
-欢迎提 Issue 指正史实、补充事件，或提交 PR 改进交互 / 可视化 / 移动端体验。
-
-1. Fork 本仓库
-2. 创建分支 (`git checkout -b feature/xxx`)
-3. 提交改动（若涉及数据，请同步更新 `events.json` / `causality.json` 并重跑 `scripts/build_data.py`）
-4. 发起 Pull Request
+- `index.html` 是单文件应用，体积约 1 MB；数据量大时首次打开会稍慢。
+- PWA 的 Service Worker 只在 HTTPS 或 localhost 生效；`file://` 打开时没有离线缓存。
+- 数据更新需要手动编辑事实源并重跑构建脚本，没有在线后台。
+- 因果图的推断边是算法结果，不能替代史学考证。
+- 维护工具台的 OCR 清洗依赖本机 Ollama，不是开箱即用的在线服务。
 
 ---
 
-## 📄 开源协议
+## 参与贡献
 
-[MIT](LICENSE) © 2026 星火日历项目作者
+欢迎提 Issue 指正史实、补充事件，或提交 PR 改进交互、可视化和移动端体验。
+
+1. Fork 本仓库；
+2. 创建分支（`git checkout -b feature/xxx`）；
+3. 如果涉及数据，同步更新 `events.json` / `causality.json`，并重跑 `scripts/build_data.py`；
+4. 发起 Pull Request。
+
+---
+
+## 许可证
+
+[MIT License](LICENSE) © 2026 星火日历项目作者。
+
+事件内容整理自公开史料，相关权利归原作者与出版方；本项目仅用于学习、教育与非商业用途。
