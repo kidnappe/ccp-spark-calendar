@@ -225,6 +225,7 @@ def main():
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--rules-only", action="store_true", help="仅规则打标，不调 LLM")
     ap.add_argument("--key", help="只处理指定 key（逗号分隔）")
+    ap.add_argument("--only-untagged", action="store_true", help="只处理 tags 为空的事件（保留已有标签）")
     ap.add_argument("--dry-run", action="store_true", help="不写入 events.json")
     ap.add_argument("--review", action="store_true", help="输出低置信度复核清单")
     args = ap.parse_args()
@@ -240,6 +241,12 @@ def main():
         if not events:
             print("未找到指定 key 的事件", file=sys.stderr)
             sys.exit(1)
+
+    if args.only_untagged:
+        events = [e for e in events if not e.get("tags")]
+        if not events:
+            print("所有事件都已标注，无需处理")
+            return
 
     print(f"待打标事件：{len(events)} 条")
     if not args.rules_only:
