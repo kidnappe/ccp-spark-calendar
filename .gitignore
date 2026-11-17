@@ -71,3 +71,7 @@ backups/
 
 # ��Ƹ� / ԭ�ͣ�ҳ�湦������غ��ٽ��ֿ⣩
 mockup_*.html
+
+# Qoder Sites 部署描述文件与本地构建输出（自动生成，不入库）
+*.qoder.site
+dist/

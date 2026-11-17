@@ -38,6 +38,14 @@ def detect_version():
             return m.group(1)
     except Exception:
         pass
+    # 页面更新日志改为运行时渲染后，版本号以 CHANGELOG.md 为准
+    try:
+        with open(os.path.join(ROOT, "CHANGELOG.md"), encoding="utf-8") as f:
+            m = re.search(r'^## \[v([\d.]+)\]', f.read(), re.M)
+        if m:
+            return m.group(1)
+    except Exception:
+        pass
     return "unknown"
 
 
