@@ -130,11 +130,15 @@
             position: relative;
         }
         .toolbar input, .toolbar button, .toolbar select {
-            padding: 8px 12px;
+            height: 40px;
+            box-sizing: border-box;
+            padding: 0 12px;
             font-size: 14px;
             border-radius: 5px;
             border: 1px solid var(--edge);   /* 宣纸描边 */
         }
+        .toolbar input { line-height: 38px; }
+        .toolbar button { display: inline-flex; align-items: center; justify-content: center; }
         /* 搜索框可伸缩，按钮自动换行，避免窄屏（手机端）横向溢出 */
         .toolbar input { flex: 1 1 180px; min-width: 0; background:var(--paper-2); color:#2b2b28; }
         .toolbar input::placeholder { color:#a89a78; }
@@ -150,7 +154,7 @@
             transition: background .15s, color .15s, border-color .15s;
         }
         .toolbar button:hover { background:var(--vermilion); color:#fff; border-color:var(--vermilion); }
-        .search-box { position:relative; flex:1 1 180px; min-width:240px; }
+        .search-box { position:relative; flex:1 1 180px; min-width:320px; }
         .search-box .sx { position:absolute; right:6px; top:50%; transform:translateY(-50%);
             display:flex; align-items:center; justify-content:center;
             width:20px; height:20px; border:none; border-radius:0;
@@ -1367,7 +1371,8 @@
 
         /* ===== 分类筛选下拉（原第三行 chips + 年份区间已收敛） ===== */
         .cat-select {
-            height: 34px; padding: 0 10px; border: 1px solid var(--edge); border-radius: 5px;
+            height: 40px; padding: 0 10px; line-height: 38px;
+            border: 1px solid var(--edge); border-radius: 5px;
             background: var(--paper); color: #5a4a33; font-size: 14px; cursor: pointer; outline: none;
             font-family: inherit;
         }
@@ -1889,7 +1894,9 @@
   .toolbar-row { gap: 8px; }
   /* 搜索框缩短：手机模式三按钮竖排在右上角，给按钮腾出右侧空间，避免重叠 */
   .search-box { flex: 1 1 100%; min-width: 0; order: -1; margin-right: 52px; max-width: calc(100% - 52px); }
-  .toolbar button { padding: 12px 14px; font-size: 13px; }
+  .toolbar input, .toolbar button, .toolbar select { height: 44px; }
+  .toolbar input, .cat-select { line-height: 42px; }
+  .toolbar button { padding: 0 14px; font-size: 13px; }
   .mode-btn { padding: 12px 18px; }   /* 移动端触控目标 ≥40px */
   .cal-masthead .year-nav { width: 38px; height: 38px; }
   .cal-masthead .year-label { padding: 4px 6px; min-width: 84px; }
@@ -1935,7 +1942,9 @@
 @media (max-width: 480px){
   body { padding: 8px; }
   h1 { font-size: 19px; }
-  .toolbar button { font-size: 12px; padding: 9px 10px; }
+  .toolbar input, .toolbar button, .toolbar select { height: 40px; }
+  .toolbar input, .cat-select { line-height: 38px; }
+  .toolbar button { font-size: 12px; padding: 0 10px; }
   .day-cell { min-height: 84px; }
   .event-item { font-size: 10.5px; }
   .cg-btn, .cg-select { padding: 10px 10px; font-size: 12px; }
@@ -2167,7 +2176,7 @@
     <!-- 第一行：搜索 + 分类筛选 + 导出 + 入口（与年份选择隔离） -->
     <div class="toolbar">
         <div class="toolbar-row">
-            <form class="search-box" id="searchForm" autocomplete="off"><input id="searchInput" type="search" enterkeyhint="search" placeholder="搜索事件关键词 / 年份（与下方年份选择相互独立）" aria-label="搜索事件关键词或年份"><button id="searchClear" class="sx" type="button" aria-label="清除搜索内容" hidden>×</button></form>
+            <form class="search-box" id="searchForm" autocomplete="off"><input id="searchInput" type="search" enterkeyhint="search" placeholder="搜索事件关键词或年份" aria-label="搜索事件关键词或年份"><button id="searchClear" class="sx" type="button" aria-label="清除搜索内容" hidden>×</button></form>
             <button id="searchBtn" type="button">搜索</button>
             <select id="catSelect" class="cat-select" title="分类筛选">
                 <option value="all">全部分类</option>
@@ -27662,6 +27671,12 @@ function doSearch(){
     status.textContent = `找到 ${searchHits.length} 条与“${searchKey}”相关的事件`;
     const first = searchHits[0];
     if(timelineView.classList.contains('show')){
+        const ti = yearList.indexOf(first.year);
+        if(ti >= 0 && ti !== tlYearIndex){
+            tlYearIndex = ti;
+            tlYear = first.year;
+            updateTlYearLabel();
+        }
         scrollTimelineToYear(first.year);
         setTimeout(()=>{
             const node = keyNode[keyOf(first)];
