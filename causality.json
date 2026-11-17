@@ -113,27 +113,11 @@
       "source": "星火日历CAUSAL"
     },
     {
-      "from": "1927-10-27",
-      "to": "1929-12-28",
-      "tier": "verified",
-      "confidence": 0.9,
-      "evidence": "【本地语料裁决·qwen2.5:local7b】1929年12月，红四军队伍规模扩大，但内部存在单纯军事观点、流寇思想和军阀主义残余等非无产阶级思想，影响了部队的稳定和发展。毛泽东重新担任前委书记后，带领部队进行系统整训，为召开古田会议做准备。",
-      "source": "星火日历CAUSAL"
-    },
-    {
-      "from": "1934-10-10",
-      "to": "1935-1-15",
-      "tier": "verified",
-      "confidence": 0.9,
-      "evidence": "【本地语料裁决·qwen2.5:local7b】五、遵义会议和红军长征的胜利遵义会议实现伟大的历史转折1935年1月，党中央在贵州遵义召开政治局扩大会议，集中解决当时具有决定意义的军事和组织问题。会议增选S8毛泽东为中央政治局常委，委托张闻天起草《中央关于反对敌人五次“围划”的总结的决议》，取消长征前成立的“三人团",
-      "source": "星火日历CAUSAL"
-    },
-    {
       "from": "1934-10-10",
       "to": "1936-10-9",
-      "tier": "verified",
+      "tier": "background",
       "confidence": 0.9,
-      "evidence": "【本地语料裁决·qwen2.5:local7b】1934年10月，中共中央、中央军委率中央红军主力8.6万多人，踏上战略转移的漫漫征程，开始了世界历史上前所未有的壮举。",
+      "evidence": "【本地语料裁决·qwen2.5:local7b】1934年10月，中共中央、中央军委率中央红军主力8.6万多人，踏上战略转移的漫漫征程，开始了世界历史上前所未有的壮举。（补入中间节点后降为推断边）",
       "source": "星火日历CAUSAL"
     },
     {
@@ -190,14 +174,6 @@
       "tier": "background",
       "confidence": 0.4,
       "evidence": "",
-      "source": "星火日历CAUSAL"
-    },
-    {
-      "from": "1948-9-12",
-      "to": "1949-10-1",
-      "tier": "verified",
-      "confidence": 0.9,
-      "evidence": "【本地语料裁决·qwen2.5:local7b】辽沈战役对国民党军构成了实质性的削弱，为后续解放战争的胜利奠定了基础，是中国共产党军事战略的重要转折点。",
       "source": "星火日历CAUSAL"
     },
     {
@@ -478,14 +454,6 @@
       "tier": "verified",
       "confidence": 0.85,
       "evidence": "朱德、陈毅率南昌起义余部与毛泽东部在井冈山会师，合编红四军。",
-      "source": "星火日历CAUSAL_INFERRED"
-    },
-    {
-      "from": "1934-10-10",
-      "to": "1935-10-19",
-      "tier": "verified",
-      "confidence": 0.85,
-      "evidence": "【本地语料裁决·qwen2.5:local7b】1934年10月，中共中央、中央军委率中央红军主力8.6万多人，踏上战略转移的漫漫征程，开始了世界历史上前所未有的壮举。",
       "source": "星火日历CAUSAL_INFERRED"
     },
     {
@@ -1113,27 +1081,11 @@
       "source": "《中国共产党简史》第一章"
     },
     {
-      "from": "1927-9-9",
-      "to": "1927-9-29",
-      "tier": "background",
-      "confidence": 0.4,
-      "evidence": "1927年9月9日毛泽东领导湘赣边界秋收起义，起义部队在永新三湾村进行改编。",
-      "source": "《中国共产党简史》第二章"
-    },
-    {
       "from": "1927-9-29",
       "to": "1927-10-27",
       "tier": "verified",
       "confidence": 0.9,
       "evidence": "【本地语料裁决·qwen2.5:local7b】1927年10月27日，毛泽东率领的秋收起义部队到达井冈山，创立了井冈山革命根据地，这是中国共产党创建的第一个农村革命根据地，对中共革命道路产生了深远影响。",
-      "source": "《中国共产党简史》第二章"
-    },
-    {
-      "from": "1927-9-29",
-      "to": "1929-12-28",
-      "tier": "verified",
-      "confidence": 0.85,
-      "evidence": "【本地语料裁决·qwen2.5:local7b】1929年12月，红四军队伍规模扩大，但内部存在单纯军事观点、流寇思想和军阀主义残余等非无产阶级思想，影响了部队的稳定和发展。毛泽东重新担任前委书记后，带领部队进行系统整训，为召开古田会议做准备。",
       "source": "《中国共产党简史》第二章"
     },
     {
@@ -1158,14 +1110,6 @@
       "tier": "background",
       "confidence": 0.4,
       "evidence": "宁都起义部队改编为红五军团，成为中央红军主力之一，随主力参加长征。",
-      "source": "《中国共产党简史》第二章"
-    },
-    {
-      "from": "1934-10-10",
-      "to": "1935-1-7",
-      "tier": "verified",
-      "confidence": 0.9,
-      "evidence": "中央红军长征途中改向贵州北部进军，1935年1月7日攻克黔北重镇遵义。",
       "source": "《中国共产党简史》第二章"
     },
     {
@@ -3607,6 +3551,1406 @@
       "confidence": 0.4,
       "evidence": "构建社会主义和谐社会写入党的十七大报告，中国特色社会主义事业总体布局扩展为“四位一体”。",
       "source": "人工判定补充边"
+    },
+    {
+      "from": "1925-1-11",
+      "to": "1925-5-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "中共四大加强对群众运动的领导，推动五卅运动爆发",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1925-12-1",
+      "to": "1927-3-5",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "阶级分析为农民运动考察提供理论准备",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-9-9",
+      "to": "1927-9-19",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "秋收起义受挫后前委在文家市开会",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-9-19",
+      "to": "1927-9-29",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "文家市决定转兵农村，部队随后在三湾改编",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-9-19",
+      "to": "1927-10-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "文家市转兵决定开辟了向井冈山进军的道路",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-9-29",
+      "to": "1927-10-3",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "三湾改编后部队到达宁冈古城",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-10-3",
+      "to": "1927-10-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "古城会议确定在井冈山建立根据地",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-10-27",
+      "to": "1928-5-4",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "井冈山根据地为红四军成立提供条件",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1928-5-4",
+      "to": "1929-1-4",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "红四军成立后召开柏露会议研究反“会剿”",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1928-4-28",
+      "to": "1928-5-4",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "井冈山会师后成立红四军",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1928-10-5",
+      "to": "1928-11-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "红色政权理论为《井冈山的斗争》提供基础",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1928-11-25",
+      "to": "1929-1-4",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "井冈山斗争经验促成柏露会议决策",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-1-4",
+      "to": "1929-6-22",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "柏露会议后红四军下山，引发七大争论",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-6-22",
+      "to": "1929-9-28",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "七大争论促使中央发出九月来信",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-9-28",
+      "to": "1929-12-3",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "九月来信后红四军开展新泉整训",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-12-3",
+      "to": "1929-12-28",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "新泉整训为古田会议作准备",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-9-28",
+      "to": "1929-12-28",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "九月来信为古田会议奠定思想基础",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-12-28",
+      "to": "1930-2-7",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "古田会议后赣西南土地革命展开",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1930-2-7",
+      "to": "1930-6-11",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "二七会议后继续完善土地政策",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1930-6-11",
+      "to": "1930-10-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "土地政策调整后红军研究反“围剿”方针",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1930-10-25",
+      "to": "1930-12-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "罗坊会议确定“诱敌深入”方针",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1930-12-12",
+      "to": "1931-11-1",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "肃反扩大化成为赣南会议批评毛泽东的由头之一",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1931-11-1",
+      "to": "1932-10-3",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "赣南会议后继续排挤毛泽东",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1932-10-3",
+      "to": "1933-2-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "宁都会议后周恩来、朱德指挥第四次反“围剿”",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1933-2-27",
+      "to": "1933-9-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "第四次反“围剿”胜利后国民党发动第五次“围剿”",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1933-9-25",
+      "to": "1933-11-20",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "第五次反“围剿”期间十九路军被调往福建",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1933-11-20",
+      "to": "1934-10-10",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "福建事变未获红军配合，反“围剿”失败",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1933-9-25",
+      "to": "1934-10-10",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "第五次反“围剿”失败导致中央红军长征",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-10-10",
+      "to": "1934-11-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "长征开始后突破湘江封锁线",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-11-27",
+      "to": "1934-12-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "湘江惨重损失促使召开通道会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-12-12",
+      "to": "1934-12-18",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "通道会议后召开黎平会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-12-18",
+      "to": "1934-12-31",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "黎平会议后召开猴场会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-12-31",
+      "to": "1935-1-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "猴场会议为遵义会议铺平道路",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-1-15",
+      "to": "1935-2-5",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "遵义会议后召开扎西会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-1-15",
+      "to": "1935-1-19",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "遵义会议后四渡赤水",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-2-5",
+      "to": "1935-5-12",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "扎西会议后部队回师黔北，进入长征会议序列",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-5-29",
+      "to": "1935-6-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "夺取泸定桥后与红四方面军会师",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-6-12",
+      "to": "1935-9-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "会师后张国焘分裂，中央召开俄界会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-9-12",
+      "to": "1935-9-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "俄界会议后召开榜罗镇会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-9-27",
+      "to": "1935-10-19",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "榜罗镇会议确定落脚陕北",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-10-19",
+      "to": "1935-11-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "到达陕北后进行直罗镇战役",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-11-20",
+      "to": "1935-12-17",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "直罗镇胜利为瓦窑堡会议创造环境",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-10-9",
+      "to": "1936-11-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "三大主力会师后进行山城堡战役",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-11-20",
+      "to": "1936-12-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "山城堡胜利促进西安事变发生",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-9-15",
+      "to": "1936-12-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "逼蒋抗日方针为西安事变和平解决作准备",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-12-9",
+      "to": "1936-12-12",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "一二九运动推动抗日救亡形势",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-10-12",
+      "to": "1941-1-6",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "新四军成立后遭国民党军围歼",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1941-1-6",
+      "to": "1941-5-8",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "皖南事变后总结反顽斗争",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1941-5-8",
+      "to": "1941-5-19",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "反顽斗争总结推动整风准备",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1941-5-19",
+      "to": "1942-2-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "《改造我们的学习》为整风运动作思想准备",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1942-2-1",
+      "to": "1942-2-8",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "整风运动推动《反对党八股》",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1939-10-4",
+      "to": "1939-12-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "《发刊词》后系统阐述中国革命",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1939-12-1",
+      "to": "1940-1-9",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "中国革命理论发展为《新民主主义论》",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1945-4-23",
+      "to": "1945-6-11",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "中共七大后致闭幕词《愚公移山》",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1945-8-13",
+      "to": "1945-8-28",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "抗战胜利后的时局报告指导重庆谈判",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1946-5-4",
+      "to": "1947-7-17",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "五四指示后召开全国土地会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1947-7-17",
+      "to": "1947-10-10",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "全国土地会议制定《中国土地法大纲》",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1947-7-21",
+      "to": "1947-12-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "小河会议后召开十二月会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1947-10-10",
+      "to": "1947-12-25",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "土地法大纲和解放军宣言推动十二月会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1947-12-25",
+      "to": "1948-4-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "十二月会议后召开城南庄会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-4-1",
+      "to": "1948-4-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "晋绥干部会议讲话后召开城南庄会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1947-10-10",
+      "to": "1948-4-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "土地法大纲推动晋绥干部会议讲话",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-4-30",
+      "to": "1948-9-8",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "城南庄会议后召开九月政治局会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-9-8",
+      "to": "1948-9-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "九月政治局会议后发起辽沈战役",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-9-16",
+      "to": "1948-11-6",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "济南战役后发起淮海战役",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-9-12",
+      "to": "1948-12-30",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "三大战役推动《将革命进行到底》",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-12-30",
+      "to": "1949-1-6",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "新年献词后召开一月政治局会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-1-6",
+      "to": "1949-3-5",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "一月政治局会议后召开七届二中全会",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-3-5",
+      "to": "1949-6-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "七届二中全会后发表《论人民民主专政》",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-6-30",
+      "to": "1949-9-21",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "人民民主专政理论指导新政协召开",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-4-30",
+      "to": "1949-9-21",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "“五一口号”号召召开新政协",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-10-1",
+      "to": "1950-6-6",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "建国后召开七届三中全会",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1950-6-6",
+      "to": "1950-6-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "七届三中全会后颁布《土地改革法》",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1953-9-24",
+      "to": "1954-6-14",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "过渡时期总路线指导宪法起草",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1954-6-14",
+      "to": "1954-9-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "宪法草案提交第一届全国人大",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1953-9-24",
+      "to": "1955-7-31",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "总路线推动农业合作化",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1955-7-31",
+      "to": "1956-12-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "合作化报告推动三大改造基本完成",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1922-7-29",
+      "to": "1923-1-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "六人农会发展为海丰县总农会",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1923-1-1",
+      "to": "1923-7-5",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "总农会遭军阀陈炯明解散",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-4-12",
+      "to": "1927-4-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "四一二政变后海陆丰举行武装起义",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-4-30",
+      "to": "1927-11-13",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "起义后建立海陆丰苏维埃",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-11-13",
+      "to": "1929-8-30",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "海陆丰斗争失败后彭湃赴上海并牺牲",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-4-12",
+      "to": "1927-4-27",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "四一二政变后党在危急形势下召开五大",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1927-4-27",
+      "to": "1927-8-1",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "五大后党着手准备武装起义",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-1-15",
+      "to": "1934-1-27",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "六届五中全会后召开第二次全国工农兵代表大会",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-1-27",
+      "to": "1942-2-1",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "群众路线思想为延安整风提供内容",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-12-17",
+      "to": "1935-12-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "瓦窑堡会议后作《论反对日本帝国主义的策略》报告",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-12-27",
+      "to": "1936-12-12",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "统一战线策略推动抗日救亡形势",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-10-9",
+      "to": "1936-12-1",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "三大主力会师后总结十年内战经验",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-12-1",
+      "to": "1937-7-1",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "军事辩证法研究延伸到哲学认识论",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-12-12",
+      "to": "1937-5-3",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "西安事变后党召开全国代表会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-5-3",
+      "to": "1937-7-7",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "党的任务报告为全国抗战作动员",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-7-1",
+      "to": "1937-8-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "《实践论》后撰写《矛盾论》",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-8-1",
+      "to": "1942-2-1",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "《矛盾论》为整风提供思想方法",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1938-5-1",
+      "to": "1940-8-20",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "游击战战略指导敌后作战",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1942-2-1",
+      "to": "1944-9-8",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "整风后强调党的根本宗旨",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1944-9-8",
+      "to": "1945-4-23",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "为人民服务思想为七大路线提供基础",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1946-6-26",
+      "to": "1946-9-16",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "全面内战爆发后确定作战原则",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1946-9-16",
+      "to": "1947-5-13",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "集中优势兵力原则指导歼灭战",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-1-4",
+      "to": "1929-2-7",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "红四军下山后中央发出二月来信",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-2-7",
+      "to": "1929-6-22",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "二月来信的分散与调离要求加剧红四军内部争论",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-2-7",
+      "to": "1929-9-28",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "中央九月来信纠正二月来信的悲观估计",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-1-19",
+      "to": "1935-5-3",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "四渡赤水后巧渡金沙江",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-5-3",
+      "to": "1935-5-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "巧渡金沙江后召开会理会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-5-12",
+      "to": "1935-5-25",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "会理会议后强渡大渡河",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-5-25",
+      "to": "1935-5-29",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "强渡大渡河后飞夺泸定桥",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-12-17",
+      "to": "1936-2-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "瓦窑堡会议确定东征",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-2-20",
+      "to": "1936-5-19",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "东征后转为西征",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-5-19",
+      "to": "1936-10-9",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "西征后实现三大主力会师",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1938-10-14",
+      "to": "1939-10-4",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "六届六中全会后党的建设理论继续发展",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-6-17",
+      "to": "1948-9-16",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "豫东战役后发起济南战役",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1930-8-23",
+      "to": "1930-12-27",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "红一方面军成立后统一指挥第一次反“围剿”",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-1-20",
+      "to": "1942-2-1",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "抗大培养的干部成为整风与抗战骨干",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1928-5-20",
+      "to": "1929-1-4",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "湘赣边界一大后井冈山根据地继续巩固",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-7-20",
+      "to": "1929-12-28",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "闽西一大土地政策为古田会议提供实践基础",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1933-8-12",
+      "to": "1934-1-23",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "经济建设报告后继续总结苏区经济政策",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1933-10-10",
+      "to": "1934-1-27",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "阶级划分标准指导苏区群众工作",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1934-1-23",
+      "to": "1934-1-27",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "经济政策报告与群众生活报告同期",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-12-28",
+      "to": "1937-5-3",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "西安事变后声明推动党的任务报告",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-5-8",
+      "to": "1937-7-7",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "争取群众的号召为全国抗战作动员",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-9-7",
+      "to": "1938-10-14",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "反对自由主义加强党的纪律",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-11-12",
+      "to": "1938-10-14",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "抗战形势分析进入六届六中全会论述",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1938-11-5",
+      "to": "1939-10-4",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "独立自主原则进入党建理论总结",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1938-11-6",
+      "to": "1939-10-4",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "战争和战略问题进入党建理论总结",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1940-3-11",
+      "to": "1940-12-25",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "统一战线策略发展为系统政策",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1940-12-25",
+      "to": "1941-1-6",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "政策指示未能阻止皖南事变",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1942-9-7",
+      "to": "1943-11-29",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "精兵简政后开展生产组织",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1943-11-29",
+      "to": "1944-4-12",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "生产运动经验进入时局总结",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1946-7-20",
+      "to": "1946-9-16",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "自卫战争方针发展为集中兵力原则",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1946-8-6",
+      "to": "1946-9-16",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "纸老虎论断鼓舞歼灭战信心",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1947-5-30",
+      "to": "1947-6-30",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "全民包围判断推动战略进攻",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1947-9-1",
+      "to": "1948-1-7",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "战略方针推动集中统一领导",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1948-1-7",
+      "to": "1948-9-8",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "报告制度加强战略决战的集中领导",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-8-14",
+      "to": "1949-8-18",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "白皮书评论系列",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-8-18",
+      "to": "1949-8-28",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "白皮书评论系列",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-8-28",
+      "to": "1949-9-16",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "白皮书评论系列",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1949-9-16",
+      "to": "1949-9-21",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "白皮书评论为政协召开统一思想",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1953-10-15",
+      "to": "1955-7-31",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "互助合作谈话推动农业合作化",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1956-1-25",
+      "to": "1957-2-27",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "解放生产力论述进入矛盾学说",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1957-3-12",
+      "to": "1957-4-27",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "宣传会议讲话推动整风",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1957-3-18",
+      "to": "1957-4-27",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "艰苦奋斗讲话推动整风",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1931-1-7",
+      "to": "1931-8-30",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "六届四中全会后中央发出八月来信",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1931-1-7",
+      "to": "1931-11-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "六届四中全会后“左”倾路线推向中央苏区",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1931-8-30",
+      "to": "1931-11-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "八月来信成为赣南会议的依据",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-2-7",
+      "to": "1929-4-5",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "毛泽东复信回答二月来信",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-4-5",
+      "to": "1929-6-22",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "复信主张未能消除红四军内部争论",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1929-4-5",
+      "to": "1929-9-28",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "复信意见被中央九月来信吸收",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-8-25",
+      "to": "1936-12-12",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "致国民党书推动停止内战一致抗日",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-8-25",
+      "to": "1937-2-10",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "公开信推动国共两党谈判",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-2-10",
+      "to": "1937-9-22",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "三中全会电推动国共合作宣言发表",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1930-9-24",
+      "to": "1931-1-7",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "六届三中全会后王明在四中全会取得领导权",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1930-9-24",
+      "to": "1930-12-27",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "纠正立三路线后红军转入反“围剿”",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1931-1-7",
+      "to": "1931-6-22",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "四中全会后中央总书记向忠发被捕",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1931-6-22",
+      "to": "1931-9-25",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "向忠发叛变后组成临时中央",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1931-9-25",
+      "to": "1933-1-19",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "临时中央在上海难以立足，迁入瑞金",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1933-1-19",
+      "to": "1933-2-15",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "临时中央迁瑞金后发动反“罗明路线”",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1932-10-3",
+      "to": "1933-2-15",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "宁都会议后继续排挤毛泽东的正确主张",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1933-2-15",
+      "to": "1933-9-25",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "反“罗明路线”使“左”倾路线进一步统治苏区",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-1-15",
+      "to": "1935-3-10",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "遵义会议后成立三人军事指挥小组",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-3-10",
+      "to": "1935-5-3",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "三人军事小组成立后指挥巧渡金沙江",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-6-12",
+      "to": "1935-6-26",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "懋功会师后召开两河口会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-6-26",
+      "to": "1935-8-4",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "两河口会议后召开沙窝会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-8-4",
+      "to": "1935-8-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "沙窝会议后召开毛儿盖会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-8-20",
+      "to": "1935-9-12",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "毛儿盖会议后召开俄界会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-10-19",
+      "to": "1935-11-3",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "到达陕北后成立西北军委",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1935-11-3",
+      "to": "1935-11-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "西北军委成立后指挥直罗镇战役",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-10-9",
+      "to": "1936-12-7",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "三大主力会师后改组中革军委",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1936-12-7",
+      "to": "1937-8-22",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "军委领导地位确立后召开洛川会议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1937-11-29",
+      "to": "1938-9-29",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "王明右倾主张在六届六中全会上受到批判",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1938-9-29",
+      "to": "1941-9-10",
+      "tier": "background",
+      "confidence": 0.6,
+      "evidence": "六届六中全会后继续总结党的历史经验",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1941-9-10",
+      "to": "1942-2-1",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "九月会议为延安整风作准备",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1942-2-1",
+      "to": "1943-3-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "整风深入后调整中央机构",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1943-3-20",
+      "to": "1945-4-20",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "中央机构调整后通过历史决议",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1945-4-20",
+      "to": "1945-4-23",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "历史决议为中共七大奠定思想基础",
+      "source": "星火日历CAUSAL"
+    },
+    {
+      "from": "1945-4-23",
+      "to": "1945-6-19",
+      "tier": "verified",
+      "confidence": 0.9,
+      "evidence": "七大后召开七届一中全会",
+      "source": "星火日历CAUSAL"
     }
   ]
 }
