@@ -30515,16 +30515,61 @@ function applyThreadFilter(){
   if(!currentThread){
     items.forEach(it=> it.classList.remove('tl-hide','tl-hl'));
     years.forEach(y=> y.classList.remove('tl-hide'));
+    relayoutYearGhosts();
     return;
   }
   const p = PERIODS.find(x=> x.name === currentThread);
   const r = p ? p.range : null;
+  const visibleYears = new Set();
   items.forEach(it=>{
     const inR = inThreadRange(+it.dataset.y, +it.dataset.m, r);
     it.classList.toggle('tl-hl', inR);
     it.classList.toggle('tl-hide', !inR);
+    if(inR) visibleYears.add(String(it.dataset.y));
   });
-  years.forEach(y=> y.classList.add('tl-hide')); // 隐去年份分隔，使同脉络事件纯相邻
+  // 只保留有可见事件的年份分隔线，避免无事件年份挤在时间轴前段
+  years.forEach(y=>{
+    const yr = (y.querySelector('span') || {}).textContent || '';
+    y.classList.toggle('tl-hide', !visibleYears.has(yr));
+  });
+  relayoutYearGhosts();
+  const first = [...document.querySelectorAll('#tlTrack .tl-item')].find(it=> !it.classList.contains('tl-hide'));
+  if(first && first.dataset.y){
+    const y = parseInt(first.dataset.y, 10);
+    const ti = yearList.indexOf(y);
+    if(ti >= 0 && ti !== tlYearIndex){ tlYearIndex = ti; tlYear = y; updateTlYearLabel(); }
+  }
+}
+/* 年份虚影：按当前可见事件分组重排，筛选后只覆盖有事件的年份段 */
+function relayoutYearGhosts(){
+  const track = document.getElementById('tlTrack');
+  if(!track) return;
+  track.querySelectorAll(':scope > .tyw').forEach(g=> g.remove());
+  const items = [...track.querySelectorAll('.tl-item:not(.tl-hide)')];
+  if(!items.length) return;
+  const groups = [];
+  for(const it of items){
+    const y = it.dataset.y;
+    if(!groups.length || groups[groups.length - 1].y !== y){
+      groups.push({ y: y, first: it, last: it });
+    } else {
+      groups[groups.length - 1].last = it;
+    }
+  }
+  groups.forEach((g, idx)=>{
+    const start = g.first.offsetLeft - 24;
+    const end = idx < groups.length - 1
+      ? groups[idx + 1].first.offsetLeft - 24
+      : g.last.offsetLeft + g.last.offsetWidth + 24;
+    if(end - start < 80) return;
+    const el = document.createElement('div');
+    el.className = 'tyw';
+    el.setAttribute('aria-hidden', 'true');
+    el.textContent = g.y;
+    el.style.left = start + 'px';
+    el.style.width = (end - start) + 'px';
+    track.insertBefore(el, g.first);
+  });
 }
 // T1：跳转滚动到该时期内的第一个事件（时期没有单一锚点，故取范围内首个事件）
 function scrollToPeriod(){
@@ -32063,9 +32108,8 @@ function renderTimeline(){
         + '<div class="tep-quote">征途漫漫，惟有奋斗</div>';
     track.appendChild(outro);
 
-    // C2：年份虚影——横置于相邻两条分割线之间的空白带（随窗口尺寸重排）
-    window.__ygArgs = [yearSeps, track];
-    layoutYearGhosts(yearSeps, track);
+    // C2：年份虚影——按可见事件分组横置于年份段空白带（随窗口尺寸与筛选重排）
+    relayoutYearGhosts();
 
     applyThreadFilter();
 }
@@ -32093,9 +32137,8 @@ function layoutYearGhosts(yearSeps, track){
 }
 window.addEventListener('resize', function(){
     try{
-        var a = window.__ygArgs;
         var tv = document.getElementById('timelineView');
-        if(a && tv && tv.classList.contains('show')) layoutYearGhosts(a[0], a[1]);
+        if(tv && tv.classList.contains('show')) relayoutYearGhosts();
     }catch(_){}
 });
 
