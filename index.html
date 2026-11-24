@@ -97,7 +97,7 @@
         [data-theme="dark"] .brand-fab img { opacity: .92; }
         /* 日夜切换：右上角圆钮（absolute 定位于页面顶部，随页面滚动；太阳/月亮 SVG，不用 emoji） */
         .theme-fab {
-            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 118px; left: auto; z-index: 55;
+            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 64px; left: auto; z-index: 55;
             width: 40px; height: 40px; border-radius: 50%;
             border: 1px solid var(--edge); background: var(--paper); color: var(--vermilion-deep);
             display: flex; align-items: center; justify-content: center;
@@ -184,7 +184,7 @@
         #searchInput::-webkit-search-decoration { -webkit-appearance:none; appearance:none; display:none; }
         /* 顶部右上角：功能菜单按钮（打开右侧抽屉，与日夜钮/本年事件呼应） */
         .menu-fab {
-            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 64px; left: auto; z-index: 60;
+            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 14px; left: auto; z-index: 60;
             width: 40px; height: 40px; border-radius: 50%;
             border: 1px solid var(--edge); background: var(--paper); color: var(--vermilion-deep);
             display: flex; align-items: center; justify-content: center;
@@ -198,7 +198,7 @@
         [data-theme="dark"] .menu-fab:hover { background: #2e2a22; }
         /* GitHub 仓库入口：与日夜钮/菜单钮同规格 */
         .github-fab {
-            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; z-index: 55;
+            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 176px; left: auto; z-index: 55;
             width: 40px; height: 40px; border-radius: 50%;
             border: 1px solid var(--edge); background: var(--paper); color: var(--vermilion-deep);
             display: flex; align-items: center; justify-content: center;
@@ -1059,7 +1059,7 @@
         /* 选中年份事件速览：右上角按钮（absolute 随页面滚动，与左上徽标、主题钮呼应），点击后再展开 */
         .rail-toggle {
             position: absolute;
-            top: calc(12px + env(safe-area-inset-top, 0px)); right: 172px; z-index: 60;
+            top: calc(12px + env(safe-area-inset-top, 0px)); right: 120px; z-index: 60;
             width: 40px; height: 40px; border-radius: 50%; padding: 0;
             cursor: pointer; border: 1px solid var(--edge);
             background: var(--paper); color: var(--vermilion-deep);
