@@ -26,6 +26,8 @@
     })();
     </script>
     <style>
+        /* IconPark 图标：内联 SVG，随文字颜色走 */
+        .ip-icon { vertical-align: -0.14em; flex: none; }
         /* 汇文明朝体（免费商用）：按本站用字子集化的 woff2 */
         @font-face {
             font-family: "Huiwen Mincho";
@@ -95,7 +97,7 @@
         [data-theme="dark"] .brand-fab img { opacity: .92; }
         /* 日夜切换：右上角圆钮（absolute 定位于页面顶部，随页面滚动；太阳/月亮 SVG，不用 emoji） */
         .theme-fab {
-            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 64px; left: auto; z-index: 55;
+            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 118px; left: auto; z-index: 55;
             width: 40px; height: 40px; border-radius: 50%;
             border: 1px solid var(--edge); background: var(--paper); color: var(--vermilion-deep);
             display: flex; align-items: center; justify-content: center;
@@ -182,7 +184,7 @@
         #searchInput::-webkit-search-decoration { -webkit-appearance:none; appearance:none; display:none; }
         /* 顶部右上角：功能菜单按钮（打开右侧抽屉，与日夜钮/本年事件呼应） */
         .menu-fab {
-            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 14px; left: auto; z-index: 60;
+            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 64px; left: auto; z-index: 60;
             width: 40px; height: 40px; border-radius: 50%;
             border: 1px solid var(--edge); background: var(--paper); color: var(--vermilion-deep);
             display: flex; align-items: center; justify-content: center;
@@ -194,6 +196,19 @@
         .menu-fab:active { transform: scale(.92); }
         [data-theme="dark"] .menu-fab { background: var(--dark-surface); border-color: var(--dark-edge); color: var(--vermilion-soft); }
         [data-theme="dark"] .menu-fab:hover { background: #2e2a22; }
+        /* GitHub 仓库入口：与日夜钮/菜单钮同规格 */
+        .github-fab {
+            position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; z-index: 55;
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid var(--edge); background: var(--paper); color: var(--vermilion-deep);
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; box-shadow: 0 2px 8px rgba(90,70,40,0.18);
+            touch-action: manipulation; transition: background .15s, transform .1s;
+        }
+        .github-fab:hover { background: var(--paper-hover); }
+        .github-fab:active { transform: scale(.92); }
+        [data-theme="dark"] .github-fab { background: var(--dark-surface); border-color: var(--dark-edge); color: var(--vermilion-soft); }
+        [data-theme="dark"] .github-fab:hover { background: #2e2a22; }
         /* 右侧抽屉：替代原「更多」下拉选单；类似因果脉络侧栏的宣纸列表 */
         .menu-drawer-mask {
             position: fixed; inset: 0; background: rgba(60,50,30,0.45);
@@ -218,7 +233,8 @@
         }
         .menu-drawer-close {
             width: 30px; height: 30px; border: none; background: var(--paper-hover); color: var(--vermilion-deep);
-            font-size: 20px; font-weight: 700; line-height: 1; border-radius: 50%;
+            border-radius: 50%; padding: 0;
+            display: inline-flex; align-items: center; justify-content: center;
             cursor: pointer; transition: .15s;
         }
         .menu-drawer-close:hover { background: #e3c9bd; }
@@ -228,7 +244,7 @@
             display: flex; align-items: center; gap: 10px; text-align: left; width: 100%;
             background: var(--paper-2); border: 1px solid #e3d9c4; border-left: 3px solid var(--vermilion-deep);
             border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #3a352c;
-            cursor: pointer; font-family: inherit;
+            cursor: pointer; font-family: inherit; text-decoration: none;
             transition: background .18s, color .18s, transform .18s, box-shadow .18s, border-color .18s;
         }
         .menu-item .mi-ico {
@@ -281,6 +297,8 @@
             font-weight: bold;
             cursor: pointer;
             line-height: 1;
+            padding: 0;
+            display: inline-flex; align-items: center; justify-content: center;
             transition: color .15s;
         }
         .cal-masthead .year-nav:hover { color: #d44a3a; background: transparent; }
@@ -1041,7 +1059,7 @@
         /* 选中年份事件速览：右上角按钮（absolute 随页面滚动，与左上徽标、主题钮呼应），点击后再展开 */
         .rail-toggle {
             position: absolute;
-            top: calc(12px + env(safe-area-inset-top, 0px)); right: 120px; z-index: 60;
+            top: calc(12px + env(safe-area-inset-top, 0px)); right: 172px; z-index: 60;
             width: 40px; height: 40px; border-radius: 50%; padding: 0;
             cursor: pointer; border: 1px solid var(--edge);
             background: var(--paper); color: var(--vermilion-deep);
@@ -1066,6 +1084,7 @@
             .menu-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
             .theme-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 38px; height: 38px; }
             .rail-toggle { top: calc(102px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; padding: 0; }
+            .github-fab { display: none; }
             .rail-toggle .rt-icon { width: 22px; height: 22px; }
             .tl-track { height:calc(100vh - 190px); min-height:480px; }
             .tl-item { flex:0 0 170px; width:170px; }
@@ -1091,6 +1110,7 @@
             .menu-fab { top: calc(8px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; font-size: 16px; }
             .theme-fab { top: calc(50px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; }
             .rail-toggle { top: calc(92px + env(safe-area-inset-top, 0px)); right: 8px; left: auto; width: 36px; height: 36px; padding: 0; }
+            .github-fab { display: none; }
             .rail-right { top: calc(138px + env(safe-area-inset-top, 0px)); right: 6px; width: min(80vw, 320px); max-height: calc(100vh - 190px); }
             .tl-track { height: calc(100vh - 128px); min-height: 250px; }
             .tl-item { flex:0 0 130px; width:130px; }
@@ -1166,7 +1186,11 @@
         /* 暗色工具栏按钮：墨纸底 + 细边，悬浮转朱砂 */
         [data-theme="dark"] .toolbar button { background:var(--dark-surface); color:#cdc5b0; border-color:var(--dark-edge); }
         [data-theme="dark"] .toolbar button:hover { background:var(--vermilion); color:#fff; border-color:var(--vermilion); }
-        [data-theme="dark"] .cat-select { background:var(--dark-surface); color:#cdc5b0; border-color:var(--dark-edge); }
+        [data-theme="dark"] .cat-label { background:var(--dark-surface); color:#cdc5b0; border-color:var(--dark-edge); }
+        [data-theme="dark"] .cat-dropdown { background:#232019; border-color:#3a362c; }
+        [data-theme="dark"] .cat-option { color:#cdc5b0; }
+        [data-theme="dark"] .cat-option:hover { background:#2e2a22; color:var(--vermilion-soft); }
+        [data-theme="dark"] .cat-option.sel { background:var(--vermilion-deep); color:var(--paper); }
         [data-theme="dark"] .ref-btn { background:var(--dark-surface) !important; color:var(--vermilion-soft) !important; border-color:var(--dark-edge) !important; }
         [data-theme="dark"] .ref-btn:hover { background:#2e2a22 !important; }
 
@@ -1325,8 +1349,9 @@
         .rail-right.open { display: block; }
         .rail-close {
             float: right; border: none; background: transparent;
-            color: var(--vermilion); font-size: 18px; line-height: 1; cursor: pointer;
+            color: var(--vermilion); cursor: pointer;
             padding: 0 2px; margin: -2px 0 0 2px;
+            display: inline-flex; align-items: center; justify-content: center;
         }
         .rail-close:hover { color: #9a1d1d; }
         .rail-card {
@@ -1366,6 +1391,7 @@
             .menu-fab { top: calc(10px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; }
             .theme-fab { top: calc(56px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; }
             .rail-toggle { top: calc(102px + env(safe-area-inset-top, 0px)); right: 10px; left: auto; width: 40px; height: 40px; padding: 0; }
+            .github-fab { display: none; }
             .rail-toggle .rt-icon { width: 20px; height: 20px; }
             .rail-right { width: min(86vw, 320px); top: calc(150px + env(safe-area-inset-top, 0px)); right: 6px; max-height: calc(100vh - 260px); }
             .rail-list { max-height: 58vh; }
@@ -1391,14 +1417,30 @@
         [data-theme="dark"] .rail-item .ri-title { color: #ddd; }
 
         /* ===== 分类筛选下拉（原第三行 chips + 年份区间已收敛） ===== */
-        .cat-select {
-            height: 40px; padding: 0 10px; line-height: 38px;
+        /* 分类筛选：自定义下拉（原生 select 在手机上弹系统菜单，字体不受控） */
+        .cat-select { position: relative; display: inline-flex; }
+        .cat-label {
+            height: 40px; padding: 0 12px;
             border: 1px solid var(--edge); border-radius: 5px;
-            background: var(--paper); color: #5a4a33; font-size: 14px; cursor: pointer; outline: none;
-            font-family: inherit;
+            background: var(--paper); color: #5a4a33; font-size: 14px; cursor: pointer;
+            font-family: inherit; display: inline-flex; align-items: center; gap: 6px;
+            white-space: nowrap;
         }
-        .cat-select:focus { border-color: var(--vermilion); }
-        .cat-select:focus-visible { border-color: var(--vermilion); box-shadow: 0 0 0 3px rgba(178,34,34,0.35); }
+        .cat-label:hover { background: var(--paper-hover); }
+        .cat-label:focus-visible { outline: none; border-color: var(--vermilion); box-shadow: 0 0 0 3px rgba(178,34,34,0.35); }
+        .cat-dropdown {
+            position: absolute; top: 110%; left: 0; min-width: 100%;
+            background: var(--paper); border: 1px solid var(--edge); border-radius: 8px;
+            box-shadow: 0 6px 16px rgba(90,70,40,0.22); padding: 5px; z-index: 70;
+            display: none; flex-direction: column; gap: 2px;
+        }
+        .cat-dropdown.show { display: flex; }
+        .cat-option {
+            padding: 8px 12px; font-size: 13px; color: #4a4030; border-radius: 5px;
+            cursor: pointer; white-space: nowrap; text-align: left;
+        }
+        .cat-option:hover { background: var(--paper-hover); color: var(--vermilion-deep); }
+        .cat-option.sel { background: var(--vermilion-deep); color: var(--paper); }
         .ghost-btn {
             padding: 6px 12px; font-size: 13px; border-radius: 5px;
             border: 1px solid var(--edge); background: var(--paper); color: var(--vermilion-deep); cursor: pointer;
@@ -1411,7 +1453,7 @@
             font-variant-numeric: tabular-nums;
         }
         /* 暗色 */
-        [data-theme="dark"] .cat-select { background: #242424; color: var(--vermilion-soft); border-color: #5a3a3a; }
+        
         [data-theme="dark"] .ghost-btn { background: var(--dark-surface); color: var(--vermilion-soft); border-color: var(--dark-edge); }
         [data-theme="dark"] .ghost-btn:hover { background: #2e2a22; }
         [data-theme="dark"] .badge-count { background: var(--vermilion-soft); color: #1a1a1a; }
@@ -1452,9 +1494,11 @@
         [data-theme="dark"] .ev-entry .ee-title { color: #ddd8cd; }
         [data-theme="dark"] .ev-entry .ee-desc { color: #9a8f75; }
         .fav-star {
-            position: absolute; top: 8px; right: 10px; cursor: pointer; font-size: 16px;
+            position: absolute; top: 8px; right: 10px; cursor: pointer;
             color: #c9c9c9; user-select: none; transition: 0.15s; line-height: 1;
+            display: inline-flex; align-items: center; justify-content: center;
         }
+        .fav-star svg { width: 16px; height: 16px; }
         .fav-star:hover { transform: scale(1.2); }
         .fav-star.on { color: #f1c40f; }
         .ev-source {
@@ -1660,7 +1704,7 @@
             border: 1px solid #eccaca; background: #fff7f7; cursor: pointer; transition: 0.15s;
         }
         .export-opt:hover { background: #fbe9e9; box-shadow: 0 0 0 2px rgba(178,34,34,0.12); }
-        .export-opt .ico { font-size: 20px; }
+        .export-opt .ico { width: 24px; display: flex; align-items: center; justify-content: center; color: var(--vermilion-deep); }
         .export-opt .t { font-weight: bold; color: var(--vermilion); font-size: 14px; }
         .export-opt .d { font-size: 12px; color: #888; margin-top: 2px; }
         [data-theme="dark"] .export-opt { background: #2a2325; border-color: #4a3434; }
@@ -1916,7 +1960,8 @@
   /* 搜索框缩短：手机模式三按钮竖排在右上角，给按钮腾出右侧空间，避免重叠 */
   .search-box { flex: 1 1 100%; min-width: 0; order: -1; margin-right: 52px; max-width: calc(100% - 52px); }
   .toolbar input, .toolbar button, .toolbar select { height: 44px; }
-  .toolbar input, .cat-select { line-height: 42px; }
+  .toolbar input { line-height: 42px; }
+  .toolbar .cat-label { height: 44px; }
   .toolbar button { padding: 0 14px; font-size: 13px; }
   .mode-btn { padding: 12px 18px; }   /* 移动端触控目标 ≥40px */
   .cal-masthead .year-nav { width: 38px; height: 38px; }
@@ -1964,7 +2009,7 @@
   body { padding: 8px; }
   h1 { font-size: 19px; }
   .toolbar input, .toolbar button, .toolbar select { height: 40px; }
-  .toolbar input, .cat-select { line-height: 38px; }
+  .toolbar input { line-height: 38px; }
   .toolbar button { font-size: 12px; padding: 0 10px; }
   .day-cell { min-height: 84px; }
   .event-item { font-size: 10.5px; }
@@ -2015,7 +2060,7 @@
 
 /* 统一过渡（覆盖各钮原有 transition，纳入 transform/box-shadow） */
 .toolbar button, .mode-btn, .ref-btn, .tl-btn, .cg-btn, .cg-fbtn,
-.cat-select, .month-btn, .menu-item, .ghost-btn,
+.cat-label, .month-btn, .menu-item, .ghost-btn,
 .year-option, .close-modal, .menu-drawer-close, .rail-close, .modal-x {
     transition:
         transform var(--dur-fast) var(--ease-quint),
@@ -2030,7 +2075,7 @@
 @media (hover: hover) and (pointer: fine) {
 .toolbar button:hover,
 .mode-btn:hover, .ref-btn:hover, .tl-btn:hover, .cg-btn:hover, .cg-fbtn:hover,
-.cat-select:hover, .month-btn:hover, .menu-item:hover,
+.cat-label:hover, .month-btn:hover, .menu-item:hover,
 .ghost-btn:hover, .year-option:hover, .close-modal:hover,
 .menu-drawer-close:hover, .rail-close:hover {
     transform: translateY(-2px);
@@ -2041,7 +2086,7 @@
 /* 按下：轻微回缩（无回弹） */
 .toolbar button:active,
 .mode-btn:active, .ref-btn:active, .tl-btn:active, .cg-btn:active, .cg-fbtn:active,
-.cat-select:active, .month-btn:active, .menu-item:active,
+.cat-label:active, .month-btn:active, .menu-item:active,
 .ghost-btn:active, .year-option:active, .close-modal:active,
 .menu-drawer-close:active, .rail-close:active, .modal-x:active {
     transform: translateY(0) scale(.96);
@@ -2197,16 +2242,12 @@
     <!-- 第一行：搜索 + 分类筛选 + 导出 + 入口（与年份选择隔离） -->
     <div class="toolbar">
         <div class="toolbar-row">
-            <form class="search-box" id="searchForm" autocomplete="off"><input id="searchInput" type="search" enterkeyhint="search" placeholder="搜索事件关键词或年份" aria-label="搜索事件关键词或年份"><button id="searchClear" class="sx" type="button" aria-label="清除搜索内容" hidden>×</button></form>
+            <form class="search-box" id="searchForm" autocomplete="off"><input id="searchInput" type="search" enterkeyhint="search" placeholder="搜索事件关键词或年份" aria-label="搜索事件关键词或年份"><button id="searchClear" class="sx" type="button" aria-label="清除搜索内容" hidden data-icon="close-small" data-icon-size="12"></button></form>
             <button id="searchBtn" type="button">搜索</button>
-            <select id="catSelect" class="cat-select" title="分类筛选">
-                <option value="all">全部分类</option>
-                <option value="party">中共相关</option>
-                <option value="kmt">其他力量</option>
-                <option value="nation">国家大事</option>
-                <option value="soft">科技·文教</option>
-                <option value="political">重大政治</option>
-            </select>
+            <div class="cat-select" id="catSelect" title="分类筛选">
+                <button type="button" class="cat-label" id="catLabel" aria-haspopup="listbox" aria-expanded="false">全部分类</button>
+                <div class="cat-dropdown" id="catDropdown" role="listbox"></div>
+            </div>
             <button id="exportBtn" title="导出事件清单：当月 / 全年 / 当前筛选 / CSV / Markdown / 图片 / PDF">导出清单</button>
         </div>
     </div>
@@ -2283,46 +2324,51 @@
     </button>
     <aside class="rail rail-right" id="railRight">
         <div class="rail-card">
-            <h3 class="rail-h"><span id="railYearTitle">—</span> 本年事件 <button class="rail-close" id="railClose" title="收起">×</button></h3>
+            <h3 class="rail-h"><span id="railYearTitle">—</span> 本年事件 <button class="rail-close" id="railClose" title="收起" data-icon="close" data-icon-size="14"></button></h3>
             <div id="railYearStats" class="rail-stats"></div>
             <div id="railYearList" class="rail-list"></div>
         </div>
     </aside>
     <!-- 顶部右上角：功能菜单按钮（打开右侧抽屉） -->
-    <button class="menu-fab" id="menuFab" type="button" title="更多功能">☰</button>
+    <button class="menu-fab" id="menuFab" type="button" title="更多功能"></button>
+    <a class="github-fab" href="https://github.com/kidnappe/ccp-spark-calendar" target="_blank" rel="noopener" title="项目仓库（GitHub）" aria-label="项目仓库（GitHub）" data-icon="github" data-icon-size="21"></a>
     <!-- 右侧抽屉：替代原「更多」下拉选单，列出全部功能入口（默认隐藏，点击右上角展开） -->
     <div class="menu-drawer-mask" id="menuDrawerMask"></div>
     <aside class="menu-drawer" id="menuDrawer" aria-hidden="true">
         <div class="menu-drawer-head">
             <span>更多功能</span>
-            <button class="menu-drawer-close" id="menuDrawerClose" title="收起">×</button>
+            <button class="menu-drawer-close" id="menuDrawerClose" title="收起" data-icon="close" data-icon-size="16"></button>
         </div>
         <div class="menu-drawer-list" id="menuDrawerList">
             <button id="mtgBtn" class="menu-item" title="查看中共重要会议">
-                <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10 L12 4 L21 10"/><line x1="3" y1="10" x2="21" y2="10"/><rect x="5" y="10" width="14" height="9"/><line x1="9" y1="10" x2="9" y2="19"/><line x1="15" y1="10" x2="15" y2="19"/><line x1="12" y1="10" x2="12" y2="19"/><rect x="10.5" y="14" width="3" height="5"/></svg></span>
+                <span class="mi-ico" data-icon="building-one"></span>
                 <span class="mi-txt">重要会议</span>
             </button>
             <button id="aboutBtn" class="menu-item" title="关于本工具：更新日志与操作指南">
-                <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.5" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+                <span class="mi-ico" data-icon="info"></span>
                 <span class="mi-txt">关于</span>
             </button>
             <button id="favBtn" class="menu-item" title="我的收藏">
-                <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3.5 L14.2 9 L20 9.6 L15.6 13.6 L17 19.5 L12 16 L7 19.5 L8.4 13.6 L4 9.6 L9.8 9 Z"/></svg></span>
+                <span class="mi-ico" data-icon="star"></span>
                 <span class="mi-txt">收藏</span>
                 <span id="favCount" class="badge-count">0</span>
             </button>
             <button id="statsBtn" class="menu-item" title="统计可视化">
-                <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="20.5" x2="21" y2="20.5"/><rect x="5.5" y="12" width="3.5" height="8"/><rect x="10.5" y="7" width="3.5" height="13"/><rect x="15.5" y="9.5" width="3.5" height="10.5"/></svg></span>
+                <span class="mi-ico" data-icon="chart-histogram"></span>
                 <span class="mi-txt">统计</span>
             </button>
             <button id="gachaBtn" class="menu-item" title="随机抽取一件党史事件">
-                <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="9.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="14.8" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+                <span class="mi-ico" data-icon="game"></span>
                 <span class="mi-txt">事件扭蛋机</span>
             </button>
             <button id="tagBtn" class="menu-item" title="标签云">
-                <span class="mi-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="M3 12 L12 3 H20 V11 L11 20 Z"/><circle cx="15" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+                <span class="mi-ico" data-icon="tag"></span>
                 <span class="mi-txt">标签</span>
             </button>
+            <a class="menu-item" href="https://github.com/kidnappe/ccp-spark-calendar" target="_blank" rel="noopener" title="项目仓库（GitHub）">
+                <span class="mi-ico" data-icon="github" data-icon-size="18"></span>
+                <span class="mi-txt">项目仓库</span>
+            </a>
         </div>
     </aside>
 </div>
@@ -2330,7 +2376,7 @@
 <!-- 因果网络关系图：替代时间轴高亮的因果脉络展示 -->
 <div class="cg-overlay" id="cgOverlay" hidden>
   <div class="cg-panel" id="cgPanel">
-    <button id="cgCloseX" class="cg-close-x" aria-label="关闭因果图" title="关闭因果图">×</button>
+    <button id="cgCloseX" class="cg-close-x" aria-label="关闭因果图" title="关闭因果图" data-icon="close" data-icon-size="20"></button>
     <div class="cg-head">
       <div class="cg-title">因果关系网络图</div>
       <div class="cg-root" id="cgRootInfo"></div>
@@ -2396,7 +2442,7 @@
 <!-- 弹窗 -->
 <div class="modal-mask" id="modalMask" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-box">
-        <button class="modal-x" onclick="closeModal()" aria-label="关闭" title="关闭">×</button>
+        <button class="modal-x" onclick="closeModal()" aria-label="关闭" title="关闭" data-icon="close" data-icon-size="18"></button>
         <h3 id="modalTitle" tabindex="-1"></h3>
         <div id="modalContent"></div>
         <button class="close-modal" onclick="closeModal()">关闭</button>
@@ -30636,6 +30682,41 @@ function toggleCausalMode(){
 }
 
 
+var IP_ICONS = {
+  'hamburger-button': { v: '0 0 48 48', d: '<path d="M7.94971 11.9497H39.9497"/><path d="M7.94971 23.9497H39.9497"/><path d="M7.94971 35.9497H39.9497"/>' },
+  'sun-one': { v: '0 0 48 48', d: '<path d="M24 37C31.1797 37 37 31.1797 37 24C37 16.8203 31.1797 11 24 11C16.8203 11 11 16.8203 11 24C11 31.1797 16.8203 37 24 37Z" fill="none"/><path d="M24 6C25.3807 6 26.5 4.88071 26.5 3.5C26.5 2.11929 25.3807 1 24 1C22.6193 1 21.5 2.11929 21.5 3.5C21.5 4.88071 22.6193 6 24 6Z" fill="currentColor"/><path d="M38.5 12C39.8807 12 41 10.8807 41 9.5C41 8.11929 39.8807 7 38.5 7C37.1193 7 36 8.11929 36 9.5C36 10.8807 37.1193 12 38.5 12Z" fill="currentColor"/><path d="M44.5 26.5C45.8807 26.5 47 25.3807 47 24C47 22.6193 45.8807 21.5 44.5 21.5C43.1193 21.5 42 22.6193 42 24C42 25.3807 43.1193 26.5 44.5 26.5Z" fill="currentColor"/><path d="M38.5 41C39.8807 41 41 39.8807 41 38.5C41 37.1193 39.8807 36 38.5 36C37.1193 36 36 37.1193 36 38.5C36 39.8807 37.1193 41 38.5 41Z" fill="currentColor"/><path d="M24 47C25.3807 47 26.5 45.8807 26.5 44.5C26.5 43.1193 25.3807 42 24 42C22.6193 42 21.5 43.1193 21.5 44.5C21.5 45.8807 22.6193 47 24 47Z" fill="currentColor"/><path d="M9.5 41C10.8807 41 12 39.8807 12 38.5C12 37.1193 10.8807 36 9.5 36C8.11929 36 7 37.1193 7 38.5C7 39.8807 8.11929 41 9.5 41Z" fill="currentColor"/><path d="M3.5 26.5C4.88071 26.5 6 25.3807 6 24C6 22.6193 4.88071 21.5 3.5 21.5C2.11929 21.5 1 22.6193 1 24C1 25.3807 2.11929 26.5 3.5 26.5Z" fill="currentColor"/><path d="M9.5 12C10.8807 12 12 10.8807 12 9.5C12 8.11929 10.8807 7 9.5 7C8.11929 7 7 8.11929 7 9.5C7 10.8807 8.11929 12 9.5 12Z" fill="currentColor"/>' },
+  'moon': { v: '0 0 48 48', d: '<path d="M28.0527 4.41085C22.5828 5.83695 18.5455 10.8106 18.5455 16.7273C18.5455 23.7564 24.2436 29.4545 31.2727 29.4545C37.1894 29.4545 42.1631 25.4172 43.5891 19.9473C43.8585 21.256 44 22.6115 44 24C44 35.0457 35.0457 44 24 44C12.9543 44 4 35.0457 4 24C4 12.9543 12.9543 4 24 4C25.3885 4 26.744 4.14149 28.0527 4.41085Z" fill="none"/>' },
+  'close': { v: '0 0 48 48', d: '<path d="M8 8L40 40"/><path d="M8 40L40 8"/>' },
+  'close-small': { v: '0 0 48 48', d: '<path d="M14 14L34 34"/><path d="M14 34L34 14"/>' },
+  'star': { v: '0 0 48 48', d: '<path d="M23.9986 5L17.8856 17.4776L4 19.4911L14.0589 29.3251L11.6544 43L23.9986 36.4192L36.3454 43L33.9586 29.3251L44 19.4911L30.1913 17.4776L23.9986 5Z" fill="none"/>' },
+  'star-one': { v: '0 0 48 48', d: '<path fill-rule="evenodd" clip-rule="evenodd" d="M16.8712 33.0437L15.9976 44.7037C15.9362 45.5231 16.6646 46.0874 17.3161 45.7222C21.9289 43.1384 36.3783 33.6481 43.7017 12.7901C44.0376 11.8333 43.1352 10.9699 42.3646 11.5096C38.0387 14.5391 28.5846 20.8008 22.7421 21.9935C22.7421 21.9935 26.4836 19.3948 28.7231 15.4055C28.9426 15.0144 28.9244 14.5138 28.6796 14.1608L20.5127 2.38942C20.0287 1.69163 19.0354 1.98074 18.8606 2.87019L16.3181 15.8074L4.38437 26.2228C3.78602 26.7448 3.90808 27.7998 4.5989 28.0792L16.8712 33.0437Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M37.9745 28.4481C37.2188 29.5026 35.5908 31.6718 34.0876 32.9975C33.7871 33.2625 33.8276 33.707 34.1724 33.9235L42.1145 38.9092C42.5926 39.2092 43.2384 38.853 43.1576 38.3325C42.7882 35.9498 41.7237 30.982 39.0328 28.3743C38.7322 28.0832 38.2142 28.1138 37.9745 28.4481Z" fill="currentColor"/>' },
+  'search': { v: '0 0 48 48', d: '<path d="M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z" fill="none"/><path d="M26.657 14.3431C25.2093 12.8954 23.2093 12 21.0001 12C18.791 12 16.791 12.8954 15.3433 14.3431"/><path d="M33.2216 33.2217L41.7069 41.707"/>' },
+  'building-one': { v: '0 0 48 48', d: '<path fill-rule="evenodd" clip-rule="evenodd" d="M11 14L25 4V44H11V14Z" fill="none"/><path d="M25 13L39 23V44"/><path d="M4 44H44"/>' },
+  'info': { v: '0 0 48 48', d: '<path d="M24 44C29.5228 44 34.5228 41.7614 38.1421 38.1421C41.7614 34.5228 44 29.5228 44 24C44 18.4772 41.7614 13.4772 38.1421 9.85786C34.5228 6.23858 29.5228 4 24 4C18.4772 4 13.4772 6.23858 9.85786 9.85786C6.23858 13.4772 4 18.4772 4 24C4 29.5228 6.23858 34.5228 9.85786 38.1421C13.4772 41.7614 18.4772 44 24 44Z" fill="none"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24 11C25.3807 11 26.5 12.1193 26.5 13.5C26.5 14.8807 25.3807 16 24 16C22.6193 16 21.5 14.8807 21.5 13.5C21.5 12.1193 22.6193 11 24 11Z" fill="currentColor"/><path d="M24.5 34V20H23.5H22.5"/><path d="M21 34H28"/>' },
+  'chart-histogram': { v: '0 0 48 48', d: '<path d="M6 6V42H42"/><path d="M14 30V34"/><path d="M22 22V34"/><path d="M30 6V34"/><path d="M38 14V34"/>' },
+  'game': { v: '0 0 48 48', d: '<path d="M38.5121 9.5362C34.8466 6.10249 29.9188 4 24.5 4C13.1782 4 4 13.1782 4 24.5C4 35.8218 13.1782 45 24.5 45C30.1148 45 35.2024 42.7427 38.9048 39.0861L24 24L38.5121 9.5362Z" fill="none"/><path d="M40 28C42.2091 28 44 26.2091 44 24C44 21.7909 42.2091 20 40 20C37.7909 20 36 21.7909 36 24C36 26.2091 37.7909 28 40 28Z" fill="none"/><path d="M17 13V21"/><path d="M13 17H21"/>' },
+  'tag': { v: '0 0 48 48', d: '<path d="M8 44L8 6C8 4.89543 8.89543 4 10 4H38C39.1046 4 40 4.89543 40 6V44L24 35.7273L8 44Z" fill="none"/><path d="M16 18H32"/>' },
+  'file-txt': { v: '0 0 48 48', d: '<path d="M10 4H30L40 14V42C40 43.1046 39.1046 44 38 44H10C8.89543 44 8 43.1046 8 42V6C8 4.89543 8.89543 4 10 4Z" fill="none"/><path d="M18 18.0083H30"/><path d="M24.0083 18.0083V34"/>' },
+  'file-excel': { v: '0 0 48 48', d: '<path d="M10 4H30L40 14V42C40 43.1046 39.1046 44 38 44H10C8.89543 44 8 43.1046 8 42V6C8 4.89543 8.89543 4 10 4Z" fill="none"/><path d="M29 18H19V34H29"/><path d="M29 26H19"/>' },
+  'file-text': { v: '0 0 48 48', d: '<path d="M10 44H38C39.1046 44 40 43.1046 40 42V14H30V4H10C8.89543 4 8 4.89543 8 6V42C8 43.1046 8.89543 44 10 44Z" fill="none"/><path d="M30 4L40 14"/><path d="M24 22V36"/><path d="M18 22H24L30 22"/>' },
+  'pic': { v: '0 0 48 48', d: '<path fill-rule="evenodd" clip-rule="evenodd" d="M5 10C5 8.89543 5.89543 8 7 8L41 8C42.1046 8 43 8.89543 43 10V38C43 39.1046 42.1046 40 41 40H7C5.89543 40 5 39.1046 5 38V10Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 18C15.3284 18 16 17.3284 16 16.5C16 15.6716 15.3284 15 14.5 15C13.6716 15 13 15.6716 13 16.5C13 17.3284 13.6716 18 14.5 18Z"/><path d="M15 24L20 28L26 21L43 34V38C43 39.1046 42.1046 40 41 40H7C5.89543 40 5 39.1046 5 38V34L15 24Z" fill="none"/>' },
+  'file-pdf': { v: '0 0 48 48', d: '<path d="M10 4H30L40 14V42C40 43.1046 39.1046 44 38 44H10C8.89543 44 8 43.1046 8 42V6C8 4.89543 8.89543 4 10 4Z" fill="none"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 18H30V25.9917L18.0083 26L18 18Z"/><path d="M18 18V34"/>' },
+  'book': { v: '0 0 48 48', d: '<path d="M8 40C8 36 8 10 8 10C8 6.68629 10.8654 4 14.4 4H40V36C40 36 19.9815 36 14.4 36C9.36225 36 8 36.6842 8 40Z" fill="none"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 44H40V36H12C9.79086 36 8 37.7909 8 40C8 42.2091 9.79086 44 12 44Z"/>' },
+  'calendar': { v: '0 0 48 48', d: '<path d="M5 19H43V40C43 41.1046 42.1046 42 41 42H7C5.89543 42 5 41.1046 5 40V19Z" fill="none"/><path d="M5 9C5 7.89543 5.89543 7 7 7H41C42.1046 7 43 7.89543 43 9V19H5V9Z"/><path d="M16 4V12"/><path d="M32 4V12"/><path d="M28 34H34"/><path d="M14 34H20"/><path d="M28 26H34"/><path d="M14 26H20"/>' },
+  'link': { v: '0 0 48 48', d: '<path d="M24.7073 9.56521L9.85801 24.4145C6.34329 27.9292 6.34329 33.6277 9.85801 37.1424V37.1424C13.3727 40.6571 19.0712 40.6571 22.5859 37.1424L40.2636 19.4647C42.6067 17.1216 42.6067 13.3226 40.2636 10.9794V10.9794C37.9205 8.63628 34.1215 8.63628 31.7783 10.9794L14.1007 28.6571C12.9291 29.8287 12.9291 31.7282 14.1007 32.8997V32.8997C15.2722 34.0713 17.1717 34.0713 18.3433 32.8997L33.1925 18.0505"/>' },
+  'left': { v: '0 0 48 48', d: '<path d="M31 36L19 24L31 12"/>' },
+  'right': { v: '0 0 48 48', d: '<path d="M19 12L31 24L19 36"/>' },
+  'down': { v: '0 0 48 48', d: '<path d="M36 18L24 30L12 18"/>' },
+  'github': { v: '0 0 48 48', d: '<path d="M29.3444 30.4765C31.7481 29.977 33.9292 29.1108 35.6247 27.8391C38.5202 25.6676 40 22.3136 40 18.9999C40 16.6752 39.1187 14.505 37.5929 12.6668C36.7427 11.6425 39.2295 3.99989 37.02 5.02919C34.8105 6.05848 31.5708 8.33679 29.8726 7.83398C28.0545 7.29565 26.0733 6.99989 24 6.99989C22.1992 6.99989 20.4679 7.22301 18.8526 7.6344C16.5046 8.23237 14.2591 5.99989 12 5.02919C9.74086 4.05848 10.9736 11.9632 10.3026 12.7944C8.84119 14.6051 8 16.7288 8 18.9999C8 22.3136 9.79086 25.6676 12.6863 27.8391C14.6151 29.2857 17.034 30.2076 19.7401 30.6619"/><path d="M19.7397 30.6619C18.5812 31.937 18.002 33.1478 18.002 34.2944C18.002 35.441 18.002 38.3464 18.002 43.0106"/><path d="M29.3446 30.4766C30.4423 31.9174 30.9912 33.211 30.9912 34.3576C30.9912 35.5042 30.9912 38.3885 30.9912 43.0107"/><path d="M6 31.2155C6.89887 31.3254 7.56554 31.7387 8 32.4554C8.65169 33.5303 11.0742 37.518 13.8251 37.518C15.6591 37.518 17.0515 37.518 18.0024 37.518"/>' }
+};
+
+function ipIcon(name, size, cls){
+    const ic = IP_ICONS[name];
+    if(!ic) return '';
+    const s = size || 16;
+    return '<svg class="ip-icon' + (cls ? ' ' + cls : '') + '" viewBox="' + ic.v + '" width="' + s + '" height="' + s + '" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ic.d + '</svg>';
+}
+
 let currentMonth = 7;
 let filterYear = null;    // 年份选择器控制（具体年份，无"全部"）
 let searchKey = "";       // 搜索框控制，与年份选择器相互独立
@@ -30660,7 +30741,7 @@ function tint(count, max, cat){
 // ---------- 年份选择器（◀ ▶ 翻动 + 点击弹出年份列表） ----------
 function updateYearLabel(){
     document.getElementById('yearLabel').innerHTML =
-        yearList[yearIndex] + '年 <span class="caret">▾</span>';
+        yearList[yearIndex] + '年 ' + ipIcon('down', 11);
 }
 // 日历视图切年 / 切月共享的「毛边撕纸」过渡（仅日历模式、未开启减少动态时生效；B2）
 let calAnimating = false;
@@ -30739,7 +30820,7 @@ document.addEventListener('click', (e)=>{
 let tlYearIndex = 0, tlYear = yearList[0];
 function updateTlYearLabel(){
     document.getElementById('tlYearLabel').innerHTML =
-        tlYear + '年 <span class="caret">▾</span>';
+        tlYear + '年 ' + ipIcon('down', 11);
 }
 function buildTlYearDropdown(){
     const dd = document.getElementById('tlYearDropdown');
@@ -30755,8 +30836,11 @@ function buildTlYearDropdown(){
 function setTlYearIndex(i){
     tlYearIndex = (i % yearList.length + yearList.length) % yearList.length;
     tlYear = yearList[tlYearIndex];
+    tlVisibleYear = tlYear;
     updateTlYearLabel();
     scrollTimelineToYear(tlYear);   // 仅滚动时间轴，不触碰 filterYear / 日历
+    const rail = document.getElementById('railRight');
+    if(rail && rail.classList.contains('open')) renderYearRail(tlYear);
 }
 function openTlYearDropdown(){
     buildTlYearDropdown();
@@ -31012,7 +31096,7 @@ function renderModalBody(){
     // 收藏星标
     const star = document.createElement('span');
     star.className = 'fav-star' + (isFav(e) ? ' on' : '');
-    star.textContent = isFav(e) ? '★' : '☆';
+    star.innerHTML = ipIcon(isFav(e) ? 'star-one' : 'star', 16);
     star.title = '收藏 / 取消收藏';
     star.onclick = (ev)=>{ ev.stopPropagation(); toggleFav(e, star); };
     div.appendChild(star);
@@ -31061,7 +31145,7 @@ function renderModalBody(){
           const a=document.createElement('a');
           a.href='https://search.12371.cn/search.php?t=newsmerge&client=no&q='+encodeURIComponent(q.slice(0,24));
           a.target='_blank'; a.rel='noopener';
-          a.textContent=parts.length?'🔍 核对出处':'🔍 查找出处';
+          a.innerHTML = ipIcon('search', 12) + (parts.length ? ' 核对出处' : ' 查找出处');
           meta.appendChild(document.createTextNode(parts.length?parts.join(' · ')+' · ':''));
           meta.appendChild(a);
           box.appendChild(meta);
@@ -31089,7 +31173,7 @@ function renderModalBody(){
           if(m){
             a.textContent=m[1].replace(/[：:，,\-—–]\s*$/,'') || '查看链接';
             a.href=m[2]; a.target='_blank'; a.rel='noopener';
-            a.title='🔗 '+m[2];
+            a.title='链接：'+m[2];
           }else{
             a.textContent=String(s);
             a.href='javascript:void(0)';
@@ -31106,7 +31190,7 @@ function renderModalBody(){
           const a=document.createElement('a'); a.className='ev-link';
           const t = (r && r.title) ? r.title : r;
           a.textContent = t;
-          if(r && r.url){ a.href=r.url; a.target='_blank'; a.rel='noopener'; a.title='🔗 '+r.url; } else { a.href='javascript:void(0)'; }
+          if(r && r.url){ a.href=r.url; a.target='_blank'; a.rel='noopener'; a.title='链接：'+r.url; } else { a.href='javascript:void(0)'; }
           box.appendChild(a);
         });
         addSub('延伸阅读', box);
@@ -31188,7 +31272,7 @@ function toggleRail(){
         if(chev) chev.textContent = open ? '▴' : '▾';
     }
     if(open){
-        const y = timelineView.classList.contains('show') && tlVisibleYear ? tlVisibleYear : filterYear;
+        const y = timelineView.classList.contains('show') ? tlYear : filterYear;
         renderYearRail(y);
     }
 }
@@ -31504,7 +31588,7 @@ function openMeetingDetail(m){
     // 收藏星标
     const mstar = document.createElement('span');
     mstar.className = 'fav-star' + (isFav(m) ? ' on' : '');
-    mstar.textContent = isFav(m) ? '★' : '☆';
+    mstar.innerHTML = ipIcon(isFav(m) ? 'star-one' : 'star', 16);
     mstar.style.position = 'static';
     mstar.style.marginLeft = '8px';
     mstar.title = '收藏 / 取消收藏';
@@ -31687,13 +31771,13 @@ function openGashapon(){
       +'<div class="gp-base"><div class="gp-brand">星火日历</div>'
       +'<button class="gp-knob" id="gpKnob" title="点击抽取">扭</button>'
       +'<div class="gp-chute"></div></div>'
-      +'<button class="modal-x" style="position:absolute;top:-13px;right:-13px;" onclick="closeModal()" aria-label="关闭扭蛋机" title="关闭">×</button>'
+      +'<button class="modal-x" style="position:absolute;top:-13px;right:-13px;" onclick="closeModal()" aria-label="关闭扭蛋机" title="关闭">'+ipIcon('close',16)+'</button>'
       +'</div>'
       +'<div class="gp-stage"><div class="gp-card" id="gpCard">'
-      +'<button class="modal-x gp-cardx" onclick="collapseGpCard()" aria-label="收起结果卡" title="收起">×</button>'
+      +'<button class="modal-x gp-cardx" onclick="collapseGpCard()" aria-label="收起结果卡" title="收起">'+ipIcon('close',16)+'</button>'
       +'<div class="gp-date" id="gpDate"></div><div class="gp-ttl" id="gpTtl"></div><div class="gp-desc" id="gpDesc"></div>'
       +'<div class="gp-acts"><button class="pri" id="gpDetail">查看详情</button>'
-      +'<button id="gpLocate">到时间轴定位</button><button id="gpAgain">🎲 再扭一次</button></div>'
+      +'<button id="gpLocate">到时间轴定位</button><button id="gpAgain">'+ipIcon('game',14)+' 再扭一次</button></div>'
       +'</div></div>'
       +'<div class="gp-capsule" id="gpCapsule"><div class="gp-cap-top"></div><div class="gp-cap-bot"></div></div>'
       +'<p style="text-align:center;font-size:11.5px;color:#a0937a;margin:8px 0 0" id="gpHint">点「扭」钮或机器任意处，随机抽出一件事</p>'
@@ -31837,15 +31921,42 @@ document.getElementById('searchForm').onsubmit = function(e){
 })();
 
 // 分类筛选下拉（替代原 5 个 chips，收纳进更紧凑的下拉）
-document.getElementById('catSelect').onchange = function(){
-    catFilter = this.value;
-    renderMonthBar();
-    renderCalendar();
-    const railY = timelineView.classList.contains('show') && tlVisibleYear ? tlVisibleYear : filterYear;
-    renderYearRail(railY);
-    if(timelineView.classList.contains('show')) renderTimeline();
-    flashHits();
-};
+/* 分类筛选：自定义下拉（手机端也不再弹系统原生菜单，字体与站内一致） */
+(function(){
+    const label = document.getElementById('catLabel');
+    const dd = document.getElementById('catDropdown');
+    if(!label || !dd) return;
+    const opts = [
+        ['all','全部分类'], ['party','中共相关'], ['kmt','其他力量'],
+        ['nation','国家大事'], ['soft','科技·文教'], ['political','重大政治']
+    ];
+    const nameOf = v => (opts.find(o => o[0] === v) || opts[0])[1];
+    function renderLabel(){ label.innerHTML = nameOf(catFilter) + ' ' + ipIcon('down', 12); }
+    function apply(v){
+        catFilter = v;
+        renderLabel();
+        dd.querySelectorAll('.cat-option').forEach(el => el.classList.toggle('sel', el.dataset.v === v));
+        renderMonthBar(); renderCalendar();
+        const railY = timelineView.classList.contains('show') ? tlYear : filterYear;
+        renderYearRail(railY);
+        if(timelineView.classList.contains('show')) renderTimeline();
+        flashHits();
+    }
+    opts.forEach(([v, txt]) => {
+        const o = document.createElement('div');
+        o.className = 'cat-option' + (v === catFilter ? ' sel' : '');
+        o.dataset.v = v; o.textContent = txt;
+        o.onclick = () => { apply(v); dd.classList.remove('show'); label.setAttribute('aria-expanded','false'); };
+        dd.appendChild(o);
+    });
+    label.onclick = (e) => {
+        e.stopPropagation();
+        const open = dd.classList.toggle('show');
+        label.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    document.addEventListener('click', () => { dd.classList.remove('show'); label.setAttribute('aria-expanded','false'); });
+    renderLabel();
+})();
 
 // 右侧功能抽屉：替代原「更多」下拉选单（各按钮 onclick 已各自绑定，保持不变）
 (function(){
@@ -31861,7 +31972,7 @@ document.getElementById('catSelect').onchange = function(){
     mask.addEventListener('click', closeDrawer);
     if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
     // 点击抽屉内任一功能按钮后自动收起（按钮自身的 onclick 仍照常执行）
-    if(list) list.addEventListener('click', (e)=>{ if(e.target.closest('button')) closeDrawer(); });
+    if(list) list.addEventListener('click', (e)=>{ if(e.target.closest('button,a')) closeDrawer(); });
 })();
 
 // ---------- 导出（改为弹出菜单：当月 / 全年 / 当前筛选CSV / Markdown） ----------
@@ -31919,8 +32030,8 @@ document.addEventListener('keydown', function(e){
 // ---------- 夜间模式 ----------
 const themeToggle = document.getElementById('themeToggle');
 // 太阳（切到夜间时显示，点击转亮）/ 月亮（亮色时显示，点击转暗），纯 SVG 不用 emoji
-const ICON_SUN = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><g><line x1="12" y1="2.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.5" y2="12"/><line x1="4.8" y1="4.8" x2="6.6" y2="6.6"/><line x1="17.4" y1="17.4" x2="19.2" y2="19.2"/><line x1="4.8" y1="19.2" x2="6.6" y2="17.4"/><line x1="17.4" y1="6.6" x2="19.2" y2="4.8"/></g></svg>';
-const ICON_MOON = '<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" stroke="none"><path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/></svg>';
+const ICON_SUN = ipIcon('sun-one', 22);
+const ICON_MOON = ipIcon('moon', 20);
 function applyTheme(t){
     document.documentElement.setAttribute('data-theme', t);
     if(themeToggle) themeToggle.innerHTML = (t === 'dark') ? ICON_SUN : ICON_MOON;
@@ -31991,23 +32102,23 @@ const TlWheel=(function(){
 })();
 
 /* ===== 时间轴滚动 → 追踪当前可见年份，联动本年事件侧栏 ===== */
-let tlVisibleYear = null;
+let tlVisibleYear = null, tlJumpLock = 0;
 function detectTlYear(){
+    if(Date.now() < tlJumpLock) return;   // 程序性跳转期间不覆盖目标年份
     const sc = document.getElementById('tlScroll');
     if(!sc || !timelineView.classList.contains('show')) return;
     const rect = sc.getBoundingClientRect();
-    const mid = rect.left + rect.width * 0.4;
     const items = sc.querySelectorAll('.tl-item[data-y]');
-    let best = null, bestDist = Infinity;
+    let best = null;
     for(let i=0;i<items.length;i++){
-        const r = items[i].getBoundingClientRect();
-        const d = Math.abs(r.left - mid);
-        if(d < bestDist){ bestDist = d; best = items[i]; }
+        if(items[i].getBoundingClientRect().right > rect.left + 4){ best = items[i]; break; }
     }
     if(best){
         const y = parseInt(best.dataset.y, 10);
         if(y !== tlVisibleYear){
             tlVisibleYear = y;
+            const idx = yearList.indexOf(y);
+            if(idx >= 0 && idx !== tlYearIndex){ tlYearIndex = idx; tlYear = y; updateTlYearLabel(); }
             const rail = document.getElementById('railRight');
             if(rail && rail.classList.contains('open')) renderYearRail(y);
         }
@@ -32100,7 +32211,7 @@ function renderTimeline(){
         // 收藏星标
         const star = document.createElement('span');
         star.className = 'fav-star' + (isFav(e) ? ' on' : '');
-        star.textContent = isFav(e) ? '★' : '☆';
+        star.innerHTML = ipIcon(isFav(e) ? 'star-one' : 'star', 16);
         star.style.top = '6px'; star.style.right = '8px';
         star.onclick = (ev)=>{ ev.stopPropagation(); toggleFav(e, star); };
         card.appendChild(star);
@@ -32169,6 +32280,7 @@ function scrollTimelineToYear(y){
     const node = yearFirstNode[y];
     if(sc && node){
         sc.scrollLeft = Math.max(0, node.offsetLeft - 50);
+        tlJumpLock = Date.now() + 500;
     }
 }
 
@@ -32191,10 +32303,13 @@ function setMode(mode){
         setExtras(false);
         tl.classList.add('show');
         renderTimeline();
-        document.getElementById('tlScroll').scrollLeft = 0;
+        tlYearIndex = Math.max(0, yearList.indexOf(filterYear));
+        tlYear = yearList[tlYearIndex];
+        tlVisibleYear = tlYear;
+        updateTlYearLabel();
         closeRail();
-        tlVisibleYear = null;
-        setTimeout(detectTlYear, 100);
+        scrollTimelineToYear(filterYear);
+        setTimeout(detectTlYear, 600);
         TlWheel.sync(true);   // 桌面：进入时间轴即锁定页面竖向滚动
         // 降级 / 动画进行中：直接静态切换
         if(reduced || modeAnimating){ cal.style.display = 'none'; return; }
@@ -32339,7 +32454,7 @@ function openFavorites(){
         div.style.position = 'relative';
         const star = document.createElement('span');
         star.className = 'fav-star on';
-        star.textContent = '★';
+        star.innerHTML = ipIcon('star-one', 16);
         star.title = '取消收藏';
         star.onclick = (ev)=>{
             ev.stopPropagation();
@@ -32626,19 +32741,19 @@ function openExport(){
     content.appendChild(note);
 
     const opts = [
-        {ico:'📄', t:'当月清单（TXT）', d:`${filterYear}年${currentMonth}月 的事件，纯文本`, fn: exportMonthTxt},
-        {ico:'📚', t:'全年清单（TXT）', d:`${filterYear}年 全部事件，纯文本`, fn: exportYearTxt},
-        {ico:'📊', t:'当前筛选（CSV）', d:'跨年份，含 年/月/日/分类/标题/描述，可进 Excel', fn: exportCsv},
-        {ico:'📝', t:'当前筛选（Markdown）', d:'跨年份，按年份分组的 Markdown 文档', fn: exportMarkdown},
-        {ico:'🖼️', t:'导出图片（SVG）', d:'将当前视图快照导出为矢量图片', fn: exportViewSvg},
-        {ico:'📑', t:'导出 PDF（打印）', d:'调用浏览器打印，可另存为 PDF', fn: exportPdf},
+        {ico:'file-txt', t:'当月清单（TXT）', d:`${filterYear}年${currentMonth}月 的事件，纯文本`, fn: exportMonthTxt},
+        {ico:'book', t:'全年清单（TXT）', d:`${filterYear}年 全部事件，纯文本`, fn: exportYearTxt},
+        {ico:'file-excel', t:'当前筛选（CSV）', d:'跨年份，含 年/月/日/分类/标题/描述，可进 Excel', fn: exportCsv},
+        {ico:'file-text', t:'当前筛选（Markdown）', d:'跨年份，按年份分组的 Markdown 文档', fn: exportMarkdown},
+        {ico:'pic', t:'导出图片（SVG）', d:'将当前视图快照导出为矢量图片', fn: exportViewSvg},
+        {ico:'file-pdf', t:'导出 PDF（打印）', d:'调用浏览器打印，可另存为 PDF', fn: exportPdf},
     ];
     const menu = document.createElement('div');
     menu.className = 'export-menu';
     opts.forEach(o=>{
         const el = document.createElement('div');
         el.className = 'export-opt';
-        el.innerHTML = `<div class="ico">${o.ico}</div><div><div class="t">${o.t}</div><div class="d">${o.d}</div></div>`;
+        el.innerHTML = `<div class="ico">${ipIcon(o.ico, 18)}</div><div><div class="t">${o.t}</div><div class="d">${o.d}</div></div>`;
         el.onclick = ()=>{ o.fn(); };
         menu.appendChild(el);
     });
@@ -32954,6 +33069,16 @@ updateYearLabel();
 renderMonthBar();
 renderCalendar();
 renderYearRail(filterYear);
+/* IconPark 图标注入：data-icon 容器 + 固定按钮 */
+document.querySelectorAll('[data-icon]').forEach(el=>{
+    const size = parseInt(el.dataset.iconSize || '0', 10) || (el.classList.contains('mi-ico') ? 18 : el.classList.contains('rt-icon') ? 24 : 16);
+    el.innerHTML = ipIcon(el.dataset.icon, size);
+});
+const menuFabEl = document.getElementById('menuFab');
+if(menuFabEl) menuFabEl.innerHTML = ipIcon('hamburger-button', 20);
+document.querySelectorAll('.year-nav').forEach(btn=>{
+    btn.innerHTML = ipIcon(/Prev/.test(btn.id) ? 'left' : 'right', 15);
+});
 
 // 顶栏（模式切换 / 工具栏 / 报头）恢复为普通文档流，随页面滚动；
 // 仅悬浮按钮（logo、日夜切换、本年事件）保持 position:fixed 钉在背景板上。
