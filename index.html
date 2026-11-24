@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-calendar-16.png">
     <link rel="apple-touch-icon" href="icons/icon-calendar-180.png">
     <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preload" href="fonts/huiwen-mincho-subset.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="theme-color" content="#b22222">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <script>
@@ -25,11 +26,18 @@
     })();
     </script>
     <style>
+        /* 汇文明朝体（免费商用）：按本站用字子集化的 woff2 */
+        @font-face {
+            font-family: "Huiwen Mincho";
+            src: url("fonts/huiwen-mincho-subset.woff2") format("woff2");
+            font-weight: 400 700;
+            font-display: swap;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", SimSun, sans-serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
         }
         /* 报刊按钮体系 · 动效 token（指数缓出 + 弹性解禁；只动 transform + opacity + 色彩） */
         :root {
@@ -56,7 +64,7 @@
             background-color: #f0e9d8; /* 宣纸底色 */
             color: #2b2b28;
             padding: 20px;
-            font-family: "Songti SC", "SimSun", "STSong", "Noto Serif SC", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
         }
@@ -80,7 +88,7 @@
         }
         .brand-fab .bf-text {
             font-size: clamp(21px, 3vw, 34px); font-weight: bold; color: var(--vermilion-deep);
-            letter-spacing: clamp(3px, 0.6vw, 6px); font-family: "Songti SC", "SimSun", "STSong", serif;
+            letter-spacing: clamp(3px, 0.6vw, 6px); font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
             line-height: 1;
         }
         [data-theme="dark"] .brand-fab .bf-text { color: var(--vermilion-soft); }
@@ -159,7 +167,7 @@
             display:flex; align-items:center; justify-content:center;
             width:20px; height:20px; border:none; border-radius:0;
             background:transparent; color:#4a3f28; z-index:2;
-            font-family:"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+            font-family:"Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
             font-size:16px; font-weight:700; line-height:1;
             padding:0; cursor:pointer;
             transition:none; -webkit-tap-highlight-color:transparent; }
@@ -288,7 +296,7 @@
             border: none;
             border-radius: 0;
             padding: 4px 8px;
-            font-family: "Songti SC", "SimSun", "STSong", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
             transition: color .15s;
         }
         .cal-masthead .year-label:hover { color: #d44a3a; background: transparent; }
@@ -347,7 +355,7 @@
             border: none;
             border-radius: 0;
             padding: 3px 6px;
-            font-family: "Songti SC", "SimSun", "STSong", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
             transition: color .15s;
         }
         .tl-toolbar .year-label:hover { color: #d44a3a; background: transparent; }
@@ -389,7 +397,7 @@
             letter-spacing: 2px;
             cursor: pointer;
             padding: 4px 10px;
-            font-family: "Songti SC", "SimSun", "STSong", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
             line-height: 1.2;
             transition: color .15s;
         }
@@ -456,6 +464,13 @@
             font-size: 11px;
             color: #a89a78;
             letter-spacing: 0;
+            margin-right: 22px;   /* 给行尾数量角标留槽位，避免角标压住月份文字 */
+        }
+        .month-btn .count-badge {
+            left: auto;
+            right: 3px;
+            top: 50%;
+            transform: translateY(-50%);
         }
         .month-btn.active .m-year { color: rgba(250,246,234,.85); }
         /* 选中月份：朱砂红高亮，与"红=中共/蓝=其他力量"的主题色区分明确 */
@@ -501,7 +516,7 @@
         }
         .week-title {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            grid-template-columns: repeat(7, minmax(0, 1fr));
             margin-bottom: 8px;
         }
         .week-title div {
@@ -515,7 +530,7 @@
         .week-title div:last-child { color: var(--vermilion); }
         .date-grid {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            grid-template-columns: repeat(7, minmax(0, 1fr));
             gap: 6px;
         }
         /* 档案格：米白纸面 + 顶部 3px 分类色条 + 细描边 */
@@ -637,7 +652,7 @@
             border-radius: 10px;
             padding: 20px;
             box-sizing: border-box;
-            font-family: "Songti SC", "SimSun", "STSong", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
             opacity: 0;
             transition: opacity .28s ease-out;
         }
@@ -707,7 +722,10 @@
             color: var(--vermilion-deep);
             margin-bottom: 4px;
             line-height: 1.45;
-            font-family: "Songti SC", "SimSun", "STSong", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
+        }
+        .modal-event > div > span {
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
         }
         /* 弹窗中属于其他力量（蓝色主题）的事件，左侧改蓝 */
         .modal-event.kmt { border-left-color:#1a5276; }
@@ -757,7 +775,8 @@
         [data-theme="dark"] .about-body code { background:#2a2a2a; }
         @media (max-width: 768px){
             .main-wrap { flex-direction: column; }
-            .month-sidebar { width: 100%; display: grid; grid-template-columns: repeat(6, 1fr); }
+            .month-sidebar { width: 100%; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+            .month-sidebar .m-year { display: none; }   /* 窄屏 6 列排布，年份后缀让位给月份和角标 */
             .day-cell { min-height: 100px; }
             .year-select { order: -1; }
         }
@@ -797,7 +816,7 @@
             padding: 8px 12px;
             background: var(--paper);
             border-bottom: 1px solid #d8cfbc;
-            font-family: "Songti SC", "SimSun", "STSong", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
         }
         .tl-toolbar .tl-hint { color:#8a7d5f; letter-spacing:1px; }
         .tl-scroll {
@@ -902,7 +921,7 @@
             border-radius:6px;
             box-shadow:0 2px 10px rgba(90,70,40,0.12);
             color:#5a4a33; font-size:13.5px; line-height:1.85;
-            font-family: "Songti SC", "SimSun", "STSong", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
         }
         .tl-end-panel .et {
             position:relative; z-index:1;
@@ -957,7 +976,7 @@
             border-top:3px solid var(--vermilion-deep);
             border-radius:3px; padding:10px 12px; cursor:pointer;
             box-shadow:0 2px 8px rgba(90,70,40,0.12); z-index:3; transition:0.15s;
-            font-family: "Songti SC", "SimSun", "STSong", serif;
+            font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
         }
         .tl-card:hover { box-shadow:0 0 0 2px rgba(178,34,34,0.18); }
         .tl-card .tl-date { color:var(--vermilion-deep); font-weight:bold; font-size:12px; letter-spacing:1px; }
@@ -1005,12 +1024,14 @@
             writing-mode:vertical-rl; color:var(--vermilion-deep); font-weight:bold;
             font-size:16px; letter-spacing:3px; background:var(--paper);
             border:1px solid var(--edge); border-radius:3px; padding:10px 4px; z-index:2;
+            font-family:"Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
         }
         /* 年份虚影：横置于相邻两条分割线之间，卡片错位留出的中轴空白带内 */
         .tyw {
             position:absolute; top:0; height:100%;
             display:flex; align-items:center; justify-content:center;
             font-size:min(72px, 11vw); font-weight:800;
+            font-family:"Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;
             color:rgba(139,26,26,0.08);
             pointer-events:none; user-select:none; z-index:0;
             overflow:hidden;
@@ -1450,8 +1471,8 @@
         .q-meta a { color: var(--brand2); text-decoration: none; }
         .q-meta a:hover { text-decoration: underline; }
         .ev-sub-h { font-size: 12px; color: #a32d2d; font-weight: 600; margin-bottom: 4px; }
-        .ev-sub-t { font-size: 13px; line-height: 1.7; color: #444; white-space: pre-wrap; }
-        .ev-quote { font-size: 13px; line-height: 1.7; color: #444; margin: 4px 0; padding-left: 10px; border-left: 2px solid #eee; }
+        .ev-sub-t { font-size: 13px; line-height: 1.7; color: #444; white-space: pre-wrap; font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif; }
+        .ev-quote { font-size: 13px; line-height: 1.7; color: #444; margin: 4px 0; padding-left: 10px; border-left: 2px solid #eee; font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif; }
         .ev-fig { display: inline-block; margin: 0 6px 6px 0; padding: 3px 9px; font-size: 12px; border-radius: 12px; background: #f3f2ef; border: 1px solid #ddd; color: #555; cursor: pointer; transition: background .15s, border-color .15s; }
         .ev-fig:hover { background: #efe7e0; border-color: #c9a; color: var(--vermilion); }
         .ev-cite { font-size: 12px; line-height: 1.6; color: #666; margin: 3px 0; word-break: break-all; }
@@ -1545,8 +1566,8 @@
         .gp-dome{position:absolute;top:0;left:50%;transform:translateX(-50%);width:150px;height:150px;border:3px solid var(--edge);border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.78),rgba(253,250,242,.26) 58%);box-shadow:inset 0 -6px 14px rgba(90,70,40,.10)}
         .gp-ball{position:absolute;width:20px;height:20px;border-radius:50%;box-shadow:inset -3px -3px 4px rgba(0,0,0,.16),inset 2px 2px 3px rgba(255,255,255,.6),0 0 0 1px rgba(90,70,40,.16)}
         .gp-base{position:absolute;left:50%;transform:translateX(-50%);top:124px;width:170px;height:118px;background:var(--paper-2);border:3px solid var(--edge);border-radius:12px 12px 9px 9px;box-shadow:0 2px 10px rgba(90,70,40,.13)}
-        .gp-brand{position:absolute;top:8px;left:0;right:0;text-align:center;font-family:"Songti SC","SimSun",serif;font-weight:800;font-size:13px;letter-spacing:4px;color:var(--vermilion-deep)}
-        .gp-knob{position:absolute;left:50%;transform:translateX(-50%);top:30px;width:40px;height:40px;border-radius:50%;cursor:pointer;user-select:none;font:800 13px/1 "Microsoft YaHei",sans-serif;color:#fdf3ea;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 36% 30%,#dd6050,var(--vermilion-deep));box-shadow:0 2px 7px rgba(0,0,0,.28),inset 0 0 0 2px rgba(255,243,234,.35)}
+        .gp-brand{position:absolute;top:8px;left:0;right:0;text-align:center;font-family:"Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;font-weight:800;font-size:13px;letter-spacing:4px;color:var(--vermilion-deep)}
+        .gp-knob{position:absolute;left:50%;transform:translateX(-50%);top:30px;width:40px;height:40px;border-radius:50%;cursor:pointer;user-select:none;font:800 13px/1 "Huiwen Mincho","Songti SC","SimSun",serif;color:#fdf3ea;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 36% 30%,#dd6050,var(--vermilion-deep));box-shadow:0 2px 7px rgba(0,0,0,.28),inset 0 0 0 2px rgba(255,243,234,.35)}
         .gp-chute{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;width:60px;height:34px;background:#332c22;border-radius:8px;box-shadow:inset 0 4px 8px rgba(0,0,0,.5)}
         .gp-stage{position:relative;width:min(84vw,300px);height:140px;margin:6px auto 0}
         .gp-capsule{position:absolute;left:50%;margin-left:-23px;top:222px;width:46px;height:46px;border-radius:50%;display:none;z-index:1;box-shadow:0 5px 12px rgba(0,0,0,.24),0 0 0 1px rgba(90,70,40,.28)}
@@ -1558,7 +1579,7 @@
         .gp-capsule.vanish{filter:blur(3px);opacity:0;transition:filter 220ms ease,opacity 220ms ease}
         .gp-card{position:absolute;left:50%;top:24px;transform:translateX(-50%) translateY(14px) scale(.92);opacity:0;z-index:2;width:100%;background:var(--paper-2);border:2px solid var(--edge);border-left:5px solid var(--vermilion);border-radius:10px;padding:12px 14px;box-shadow:0 5px 16px rgba(90,70,40,.16);transition:transform 300ms cubic-bezier(.22,1,.36,1),opacity 240ms ease-out}
         .gp-card.show{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-        .gp-card .gp-date{font-family:"Songti SC","SimSun",serif;font-weight:800;font-size:12px;letter-spacing:2px;color:var(--vermilion)}
+        .gp-card .gp-date{font-family:"Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif;font-weight:800;font-size:12px;letter-spacing:2px;color:var(--vermilion)}
         .gp-card .gp-ttl{font-size:16px;font-weight:800;margin:2px 0 7px;line-height:1.45;text-wrap:balance}
         .gp-card .gp-desc{font-size:12px;color:#5a5245;line-height:1.7;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
         .gp-cardx{position:absolute;top:6px;right:6px}
@@ -1650,7 +1671,7 @@
     /* ===== 因果网络关系图（宣纸风） ===== */
 .cg-overlay { position: fixed; inset: 0; background: rgba(60,50,30,0.5); z-index: 60; display: flex; align-items: center; justify-content: center; }
 .cg-overlay[hidden] { display: none; }
-.cg-panel { position: relative; width: min(98vw, 1800px); height: min(96vh, 1100px); background: var(--paper-2); border: 1px solid var(--edge); border-radius: 12px; box-shadow: 0 12px 40px rgba(90,70,40,0.35); display: flex; flex-direction: column; overflow: hidden; font-family: "Songti SC", "SimSun", "STSong", serif; }
+.cg-panel { position: relative; width: min(98vw, 1800px); height: min(96vh, 1100px); background: var(--paper-2); border: 1px solid var(--edge); border-radius: 12px; box-shadow: 0 12px 40px rgba(90,70,40,0.35); display: flex; flex-direction: column; overflow: hidden; font-family: "Huiwen Mincho", "Songti SC", "SimSun", "STSong", serif; }
 .cg-head { display: flex; align-items: center; gap: 12px; padding: 10px 52px 10px 16px; border-bottom: 2px solid #d8cfbc; flex-wrap: wrap; background: var(--paper); }
 .cg-title { font-size: 15px; font-weight: 500; color: var(--vermilion-deep); letter-spacing: 1px; }
 .cg-root { font-size: 13px; color: #4a4030; flex: 1; min-width: 200px; }
@@ -2255,8 +2276,8 @@
     <!-- 选中年份事件速览：默认缩小为右上角按钮，点击展开 -->
     <button class="rail-toggle" id="railToggle" type="button" aria-expanded="false" title="本年事件速览" aria-label="本年事件速览">
         <svg class="rt-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <text x="11" y="18" text-anchor="middle" font-family="SimSun, serif" font-weight="bold" font-size="15" fill="currentColor">今</text>
-            <text x="19.2" y="10.5" text-anchor="middle" font-family="SimSun, serif" font-weight="bold" font-size="10" fill="currentColor">年</text>
+            <text x="10.2" y="18.2" text-anchor="middle" font-family="Huiwen Mincho, SimSun, serif" font-weight="bold" font-size="12.5" fill="currentColor">今</text>
+            <text x="19.4" y="8.8" text-anchor="middle" font-family="Huiwen Mincho, SimSun, serif" font-weight="bold" font-size="8" fill="currentColor">年</text>
         </svg>
         <span class="badge" id="railToggleCount">0</span>
     </button>
@@ -32664,13 +32685,24 @@ function exportPdf(){
     window.print();
 }
 // F3：将当前可见视图快照导出为矢量图片（SVG，离线无需第三方库）
-function exportViewSvg(){
+async function exportViewSvg(){
     const calView = document.getElementById('calendarView');
     const tlView  = document.getElementById('timelineView');
     const isTl = tlView.classList.contains('show');
     const visible = isTl ? tlView : calView;
+    let css = Array.from(document.querySelectorAll('style')).map(s=>s.textContent).join('\n');
+    /* 导出文件离开本站后相对字体路径失效：把 woff2 内嵌成 data URL，保证任何设备都显示汇文明朝体 */
+    try{
+        const fontBlob = await (await fetch('fonts/huiwen-mincho-subset.woff2')).blob();
+        const b64 = await new Promise((res, rej)=>{
+            const fr = new FileReader();
+            fr.onload = ()=> res(String(fr.result).split(',')[1]);
+            fr.onerror = rej;
+            fr.readAsDataURL(fontBlob);
+        });
+        css = css.replace('fonts/huiwen-mincho-subset.woff2', 'data:font/woff2;base64,' + b64);
+    }catch(e){}
     const clone = visible.cloneNode(true);
-    const css = Array.from(document.querySelectorAll('style')).map(s=>s.textContent).join('\n');
     const w = Math.min(visible.scrollWidth || visible.clientWidth || 1000, 2400);
     const h = visible.scrollHeight || visible.clientHeight || 1400;
     const name = isTl ? '时间轴' : `${filterYear}年${currentMonth}月`;

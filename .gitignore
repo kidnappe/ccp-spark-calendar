@@ -22,6 +22,7 @@ CAUSAL_INFERRED_reconstructed.json
 
 # ��ʱ��� / ����Ŀ¼��p.zip����ѹ���ȣ�
 .tmp-check/
+.tmp-fonts/
 
 # ҳ����ʷ����Ŀ¼
 html-backups/
